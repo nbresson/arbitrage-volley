@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Le parquet — question en mode pédagogique</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=swap" rel="stylesheet">
+<style>
+:root{--jeu:#1E5FA8;--nuit:#0E3B66;--zone:#D9662B;--sol:#F4F6F8;--ligne:#FFFFFF;--encre:#0F1B2A;--doux:#4A5A6E;--ok:#1B7F4B;--ko:#B3261E}
+*{box-sizing:border-box}
+html,body{margin:0;height:900px;width:1440px;overflow:hidden}
+body{font-family:Archivo,system-ui,sans-serif;color:var(--encre);background:var(--sol);display:grid;grid-template-columns:248px 1fr}
+nav{background:var(--nuit);color:#fff;padding:28px 0;display:flex;flex-direction:column}
+.marque{font-stretch:75%;font-weight:800;font-size:22px;padding:0 28px 28px;letter-spacing:.5px}
+.marque span{display:block;font-weight:500;font-stretch:100%;font-size:13px;color:#B9CCE3;letter-spacing:0;margin-top:4px}
+nav a{color:#D7E3F1;text-decoration:none;padding:13px 28px;font-size:15px;font-weight:500;border-left:5px solid transparent}
+nav a.actif{background:var(--jeu);color:#fff;border-left-color:var(--ligne);font-weight:700}
+nav .bas{margin-top:auto;padding:0 28px;font-size:13px;color:#B9CCE3}
+main{padding:28px 40px;display:grid;grid-template-columns:1fr 440px;grid-template-rows:auto 1fr;gap:20px 32px}
+.fil{grid-column:1/-1;display:flex;align-items:center;gap:20px;font-size:14px;color:var(--doux)}
+.fil b{color:var(--encre)}
+.prog{margin-left:auto;display:flex;gap:3px}
+.prog i{width:18px;height:6px;background:#CBD5E1}
+.prog i.f{background:var(--jeu)}.prog i.c{background:var(--zone)}
+.question{display:flex;flex-direction:column;gap:18px}
+.tags{display:flex;gap:8px;font-size:13px;font-weight:600}
+.tags span{border:1.5px solid #B8C4D2;padding:4px 10px;border-radius:4px;background:#fff}
+h1{margin:0;font-size:27px;line-height:1.38;font-weight:600;max-width:34em}
+.rep{display:flex;flex-direction:column;gap:10px}
+.r{display:grid;grid-template-columns:40px 1fr auto;align-items:center;gap:14px;background:#fff;border:2px solid #D5DDE6;border-radius:6px;padding:14px 18px;font-size:17px}
+.r .l{font-stretch:75%;font-weight:800;font-size:20px;color:var(--doux)}
+.r.ko{border-color:var(--ko);background:#FDF1F0}.r.ko .l,.r.ko em{color:var(--ko)}
+.r.ok{border-color:var(--ok);background:#EEF8F2;box-shadow:inset 6px 0 0 var(--ok)}.r.ok .l,.r.ok em{color:var(--ok)}
+.r em{font-style:normal;font-size:13px;font-weight:700}
+.suite{align-self:flex-start;margin-top:6px;background:var(--jeu);color:#fff;font-weight:700;font-size:16px;padding:14px 26px;border-radius:6px;text-decoration:none}
+aside{background:var(--jeu);color:#fff;border-radius:8px;padding:22px;display:flex;flex-direction:column;gap:16px;grid-row:2}
+.terrain{background:var(--zone);border-radius:4px;padding:14px}
+.terrain svg{display:block;width:100%;height:auto}
+.legende{font-size:13px;color:#E6EEF7;display:flex;gap:16px}
+.expl{font-size:16px;line-height:1.55}
+.regle{background:var(--nuit);border-radius:6px;padding:16px;display:flex;flex-direction:column;gap:6px}
+.regle a{color:#fff;font-stretch:75%;font-weight:800;font-size:20px;text-decoration:none;border-bottom:2px solid var(--ligne);align-self:flex-start}
+.regle p{margin:0;font-size:14px;line-height:1.55;color:#DCE6F2}
+.regle small{font-size:12px;color:#B9CCE3}
+</style>
+</head>
+<body>
+<nav>
+  <div class="marque">ARBITRAGE VOLLEY<span>Formation · [Comité]</span></div>
+  <a href="#">Accueil</a>
+  <a href="#">Règles</a>
+  <a href="#" class="actif">S'entraîner</a>
+  <a href="#">Examens</a>
+  <a href="#">Ma progression</a>
+  <div class="bas">[Stagiaire] · arbitre niveau 2</div>
+</nav>
+<main>
+  <div class="fil"><span>S'entraîner › <b>Le libéro</b></span><span>Mode pédagogique</span>
+    <div class="prog" aria-label="Question 7 sur 20"><i class="f"></i><i class="f"></i><i class="f"></i><i class="c"></i><i class="f"></i><i class="f"></i><i class="c"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <span><b>7</b> / 20</span></div>
+  <section class="question">
+    <div class="tags"><span>Niveau 2</span><span>Arbitre</span><span>Libéro</span></div>
+    <h1>Le libéro, dans sa zone avant, fait une passe haute à deux mains en doigts. L'attaquant n° 4 frappe le ballon entièrement au-dessus du bord supérieur du filet. Le ballon franchit le filet. Quelle est votre décision ?</h1>
+    <div class="rep">
+      <div class="r ko"><span class="l">A</span><span>Jeu continue : l'action est régulière</span><em>Votre réponse</em></div>
+      <div class="r ok"><span class="l">B</span><span>Faute de l'attaquant : attaque irrégulière</span><em>Bonne réponse</em></div>
+      <div class="r"><span class="l">C</span><span>Faute du libéro : passe en doigts interdite en zone avant</span><em></em></div>
+      <div class="r"><span class="l">D</span><span>Faute de position de l'équipe</span><em></em></div>
+    </div>
+    <a class="suite" href="#">Question suivante</a>
+  </section>
+  <aside>
+    <div class="terrain">
+      <svg viewBox="0 0 400 200" role="img" aria-label="Demi-terrain : la zone avant est surlignée, passe du libéro vers le joueur 4, attaque au-dessus du filet">
+        <rect x="0" y="0" width="400" height="200" fill="#1E5FA8"/>
+        <rect x="200" y="0" width="66" height="200" fill="#F2B544" opacity=".9"/>
+        <rect x="0" y="0" width="400" height="200" fill="none" stroke="#fff" stroke-width="5"/>
+        <line x1="200" y1="-4" x2="200" y2="204" stroke="#0F1B2A" stroke-width="6"/>
+        <line x1="134" y1="0" x2="134" y2="200" stroke="#fff" stroke-width="3"/>
+        <line x1="266" y1="0" x2="266" y2="200" stroke="#fff" stroke-width="3"/>
+        <path d="M168 150 Q150 95 182 60" fill="none" stroke="#fff" stroke-width="3" stroke-dasharray="6 5"/>
+        <path d="M190 54 L300 92" stroke="#FFFFFF" stroke-width="4"/><path d="M290 80 L302 93 L286 97" fill="none" stroke="#fff" stroke-width="4"/>
+        <circle cx="166" cy="156" r="15" fill="#F2B544"/><text x="166" y="161" text-anchor="middle" font-family="Archivo" font-weight="800" font-size="14" fill="#0F1B2A">L</text>
+        <circle cx="184" cy="50" r="15" fill="#fff"/><text x="184" y="55" text-anchor="middle" font-family="Archivo" font-weight="800" font-size="14" fill="#0F1B2A">4</text>
+      </svg>
+    </div>
+    <div class="legende"><span>— — passe en doigts</span><span>—— attaque</span><span>zone avant surlignée</span></div>
+    <p class="expl">Sur une passe en doigts du libéro depuis sa zone avant, personne ne peut terminer une attaque au-dessus du filet. La faute est à l'attaquant. En manchette, ou depuis la zone arrière, l'attaque reste libre.</p>
+    <div class="regle"><a href="#">19.3.1.4</a><small>Règles officielles FIVB · Le libéro</small><p>« Un joueur ne peut effectuer une attaque au-dessus du bord supérieur du filet si le ballon provient d'une passe haute à deux mains du libéro dans sa zone avant. »</p></div>
+  </aside>
+</main>
+</body>
+</html>

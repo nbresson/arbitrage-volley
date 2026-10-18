@@ -1,0 +1,60 @@
+{
+  "title": "Choisir l'univers visuel",
+  "question": "Nouvelle main : le tirage a attribué « Le tableau de marque ». Garde-le, prends une alternative ou relance.",
+  "options": [
+    {
+      "id": "assigned-r1",
+      "kind": "assigned",
+      "label": "Le tableau de marque",
+      "kicker": "LE TIRAGE",
+      "lineage": "Tableaux de marque manuels à volets des gymnases",
+      "thesis": "La séance se compte comme un match : chaque réponse fait tourner un volet du tableau.",
+      "palette": ["#1C2430", "#ECEDEA", "#2856B8", "#D2352B", "#FFFFFF"],
+      "materials": ["volets à chiffres blancs", "cadre plastique blanc", "côtés d'équipe rouge et bleu"],
+      "viewport": "Bandeau-tableau en haut avec les volets (question, acquis, à revoir) ; question et réponses à gauche ; décision et règle à droite.",
+      "risk": "Le tableau peut virer au gadget s'il compte autre chose que la progression réelle.",
+      "raised": [
+        {"from": "challenger-ikeda", "raise": "Une seule voix numérique : tous les chiffres sont tabulaires, dans la même police condensée."},
+        {"from": "challenger-roster", "raise": "Chaque fiche de question garde le même mobilier au même endroit : niveau, thème, rôle, source."},
+        {"from": "challenger-laban", "raise": "L'écran est partagé par une ligne de filet : la situation d'un côté, la décision de l'autre."},
+        {"from": "challenger-dense", "raise": "Les sources (FIVB, Casebook, CFA) tiennent dans un module serré à filets fins, avec onglets."},
+        {"from": "challenger-wayfinding", "raise": "Une seule décision par écran, et le chemin vers la règle reste surligné."},
+        {"from": "challenger-folio", "raise": "Le schéma de terrain a toujours la même échelle et la même orientation, pour comparer les situations."}
+      ],
+      "html": ".impeccable/mocks/decision/assigned-r1.html"
+    },
+    {
+      "id": "model-pick-r1",
+      "kind": "pick",
+      "label": "Le Code annoté",
+      "kicker": "IMPECCABLE’S PICK",
+      "lineage": "Le livre des règles : articles numérotés, renvois, surligneur",
+      "thesis": "Chaque correction ouvre le règlement à la bonne page, phrase décisive surlignée.",
+      "palette": ["#0F4C5C", "#FFFFFF", "#F4F1EC", "#FFE58A", "#1A1D21"],
+      "materials": ["arborescence des articles", "surligneur jaune", "renvois en marge"],
+      "viewport": "Rail bleu-canard ; question au centre ; à droite l'article dans son arborescence (19 › 19.3 › 19.3.1 › 19.3.1.4) avec la phrase surlignée.",
+      "risk": "Proche du style « éditorial » que beaucoup de projets adoptent, et de mon concept n° 4 précédent.",
+      "html": ".impeccable/mocks/decision/model-pick-r1.html"
+    },
+    {"id": "challenger-ikeda", "kind": "challenger", "catalogId": "ikeda-datamatics", "label": "Datamatics", "verdict": "declined", "lineage": "Installations de données en noir et blanc", "thesis": "Colonnes de codes-barres et chiffres denses.", "palette": ["#000000", "#FFFFFF"], "materials": ["barres fines", "chiffres mono"], "viewport": "Champ de barres plein écran.", "case": "Aucun lien avec l'arbitrage, illisible pour un énoncé.", "risk": "Stroboscopique, fatigant.", "kept": "Une seule voix numérique, tabulaire."},
+    {"id": "challenger-roster", "kind": "challenger", "catalogId": "pop-culture-shelf-character-goods-catalog", "label": "Catalogue de mascottes", "verdict": "declined", "lineage": "Catalogues de personnages", "thesis": "Une galerie classée de mascottes.", "palette": ["#FCE4EC", "#E3F2FD", "#FFFFFF"], "materials": ["pastels", "cartouches"], "viewport": "Grille de personnages.", "case": "Ton enfantin, en décalage avec la formation d'officiels.", "risk": "Infantilisant.", "kept": "Des fiches au mobilier fixe."},
+    {"id": "challenger-laban", "kind": "challenger", "catalogId": "notation-diagram-systems-labanotation", "label": "Partition Laban", "verdict": "declined", "lineage": "Notation de la danse", "thesis": "Une portée centrale et symétrique.", "palette": ["#FFFFFF", "#111111", "#D9D9D9"], "materials": ["blocs hachurés", "portée verticale"], "viewport": "Partition verticale.", "case": "Notation savante que personne ne lit dans le public visé.", "risk": "Hermétique.", "kept": "Une ligne centrale qui partage l'écran, comme le filet."},
+    {"id": "challenger-dense", "kind": "challenger", "catalogId": "japanese-high-density-web", "label": "Web dense japonais", "verdict": "declined", "lineage": "Portails japonais à haute densité", "thesis": "Des modules serrés à filets fins.", "palette": ["#FFFFFF", "#111111", "#D7000F"], "materials": ["filets fins", "onglets rouges"], "viewport": "Mosaïque de modules.", "case": "Trop chargé pour lire des textes réglementaires.", "risk": "Surcharge.", "kept": "Un système de filets fins qui permet la densité."},
+    {"id": "challenger-wayfinding", "kind": "challenger", "catalogId": "wayfinding-cartography-signage-terminal-yellow-wayfinding", "label": "Signalétique jaune", "verdict": "declined", "lineage": "Signalétique d'aéroport", "thesis": "Une décision à chaque carrefour.", "palette": ["#FFD100", "#111111", "#FFFFFF"], "materials": ["bandeaux jaunes", "pictogrammes"], "viewport": "Bandeau de décision.", "case": "L'univers aéroport ne parle pas aux arbitres.", "risk": "Costume de signalétique.", "kept": "Une décision à la fois, le chemin suivi surligné."},
+    {"id": "challenger-folio", "kind": "challenger", "catalogId": "editorial-sequence-montage-botanical-folio-season", "label": "Planches botaniques", "verdict": "declined", "lineage": "Planches d'herbier par saison", "thesis": "Même échelle d'une planche à l'autre.", "palette": ["#F5EFE0", "#3B6B35", "#B3261E"], "materials": ["planches", "légendes gravées"], "viewport": "Cinq planches alignées.", "case": "Hors sujet et trop décoratif.", "risk": "Effet musée.", "kept": "Une échelle fixe pour comparer."}
+  ],
+  "reroll": {"registers": ["safer", "bolder"]},
+  "buildPath": {"value": "code", "toggle": false},
+  "canon": true,
+  "canonCard": {
+    "kind": "canon",
+    "label": "Le standard de la catégorie",
+    "thesis": "Une plateforme d'apprentissage classique, exécutée avec soin.",
+    "palette": ["#FFFFFF", "#111827", "#2563EB", "#F3F4F6"],
+    "materials": ["grille propre", "cartes de contenu"],
+    "viewport": "Menu latéral, question au centre, panneau d'explication à droite.",
+    "risk": "Impossible à distinguer de n'importe quelle plateforme de cours en ligne.",
+    "html": ".impeccable/mocks/decision/canon-r1.html"
+  },
+  "steer": true
+}

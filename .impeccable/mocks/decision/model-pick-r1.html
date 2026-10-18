@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Le Code annoté — question en mode pédagogique</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--canard:#0F4C5C;--canard2:#0B3A47;--papier:#FFFFFF;--fond:#F4F1EC;--surl:#FFE58A;--encre:#1A1D21;--doux:#56606A;--filet:#D9D4CB;--ok:#1B7A4A;--ko:#B3261E}
+*{box-sizing:border-box}
+html,body{margin:0;width:1440px;height:900px;overflow:hidden}
+body{font-family:'Public Sans',system-ui,sans-serif;color:var(--encre);background:var(--fond);display:grid;grid-template-columns:232px 1fr 500px}
+nav{background:var(--canard);color:#fff;padding:28px 0;display:flex;flex-direction:column}
+nav .m{font-weight:700;font-size:18px;padding:0 24px 24px}
+nav a{color:#CFE0E4;text-decoration:none;padding:12px 24px;font-size:15px;font-weight:500}
+nav a.a{background:var(--canard2);color:#fff;font-weight:700;box-shadow:inset 4px 0 0 var(--surl)}
+nav .u{margin-top:auto;padding:0 24px;font-size:13px;color:#A9C4CB}
+main{padding:32px 44px;display:flex;flex-direction:column;gap:18px}
+.meta{font-size:14px;color:var(--doux);display:flex;gap:16px;align-items:center}
+.meta b{color:var(--encre)}
+.pts{display:flex;gap:4px;margin-left:auto}.pts i{width:8px;height:8px;border-radius:50%;background:var(--filet)}.pts i.f{background:var(--canard)}
+h1{margin:0;font-family:Literata,serif;font-weight:600;font-size:27px;line-height:1.42;max-width:30em}
+.r{display:flex;align-items:center;gap:14px;background:var(--papier);border:1px solid var(--filet);border-radius:8px;padding:14px 18px;font-size:17px;margin-bottom:10px}
+.r b{width:28px;color:var(--doux)}
+.r em{margin-left:auto;font-style:normal;font-size:13px;font-weight:700}
+.r.ko{border:2px solid var(--ko)}.r.ko b,.r.ko em{color:var(--ko)}
+.r.ok{border:2px solid var(--ok);background:#F0F8F3}.r.ok b,.r.ok em{color:var(--ok)}
+.suite{align-self:flex-start;background:var(--canard);color:#fff;text-decoration:none;font-weight:700;padding:14px 26px;border-radius:8px}
+aside{background:var(--papier);border-left:1px solid var(--filet);padding:32px 36px;display:flex;flex-direction:column;gap:16px}
+.arbo{font-size:14px;color:var(--doux);line-height:1.9}
+.arbo a{color:var(--canard);font-weight:600;text-decoration:none}
+.arbo .i1{padding-left:14px}.arbo .i2{padding-left:28px}.arbo .i3{padding-left:42px;color:var(--encre);font-weight:700}
+.article{border-top:2px solid var(--canard);padding-top:16px}
+.article h2{margin:0 0 8px;font-size:22px;font-weight:700}
+.article p{margin:0;font-family:Literata,serif;font-size:17px;line-height:1.65}
+mark{background:var(--surl);padding:1px 2px}
+.note{font-size:15px;line-height:1.6;background:var(--fond);border-radius:8px;padding:14px 16px}
+.renv{font-size:14px;line-height:1.8}.renv a{color:var(--canard);font-weight:600}
+</style>
+</head>
+<body>
+<nav><div class="m">Arbitrage volley</div><a href="#">Accueil</a><a href="#">Règlement</a><a href="#" class="a">S'entraîner</a><a href="#">Examens</a><a href="#">Progression</a><div class="u">[Stagiaire] · [Comité]</div></nav>
+<main>
+  <div class="meta"><span><b>Le libéro</b> · Niveau 2 · Arbitre · Mode pédagogique</span><div class="pts"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><b>7 / 20</b></div>
+  <h1>Le libéro, dans sa zone avant, fait une passe haute à deux mains en doigts. L'attaquant n° 4 frappe le ballon entièrement au-dessus du bord supérieur du filet. Quelle est votre décision ?</h1>
+  <div>
+    <div class="r ko"><b>A</b>Jeu continue : l'action est régulière<em>Votre réponse</em></div>
+    <div class="r ok"><b>B</b>Faute de l'attaquant : attaque irrégulière<em>Bonne réponse</em></div>
+    <div class="r"><b>C</b>Faute du libéro : passe en doigts interdite</div>
+    <div class="r"><b>D</b>Faute de position de l'équipe</div>
+  </div>
+  <a class="suite" href="#">Question suivante</a>
+</main>
+<aside>
+  <div class="arbo"><a href="#">19 Le libéro</a><div class="i1"><a href="#">19.3 Actions du libéro</a></div><div class="i2"><a href="#">19.3.1 Restrictions</a></div><div class="i3">19.3.1.4</div></div>
+  <div class="article"><h2>Article 19.3.1.4</h2><p>Un joueur ne peut effectuer une attaque au-dessus du bord supérieur du filet <mark>si le ballon provient d'une passe haute à deux mains du libéro dans sa zone avant</mark>.</p></div>
+  <div class="note">La faute est à l'attaquant, pas au libéro. En manchette, ou depuis la zone arrière, l'attaque reste libre.</div>
+  <div class="renv">Voir aussi : <a href="#">19.3.1.3</a> · <a href="#">Casebook [cas n°]</a> · <a href="#">Consigne CFA [réf.]</a></div>
+</aside>
+</body>
+</html>

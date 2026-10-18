@@ -1,0 +1,112 @@
+{
+  "title": "Choisir l'univers visuel",
+  "question": "Le tirage a attribué « Le parquet ». Garde-le, prends une alternative ou relance.",
+  "options": [
+    {
+      "id": "assigned",
+      "kind": "assigned",
+      "label": "Le parquet",
+      "kicker": "LE TIRAGE",
+      "lineage": "Sols sportifs de salle : bleu de jeu, zone libre, lignes blanches de 5 cm",
+      "thesis": "Chaque situation de jeu se lit sur le terrain lui-même : la zone en cause s'allume.",
+      "palette": ["#0E3B66", "#1E5FA8", "#D9662B", "#F4F6F8", "#FFFFFF"],
+      "materials": ["sol sportif mat", "lignes peintes de 5 cm", "plan de terrain 9 × 18"],
+      "viewport": "Menu latéral bleu de jeu ; au centre, la question et ses 4 réponses ; à droite, le mini-terrain où la zone avant s'allume et la règle citée.",
+      "risk": "Peut glisser vers le décor sportif générique si l'orange et le bleu servent d'ornement au lieu de coder les zones.",
+      "raised": [
+        {"from": "challenger-saville", "raise": "Les numéros de règles (19.3.1.4) deviennent des identifiants navigables, comme des références de catalogue."},
+        {"from": "challenger-boarding", "raise": "La bonne réponse reste marquée tant que le stagiaire n'est pas passé à la suite."},
+        {"from": "challenger-crouwel", "raise": "La grille de mise en page dérive des proportions du terrain (1:2) et reste stricte partout."},
+        {"from": "challenger-exposure", "raise": "La correction arrive comme une couche posée sur la question, qui reste visible dessous."}
+      ],
+      "html": ".impeccable/mocks/decision/assigned.html"
+    },
+    {
+      "id": "model-pick",
+      "kind": "pick",
+      "label": "La gestuelle officielle",
+      "kicker": "IMPECCABLE’S PICK",
+      "lineage": "Planches des gestes officiels de l'arbitre (pictogrammes au trait)",
+      "thesis": "Chaque décision a un geste : la réponse s'affiche avec le signal que l'arbitre ferait.",
+      "palette": ["#FFFFFF", "#15171A", "#F2C200", "#C62828", "#E9ECEF"],
+      "materials": ["pictogrammes au trait", "planche numérotée", "blanc de tenue d'arbitre"],
+      "viewport": "Barre du haut ; la question à gauche ; à droite, le pictogramme du geste attendu en grand, avec la règle citée dessous.",
+      "risk": "Demande de dessiner une trentaine de gestes avec exactitude, et toutes les questions n'aboutissent pas à un geste.",
+      "html": ".impeccable/mocks/decision/model-pick.html"
+    },
+    {
+      "id": "challenger-boarding",
+      "kind": "challenger",
+      "catalogId": "vernacular-ephemera-boarding-pass-and-gate-board",
+      "label": "Carte d'embarquement",
+      "verdict": "declined",
+      "lineage": "Carte d'embarquement et tableau des départs",
+      "thesis": "La convocation d'examen comme une carte d'embarquement.",
+      "palette": ["#FFFFFF", "#1A1A1A", "#F5B800"],
+      "materials": ["segments détachables", "tableau à rangées"],
+      "viewport": "Convocation segmentée, liste des examens comme un tableau des départs.",
+      "case": "Les arbitres ne se reconnaissent pas dans l'univers de l'aéroport.",
+      "risk": "Gadget dès qu'on quitte l'écran d'examen.",
+      "kept": "Un changement reste signalé tant qu'il n'a pas été vu."
+    },
+    {
+      "id": "challenger-saville",
+      "kind": "challenger",
+      "catalogId": "brand-identity-canon-saville-catalog-sleeve",
+      "label": "Catalogue numéroté",
+      "verdict": "declined",
+      "lineage": "Identité de label, chaque objet porte un numéro",
+      "thesis": "Tout est une entrée de catalogue avec son numéro.",
+      "palette": ["#111111", "#FFFFFF", "#E63946"],
+      "materials": ["noir mat", "tracés fins"],
+      "viewport": "Index numéroté pleine page.",
+      "case": "Trop hermétique pour des stagiaires qui révisent.",
+      "risk": "Les libellés codés nuisent à la compréhension.",
+      "kept": "Le numéro de règle comme identifiant et outil de navigation."
+    },
+    {
+      "id": "challenger-crouwel",
+      "kind": "challenger",
+      "catalogId": "crouwel-grid-specimen",
+      "label": "Grille Crouwel",
+      "verdict": "declined",
+      "lineage": "Spécimen typographique sur grille visible",
+      "thesis": "La grille de construction visible devient le dessin.",
+      "palette": ["#FFFFFF", "#1C3FAA", "#111111"],
+      "materials": ["papier millimétré", "lettres construites"],
+      "viewport": "Grande typo construite sur grille.",
+      "case": "Belle affiche, mais rien à voir avec l'arbitrage.",
+      "risk": "Lisibilité des énoncés longs.",
+      "kept": "La discipline d'une grille stricte et constante."
+    },
+    {
+      "id": "challenger-exposure",
+      "kind": "challenger",
+      "catalogId": "operate-b-exposure-record-zone-sheets",
+      "label": "Fiches d'exposition",
+      "verdict": "declined",
+      "lineage": "Fiche de tirage photo en chambre noire",
+      "thesis": "Des feuilles translucides superposées.",
+      "palette": ["#2B2B2B", "#E8E8E8", "#C2187A"],
+      "materials": ["calque", "hachures"],
+      "viewport": "Feuilles empilées en léger décalage.",
+      "case": "Univers étranger au public, lecture plus difficile.",
+      "risk": "Effet de style au détriment du texte réglementaire.",
+      "kept": "Une couche glisse par-dessus sans effacer ce qu'il y a dessous."
+    }
+  ],
+  "reroll": {"registers": ["safer", "bolder"]},
+  "buildPath": {"value": "code", "toggle": false},
+  "canon": true,
+  "canonCard": {
+    "kind": "canon",
+    "label": "Le standard de la catégorie",
+    "thesis": "Une plateforme d'apprentissage classique, exécutée avec soin.",
+    "palette": ["#FFFFFF", "#111827", "#2563EB", "#F3F4F6"],
+    "materials": ["grille propre", "cartes de contenu"],
+    "viewport": "Menu latéral, question au centre, panneau d'explication à droite.",
+    "risk": "Impossible à distinguer de n'importe quelle plateforme de cours en ligne.",
+    "html": ".impeccable/mocks/decision/canon.html"
+  },
+  "steer": true
+}

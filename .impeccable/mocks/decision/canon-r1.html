@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Standard — question en mode pédagogique</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;width:1440px;height:900px;overflow:hidden}
+body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;color:#111827;background:#F3F4F6;display:grid;grid-template-columns:240px 1fr}
+nav{background:#fff;border-right:1px solid #E5E7EB;padding:24px 14px;display:flex;flex-direction:column;gap:2px}
+nav .m{font-weight:700;font-size:17px;padding:0 12px 20px}
+nav a{padding:11px 12px;border-radius:8px;color:#4B5563;text-decoration:none;font-size:15px}
+nav a.a{background:#EFF6FF;color:#2563EB;font-weight:600}
+main{padding:28px 36px;display:grid;grid-template-columns:1fr 400px;gap:24px;align-content:start}
+.top{grid-column:1/-1;display:flex;align-items:center;gap:16px;font-size:14px;color:#6B7280}
+.bar{margin-left:auto;width:220px;height:8px;background:#E5E7EB;border-radius:4px}.bar i{display:block;width:35%;height:8px;background:#2563EB;border-radius:4px}
+.card{background:#fff;border:1px solid #E5E7EB;border-radius:12px;padding:26px}
+h1{margin:0 0 18px;font-size:22px;line-height:1.45;font-weight:600}
+.r{border:1px solid #E5E7EB;border-radius:10px;padding:14px 16px;margin-bottom:10px;font-size:16px}
+.r.ko{border:2px solid #DC2626;background:#FEF2F2}.r.ok{border:2px solid #16A34A;background:#F0FDF4}
+.side{display:flex;flex-direction:column;gap:16px}
+.side h2{margin:0 0 8px;font-size:15px}.side p{margin:0;font-size:15px;line-height:1.6;color:#374151}
+.btn{display:block;text-align:center;background:#2563EB;color:#fff;text-decoration:none;padding:14px;border-radius:10px;font-weight:600}
+</style>
+</head>
+<body>
+<nav><div class="m">Arbitrage volley</div><a href="#">Accueil</a><a href="#">Règles</a><a href="#" class="a">Entraînement</a><a href="#">Examens</a><a href="#">Progression</a></nav>
+<main>
+  <div class="top">Entraînement › Le libéro · Mode pédagogique<div class="bar"><i></i></div>7 / 20</div>
+  <div class="card">
+    <h1>Le libéro, dans sa zone avant, fait une passe haute à deux mains en doigts. L'attaquant n° 4 frappe le ballon entièrement au-dessus du bord supérieur du filet. Quelle est votre décision ?</h1>
+    <div class="r ko">A. Jeu continue : l'action est régulière</div>
+    <div class="r ok">B. Faute de l'attaquant : attaque irrégulière</div>
+    <div class="r">C. Faute du libéro : passe en doigts interdite</div>
+    <div class="r">D. Faute de position de l'équipe</div>
+  </div>
+  <div class="side">
+    <div class="card"><h2>Explication</h2><p>Sur une passe en doigts du libéro depuis sa zone avant, personne ne peut attaquer au-dessus du filet. La faute est à l'attaquant.</p></div>
+    <div class="card"><h2>Règle 19.3.1.4</h2><p>« Un joueur ne peut effectuer une attaque au-dessus du bord supérieur du filet si le ballon provient d'une passe haute à deux mains du libéro dans sa zone avant. »</p></div>
+    <a class="btn" href="#">Question suivante</a>
+  </div>
+</main>
+</body>
+</html>
