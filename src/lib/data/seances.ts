@@ -48,8 +48,18 @@ export async function infoSeance(id: string): Promise<InfoSeance> {
 	return data as InfoSeance;
 }
 
-/** Questions de la séance, sans les bonnes réponses. `correcte_precedente` : null si pas encore répondue. */
-export async function questionsDeSeance(id: string): Promise<(QuestionSeance & { correcte_precedente: boolean | null })[]> {
+/**
+ * Questions de la séance, jamais avec les bonnes réponses.
+ * correcte_precedente : séance pédagogique uniquement (null si pas encore répondue, toujours null en examen).
+ * proposition_choisie / signalee : la réponse déjà donnée par le stagiaire dans cette séance.
+ */
+export type QuestionSeanceAvecEtat = QuestionSeance & {
+	correcte_precedente: boolean | null;
+	proposition_choisie: string | null;
+	signalee: boolean;
+};
+
+export async function questionsDeSeance(id: string): Promise<QuestionSeanceAvecEtat[]> {
 	const { data, error } = await supabase.rpc('questions_de_seance', { p_seance: id });
 	if (error) throw new Error(error.message);
 	return data ?? [];
@@ -71,7 +81,7 @@ export async function signalerQuestion(seance: string, question: string, signale
 	if (error) throw new Error(error.message);
 }
 
-export type BilanSeance = { score: number; total: number; par_theme: { theme: string; justes: number; total: number }[] };
+export type BilanSeance = { score: number; total: number; par_theme: { theme_id: string; theme: string; justes: number; total: number }[] };
 
 export async function terminerSeance(id: string): Promise<BilanSeance> {
 	const { data, error } = await supabase.rpc('terminer_seance', { p_seance: id });
