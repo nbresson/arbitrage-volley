@@ -1,0 +1,402 @@
+[
+  {
+    "cas": "Cas 4.26.1",
+    "enonce": "Un joueur remplaçant de l'équipe A entre dans la zone de remplacement avec une plaquette numérotée, mais il porte encore son haut d'échauffement. Pendant l'échange à la ligne de côté, il s'en aperçoit, retire son haut et le donne au joueur qui quitte le terrain. Quelle est votre décision ?",
+    "propositions": [
+      { "lettre": "A", "texte": "Accepter le remplacement, le joueur ayant retiré son haut avant d'entrer sur le terrain.", "correcte": false },
+      { "lettre": "B", "texte": "Refuser le remplacement et sanctionner l'équipe A pour retard de jeu.", "correcte": true },
+      { "lettre": "C", "texte": "Refuser le remplacement comme demande non fondée, sans sanction pour retard de jeu.", "correcte": false },
+      { "lettre": "D", "texte": "Accepter le remplacement et donner un avertissement verbal au joueur remplaçant.", "correcte": false }
+    ],
+    "explication": "Un joueur remplaçant doit être prêt à jouer au moment de la demande de remplacement. Un joueur qui porte encore son haut d'échauffement ne peut pas être considéré comme prêt à jouer. La demande doit donc être refusée et une sanction pour retard de jeu doit être infligée à l'équipe.",
+    "theme": "Remplacements",
+    "niveau": "Niveau 2",
+    "role_cible": "arbitre",
+    "regles": ["15.10.3.1", "15.10.3.2", "Cas 4.26.1"],
+    "regle_principale": "15.10.3.1"
+  },
+  {
+    "cas": "Cas 4.27",
+    "enonce": "Les Règles fixent la durée d'un temps-mort à 30 secondes. Cette durée peut-elle être ajustée ?",
+    "propositions": [
+      { "lettre": "A", "texte": "Non, la durée de 30 secondes est fixe et ne peut jamais être modifiée.", "correcte": false },
+      { "lettre": "B", "texte": "Non, seul le 1er arbitre peut prolonger un temps-mort au cas par cas pendant le match.", "correcte": false },
+      { "lettre": "C", "texte": "Oui, mais uniquement si les deux entraîneurs donnent leur accord avant le match.", "correcte": false },
+      { "lettre": "D", "texte": "Oui, selon les besoins de la compétition, le chronomètre de la feuille de match électronique étant réglé en conséquence.", "correcte": true }
+    ],
+    "explication": "La durée des temps-morts peut être ajustée en fonction des besoins de la compétition. Si la feuille de match électronique est utilisée, son chronomètre peut être réglé en conséquence. Ce n'est donc ni une décision du 1er arbitre pendant le match, ni un accord entre entraîneurs.",
+    "theme": "Temps-morts",
+    "niveau": "Niveau 2",
+    "role_cible": "les_deux",
+    "regles": ["15.4.1", "Cas 4.27"],
+    "regle_principale": "15.4.1"
+  },
+  {
+    "cas": "Cas 4.28",
+    "enonce": "Au cours d'une même interruption de jeu, l'entraîneur de l'équipe A demande un remplacement, puis un temps-mort, puis, à la fin du temps-mort, un nouveau remplacement. Quelle est votre décision concernant cette seconde demande de remplacement ?",
+    "propositions": [
+      { "lettre": "A", "texte": "La refuser comme demande non fondée : deux demandes de remplacement successives ne sont pas autorisées dans la même interruption.", "correcte": true },
+      { "lettre": "B", "texte": "L'accepter, puisque le temps-mort sépare les deux demandes de remplacement.", "correcte": false },
+      { "lettre": "C", "texte": "La refuser et infliger à l'équipe A un avertissement pour retard de jeu.", "correcte": false },
+      { "lettre": "D", "texte": "L'accepter, à condition qu'elle concerne d'autres joueurs que la première.", "correcte": false }
+    ],
+    "explication": "Si une même équipe peut demander deux temps-morts au cours d'une même interruption, deux demandes de remplacement successives ne sont pas autorisées. Le temps-mort intercalé ne change rien : la seconde demande de remplacement doit être considérée comme une demande non fondée.",
+    "theme": "Demandes non fondées",
+    "niveau": "Niveau 2",
+    "role_cible": "les_deux",
+    "regles": ["15.3.1", "15.3.2", "15.10.3.1", "15.11.1.3", "27.2.2.6", "Cas 4.28"],
+    "regle_principale": "15.3.1"
+  },
+  {
+    "cas": "Cas 4.29",
+    "enonce": "L'entraîneur de l'équipe A demande un temps-mort et le 2ème arbitre l'accorde. À cet instant, le marqueur s'aperçoit qu'il s'agit du troisième temps-mort de l'équipe A et en avertit le 2ème arbitre. Quelle est la procédure correcte ?",
+    "propositions": [
+      { "lettre": "A", "texte": "Laisser le temps-mort aller à son terme, puis enregistrer une demande non fondée pour l'équipe A.", "correcte": false },
+      { "lettre": "B", "texte": "Écourter le temps-mort et enregistrer une demande non fondée pour l'équipe A, sans autre sanction.", "correcte": false },
+      { "lettre": "C", "texte": "Écourter immédiatement le temps-mort, en informer le capitaine de jeu et sanctionner l'équipe A pour retard de jeu.", "correcte": true },
+      { "lettre": "D", "texte": "Laisser le temps-mort aller à son terme sans sanction, l'erreur venant du 2ème arbitre qui l'a accordé.", "correcte": false }
+    ],
+    "explication": "Une troisième demande de temps-mort est normalement une demande non fondée. Mais ici, le temps-mort ayant été accordé, un retard effectif s'est produit. Il faut donc refuser ou écourter immédiatement le temps-mort, faire revenir les joueurs sur le terrain, informer le capitaine de jeu du retard et appliquer une sanction pour retard de jeu.",
+    "theme": "Demandes non fondées",
+    "niveau": "Niveau 3",
+    "role_cible": "les_deux",
+    "regles": ["15.11.1.4", "16.1.5", "27.2.2.6", "Cas 4.29"],
+    "regle_principale": "15.11.1.4"
+  },
+  {
+    "cas": "Cas 4.30",
+    "enonce": "L'équipe A a déjà reçu un avertissement pour retard de jeu au cours du match. Plus tard, elle formule une demande qui constitue, par sa nature, une demande non fondée. Comment traitez-vous cette demande ?",
+    "propositions": [
+      { "lettre": "A", "texte": "La sanctionner d'une pénalisation pour retard, en aggravation de l'avertissement déjà reçu.", "correcte": false },
+      { "lettre": "B", "texte": "La sanctionner d'un nouvel avertissement pour retard de jeu.", "correcte": false },
+      { "lettre": "C", "texte": "La traiter comme une demande non fondée, sans aggravation de la sanction pour retard antérieure.", "correcte": true },
+      { "lettre": "D", "texte": "L'ignorer, une équipe déjà sanctionnée pour retard ne pouvant plus recevoir de demande non fondée.", "correcte": false }
+    ],
+    "explication": "Bien que ce soit inhabituel, un retard peut être suivi d'une demande non fondée, et il ne s'agit pas d'une aggravation du retard. Les règles définissent précisément ce qui constitue une demande non fondée et ce qui constitue un retard. Même si l'équipe a déjà été sanctionnée pour retard, certaines actions sont uniquement des demandes non fondées et ne se cumulent pas avec le retard antérieur.",
+    "theme": "Demandes non fondées",
+    "niveau": "Niveau 3",
+    "role_cible": "arbitre",
+    "regles": ["15.5", "16.1", "Cas 4.30"],
+    "regle_principale": "15.5"
+  },
+  {
+    "cas": "Cas 4.30.1",
+    "enonce": "Une demande d'interruption de jeu de l'équipe A vient d'être refusée et sanctionnée par un avertissement pour retard de jeu. Dans la même interruption, l'entraîneur de l'équipe A demande un temps-mort. Quelle est votre décision ?",
+    "propositions": [
+      { "lettre": "A", "texte": "Refuser le temps-mort et rappeler à l'équipe qu'elle doit attendre la fin de l'échange suivant, sans sanction.", "correcte": true },
+      { "lettre": "B", "texte": "Accorder le temps-mort, cette demande étant distincte de la demande refusée.", "correcte": false },
+      { "lettre": "C", "texte": "Refuser le temps-mort et enregistrer une demande non fondée sur la feuille de match.", "correcte": false },
+      { "lettre": "D", "texte": "Refuser le temps-mort et infliger à l'équipe A une pénalisation pour retard.", "correcte": false }
+    ],
+    "explication": "Après une demande d'interruption refusée et sanctionnée par un avertissement pour retard de jeu, l'équipe doit attendre la fin de l'échange complet suivant pour formuler une nouvelle demande d'interruption de jeu. Si elle en formule une malgré tout, celle-ci n'est pas considérée comme une demande non fondée : il faut simplement le lui rappeler.",
+    "theme": "Demandes non fondées",
+    "niveau": "Niveau 2",
+    "role_cible": "les_deux",
+    "regles": ["15.2.4", "Cas 4.30.1"],
+    "regle_principale": "15.2.4"
+  },
+  {
+    "cas": "Cas 4.31",
+    "enonce": "Un joueur de l'équipe A saigne du nez. Un traitement médical immédiat ne parvient pas à arrêter le saignement, mais le joueur souhaite continuer à jouer. Quelle est votre décision ?",
+    "propositions": [
+      { "lettre": "A", "texte": "Le laisser jouer, un saignement de nez n'empêchant pas de participer au jeu.", "correcte": false },
+      { "lettre": "B", "texte": "Exiger son remplacement et sanctionner l'équipe A pour retard si le remplaçant n'est pas prêt immédiatement.", "correcte": false },
+      { "lettre": "C", "texte": "Accorder au joueur un temps de récupération de 3 minutes avant de reprendre le jeu.", "correcte": false },
+      { "lettre": "D", "texte": "Exiger son remplacement ou son changement jusqu'à l'arrêt du saignement, sans sanction pour retard de jeu.", "correcte": true }
+    ],
+    "explication": "Un joueur ne peut pas jouer avec un saignement de nez. Si un traitement médical immédiat ne résout pas la blessure, il doit être remplacé ou changé jusqu'à ce que le saignement soit arrêté et que le sang ait été retiré de son uniforme. Le joueur remplaçant doit disposer d'un temps raisonnable pour retirer son survêtement, et le 1er arbitre peut n'infliger aucune sanction pour retard de jeu ni imposer d'interruption de jeu à l'équipe.",
+    "theme": "Blessures",
+    "niveau": "Niveau 2",
+    "role_cible": "arbitre",
+    "regles": ["4.4", "15.5", "15.10.2", "15.10.3.1", "17.1.1", "Cas 4.31"],
+    "regle_principale": "4.4"
+  },
+  {
+    "cas": "Cas 4.32",
+    "enonce": "Le Libéro de l'équipe A se blesse à la main en défense. Vous interrompez l'échange ; après un bref traitement, le Libéro déclare être de nouveau en mesure de jouer. Quelle est votre décision ?",
+    "propositions": [
+      { "lettre": "A", "texte": "Exiger une redésignation du Libéro, un joueur blessé ne pouvant pas reprendre dans le même set.", "correcte": false },
+      { "lettre": "B", "texte": "Faire reprendre le jeu avec lui, le joueur et le médecin ayant eu un temps raisonnable pour évaluer la blessure.", "correcte": true },
+      { "lettre": "C", "texte": "Lui accorder d'office un temps de récupération de 3 minutes avant de l'autoriser à reprendre.", "correcte": false },
+      { "lettre": "D", "texte": "Faire reprendre le jeu avec lui, mais sanctionner l'équipe A pour retard de jeu à cause du traitement.", "correcte": false }
+    ],
+    "explication": "La poursuite du match avec le Libéro est correcte. Pour la sécurité du joueur, le 1er arbitre interrompt l'échange dès la blessure et autorise l'entrée du médecin ou de l'assistance médicale ; si la blessure paraît grave, le joueur doit être évacué. Le principe est de laisser au joueur et au médecin un temps raisonnable pour évaluer la blessure, tout en limitant le délai avant qu'un remplacement ne devienne nécessaire.",
+    "theme": "Blessures",
+    "niveau": "Niveau 2",
+    "role_cible": "arbitre",
+    "regles": ["15.7", "17.1.2", "Cas 4.32"],
+    "regle_principale": "15.7"
+  },
+  {
+    "cas": "Cas 4.33",
+    "enonce": "Au moment d'un remplacement de l'équipe A, un accident provoque un saignement de nez chez le joueur remplaçant. Quelle est la procédure correcte ?",
+    "propositions": [
+      { "lettre": "A", "texte": "Interrompre le jeu et appeler l'assistance médicale ; s'il ne récupère pas, annuler le remplacement ou laisser choisir un autre remplaçant.", "correcte": true },
+      { "lettre": "B", "texte": "Considérer le remplacement comme effectué, puis autoriser un remplacement exceptionnel du joueur blessé.", "correcte": false },
+      { "lettre": "C", "texte": "Maintenir le remplacement et accorder au joueur remplaçant un temps de récupération de 3 minutes.", "correcte": false },
+      { "lettre": "D", "texte": "Faire reprendre le jeu avec le joueur initial et sanctionner l'équipe A pour retard de jeu.", "correcte": false }
+    ],
+    "explication": "L'arbitre doit avant tout demander l'assistance médicale, ce qui impose d'interrompre le jeu. Le jeu n'ayant pas repris, le remplacement n'est pas encore confirmé : si le joueur ne peut pas récupérer, le remplacement peut être annulé ou l'équipe peut choisir un autre joueur remplaçant.",
+    "theme": "Blessures",
+    "niveau": "Niveau 3",
+    "role_cible": "arbitre",
+    "regles": ["15.2.3", "15.7", "Cas 4.33"],
+    "regle_principale": "15.2.3"
+  },
+  {
+    "cas": "Cas 4.34",
+    "enonce": "Avant le début du match, mais après le tirage au sort, le capitaine d'équipe de l'équipe A se blesse et ne peut pas jouer. Quelle est la procédure correcte ?",
+    "propositions": [
+      { "lettre": "A", "texte": "L'entraîneur désigne un nouveau capitaine d'équipe, dont le numéro est souligné et entouré sur la feuille de match.", "correcte": false },
+      { "lettre": "B", "texte": "L'équipe remplace le capitaine blessé sur sa liste de joueurs par un joueur non inscrit.", "correcte": false },
+      { "lettre": "C", "texte": "L'entraîneur désigne un capitaine de jeu pour l'ensemble du match, qui signe la feuille de match ; la blessure y est consignée.", "correcte": true },
+      { "lettre": "D", "texte": "L'entraîneur désigne un capitaine de jeu à chaque set, et le capitaine blessé signe la feuille de match après la rencontre.", "correcte": false }
+    ],
+    "explication": "Une fois la feuille de match signée par les capitaines et les entraîneurs, après le tirage au sort, l'équipe ne peut plus modifier sa liste de joueurs ni désigner un autre capitaine d'équipe. L'entraîneur doit désigner un « capitaine de jeu pour l'ensemble du match », qui assume les droits et devoirs du capitaine d'équipe et signe la feuille de match après la rencontre. Si la blessure était survenue avant le tirage au sort, un nouveau capitaine d'équipe aurait été désigné ; dans les deux cas, la blessure est consignée sur la feuille de match.",
+    "theme": "Blessures",
+    "niveau": "Niveau 2",
+    "role_cible": "les_deux",
+    "regles": ["4.1.3", "5.1", "5.2.1", "5.2.2", "Cas 4.34"],
+    "regle_principale": "4.1.3"
+  },
+  {
+    "cas": "Cas 4.35",
+    "enonce": "Un joueur blessé de l'équipe A est évacué du terrain et ne peut donc pas accomplir formellement le remplacement en passant par la zone de remplacement. Quelle est la procédure correcte ?",
+    "propositions": [
+      { "lettre": "A", "texte": "Le 2ème arbitre fait entrer le remplaçant directement sur le terrain, sans plaquette numérotée.", "correcte": false },
+      { "lettre": "B", "texte": "Le remplaçant prend la plaquette du joueur blessé, entre dans la zone de remplacement et la remet au 2ème arbitre.", "correcte": true },
+      { "lettre": "C", "texte": "Le remplaçant entre sur le terrain et le marqueur enregistre le remplacement sans autre formalité.", "correcte": false },
+      { "lettre": "D", "texte": "Le remplacement est différé jusqu'à ce que le joueur blessé puisse franchir lui-même la zone de remplacement.", "correcte": false }
+    ],
+    "explication": "Pour que le remplacement soit clair pour tout le monde, le joueur remplaçant prend la plaquette numérotée du joueur blessé et entre dans la zone de remplacement. Il remet la plaquette au 2ème arbitre, qui la restitue ensuite à l'équipe.",
+    "theme": "Blessures",
+    "niveau": "Niveau 2",
+    "role_cible": "arbitre",
+    "regles": ["15.10.1", "17.1.1", "Cas 4.35"],
+    "regle_principale": "15.10.1"
+  },
+  {
+    "cas": "Cas 4.36",
+    "enonce": "En plein échange, deux joueuses de l'équipe A tombent au sol, ce qui prive vraisemblablement l'équipe B de la possibilité de gagner l'échange. Devez-vous interrompre l'échange immédiatement ?",
+    "propositions": [
+      { "lettre": "A", "texte": "Oui, toute chute de joueuse impose d'interrompre immédiatement l'échange.", "correcte": false },
+      { "lettre": "B", "texte": "Non, l'échange continue et l'équipe A est sanctionnée pour retard de jeu.", "correcte": false },
+      { "lettre": "C", "texte": "Non, il faut toujours laisser l'échange aller à son terme, puis le faire rejouer.", "correcte": false },
+      { "lettre": "D", "texte": "Non, sauf risque d'aggravation ou de blessure pour d'autres joueurs : marquer un temps d'arrêt pour vérifier s'il y a blessure.", "correcte": true }
+    ],
+    "explication": "Selon les dernières Directives et instructions d'arbitrage, les arbitres ne doivent pas interrompre l'échange de façon automatique. Sauf s'il existe un risque d'aggravation de la blessure ou de blessure pour d'autres joueurs, ils marquent un temps d'arrêt afin de déterminer s'il y a réellement blessure avant d'interrompre l'échange.",
+    "theme": "Blessures",
+    "niveau": "Niveau 2",
+    "role_cible": "arbitre",
+    "regles": ["17.1.1", "Cas 4.36"],
+    "regle_principale": "17.1.1"
+  },
+  {
+    "cas": "Cas 4.37",
+    "enonce": "Comprenant que son équipe va probablement perdre l'échange, un joueur de l'équipe A se laisse tomber au sol en plein échange. Comment devez-vous traiter cette situation ?",
+    "propositions": [
+      { "lettre": "A", "texte": "Siffler immédiatement pour blessure et faire rejouer l'échange.", "correcte": false },
+      { "lettre": "B", "texte": "Siffler immédiatement et sanctionner l'équipe A pour retard de jeu.", "correcte": false },
+      { "lettre": "C", "texte": "Ignorer la chute sans jamais sanctionner, la simulation n'étant pas visée par les Règles.", "correcte": false },
+      { "lettre": "D", "texte": "Marquer une courte pause avant de siffler et traiter une simulation manifeste comme un comportement incorrect.", "correcte": true }
+    ],
+    "explication": "Les directives les plus récentes prévoient de n'interrompre l'échange qu'en cas de saignement ou de traumatisme, ou de danger manifeste de blessure supplémentaire pour le joueur ou ses coéquipiers. Les échanges durant souvent moins de 5 secondes, une courte pause avant de siffler peut prévenir de tels comportements. Les simulations manifestes doivent être traitées comme un comportement incorrect.",
+    "theme": "Blessures",
+    "niveau": "Niveau 2",
+    "role_cible": "arbitre",
+    "regles": ["17.1.1", "Cas 4.37"],
+    "regle_principale": "17.1.1"
+  },
+  {
+    "cas": "Cas 4.38",
+    "enonce": "Avant le début du 3e set, vous sifflez pour que les équipes entrent sur le terrain. L'équipe A ne réagit pas et tarde trop à répondre. Quelle est votre décision ?",
+    "propositions": [
+      { "lettre": "A", "texte": "Infliger un avertissement pour retard de jeu à l'équipe A.", "correcte": true },
+      { "lettre": "B", "texte": "Infliger directement une pénalisation pour retard à l'équipe A.", "correcte": false },
+      { "lettre": "C", "texte": "Déclarer immédiatement l'équipe A forfait pour refus de jouer.", "correcte": false },
+      { "lettre": "D", "texte": "Attendre sans sanction, l'intervalle entre les sets pouvant être prolongé.", "correcte": false }
+    ],
+    "explication": "Les équipes doivent être appelées à prendre leurs positions sur le terrain ; si elles ne réagissent pas, le 1er arbitre leur inflige un avertissement pour retard de jeu. Si l'équipe ne réagissait toujours pas, une pénalisation pour retard serait donnée, puis, en cas de refus de jouer, l'équipe serait déclarée forfait (0-3, 0-25 à chaque set). La même procédure s'applique à une équipe qui revient lentement sur le terrain après un temps-mort.",
+    "theme": "Retards de jeu",
+    "niveau": "Niveau 1",
+    "role_cible": "arbitre",
+    "regles": ["6.4.1", "16.1", "Cas 4.38"],
+    "regle_principale": "6.4.1"
+  },
+  {
+    "cas": "Cas 4.39",
+    "enonce": "Entre deux échanges, les joueurs de l'équipe A se regroupent sur le terrain pour s'encourager avant de prendre leurs positions. Comment devez-vous réagir ?",
+    "propositions": [
+      { "lettre": "A", "texte": "Sanctionner l'équipe A pour retard de jeu dès qu'elle se regroupe sur le terrain.", "correcte": false },
+      { "lettre": "B", "texte": "Laisser faire sans limite de temps, les encouragements étant toujours autorisés.", "correcte": false },
+      { "lettre": "C", "texte": "Tolérer des encouragements raisonnables, inviter l'équipe à se placer et ne sanctionner que si c'est une tactique systématique.", "correcte": true },
+      { "lettre": "D", "texte": "Enregistrer une demande non fondée pour l'équipe A à chaque regroupement prolongé.", "correcte": false }
+    ],
+    "explication": "Le 1er arbitre n'a pas à accorder plus qu'un temps raisonnable aux joueurs pour rejoindre leurs positions, mais il doit laisser place à un enthousiasme et à des encouragements appropriés sans laisser retarder le jeu. Il invite l'équipe à prendre position et, s'il constate que ce comportement est utilisé systématiquement comme tactique pour retarder le jeu, il sanctionne l'équipe pour retard. Dans les compétitions majeures, un chronomètre de 15 secondes régule le temps entre les échanges, le serveur conservant ses 8 secondes après le coup de sifflet.",
+    "theme": "Retards de jeu",
+    "niveau": "Niveau 2",
+    "role_cible": "arbitre",
+    "regles": ["16.1.2", "16.1.5", "Cas 4.39"],
+    "regle_principale": "16.1.2"
+  },
+  {
+    "cas": "Cas 4.40",
+    "enonce": "Un joueur de l'équipe A refuse de jouer en raison d'une zone mouillée sur le sol, causée par un coéquipier qui a plongé sur un ballon. Comment devez-vous réagir ?",
+    "propositions": [
+      { "lettre": "A", "texte": "Sanctionner systématiquement l'équipe A pour retard de jeu, l'essuyage relevant des seuls essuyeurs.", "correcte": false },
+      { "lettre": "B", "texte": "Juger avec bon sens : ordonner l'essuyage si nécessaire et ne sanctionner pour retard que si le jeu est manifestement retardé.", "correcte": true },
+      { "lettre": "C", "texte": "Accorder automatiquement un temps-mort à l'équipe A pour permettre l'essuyage du sol.", "correcte": false },
+      { "lettre": "D", "texte": "Faire essuyer le sol et enregistrer cette interruption comme une demande non fondée de l'équipe A.", "correcte": false }
+    ],
+    "explication": "Le bon sens est ici le facteur déterminant. Il appartient au 1er arbitre de se prononcer sur les demandes d'essuyage des joueurs, de juger si elles retardent manifestement le jeu et, si nécessaire, d'infliger une sanction pour retard de jeu. S'il estime l'essuyage nécessaire, il peut l'ordonner aux essuyeurs : le contrôle du match relève toujours de sa décision.",
+    "theme": "Retards de jeu",
+    "niveau": "Niveau 2",
+    "role_cible": "arbitre",
+    "regles": ["1.5", "5.1.2.2", "6.4.1", "16.2", "Cas 4.40"],
+    "regle_principale": "1.5"
+  },
+  {
+    "cas": "Cas 4.41",
+    "enonce": "Pendant l'intervalle entre deux sets, toute l'équipe A se rend dans son vestiaire et ne revient qu'au bout de 5 minutes. Quelle est la procédure correcte ?",
+    "propositions": [
+      { "lettre": "A", "texte": "À 2 min 30, le 2ème arbitre rappelle l'équipe sous peine de forfait ; à son retour, le 1er arbitre la sanctionne pour retard de jeu.", "correcte": true },
+      { "lettre": "B", "texte": "Déclarer l'équipe A forfait dès la fin des 3 minutes d'intervalle, sans autre démarche.", "correcte": false },
+      { "lettre": "C", "texte": "Reprendre le jeu sans sanction, l'intervalle entre les sets n'étant pas soumis aux sanctions pour retard.", "correcte": false },
+      { "lettre": "D", "texte": "Attendre le retour de l'équipe A, puis sanctionner son capitaine d'un carton rouge.", "correcte": false }
+    ],
+    "explication": "Une équipe n'est pas autorisée à quitter l'aire de compétition sans l'autorisation des arbitres. Au bout de deux minutes trente, le 2ème arbitre doit se rendre auprès de l'équipe et lui rappeler d'entrer immédiatement sur le terrain, sous peine d'être déclarée forfait. Une fois l'équipe revenue sur le terrain, le 1er arbitre lui inflige une sanction pour retard de jeu.",
+    "theme": "Retards de jeu",
+    "niveau": "Niveau 2",
+    "role_cible": "arbitre",
+    "regles": ["4.2", "6.4.1", "6.4.2", "18.1", "Cas 4.41"],
+    "regle_principale": "4.2"
+  },
+  {
+    "cas": "Cas 4.42",
+    "enonce": "Des spectateurs interrompent le match. Quelle est votre réaction ?",
+    "propositions": [
+      { "lettre": "A", "texte": "Laisser le jeu se poursuivre et signaler l'incident au Délégué technique après le match.", "correcte": false },
+      { "lettre": "B", "texte": "Interrompre le match et déclarer perdante l'équipe dont les supporters sont en cause.", "correcte": false },
+      { "lettre": "C", "texte": "Interrompre le match et sanctionner pour retard de jeu l'équipe dont les supporters sont en cause.", "correcte": false },
+      { "lettre": "D", "texte": "Interrompre le match, laisser l'organisateur ou le Délégué technique rétablir l'ordre et consigner l'interruption sur la feuille de match.", "correcte": true }
+    ],
+    "explication": "Le 1er arbitre doit interrompre le match. Il revient à l'organisateur ou au Délégué technique de la FIVB de prendre les mesures nécessaires pour rétablir l'ordre. L'interruption doit être consignée sur la feuille de match.",
+    "theme": "Retards de jeu",
+    "niveau": "Niveau 1",
+    "role_cible": "les_deux",
+    "regles": ["17.2", "17.3", "Cas 4.42"],
+    "regle_principale": "17.2"
+  },
+  {
+    "cas": "Cas 4.43",
+    "enonce": "Au 4e set, à 27-27, vous sanctionnez la Libéro de l'équipe A d'un carton rouge pour conduite grossière envers vous (27-28 pour l'équipe B). En signe de protestation, l'entraîneur de l'équipe A refuse de poursuivre et fait sortir son équipe du terrain. Quelle est votre décision ?",
+    "propositions": [
+      { "lettre": "A", "texte": "Montrer un carton rouge à l'entraîneur de l'équipe A, ce qui met fin au set et au match.", "correcte": false },
+      { "lettre": "B", "texte": "Déclarer immédiatement l'équipe A forfait pour refus de jouer.", "correcte": false },
+      { "lettre": "C", "texte": "Inviter la capitaine à la chaise pour qu'elle ramène son équipe ; en cas de refus persistant, sanctionner pour retard puis déclarer le forfait.", "correcte": true },
+      { "lettre": "D", "texte": "Disqualifier l'entraîneur de l'équipe A et faire reprendre le jeu sans autre démarche.", "correcte": false }
+    ],
+    "explication": "Le carton rouge donné à l'entraîneur n'est pas la bonne décision. Le 1er arbitre doit inviter la capitaine de l'équipe qui refuse de jouer à venir à la chaise d'arbitre et lui demander de ramener son équipe sur le terrain pour la reprise du match. Si l'équipe persiste à refuser de jouer, l'arbitre applique d'abord une sanction pour retard de jeu, puis la déclaration de forfait.",
+    "theme": "Retards de jeu",
+    "niveau": "Niveau 3",
+    "role_cible": "arbitre",
+    "regles": ["1.5", "5.1.2.2", "6.4.1", "16.2", "Cas 4.43"],
+    "regle_principale": "1.5"
+  },
+  {
+    "cas": "Cas 4.44",
+    "enonce": "Après une défense dans la zone libre derrière la ligne de fond, le ballon revient vers le terrain et heurte une caméra sur grue qui a pénétré dans l'espace de jeu, alors que le Libéro de l'équipe A s'apprêtait à le jouer. Vous interrompez le jeu. Quelle est votre décision ?",
+    "propositions": [
+      { "lettre": "A", "texte": "Ballon « dehors » : point pour l'équipe B, le ballon ayant touché un objet extérieur.", "correcte": false },
+      { "lettre": "B", "texte": "Intervention extérieure : l'échange est rejoué.", "correcte": true },
+      { "lettre": "C", "texte": "Faute de l'équipe A, qui n'a pas pu jouer le ballon en trois touches.", "correcte": false },
+      { "lettre": "D", "texte": "Ballon « dehors », la caméra se trouvant hors du terrain de jeu.", "correcte": false }
+    ],
+    "explication": "À l'intérieur de l'aire de jeu, les joueurs sont prioritaires pour jouer. Si le ballon heurte un objet ou une personne venant de l'extérieur, comme une caméra sur grue, alors qu'un joueur pouvait le jouer, il s'agit d'une intervention extérieure et l'échange est rejoué. Si la défense avait été mal dirigée vers les spectateurs, sans qu'aucun joueur ne puisse la jouer, le ballon aurait été jugé « dehors ».",
+    "theme": "Interventions extérieures",
+    "niveau": "Niveau 2",
+    "role_cible": "arbitre",
+    "regles": ["17.2", "Cas 4.44"],
+    "regle_principale": "17.2"
+  },
+  {
+    "cas": "Cas 4.45",
+    "enonce": "Pendant sa préparation à l'attaque, l'attaquant central de l'équipe A perd une chaussure, qui tombe dans la zone avant. Il smashe, puis son équipe perd l'échange. À la fin de l'échange, il demande à récupérer sa chaussure. Comment devez-vous traiter cette situation ?",
+    "propositions": [
+      { "lettre": "A", "texte": "Sanctionner l'équipe A pour retard de jeu, la récupération de la chaussure retardant la reprise.", "correcte": false },
+      { "lettre": "B", "texte": "Interrompre le jeu si la chaussure constitue un objet dangereux ; la demande de la récupérer n'est pas un retard.", "correcte": true },
+      { "lettre": "C", "texte": "Faire rejouer l'échange pour intervention extérieure, la chaussure étant tombée sur le terrain.", "correcte": false },
+      { "lettre": "D", "texte": "Enregistrer une demande non fondée pour l'équipe A, la récupération d'équipement n'étant pas une interruption réglementaire.", "correcte": false }
+    ],
+    "explication": "Le principe essentiel est la sécurité des joueurs : si les arbitres estiment que la chaussure constitue un objet dangereux, ils doivent interrompre le jeu. Le joueur n'ayant manifestement pas perdu sa chaussure intentionnellement, sa demande de la récupérer ne peut pas être considérée comme un retard.",
+    "theme": "Interventions extérieures",
+    "niveau": "Niveau 3",
+    "role_cible": "arbitre",
+    "regles": ["17.2", "Cas 4.45"],
+    "regle_principale": "17.2"
+  },
+  {
+    "cas": "Cas 4.46",
+    "enonce": "En courant pour jouer le ballon, un joueur percute votre chaise d'arbitre. L'échange doit-il automatiquement être interrompu et rejoué ?",
+    "propositions": [
+      { "lettre": "A", "texte": "Non : il n'est interrompu et rejoué que si le choc vous empêche de poursuivre normalement votre travail.", "correcte": true },
+      { "lettre": "B", "texte": "Oui : tout contact d'un joueur avec la chaise d'arbitre constitue une intervention extérieure.", "correcte": false },
+      { "lettre": "C", "texte": "Non : l'équipe du joueur commet une faute pour avoir touché la chaise d'arbitre.", "correcte": false },
+      { "lettre": "D", "texte": "Non : l'échange n'est jamais interrompu, même si le choc vous empêche d'arbitrer normalement.", "correcte": false }
+    ],
+    "explication": "Le choc ne justifie pas automatiquement une interruption. L'arbitre doit juger si ce choc influence son activité ou a causé une blessure au joueur. S'il ne peut pas poursuivre normalement son travail, l'échange est interrompu et rejoué ; sinon, l'échange se poursuit sans interruption.",
+    "theme": "Interventions extérieures",
+    "niveau": "Niveau 2",
+    "role_cible": "arbitre",
+    "regles": ["17.2", "Cas 4.46"],
+    "regle_principale": "17.2"
+  },
+  {
+    "cas": "Cas 4.47",
+    "enonce": "Après le recours à la vidéo, des supporters de l'équipe qui a perdu l'échange s'approchent du bord du terrain pour manifester leur désaccord avec le résultat. Comment devez-vous réagir ?",
+    "propositions": [
+      { "lettre": "A", "texte": "Interrompre immédiatement le match et faire évacuer les supporters de la salle.", "correcte": false },
+      { "lettre": "B", "texte": "Sanctionner pour retard de jeu l'équipe dont les supporters sont en cause.", "correcte": false },
+      { "lettre": "C", "texte": "Ramener calmement les spectateurs à leurs places et, si la manifestation s'amplifie, interrompre le match et demander aux organisateurs de rétablir l'ordre.", "correcte": true },
+      { "lettre": "D", "texte": "Ignorer les supporters et poursuivre le jeu, le maintien de l'ordre ne relevant que des organisateurs.", "correcte": false }
+    ],
+    "explication": "Conformément aux directives sur l'arbitrage fluide, les arbitres, et en particulier le 2ème arbitre, réagissent avec calme et ramènent les spectateurs à leurs places avec ménagement. Si la manifestation prend de l'ampleur, les arbitres ont le pouvoir d'interrompre le match et de demander aux organisateurs de rétablir l'ordre.",
+    "theme": "Interventions extérieures",
+    "niveau": "Niveau 3",
+    "role_cible": "arbitre",
+    "regles": ["23.2.3", "Cas 4.47"],
+    "regle_principale": "23.2.3"
+  },
+  {
+    "cas": "Cas 4.48",
+    "enonce": "Du fait de l'inattention d'un ramasseur de balles, un second ballon roule sur le terrain au tout dernier instant de l'échange, sans gêner le jeu ni créer de risque pour les joueurs. Ni vous ni le 2ème arbitre ne l'avez remarqué pendant l'échange. Une fois l'échange terminé, devez-vous le faire rejouer pour intervention extérieure ?",
+    "propositions": [
+      { "lettre": "A", "texte": "Oui : la présence d'un second ballon sur le terrain impose toujours de faire rejouer l'échange.", "correcte": false },
+      { "lettre": "B", "texte": "Oui : et l'équipe du côté où le ballon est entré est sanctionnée pour retard de jeu.", "correcte": false },
+      { "lettre": "C", "texte": "Non : le résultat est maintenu, mais le ramasseur de balles reçoit un avertissement.", "correcte": false },
+      { "lettre": "D", "texte": "Non : le ballon n'a ni gêné le jeu ni créé de danger, le résultat de l'échange est maintenu.", "correcte": true }
+    ],
+    "explication": "Faire rejouer l'échange n'est pas correct, car le second ballon est entré au tout dernier instant, sans interférer avec le jeu ni créer de risque de blessure. Si les arbitres voient un second ballon sur le terrain ou sur le point d'y rouler, ils doivent interrompre l'échange pour la sécurité des joueurs. En revanche, si l'échange est déjà terminé ou que son issue n'a pas été influencée, il n'y a pas lieu de le faire rejouer.",
+    "theme": "Interventions extérieures",
+    "niveau": "Niveau 2",
+    "role_cible": "arbitre",
+    "regles": ["17.2", "Cas 4.48"],
+    "regle_principale": "17.2"
+  },
+  {
+    "cas": "Cas 4.49",
+    "enonce": "Près de la ligne de côté, l'entraîneur de l'équipe A intercepte dans la zone libre la frappe d'attaque de l'équipe B. Ni les arbitres ni le juge de ligne ne peuvent déterminer si le ballon serait retombé dedans ou dehors. L'entraîneur n'a reçu aucune sanction auparavant. Quelle est votre décision ?",
+    "propositions": [
+      { "lettre": "A", "texte": "Ballon « dedans » : point pour l'équipe B et avertissement verbal à l'entraîneur de l'équipe A.", "correcte": true },
+      { "lettre": "B", "texte": "Ballon « dehors » : point pour l'équipe A, le ballon ayant touché l'entraîneur dans la zone libre.", "correcte": false },
+      { "lettre": "C", "texte": "Intervention extérieure : l'échange est rejoué et l'entraîneur reçoit un avertissement verbal.", "correcte": false },
+      { "lettre": "D", "texte": "Ballon « dedans » : point pour l'équipe B et pénalisation (carton jaune) de l'entraîneur de l'équipe A.", "correcte": false }
+    ],
+    "explication": "En principe, une frappe d'attaque qui touche l'entraîneur adverse dans la zone libre est dehors. Mais lorsque l'entraîneur intercepte le ballon près de la ligne et que les arbitres ou le juge de ligne ne peuvent pas déterminer le point de chute du fait de cette interception, le ballon est considéré comme dedans. L'entraîneur reçoit un avertissement verbal, ou une sanction plus lourde selon l'échelle des sanctions s'il a déjà été sanctionné.",
+    "theme": "Interventions extérieures",
+    "niveau": "Niveau 3",
+    "role_cible": "arbitre",
+    "regles": ["17.2", "Cas 4.49"],
+    "regle_principale": "17.2"
+  }
+]

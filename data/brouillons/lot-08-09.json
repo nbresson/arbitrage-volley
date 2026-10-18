@@ -1,0 +1,247 @@
+[
+  {
+    "cas": "Cas 8.1",
+    "sans_question": true,
+    "raison": "Principe général (« PRINCIPLE ») sans décision tranchée : le cas rappelle seulement que l'arbitre doit maintenir un rythme de jeu constant face à une équipe qui ralentit volontairement le jeu, sans indiquer de mesure précise à prendre."
+  },
+  {
+    "cas": "Cas 8.2",
+    "enonce": "En tant que 1er arbitre, vous constatez qu'une serviette servant à essuyer le sol, appartenant à un joueur de l'équipe B, tombe sur le terrain de l'équipe A. Quelle est votre décision ?",
+    "propositions": [
+      { "lettre": "A", "texte": "Si vous jugez la situation dangereuse, vous interrompez aussitôt le jeu et faites rejouer l'échange ; si l'échange est terminé et que la chute est sans influence, pas d'échange rejoué.", "correcte": true },
+      { "lettre": "B", "texte": "Vous interrompez le jeu dans tous les cas et faites rejouer l'échange, même si celui-ci est déjà terminé, car un objet étranger est entré sur le terrain.", "correcte": false },
+      { "lettre": "C", "texte": "Vous interrompez le jeu et sifflez une faute contre l'équipe B, responsable de la présence de sa serviette sur le terrain adverse.", "correcte": false },
+      { "lettre": "D", "texte": "Vous laissez l'échange se poursuivre dans tous les cas, puis vous sanctionnez l'équipe B pour retard de jeu à la fin de l'échange.", "correcte": false }
+    ],
+    "explication": "La chute d'un objet sur le terrain relève de l'appréciation du 1er arbitre. S'il juge la situation dangereuse, il doit interrompre immédiatement le jeu et ordonner un échange rejoué. En revanche, si l'échange est terminé et que la chute de la serviette n'a aucune influence sur son issue, il n'y a pas lieu de faire rejouer l'échange.",
+    "theme": "Cas particuliers",
+    "niveau": "Niveau 2",
+    "role_cible": "arbitre",
+    "regles": ["17.2", "Cas 8.2"],
+    "regle_principale": "17.2"
+  },
+  {
+    "cas": "Cas 8.3",
+    "enonce": "À la suite d'une panne d'éclairage pendant le 3e set, le match reprend sur un autre terrain de jeu. Un joueur avait été disqualifié avant la panne. Quelle est votre décision concernant ce set et ce joueur ?",
+    "propositions": [
+      { "lettre": "A", "texte": "Le set reprend avec la marque acquise au moment de la panne, et le joueur disqualifié reste exclu du jeu jusqu'à la fin du match.", "correcte": false },
+      { "lettre": "B", "texte": "Le set est rejoué avec les mêmes formations de départ ; le set étant annulé, le joueur disqualifié peut de nouveau y participer.", "correcte": false },
+      { "lettre": "C", "texte": "Le set est annulé et rejoué avec les mêmes formations de départ, sans le joueur disqualifié, remplacé par un joueur hors formation de départ ; les sanctions déjà consignées sont maintenues.", "correcte": true },
+      { "lettre": "D", "texte": "Le set est annulé et rejoué avec les mêmes formations de départ, sans le joueur disqualifié, et toutes les sanctions du set sont effacées.", "correcte": false }
+    ],
+    "explication": "Lorsque le match reprend sur un autre terrain, le set interrompu est annulé et rejoué avec les mêmes membres d'équipe et les mêmes formations de départ. Les joueurs disqualifiés ou expulsés ne peuvent pas y participer : un joueur de l'équipe ne figurant pas dans la formation de départ doit prendre leur place. Tous les avertissements et sanctions consignés sur la feuille de match jusqu'à la panne sont reportés sur le nouveau set.",
+    "theme": "Cas particuliers",
+    "niveau": "Niveau 3",
+    "role_cible": "les_deux",
+    "regles": ["17.3.2.2", "Cas 8.3"],
+    "regle_principale": "17.3.2.2"
+  },
+  {
+    "cas": "Cas 8.4",
+    "enonce": "Pour aller chercher une 1re touche passée à l'extérieur de l'antenne, un joueur passe derrière le poteau du filet et s'agrippe à la chaise d'arbitre pour pivoter assez vite. Il lâche la chaise puis frappe le ballon. S'agit-il d'une prise d'appui ?",
+    "propositions": [
+      { "lettre": "A", "texte": "Oui : il a utilisé la chaise d'arbitre pour atteindre le ballon, ce qui constitue une touche assistée fautive.", "correcte": false },
+      { "lettre": "B", "texte": "Non : il ne prenait aucun appui au moment où il a frappé le ballon ; l'action est réglementaire.", "correcte": true },
+      { "lettre": "C", "texte": "Oui : tout contact avec la chaise d'arbitre pendant l'échange est une faute, quel que soit le moment de la frappe.", "correcte": false },
+      { "lettre": "D", "texte": "Non, mais l'échange doit être rejoué car le joueur a interféré avec le matériel d'arbitrage.", "correcte": false }
+    ],
+    "explication": "Pour juger si l'action est réglementaire, c'est le moment où le ballon est joué qui est déterminant. Le joueur ne prenant aucun appui au moment de frapper le ballon, son action ne peut pas être jugée comme une touche assistée. C'est une action réglementaire et spectaculaire.",
+    "theme": "Cas particuliers",
+    "niveau": "Niveau 2",
+    "role_cible": "arbitre",
+    "regles": ["9.1.3", "Cas 8.4"],
+    "regle_principale": "9.1.3"
+  },
+  {
+    "cas": "Cas 8.5",
+    "enonce": "Une équipe effectue un remplacement après votre décision. Puis, à l'issue de la procédure de challenge, vous devez modifier votre décision initiale et ordonner un échange rejoué. L'entraîneur demande alors l'annulation du remplacement. Quelle est votre décision ?",
+    "propositions": [
+      { "lettre": "A", "texte": "Vous refusez : un remplacement accompli est définitif, même si la décision qui le précédait a été modifiée.", "correcte": false },
+      { "lettre": "B", "texte": "Vous acceptez l'annulation, mais le remplacement reste décompté dans le total de l'équipe.", "correcte": false },
+      { "lettre": "C", "texte": "Vous refusez la demande et sanctionnez l'équipe d'un retard de jeu pour demande irrégulière.", "correcte": false },
+      { "lettre": "D", "texte": "Vous acceptez la demande : le remplacement est annulé et n'est pas imputé à l'équipe.", "correcte": true }
+    ],
+    "explication": "Le remplacement avait été fait sur la base de la décision initiale du 1er arbitre. Cette décision ayant été modifiée à la suite du challenge, la demande de l'entraîneur doit être acceptée. Aucun remplacement n'est imputé à cette équipe.",
+    "theme": "Cas particuliers",
+    "niveau": "Niveau 3",
+    "role_cible": "les_deux",
+    "regles": ["Cas 8.5"],
+    "regle_principale": "Cas 8.5"
+  },
+  {
+    "cas": "Cas 8.6",
+    "enonce": "Pendant une attaque, le ballon rebondit sur la bande du filet (ou sur le contre adverse). Au même instant, l'antenne se détache du filet. Elle est déjà en train de tomber lorsque l'équipe rouge touche à nouveau le ballon. En tant que 1er arbitre, quelle est votre décision ?",
+    "propositions": [
+      { "lettre": "A", "texte": "Vous ordonnez immédiatement un échange rejoué, l'antenne s'étant détachée avant la nouvelle touche de l'équipe rouge.", "correcte": true },
+      { "lettre": "B", "texte": "Vous laissez l'échange se poursuivre, puis sifflez une faute de l'équipe rouge pour quatre touches si le ballon n'a pas touché le contre.", "correcte": false },
+      { "lettre": "C", "texte": "Vous laissez l'échange se poursuivre jusqu'à son terme, la chute de l'antenne n'étant pas une faute des joueurs.", "correcte": false },
+      { "lettre": "D", "texte": "Vous sifflez une faute contre l'équipe attaquante, responsable du contact avec le filet ayant détaché l'antenne.", "correcte": false }
+    ],
+    "explication": "La vidéo laisse penser que le ballon a en réalité évité le contre, mais cela ne change rien. L'antenne s'étant détachée une fraction de seconde avant qu'un joueur rouge ne touche le ballon, l'échange doit être rejoué. Le 1er arbitre a donc eu raison d'ordonner immédiatement un échange rejoué.",
+    "theme": "Cas particuliers",
+    "niveau": "Niveau 3",
+    "role_cible": "arbitre",
+    "regles": ["Cas 8.6"],
+    "regle_principale": "Cas 8.6"
+  },
+  {
+    "cas": "Cas 8.7",
+    "enonce": "Au 3e set, à 9-7, on découvre que l'équipe qui a 7 points a deux numéros 11 sur le terrain. Une joueuse, régulièrement inscrite avec le numéro 10 sur la feuille de match et sur la feuille de position, a enfilé par erreur un maillot numéro 11 en se changeant entre les sets 2 et 3. Aucune des deux joueuses n'a servi dans ce set. La 1re arbitre lui fait reprendre son numéro 10 et sanctionne l'équipe pour retard de jeu, sans modifier la marque. Était-ce la bonne décision ?",
+    "propositions": [
+      { "lettre": "A", "texte": "Non : il s'agit d'une faute de position ; les points marqués par l'équipe depuis le début du set doivent être annulés.", "correcte": false },
+      { "lettre": "B", "texte": "Non : l'erreur aurait dû être vue par le marqueur et le 2ème arbitre, donc aucune sanction ne doit frapper l'équipe.", "correcte": false },
+      { "lettre": "C", "texte": "Oui : la joueuse reprend le numéro 10, l'équipe est sanctionnée pour retard de jeu et la marque est conservée.", "correcte": true },
+      { "lettre": "D", "texte": "Non : la joueuse doit finir le set avec le numéro 11, qu'il suffit de corriger sur la feuille de match.", "correcte": false }
+    ],
+    "explication": "Oui, la 1re arbitre a eu raison : dans cette situation que les règles ne prévoient pas exactement, elle a le pouvoir de trancher. La joueuse étant régulièrement inscrite et figurant sur la feuille de position avec le bon numéro, les règles sur les fautes de position ne s'appliquent pas et aucun point ne doit être retiré. L'équipe étant au moins en partie responsable de l'interruption, la sanction pour retard de jeu est justifiée ; la joueuse reprend son numéro correct et le match continue avec la marque au moment de la découverte de l'erreur. Le marqueur et le 2ème arbitre auraient dû remarquer les deux numéros 11 avant le début du set.",
+    "theme": "Cas particuliers",
+    "niveau": "Niveau 3",
+    "role_cible": "les_deux",
+    "regles": ["7.3.5.4", "Cas 8.7"],
+    "regle_principale": "7.3.5.4"
+  },
+  {
+    "cas": "Cas 9.1",
+    "enonce": "En cours de match, le casque de l'arbitre du challenge tombe en panne et aucun casque de rechange n'est disponible à proximité. Quelle est la meilleure solution pour poursuivre le match en conservant le système de challenge vidéo ?",
+    "propositions": [
+      { "lettre": "A", "texte": "Le 2ème arbitre donne son casque à l'arbitre du challenge et communique ensuite avec le 1er arbitre par gestes.", "correcte": false },
+      { "lettre": "B", "texte": "Le marqueur donne son casque à bouton-poussoir à l'arbitre du challenge et communique avec les arbitres par gestes ou directement avec le 2ème arbitre.", "correcte": true },
+      { "lettre": "C", "texte": "Le système de challenge vidéo est suspendu jusqu'à la fin du match, faute de communication avec l'arbitre du challenge.", "correcte": false },
+      { "lettre": "D", "texte": "L'arbitre du challenge travaille sans casque et transmet ses décisions par écrit au marqueur.", "correcte": false }
+    ],
+    "explication": "Des casques de rechange doivent normalement se trouver auprès de l'arbitre du challenge. À défaut, le marqueur doit travailler sans casque : il peut communiquer avec les arbitres par gestes ou en dialoguant directement avec le 2ème arbitre. L'arbitre du challenge reçoit donc le casque à bouton-poussoir du marqueur, ce qui préserve la possibilité de recourir au challenge.",
+    "theme": "Cas d'utilisation de la technologie",
+    "niveau": "Niveau 3",
+    "role_cible": "les_deux",
+    "regles": ["Cas 9.1"],
+    "regle_principale": "Cas 9.1"
+  },
+  {
+    "cas": "Cas 9.2",
+    "enonce": "L'entraîneur adjoint transmet par la tablette les données de deux remplacements, mais ce sont deux autres joueurs, réguliers, qui se présentent dans la zone de remplacement. En tant que 2ème arbitre, avec le marqueur, quelle est votre décision ?",
+    "propositions": [
+      { "lettre": "A", "texte": "Vous refusez le remplacement, car les joueurs présents ne correspondent pas aux données transmises par la tablette.", "correcte": false },
+      { "lettre": "B", "texte": "Vous faites entrer les joueurs annoncés sur la tablette, qui seule fait foi pour la demande de remplacement.", "correcte": false },
+      { "lettre": "C", "texte": "Vous acceptez les joueurs présents mais sanctionnez l'équipe pour retard de jeu en raison de la demande erronée.", "correcte": false },
+      { "lettre": "D", "texte": "Vous acceptez les joueurs présents dans la zone ; le marqueur les valide un par un et annonce « passage en manuel ».", "correcte": true }
+    ],
+    "explication": "La demande effective de remplacement est l'entrée des joueurs remplaçants dans la zone de remplacement ; la tablette électronique d'équipe ne prévaut pas sur le texte de la règle. Une erreur humaine dans les données ne peut pas justifier un refus : le 2ème arbitre et le marqueur acceptent les joueurs qui entrent dans la zone, dès lors qu'ils sont réguliers. Le marqueur les valide un par un sur la feuille de match électronique, plutôt que de « tout accepter », et annonce « passage en manuel » dans le casque pour que le 2ème arbitre lui laisse un peu plus de temps.",
+    "theme": "Cas d'utilisation de la technologie",
+    "niveau": "Niveau 3",
+    "role_cible": "les_deux",
+    "regles": ["15.10.3.1", "15.10.4", "Cas 9.2"],
+    "regle_principale": "15.10.3.1"
+  },
+  {
+    "cas": "Cas 9.3",
+    "enonce": "Lors d'une compétition mondiale de la FIVB utilisant la technologie complète, avec des effectifs élargis et des numéros pouvant aller jusqu'à 99, les plaquettes numérotées ne sont pas utilisées pour les remplacements. Est-ce correct ?",
+    "propositions": [
+      { "lettre": "A", "texte": "Oui : dans ce type d'épreuve, les plaquettes sont impraticables et sources d'erreurs ; ne pas les utiliser est la meilleure option.", "correcte": true },
+      { "lettre": "B", "texte": "Non : les plaquettes numérotées sont obligatoires pour tout remplacement, quel que soit le niveau de la compétition.", "correcte": false },
+      { "lettre": "C", "texte": "Oui : depuis l'arrivée des tablettes, les plaquettes ne sont plus utilisées dans aucune compétition.", "correcte": false },
+      { "lettre": "D", "texte": "Non : les plaquettes ne peuvent être supprimées qu'avec l'accord des deux équipes avant le match.", "correcte": false }
+    ],
+    "explication": "Dans les épreuves de haut niveau disputées sur une longue période, des effectifs plus larges sont autorisés et les numéros peuvent aller jusqu'à 99, ce qui rend les plaquettes numérotées impraticables. Les plaquettes peuvent en outre engendrer des erreurs menant à des sanctions pour retard de jeu. Ne pas les utiliser est donc ici la meilleure option. En revanche, lorsque la technologie complète n'est pas utilisée et que les numéros suivent la pratique habituelle, les plaquettes doivent continuer d'être utilisées.",
+    "theme": "Cas d'utilisation de la technologie",
+    "niveau": "Niveau 3",
+    "role_cible": "les_deux",
+    "regles": ["15.10.3.3", "Cas 9.3"],
+    "regle_principale": "15.10.3.3"
+  },
+  {
+    "cas": "Cas 9.4",
+    "enonce": "Par la tablette, l'entraîneur transmet une demande de temps-mort une fraction de seconde avant que le marqueur n'appuie sur « début d'échange » et, surtout, avant votre coup de sifflet de 1er arbitre. Le marqueur, inattentif, n'a pas arrêté le signal. Les joueurs se dirigent vers le banc tandis que l'adversaire sert dans un terrain vide. Quelle est votre décision ?",
+    "propositions": [
+      { "lettre": "A", "texte": "Vous refusez le temps-mort, arrivé trop tard, et laissez l'échange se dérouler ; le point revient à l'équipe au service.", "correcte": false },
+      { "lettre": "B", "texte": "Vous sanctionnez l'équipe demanderesse pour retard de jeu, ses joueurs ayant quitté le terrain sans autorisation.", "correcte": false },
+      { "lettre": "C", "texte": "Vous appliquez l'arbitrage fluide en transformant votre geste d'autorisation de service en geste de temps-mort.", "correcte": true },
+      { "lettre": "D", "texte": "Vous laissez le service se jouer, puis ordonnez un échange rejoué avant d'accorder le temps-mort.", "correcte": false }
+    ],
+    "explication": "Le 1er arbitre peut appliquer le principe de l'arbitrage fluide pour éviter la confusion. La situation découle de l'inattention du marqueur, le signal du temps-mort devant être désactivé automatiquement par le bouton « début d'échange ». Le 1er arbitre peut donc, par discernement et au bénéfice de l'image du sport, transformer avec fluidité son geste d'autorisation de service en geste de temps-mort.",
+    "theme": "Cas d'utilisation de la technologie",
+    "niveau": "Niveau 3",
+    "role_cible": "les_deux",
+    "regles": ["15.11.1", "15.11.1.1", "16.1.4", "Cas 9.4"],
+    "regle_principale": "15.11.1"
+  },
+  {
+    "cas": "Cas 9.5",
+    "enonce": "Pendant l'échange, le ballon touche le filet puis passe complètement sous le filet du côté adverse, avant d'être récupéré et joué. Vous sifflez la faute. L'équipe fautive demande un challenge pour faute au filet. La vidéo ne montre aucune faute au filet, mais confirme que le ballon est passé entièrement de l'autre côté. Quelle est votre décision ?",
+    "propositions": [
+      { "lettre": "A", "texte": "Vous faites rejouer l'échange : le challenge portait sur la faute au filet et celle-ci n'existe pas.", "correcte": false },
+      { "lettre": "B", "texte": "Vous confirmez votre décision initiale : la première faute vue à la vidéo, le ballon passé entièrement sous le filet, décide de l'échange.", "correcte": true },
+      { "lettre": "C", "texte": "Vous annulez votre décision : seule l'action contestée peut être jugée, la pénétration sous le filet n'étant pas visée.", "correcte": false },
+      { "lettre": "D", "texte": "Vous accordez le point à l'équipe demanderesse, la vidéo ayant montré une action différente de celle sifflée.", "correcte": false }
+    ],
+    "explication": "Selon les règles, le ballon est « dehors » lorsqu'il passe complètement sous le filet. Conformément au Règlement du challenge, c'est la première faute constatée lors de la vérification vidéo qui décide de l'échange, même si ce n'est pas l'action contestée. Bien que le challenge ait porté sur une faute au filet inexistante, le 1er arbitre peut donc confirmer sa décision initiale. Cette situation s'est produite parce que le filet n'était pas assez tendu : sa tension doit être vérifiée avant et pendant le match.",
+    "theme": "Cas d'utilisation de la technologie",
+    "niveau": "Niveau 3",
+    "role_cible": "arbitre",
+    "regles": ["8.4.5", "Cas 9.5"],
+    "regle_principale": "8.4.5"
+  },
+  {
+    "cas": "Cas 9.6",
+    "enonce": "Avant le début du match, un joueur figurant sur la formation de départ transmise électroniquement par l'équipe se blesse. Comment traitez-vous ce cas sur la feuille de match électronique ?",
+    "propositions": [
+      { "lettre": "A", "texte": "La formation électronique peut être librement modifiée avant le coup de sifflet, sans aucune conséquence pour l'équipe.", "correcte": false },
+      { "lettre": "B", "texte": "Le joueur blessé ne peut pas être remplacé : l'équipe doit retransmettre sa formation et sera sanctionnée pour retard de jeu.", "correcte": false },
+      { "lettre": "C", "texte": "Le joueur est remplacé par un remplacement exceptionnel, qui n'est jamais décompté dans le total de l'équipe.", "correcte": false },
+      { "lettre": "D", "texte": "La formation transmise vaut feuille de position signée : le joueur peut être remplacé, mais cela compte comme un remplacement.", "correcte": true }
+    ],
+    "explication": "Les formations transmises électroniquement comptent au même titre qu'une feuille de position écrite et signée. Le joueur blessé peut donc être remplacé, mais ce changement compte comme un remplacement. Seules des règles particulières propres à l'épreuve pourraient en disposer autrement.",
+    "theme": "Cas d'utilisation de la technologie",
+    "niveau": "Niveau 3",
+    "role_cible": "les_deux",
+    "regles": ["7.3.2", "7.3.4", "Cas 9.6"],
+    "regle_principale": "7.3.2"
+  },
+  {
+    "cas": "Cas 9.7",
+    "enonce": "En tant que marqueur, vous voyez un joueur remplaçant entrer en temps voulu dans la zone de remplacement, alors qu'aucune donnée de remplacement n'a été transmise par la tablette. Quelle est votre décision ?",
+    "propositions": [
+      { "lettre": "A", "texte": "Vous vérifiez d'abord que la demande est régulière ; si oui, vous l'acceptez manuellement en annonçant « passage en manuel », sinon vous la refusez.", "correcte": true },
+      { "lettre": "B", "texte": "Vous refusez la demande : sans données transmises par la tablette, le remplacement n'est pas valablement demandé.", "correcte": false },
+      { "lettre": "C", "texte": "Vous demandez à l'entraîneur de transmettre les données par la tablette avant d'enregistrer le remplacement.", "correcte": false },
+      { "lettre": "D", "texte": "Vous acceptez le remplacement manuellement, puis signalez au 2ème arbitre une sanction pour retard de jeu.", "correcte": false }
+    ],
+    "explication": "La demande officielle de remplacement est l'entrée du ou des joueurs remplaçants dans la zone de remplacement, et non la transmission des données. Le marqueur doit donc d'abord vérifier si la demande est régulière. Si elle l'est, il l'accepte manuellement et annonce « passage en manuel » dans le micro, afin que les arbitres laissent un peu plus de temps pour le changement ; si elle est irrégulière, elle est refusée et les arbitres appliquent les règles correspondantes.",
+    "theme": "Cas d'utilisation de la technologie",
+    "niveau": "Niveau 3",
+    "role_cible": "marqueur",
+    "regles": ["15.5.1", "16.1.3", "Cas 9.7"],
+    "regle_principale": "15.5.1"
+  },
+  {
+    "cas": "Cas 9.8",
+    "enonce": "Lors d'un challenge, vous constatez en tant que 1er arbitre que les opérateurs du système de challenge vidéo ont diffusé la mauvaise séquence. Quelle est votre décision ?",
+    "propositions": [
+      { "lettre": "A", "texte": "Vous décidez sur la base de la séquence diffusée, la décision issue du challenge étant définitive.", "correcte": false },
+      { "lettre": "B", "texte": "Vous annulez le challenge et maintenez votre décision initiale, faute d'images exploitables.", "correcte": false },
+      { "lettre": "C", "texte": "Vous exigez que la bonne séquence soit diffusée avant de prendre votre décision.", "correcte": true },
+      { "lettre": "D", "texte": "Vous ordonnez un échange rejoué, la vidéo ne permettant pas de trancher.", "correcte": false }
+    ],
+    "explication": "Le système de challenge vidéo est conçu pour garantir autant que possible l'équité dans la prise de décision. Le 1er arbitre ne doit donc pas accepter sans condition la séquence diffusée : il doit exiger que la bonne vidéo soit montrée.",
+    "theme": "Cas d'utilisation de la technologie",
+    "niveau": "Niveau 3",
+    "role_cible": "arbitre",
+    "regles": ["Cas 9.8"],
+    "regle_principale": "Cas 9.8"
+  },
+  {
+    "cas": "Cas 9.9",
+    "enonce": "Le système de challenge vidéo est en service. Une équipe veut contester une faute supposée de l'adversaire (touche de filet ou touche de contre) que les arbitres n'ont pas sifflée, mais le joueur adverse reconnaît lui-même la faute. Quelle est votre décision ?",
+    "propositions": [
+      { "lettre": "A", "texte": "Vous ignorez l'aveu du joueur : seule la vérification vidéo peut établir la faute, le challenge doit aller à son terme.", "correcte": false },
+      { "lettre": "B", "texte": "Vous pouvez accepter l'aveu du joueur et ainsi éviter le recours au challenge ou annuler la procédure en cours.", "correcte": true },
+      { "lettre": "C", "texte": "Vous maintenez votre décision initiale, un arbitre ne pouvant pas revenir sur sa décision à la demande d'un joueur.", "correcte": false },
+      { "lettre": "D", "texte": "Vous acceptez l'aveu, mais faites rejouer l'échange car la faute n'a pas été sifflée pendant le jeu.", "correcte": false }
+    ],
+    "explication": "Dans l'esprit du fair-play, la reconnaissance de la faute par l'adversaire est bienvenue. Le 1er arbitre peut donc accepter l'aveu du joueur et éviter le recours au challenge, ou annuler la procédure de challenge en cours. Le « Fair Play Moment », expérimenté aux finales de la VNL 2023, vise justement à éviter la perte de temps liée à la vérification vidéo lorsqu'une équipe reconnaît une touche de contre ou de filet.",
+    "theme": "Cas d'utilisation de la technologie",
+    "niveau": "Niveau 3",
+    "role_cible": "arbitre",
+    "regles": ["7.3.2", "7.3.4", "Cas 9.9"],
+    "regle_principale": "7.3.2"
+  }
+]

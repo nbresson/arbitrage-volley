@@ -1,0 +1,982 @@
+[
+  {
+    "cas": "Cas 5.1",
+    "enonce": "Avant le début du set, vous (2ème arbitre) venez de vérifier la formation de départ d'une équipe sur le terrain. Le Libéro veut alors prendre la place d'un joueur arrière sans attendre votre autorisation. Quelle est votre décision ?",
+    "propositions": [
+      {
+        "lettre": "A",
+        "texte": "Le Libéro doit attendre l'autorisation du 2ème arbitre avant d'entrer.",
+        "correcte": false
+      },
+      {
+        "lettre": "B",
+        "texte": "Le Libéro peut entrer sans autorisation dès que la formation a été vérifiée.",
+        "correcte": true
+      },
+      {
+        "lettre": "C",
+        "texte": "Le Libéro ne peut entrer qu'après le premier échange complet du set.",
+        "correcte": false
+      },
+      {
+        "lettre": "D",
+        "texte": "Le Libéro doit être inscrit sur la fiche de position pour entrer.",
+        "correcte": false
+      }
+    ],
+    "explication": "Le joueur de base doit se trouver sur le terrain au moment de la vérification de la formation. Dès que le 2ème arbitre a vérifié la formation, le Libéro peut prendre la place du joueur arrière, sans autorisation particulière.",
+    "theme": "Le Libéro",
+    "niveau": "Niveau 1",
+    "role_cible": "arbitre",
+    "regles": [
+      "19.3.2.4",
+      "19.3.2.8",
+      "24.3.1",
+      "Cas 5.1"
+    ],
+    "regle_principale": "19.3.2.4"
+  },
+  {
+    "cas": "Cas 5.2",
+    "enonce": "Une équipe a déjà effectué tous les remplacements réguliers autorisés dans le set. Un joueur sur le terrain est alors expulsé, alors que le Libéro est assis sur le banc. Quelle est votre décision ?",
+    "propositions": [
+      {
+        "lettre": "A",
+        "texte": "Le Libéro peut devenir joueur de base et prendre la place du joueur expulsé.",
+        "correcte": false
+      },
+      {
+        "lettre": "B",
+        "texte": "Le Libéro peut effectuer un changement de Libéro à la place du joueur expulsé.",
+        "correcte": false
+      },
+      {
+        "lettre": "C",
+        "texte": "L'équipe est déclarée incomplète et perd le set, aucune autre solution n'existant.",
+        "correcte": false
+      },
+      {
+        "lettre": "D",
+        "texte": "Un remplacement exceptionnel, sans le Libéro, peut être effectué si l'entraîneur le souhaite.",
+        "correcte": true
+      }
+    ],
+    "explication": "Le Libéro inscrit sur la feuille de match n'a jamais le droit de devenir un joueur de base dans le match. Un remplacement exceptionnel ne concernant pas le Libéro peut toutefois être effectué si l'entraîneur retient cette option ; le joueur expulsé ne pourra alors plus jouer dans le match.",
+    "theme": "Le Libéro",
+    "niveau": "Niveau 2",
+    "role_cible": "les_deux",
+    "regles": [
+      "6.4.3",
+      "15.7",
+      "15.8",
+      "Cas 5.2"
+    ],
+    "regle_principale": "6.4.3"
+  },
+  {
+    "cas": "Cas 5.3",
+    "enonce": "Un joueur sur le terrain se blesse. L'entraîneur demande que le Libéro entre à sa place par une procédure de remplacement régulier. Quelle est votre décision ?",
+    "propositions": [
+      {
+        "lettre": "A",
+        "texte": "Refusé : le Libéro ne peut participer à aucun remplacement, régulier ou exceptionnel.",
+        "correcte": true
+      },
+      {
+        "lettre": "B",
+        "texte": "Accepté : en cas de blessure, le Libéro peut remplacer régulièrement le joueur.",
+        "correcte": false
+      },
+      {
+        "lettre": "C",
+        "texte": "Refusé en remplacement régulier, mais accepté en remplacement exceptionnel.",
+        "correcte": false
+      },
+      {
+        "lettre": "D",
+        "texte": "Accepté, à condition que le joueur blessé soit un joueur de la ligne arrière.",
+        "correcte": false
+      }
+    ],
+    "explication": "Le Libéro n'est autorisé à participer à aucun remplacement, qu'il soit régulier ou exceptionnel. Il ne peut entrer sur le terrain que par un changement de Libéro.",
+    "theme": "Le Libéro",
+    "niveau": "Niveau 1",
+    "role_cible": "les_deux",
+    "regles": [
+      "15.5",
+      "15.7",
+      "17",
+      "Cas 5.3"
+    ],
+    "regle_principale": "15.5"
+  },
+  {
+    "cas": "Cas 5.4",
+    "enonce": "Une équipe ne dispose que d'un seul Libéro. Ce Libéro, qui se trouvait sur le terrain à la place du joueur n° 5, est expulsé du set. Quelle est votre décision ?",
+    "propositions": [
+      {
+        "lettre": "A",
+        "texte": "Le n° 5 doit revenir et l'équipe joue sans Libéro jusqu'à la fin du match.",
+        "correcte": false
+      },
+      {
+        "lettre": "B",
+        "texte": "Le Libéro doit être remplacé régulièrement par un joueur de changement.",
+        "correcte": false
+      },
+      {
+        "lettre": "C",
+        "texte": "Le n° 5 revient et l'équipe joue sans Libéro pour le set, ou un nouveau Libéro est redésigné.",
+        "correcte": true
+      },
+      {
+        "lettre": "D",
+        "texte": "Un nouveau Libéro peut être redésigné, mais seulement au début du set suivant.",
+        "correcte": false
+      }
+    ],
+    "explication": "Avec un seul Libéro, l'équipe peut renvoyer le n° 5 sur le terrain et jouer sans Libéro pour le reste du set. L'entraîneur peut aussi redésigner un nouveau Libéro parmi les joueurs qui ne sont pas sur le terrain, lequel peut prendre immédiatement la place du Libéro expulsé, qui ne peut plus jouer de tout le match. Si l'équipe avait deux Libéros, le second Libéro ou le n° 5 pourrait prendre sa place.",
+    "theme": "Le Libéro",
+    "niveau": "Niveau 2",
+    "role_cible": "les_deux",
+    "regles": [
+      "6.4.3",
+      "19.1.1",
+      "19.3.2",
+      "19.3.2.8",
+      "Cas 5.4"
+    ],
+    "regle_principale": "6.4.3"
+  },
+  {
+    "cas": "Cas 5.5",
+    "enonce": "Pendant une même interruption de jeu, une équipe demande un remplacement et effectue en même temps un changement de Libéro. Quelle est votre décision ?",
+    "propositions": [
+      {
+        "lettre": "A",
+        "texte": "Refusé : un échange complet doit séparer le remplacement et le changement de Libéro.",
+        "correcte": false
+      },
+      {
+        "lettre": "B",
+        "texte": "Accepté : un changement de Libéro n'est pas un remplacement, et réciproquement.",
+        "correcte": true
+      },
+      {
+        "lettre": "C",
+        "texte": "Accepté, mais le changement de Libéro compte comme l'un des six remplacements.",
+        "correcte": false
+      },
+      {
+        "lettre": "D",
+        "texte": "Refusé : la demande de remplacement est irrégulière et sanctionnée pour retard de jeu.",
+        "correcte": false
+      }
+    ],
+    "explication": "Un changement de Libéro peut avoir lieu en même temps qu'un remplacement. En effet, le « changement » n'est pas un « remplacement », et réciproquement : les deux procédures sont indépendantes.",
+    "theme": "Le Libéro",
+    "niveau": "Niveau 2",
+    "role_cible": "les_deux",
+    "regles": [
+      "15.3.2",
+      "19.3.2",
+      "19.3.2.8",
+      "Cas 5.5"
+    ],
+    "regle_principale": "15.3.2"
+  },
+  {
+    "cas": "Cas 5.6",
+    "enonce": "Vous (1er arbitre) avez sifflé pour autoriser le service. Après votre coup de sifflet mais avant la frappe de service, le Libéro prend la place du joueur en position 1. C'est la première fois que cela se produit dans le match. Quelle est votre décision ?",
+    "propositions": [
+      {
+        "lettre": "A",
+        "texte": "Arrêter l'échange et sanctionner l'équipe pour retard de jeu.",
+        "correcte": false
+      },
+      {
+        "lettre": "B",
+        "texte": "Arrêter l'échange et siffler une faute de position contre l'équipe.",
+        "correcte": false
+      },
+      {
+        "lettre": "C",
+        "texte": "Arrêter l'échange, annuler le changement de Libéro et faire rejouer.",
+        "correcte": false
+      },
+      {
+        "lettre": "D",
+        "texte": "Laisser jouer, puis signaler au capitaine de jeu que la procédure est incorrecte.",
+        "correcte": true
+      }
+    ],
+    "explication": "À la première occurrence dans le match, le 1er arbitre laisse l'échange se poursuivre sans interruption, puis indique au capitaine de jeu que ce n'est pas une procédure correcte. Les changements tardifs suivants entraînent immédiatement une sanction pour retard de jeu, mais le changement reste valable. Un changement effectué après la frappe de service serait sifflé comme faute de position.",
+    "theme": "Le Libéro",
+    "niveau": "Niveau 2",
+    "role_cible": "arbitre",
+    "regles": [
+      "19.3.2.5",
+      "Cas 5.6"
+    ],
+    "regle_principale": "19.3.2.5"
+  },
+  {
+    "cas": "Cas 5.7",
+    "enonce": "Vous (2ème arbitre) remarquez qu'une équipe vient d'effectuer un changement de Libéro irrégulier. La frappe de service n'a pas encore eu lieu. Quelle est votre décision ?",
+    "propositions": [
+      {
+        "lettre": "A",
+        "texte": "Laisser jouer et régler la situation comme un remplacement irrégulier après l'échange.",
+        "correcte": false
+      },
+      {
+        "lettre": "B",
+        "texte": "Siffler, annuler le changement et sanctionner l'équipe pour retard de jeu.",
+        "correcte": true
+      },
+      {
+        "lettre": "C",
+        "texte": "Siffler, annuler le changement sans sanction, puisque le jeu n'a pas repris.",
+        "correcte": false
+      },
+      {
+        "lettre": "D",
+        "texte": "Siffler une faute de position et attribuer l'échange à l'équipe adverse.",
+        "correcte": false
+      }
+    ],
+    "explication": "Dès qu'il remarque le changement irrégulier, le 2ème arbitre siffle pour rappeler le joueur. Le changement est annulé et l'équipe est sanctionnée pour retard de jeu. S'il n'avait été remarqué qu'après la reprise du jeu, les conséquences seraient les mêmes que pour un remplacement irrégulier.",
+    "theme": "Le Libéro",
+    "niveau": "Niveau 2",
+    "role_cible": "les_deux",
+    "regles": [
+      "19.3.2.1",
+      "19.3.2.9",
+      "23.2.3",
+      "Cas 5.7"
+    ],
+    "regle_principale": "19.3.2.1"
+  },
+  {
+    "cas": "Cas 5.8",
+    "enonce": "L'unique Libéro d'une équipe, qui avait pris la place du n° 4, se blesse et ne peut plus jouer. L'entraîneur demande que le n° 4, joueur de changement du Libéro, soit redésigné comme nouveau Libéro. Quelle est votre décision ?",
+    "propositions": [
+      {
+        "lettre": "A",
+        "texte": "Accepté : le n° 4 est redésigné et entre directement comme nouveau Libéro.",
+        "correcte": false
+      },
+      {
+        "lettre": "B",
+        "texte": "Refusé définitivement : le n° 4 ne pourra jamais devenir Libéro dans ce match.",
+        "correcte": false
+      },
+      {
+        "lettre": "C",
+        "texte": "Accepté : le n° 4 est redésigné, mais n'entre qu'après un échange complet.",
+        "correcte": false
+      },
+      {
+        "lettre": "D",
+        "texte": "Pas directement : le n° 4 doit d'abord revenir sur le terrain puis être remplacé régulièrement.",
+        "correcte": true
+      }
+    ],
+    "explication": "Le joueur de changement du Libéro est exclu de la redésignation au moment où celle-ci est demandée. Pour que le n° 4 devienne le nouveau Libéro, il doit d'abord revenir sur le terrain à la place du Libéro blessé, puis être remplacé régulièrement. Il ne pourra entrer comme nouveau Libéro qu'après un échange complet, car un second changement ne peut pas avoir lieu dans la même interruption.",
+    "theme": "Le Libéro",
+    "niveau": "Niveau 3",
+    "role_cible": "les_deux",
+    "regles": [
+      "19.1.3",
+      "19.3.2.2",
+      "19.3.2.8",
+      "19.4.2",
+      "Cas 5.8"
+    ],
+    "regle_principale": "19.1.3"
+  },
+  {
+    "cas": "Cas 5.9",
+    "enonce": "Lors du contrôle avant le match, vous constatez que l'entraîneur d'une équipe est également inscrit comme Libéro. Est-ce autorisé ?",
+    "propositions": [
+      {
+        "lettre": "A",
+        "texte": "Non, un Libéro ne peut exercer aucune fonction d'encadrement.",
+        "correcte": false
+      },
+      {
+        "lettre": "B",
+        "texte": "Non, l'entraîneur doit désigner un autre joueur comme Libéro.",
+        "correcte": false
+      },
+      {
+        "lettre": "C",
+        "texte": "Oui, les règles n'interdisent pas au Libéro d'être l'entraîneur.",
+        "correcte": true
+      },
+      {
+        "lettre": "D",
+        "texte": "Oui, mais seulement s'il n'est pas aussi capitaine d'équipe.",
+        "correcte": false
+      }
+    ],
+    "explication": "Il est autorisé d'être à la fois entraîneur et Libéro. Les règles n'interdisent pas au Libéro d'être l'entraîneur.",
+    "theme": "Le Libéro",
+    "niveau": "Niveau 2",
+    "role_cible": "les_deux",
+    "regles": [
+      "5.2.3.4",
+      "Cas 5.9"
+    ],
+    "regle_principale": "5.2.3.4"
+  },
+  {
+    "cas": "Cas 5.10",
+    "enonce": "Le capitaine d'équipe se blesse sur le terrain et doit être remplacé. L'entraîneur demande que le Libéro devienne le nouveau capitaine de jeu. Quelle est votre décision ?",
+    "propositions": [
+      {
+        "lettre": "A",
+        "texte": "Accepté : le Libéro peut devenir capitaine d'équipe ou capitaine de jeu.",
+        "correcte": true
+      },
+      {
+        "lettre": "B",
+        "texte": "Refusé : le Libéro ne peut être ni capitaine d'équipe ni capitaine de jeu.",
+        "correcte": false
+      },
+      {
+        "lettre": "C",
+        "texte": "Accepté, mais uniquement lorsque le Libéro se trouve sur le terrain.",
+        "correcte": false
+      },
+      {
+        "lettre": "D",
+        "texte": "Refusé : seul l'entraîneur peut exercer la fonction de capitaine de jeu.",
+        "correcte": false
+      }
+    ],
+    "explication": "C'est autorisé. Selon les règles, le ou les Libéros peuvent devenir capitaine d'équipe ou capitaine de jeu.",
+    "theme": "Le Libéro",
+    "niveau": "Niveau 1",
+    "role_cible": "arbitre",
+    "regles": [
+      "5",
+      "Cas 5.10"
+    ],
+    "regle_principale": "5"
+  },
+  {
+    "cas": "Cas 5.11",
+    "enonce": "Par erreur, deux joueurs provoquent la sortie brève du joueur de changement du Libéro, puis corrigent immédiatement l'erreur d'eux-mêmes. Rien n'a encore été inscrit sur la feuille de contrôle du Libéro. Quelle est votre décision ?",
+    "propositions": [
+      {
+        "lettre": "A",
+        "texte": "Cela ne compte pas comme un changement et n'est pas une faute.",
+        "correcte": true
+      },
+      {
+        "lettre": "B",
+        "texte": "C'est un changement de Libéro irrégulier, sanctionné pour retard de jeu.",
+        "correcte": false
+      },
+      {
+        "lettre": "C",
+        "texte": "Cela compte comme un changement, mais sans sanction puisqu'il a été corrigé.",
+        "correcte": false
+      },
+      {
+        "lettre": "D",
+        "texte": "Cela compte comme un changement de Libéro et doit être enregistré.",
+        "correcte": false
+      }
+    ],
+    "explication": "Cela ne compte pas comme un changement, car il doit y avoir un échange complet entre deux changements de Libéro. Il s'agit d'une erreur manifeste, mais elle ne doit pas être comptée comme une faute.",
+    "theme": "Le Libéro",
+    "niveau": "Niveau 3",
+    "role_cible": "les_deux",
+    "regles": [
+      "19.3.2.1",
+      "19.3.2.2",
+      "Cas 5.11"
+    ],
+    "regle_principale": "19.3.2.1"
+  },
+  {
+    "cas": "Cas 5.12",
+    "enonce": "Après une rotation, le Libéro se retrouve en position 4 (ligne avant) : l'équipe a oublié de le faire changer. Vous (1er arbitre) constatez cette erreur manifeste avant le service. Quelle est votre décision ?",
+    "propositions": [
+      {
+        "lettre": "A",
+        "texte": "Siffler immédiatement une faute de position contre l'équipe.",
+        "correcte": false
+      },
+      {
+        "lettre": "B",
+        "texte": "Différer le service, faire effectuer le changement et sanctionner le retard occasionné.",
+        "correcte": true
+      },
+      {
+        "lettre": "C",
+        "texte": "Autoriser le service : le Libéro peut jouer en ligne avant sans attaquer.",
+        "correcte": false
+      },
+      {
+        "lettre": "D",
+        "texte": "Sanctionner un remplacement irrégulier et retirer le Libéro pour le set.",
+        "correcte": false
+      }
+    ],
+    "explication": "Le Libéro n'a pas le droit de jouer en ligne avant et doit quitter le terrain après avoir tourné en position 4. Le 1er arbitre diffère le signal du service suivant pendant un temps raisonnable. Si le changement n'est toujours pas effectué, il rappelle à l'équipe son obligation, lui fait effectuer le changement de Libéro, puis la sanctionne pour le retard occasionné.",
+    "theme": "Le Libéro",
+    "niveau": "Niveau 2",
+    "role_cible": "arbitre",
+    "regles": [
+      "19.3.1.1",
+      "28.2.2.1",
+      "28.2.2.2",
+      "Cas 5.12"
+    ],
+    "regle_principale": "19.3.1.1"
+  },
+  {
+    "cas": "Cas 5.13",
+    "enonce": "Le Libéro est changé, puis l'équipe tente de le renvoyer immédiatement sur le terrain, sans qu'aucun échange n'ait eu lieu entre les deux changements. Quelle est votre décision ?",
+    "propositions": [
+      {
+        "lettre": "A",
+        "texte": "Accepter le second changement, puisque le Libéro peut entrer sans autorisation.",
+        "correcte": false
+      },
+      {
+        "lettre": "B",
+        "texte": "Accepter le second changement et avertir l'équipe sans sanction.",
+        "correcte": false
+      },
+      {
+        "lettre": "C",
+        "texte": "Refuser le second changement et sanctionner l'équipe pour retard de jeu.",
+        "correcte": true
+      },
+      {
+        "lettre": "D",
+        "texte": "Refuser le second changement et sanctionner l'équipe d'une pénalisation.",
+        "correcte": false
+      }
+    ],
+    "explication": "C'est un cas typique de changement de Libéro irrégulier. Au moment du second changement, le 2ème arbitre doit le refuser et le 1er arbitre doit infliger une sanction pour retard de jeu. Lorsqu'un marqueur adjoint officie, c'est à lui de contrôler les changements de Libéro et d'actionner le buzzer pour signaler la faute.",
+    "theme": "Le Libéro",
+    "niveau": "Niveau 1",
+    "role_cible": "les_deux",
+    "regles": [
+      "19.3.2.9",
+      "23.2.3",
+      "Cas 5.13"
+    ],
+    "regle_principale": "19.3.2.9"
+  },
+  {
+    "cas": "Cas 5.14",
+    "enonce": "Le joueur de base a repris la place du Libéro. Après le service, un ballon de réserve pénètre sur le terrain et l'échange est interrompu. Avant le coup de sifflet de l'échange à rejouer, le Libéro tente de prendre la place du joueur en position 6. Vous (2ème arbitre) le rappelez. Votre action est-elle correcte ?",
+    "propositions": [
+      {
+        "lettre": "A",
+        "texte": "Non : l'échange interrompu compte comme un échange complet, le changement est régulier.",
+        "correcte": false
+      },
+      {
+        "lettre": "B",
+        "texte": "Non : le changement est régulier, car l'échange va être rejoué depuis le service.",
+        "correcte": false
+      },
+      {
+        "lettre": "C",
+        "texte": "Oui, mais aucune sanction ne doit suivre, l'interruption ne venant pas de l'équipe.",
+        "correcte": false
+      },
+      {
+        "lettre": "D",
+        "texte": "Oui : il n'y a pas eu d'échange complet, le changement est irrégulier.",
+        "correcte": true
+      }
+    ],
+    "explication": "L'action du 2ème arbitre est correcte. Il s'agit d'un changement de Libéro irrégulier, car il n'y a pas eu d'échange complet entre les deux changements. Au moment du second changement, le 2ème arbitre doit le refuser et le 1er arbitre doit infliger une sanction pour retard de jeu.",
+    "theme": "Le Libéro",
+    "niveau": "Niveau 2",
+    "role_cible": "arbitre",
+    "regles": [
+      "19.3.2.1",
+      "Cas 5.14"
+    ],
+    "regle_principale": "19.3.2.1"
+  },
+  {
+    "cas": "Cas 5.15",
+    "enonce": "Le Libéro se blesse. Après examen par le médecin, en présence de l'entraîneur, il quitte le terrain et le joueur dont il avait pris la place revient. Juste après, sans qu'aucun échange n'ait eu lieu, le Libéro affirme s'être rétabli et demande à revenir jouer. Quelle est votre décision ?",
+    "propositions": [
+      {
+        "lettre": "A",
+        "texte": "Accepter : le Libéro n'a pas été déclaré inapte et peut donc revenir.",
+        "correcte": false
+      },
+      {
+        "lettre": "B",
+        "texte": "Refuser : un Libéro sorti pour blessure ne peut plus revenir dans le match.",
+        "correcte": false
+      },
+      {
+        "lettre": "C",
+        "texte": "Accepter : en cas de blessure, deux changements sont permis dans l'interruption.",
+        "correcte": false
+      },
+      {
+        "lettre": "D",
+        "texte": "Refuser : il n'y a pas eu d'échange complet entre les deux changements.",
+        "correcte": true
+      }
+    ],
+    "explication": "Le retour du Libéro n'aurait pas dû être autorisé. Malgré la blessure, sa sortie était un changement régulier, et il conserve le droit de participer au match tant qu'il n'est pas déclaré inapte. Mais deux changements consécutifs sans échange complet entre eux constituent un changement de Libéro irrégulier.",
+    "theme": "Le Libéro",
+    "niveau": "Niveau 3",
+    "role_cible": "arbitre",
+    "regles": [
+      "19.3.2.1",
+      "19.3.2.8",
+      "Cas 5.15"
+    ],
+    "regle_principale": "19.3.2.1"
+  },
+  {
+    "cas": "Cas 5.16",
+    "enonce": "Le Libéro de l'équipe A s'est blessé au bras et un nouveau Libéro a été redésigné. Le Libéro initial, qui se déplace normalement, souhaite rester assis sur le banc jusqu'à la fin du match. Quelle est votre décision ?",
+    "propositions": [
+      {
+        "lettre": "A",
+        "texte": "L'autoriser : il est mobile et ne gêne ni ne met personne en danger.",
+        "correcte": true
+      },
+      {
+        "lettre": "B",
+        "texte": "Le refuser : un Libéro redésigné doit quitter l'aire de jeu.",
+        "correcte": false
+      },
+      {
+        "lettre": "C",
+        "texte": "Le refuser : il doit rejoindre l'aire d'échauffement jusqu'à la fin du match.",
+        "correcte": false
+      },
+      {
+        "lettre": "D",
+        "texte": "L'autoriser, mais seulement jusqu'à la fin du set en cours.",
+        "correcte": false
+      }
+    ],
+    "explication": "Le joueur doit être autorisé à rester sur le banc, car il est mobile et ne constitue ni une gêne ni un danger pour lui-même ou ses coéquipiers ; ce point est déterminant. S'il avait dû être soigné, il aurait fallu demander au médecin de l'équipe de l'installer derrière le banc ou dans un endroit sûr, hors de l'aire de jeu.",
+    "theme": "Le Libéro",
+    "niveau": "Niveau 3",
+    "role_cible": "arbitre",
+    "regles": [
+      "Cas 5.16"
+    ],
+    "regle_principale": "Cas 5.16"
+  },
+  {
+    "cas": "Cas 5.17",
+    "enonce": "Dans quels cas une même équipe peut-elle effectuer deux changements de Libéro au cours de la même interruption de jeu ?",
+    "propositions": [
+      {
+        "lettre": "A",
+        "texte": "Après un temps mort, ou lorsqu'un remplacement a lieu dans la même interruption.",
+        "correcte": false
+      },
+      {
+        "lettre": "B",
+        "texte": "Après une pénalisation, ou si le Libéro qui vient d'entrer se blesse pendant un échange inachevé.",
+        "correcte": true
+      },
+      {
+        "lettre": "C",
+        "texte": "Après une sanction pour retard de jeu, ou lors d'un temps mort technique.",
+        "correcte": false
+      },
+      {
+        "lettre": "D",
+        "texte": "Jamais : un échange complet doit toujours séparer deux changements de Libéro.",
+        "correcte": false
+      }
+    ],
+    "explication": "Seuls deux cas permettent deux changements de Libéro dans la même interruption. Le premier est l'infliction d'une pénalisation. Le second est celui où, immédiatement après l'entrée du Libéro sur le terrain, un échange reste inachevé en raison de la blessure du Libéro en fonction.",
+    "theme": "Le Libéro",
+    "niveau": "Niveau 3",
+    "role_cible": "les_deux",
+    "regles": [
+      "6.1.3",
+      "19.3.2.1",
+      "Cas 5.17"
+    ],
+    "regle_principale": "6.1.3"
+  },
+  {
+    "cas": "Cas 5.18",
+    "enonce": "Le Libéro en fonction se plaint de se sentir mal. L'entraîneur demande à redésigner un nouveau Libéro. Quelle est votre décision ?",
+    "propositions": [
+      {
+        "lettre": "A",
+        "texte": "Toujours possible, même si l'équipe dispose d'un second Libéro apte à jouer.",
+        "correcte": false
+      },
+      {
+        "lettre": "B",
+        "texte": "Impossible : la redésignation n'est prévue qu'en cas de blessure, pas de maladie.",
+        "correcte": false
+      },
+      {
+        "lettre": "C",
+        "texte": "Possible si l'équipe n'a qu'un Libéro ou si le second est inapte ; sinon, le second Libéro le remplace.",
+        "correcte": true
+      },
+      {
+        "lettre": "D",
+        "texte": "Impossible : le Libéro malade doit être remplacé par un remplacement régulier.",
+        "correcte": false
+      }
+    ],
+    "explication": "Si l'équipe dispose de deux Libéros, le Libéro en fonction blessé ou malade peut être remplacé par le second Libéro. Si l'équipe n'a qu'un seul Libéro, ou si le second Libéro est devenu inapte à jouer, il peut être remplacé par la procédure de redésignation.",
+    "theme": "Le Libéro",
+    "niveau": "Niveau 2",
+    "role_cible": "les_deux",
+    "regles": [
+      "19.3.2.2",
+      "Cas 5.18"
+    ],
+    "regle_principale": "19.3.2.2"
+  },
+  {
+    "cas": "Cas 5.19",
+    "enonce": "Vous (marqueur) avez inscrit le numéro 15 pour le Libéro au lieu du numéro 5, et l'entraîneur et le capitaine d'équipe ont signé la liste des joueurs. L'erreur est découverte. Que faites-vous ?",
+    "propositions": [
+      {
+        "lettre": "A",
+        "texte": "Erreur administrative sans conséquence : le numéro est corrigé dans la case « Remarques ».",
+        "correcte": true
+      },
+      {
+        "lettre": "B",
+        "texte": "Le n° 5 doit être redésigné comme nouveau Libéro, avec sanction pour retard de jeu.",
+        "correcte": false
+      },
+      {
+        "lettre": "C",
+        "texte": "Les actions jouées par le n° 5 comme Libéro sont annulées et le score est corrigé.",
+        "correcte": false
+      },
+      {
+        "lettre": "D",
+        "texte": "L'équipe joue sans Libéro, la liste signée ne pouvant plus être modifiée.",
+        "correcte": false
+      }
+    ],
+    "explication": "Il s'agit d'une erreur administrative, qui n'a aucune conséquence pour l'équipe. Le marqueur corrige le numéro dans la case « Remarques » de la feuille de match.",
+    "theme": "Le Libéro",
+    "niveau": "Niveau 2",
+    "role_cible": "marqueur",
+    "regles": [
+      "19.1.2",
+      "Cas 5.19"
+    ],
+    "regle_principale": "19.1.2"
+  },
+  {
+    "cas": "Cas 5.20",
+    "enonce": "Au 1er set, le Libéro de l'équipe A a joué avec un maillot de même couleur et de même modèle que ses coéquipiers. Avant le début du 2e set, l'entraîneur de l'équipe B proteste. Quelle est la décision correcte ?",
+    "propositions": [
+      {
+        "lettre": "A",
+        "texte": "Le 1er set est annulé et doit être rejoué.",
+        "correcte": false
+      },
+      {
+        "lettre": "B",
+        "texte": "Le set reste acquis, sans sanction ; le Délégué technique décide d'un changement de maillot.",
+        "correcte": true
+      },
+      {
+        "lettre": "C",
+        "texte": "Le set reste acquis, mais l'équipe A est sanctionnée pour retard de jeu.",
+        "correcte": false
+      },
+      {
+        "lettre": "D",
+        "texte": "Le 1er set est attribué à l'équipe B pour équipement non conforme.",
+        "correcte": false
+      }
+    ],
+    "explication": "Le maillot non conforme n'a eu aucune influence sur le jeu : le résultat du 1er set n'est pas annulé et aucune sanction n'est infligée à l'équipe A. C'est le Délégué technique de la FIVB qui décide si le Libéro doit changer de maillot.",
+    "theme": "Le Libéro",
+    "niveau": "Niveau 2",
+    "role_cible": "les_deux",
+    "regles": [
+      "19.2",
+      "Cas 5.20"
+    ],
+    "regle_principale": "19.2"
+  },
+  {
+    "cas": "Cas 5.21",
+    "enonce": "Deux joueurs sautent au filet pour contrer une attaque adverse. Entre eux, le Libéro saute aussi, mais aucune partie de son corps ne dépasse à aucun moment le bord supérieur du filet. Le 2ème arbitre siffle une tentative de contre du Libéro. Cette décision est-elle correcte ?",
+    "propositions": [
+      {
+        "lettre": "A",
+        "texte": "Non : sans dépasser le bord supérieur du filet, son saut n'est pas une tentative de contre.",
+        "correcte": true
+      },
+      {
+        "lettre": "B",
+        "texte": "Oui : le Libéro a participé à un contre collectif, ce qui est interdit.",
+        "correcte": false
+      },
+      {
+        "lettre": "C",
+        "texte": "Oui : sauter au filet devant un attaquant adverse est une tentative de contre.",
+        "correcte": false
+      },
+      {
+        "lettre": "D",
+        "texte": "Non, car seul le 1er arbitre peut siffler une tentative de contre du Libéro.",
+        "correcte": false
+      }
+    ],
+    "explication": "La décision n'était pas correcte. Le Libéro n'ayant à aucun moment atteint, avec une quelconque partie de son corps, une hauteur supérieure au bord supérieur du filet, son saut ne pouvait pas être considéré comme une tentative de contre.",
+    "theme": "Le Libéro",
+    "niveau": "Niveau 2",
+    "role_cible": "arbitre",
+    "regles": [
+      "14.1.1",
+      "14.1.2",
+      "14.1.3",
+      "14.1.4",
+      "14.6.6",
+      "Cas 5.21"
+    ],
+    "regle_principale": "14.1.1"
+  },
+  {
+    "cas": "Cas 5.22",
+    "enonce": "Le Libéro vient de sortir du terrain. Le serveur est ensuite sifflé pour retard au service (8 secondes). Le Libéro demande à revenir sur le terrain. Quelle est votre décision ?",
+    "propositions": [
+      {
+        "lettre": "A",
+        "texte": "Refusé : aucun ballon n'a été joué, il n'y a donc pas eu d'échange complet.",
+        "correcte": false
+      },
+      {
+        "lettre": "B",
+        "texte": "Refusé, et l'équipe est sanctionnée pour changement de Libéro irrégulier.",
+        "correcte": false
+      },
+      {
+        "lettre": "C",
+        "texte": "Accepté, mais seulement après l'échange suivant.",
+        "correcte": false
+      },
+      {
+        "lettre": "D",
+        "texte": "Accepté : la faute de service compte comme un échange complet.",
+        "correcte": true
+      }
+    ],
+    "explication": "Le Libéro peut revenir sur le terrain. Ce service fautif doit être considéré comme un échange complet ; la condition d'un échange complet entre deux changements de Libéro est donc remplie.",
+    "theme": "Le Libéro",
+    "niveau": "Niveau 2",
+    "role_cible": "les_deux",
+    "regles": [
+      "6.1.3",
+      "19.3.2.1",
+      "19.3.2",
+      "Cas 5.22"
+    ],
+    "regle_principale": "6.1.3"
+  },
+  {
+    "cas": "Cas 5.23",
+    "enonce": "L'entraîneur déclare l'unique Libéro de l'équipe inapte à jouer et souhaite redésigner un nouveau Libéro. Quel joueur peut être redésigné ?",
+    "propositions": [
+      {
+        "lettre": "A",
+        "texte": "Uniquement le joueur de changement régulier du Libéro.",
+        "correcte": false
+      },
+      {
+        "lettre": "B",
+        "texte": "Tout joueur sur le banc au moment de la demande, sauf le joueur de changement régulier.",
+        "correcte": true
+      },
+      {
+        "lettre": "C",
+        "texte": "Tout joueur de l'équipe, y compris un joueur se trouvant sur le terrain.",
+        "correcte": false
+      },
+      {
+        "lettre": "D",
+        "texte": "Tout joueur sur le banc, mais seulement à partir du set suivant.",
+        "correcte": false
+      }
+    ],
+    "explication": "À l'exception du joueur de changement régulier, tout joueur se trouvant sur le banc au moment de la demande peut être redésigné comme nouveau Libéro ; le Libéro initial ne peut plus revenir dans le match. Pour redésigner le joueur de changement régulier, l'entraîneur doit d'abord le faire remplacer régulièrement. Si le Libéro en fonction est déclaré inapte, le joueur de changement régulier prend sa place et le nouveau Libéro peut entrer après un échange complet.",
+    "theme": "Le Libéro",
+    "niveau": "Niveau 2",
+    "role_cible": "les_deux",
+    "regles": [
+      "19.3.2.8",
+      "19.4.2.1",
+      "19.4.2.4",
+      "Cas 5.23"
+    ],
+    "regle_principale": "19.3.2.8"
+  },
+  {
+    "cas": "Cas 5.24",
+    "enonce": "Une équipe a inscrit deux Libéros, les n° 11 et 16 ; le n° 16 porte un maillot identique à celui des autres joueurs. L'équipe demande un remplacement et le n° 16 se présente dans la zone de remplacement pour remplacer un joueur sur le terrain. Le marqueur signale aussitôt que la demande n'est pas régulière. Quelle est votre décision ?",
+    "propositions": [
+      {
+        "lettre": "A",
+        "texte": "Accepter le remplacement, puisque deux Libéros sont inscrits.",
+        "correcte": false
+      },
+      {
+        "lettre": "B",
+        "texte": "Accepter le remplacement, puis exiger le changement de maillot.",
+        "correcte": false
+      },
+      {
+        "lettre": "C",
+        "texte": "Refuser la demande et sanctionner l'équipe pour retard de jeu.",
+        "correcte": true
+      },
+      {
+        "lettre": "D",
+        "texte": "Refuser la demande et sanctionner l'équipe d'une pénalisation.",
+        "correcte": false
+      }
+    ],
+    "explication": "Le Libéro n'a le droit de participer ni à un remplacement régulier ni à un remplacement exceptionnel : la demande est donc irrégulière. Comme cela a été découvert avant la reprise du jeu, la demande est refusée et l'équipe est sanctionnée pour retard de jeu. Le Libéro doit par ailleurs changer de maillot, ce que les arbitres auraient dû contrôler avant le match.",
+    "theme": "Le Libéro",
+    "niveau": "Niveau 2",
+    "role_cible": "les_deux",
+    "regles": [
+      "15.5.1",
+      "15.7",
+      "16.1.3",
+      "19.2",
+      "Cas 5.24"
+    ],
+    "regle_principale": "15.5.1"
+  },
+  {
+    "cas": "Cas 5.25",
+    "enonce": "Une équipe a inscrit deux Libéros. Après le 2e set, l'entraîneur déclare les deux Libéros inaptes à jouer et redésigne un nouveau Libéro pour les remplacer. Quelle est votre décision ?",
+    "propositions": [
+      {
+        "lettre": "A",
+        "texte": "Accepté ; les Libéros initiaux ne rejouent plus mais peuvent rester sur le banc.",
+        "correcte": true
+      },
+      {
+        "lettre": "B",
+        "texte": "Accepté, et les Libéros initiaux pourront revenir s'ils se rétablissent.",
+        "correcte": false
+      },
+      {
+        "lettre": "C",
+        "texte": "Accepté, mais les Libéros initiaux doivent quitter le banc.",
+        "correcte": false
+      },
+      {
+        "lettre": "D",
+        "texte": "Refusé : un seul Libéro peut être déclaré inapte à la fois.",
+        "correcte": false
+      }
+    ],
+    "explication": "C'est autorisé : il n'est pas interdit de déclarer les deux Libéros inaptes à jouer en même temps. Aucun des Libéros initiaux ne peut revenir dans le match après la redésignation, mais ils ont le droit de s'asseoir sur le banc ou de se tenir dans l'aire d'échauffement.",
+    "theme": "Le Libéro",
+    "niveau": "Niveau 3",
+    "role_cible": "les_deux",
+    "regles": [
+      "19.4.2.1",
+      "19.4.2.2",
+      "Cas 5.25"
+    ],
+    "regle_principale": "19.4.2.1"
+  },
+  {
+    "cas": "Cas 5.26",
+    "enonce": "En réception d'une feinte d'attaque du passeur adverse, le Libéro de l'équipe A, dans la zone avant, joue le ballon des doigts d'une seule main au-dessus de la tête. Un coéquipier smashe ce ballon alors qu'il est entièrement au-dessus du bord supérieur du filet. Sur quoi fondez-vous votre décision ?",
+    "propositions": [
+      {
+        "lettre": "A",
+        "texte": "Toute touche du Libéro avec les doigts en zone avant rend l'attaque fautive.",
+        "correcte": false
+      },
+      {
+        "lettre": "B",
+        "texte": "Un contact à une seule main n'est jamais une passe en doigts : l'action est toujours régulière.",
+        "correcte": false
+      },
+      {
+        "lettre": "C",
+        "texte": "Faute si c'est une passe intentionnelle doigts ouverts ; régulier si le Libéro se protège.",
+        "correcte": true
+      },
+      {
+        "lettre": "D",
+        "texte": "L'action est régulière, car le ballon venait directement de l'équipe adverse.",
+        "correcte": false
+      }
+    ],
+    "explication": "Selon l'esprit de la règle, si l'action du Libéro est effectuée doigts ouverts, comme une passe classique et intentionnelle, l'attaque achevée au-dessus du filet est une faute. En revanche, si le Libéro protège son corps ou son visage au lieu de faire une passe, l'action est réglementaire.",
+    "theme": "Le Libéro",
+    "niveau": "Niveau 3",
+    "role_cible": "arbitre",
+    "regles": [
+      "13.3.6",
+      "19.3.1.4",
+      "Cas 5.26"
+    ],
+    "regle_principale": "13.3.6"
+  },
+  {
+    "cas": "Cas 5.27",
+    "enonce": "Le Libéro, dans la zone avant, fait une passe haute des doigts classique. Au moment de la touche, il pose un pied derrière la ligne d'attaque, tandis que son autre jambe, levée en l'air, avait son dernier appui dans la zone avant. Un coéquipier achève une attaque en frappant le ballon plus haut que le bord supérieur du filet. Vous (1er arbitre) sifflez une faute. Votre décision est-elle correcte ?",
+    "propositions": [
+      {
+        "lettre": "A",
+        "texte": "Non : un pied du Libéro est derrière la ligne d'attaque, l'attaque est régulière.",
+        "correcte": false
+      },
+      {
+        "lettre": "B",
+        "texte": "Non : la passe est régulière puisque le Libéro est en appui sur la ligne d'attaque.",
+        "correcte": false
+      },
+      {
+        "lettre": "C",
+        "texte": "Oui, mais la faute doit être attribuée au Libéro et non à l'attaquant.",
+        "correcte": false
+      },
+      {
+        "lettre": "D",
+        "texte": "Oui : seul compte le dernier contact du Libéro avec le sol, situé en zone avant.",
+        "correcte": true
+      }
+    ],
+    "explication": "La décision est correcte. Dans une telle situation, c'est le dernier contact du Libéro avec le sol qui compte, comme pour le service en suspension et l'attaque d'un joueur arrière. Ce dernier point de contact se trouvant à l'intérieur de la zone d'attaque, achever une attaque sur ce ballon entièrement plus haut que le bord supérieur du filet est une faute.",
+    "theme": "Le Libéro",
+    "niveau": "Niveau 3",
+    "role_cible": "arbitre",
+    "regles": [
+      "13.3.6",
+      "19.3.1.4",
+      "Cas 5.27"
+    ],
+    "regle_principale": "13.3.6"
+  }
+]

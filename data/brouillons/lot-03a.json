@@ -1,0 +1,1188 @@
+[
+ {
+  "cas": "Cas 3.1",
+  "enonce": "La 1re touche de l'équipe A passe à l'extérieur de l'antenne. Le passeur de A poursuit le ballon dans la zone libre adverse et tente de le renvoyer, mais le ballon part vers le terrain et le filet du côté de l'équipe B. Le 1er arbitre siffle « ballon dehors ». À quel moment le ballon est-il devenu « dehors » ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Au moment où il a touché le filet du côté de l'équipe B.",
+    "correcte": false
+   },
+   {
+    "lettre": "B",
+    "texte": "Dès qu'il a complètement quitté l'espace au-dessus de la zone libre pour entrer au-dessus du terrain adverse.",
+    "correcte": true
+   },
+   {
+    "lettre": "C",
+    "texte": "Dès la 1re touche, au moment où il a franchi le plan du filet à l'extérieur de l'antenne.",
+    "correcte": false
+   },
+   {
+    "lettre": "D",
+    "texte": "Au moment où il a touché le sol du terrain de l'équipe B.",
+    "correcte": false
+   }
+  ],
+  "explication": "Le ballon qui passe à l'extérieur de l'antenne vers la zone libre adverse peut être récupéré, mais il doit revenir par l'espace extérieur. Selon le Casebook, ce ballon est devenu « dehors » au moment où il a complètement quitté l'espace situé au-dessus de la zone libre pour entrer dans l'espace situé au-dessus du terrain, du côté adverse du filet.",
+  "theme": "Jouer le ballon",
+  "niveau": "Niveau 3",
+  "role_cible": "arbitre",
+  "regles": [
+   "10.1.2",
+   "10.1.2.2",
+   "Cas 3.1"
+  ],
+  "regle_principale": "10.1.2"
+ },
+ {
+  "cas": "Cas 3.2",
+  "enonce": "Un joueur frappe le ballon avec la paume d'une main tournée vers le haut. Cette frappe est-elle réglementaire ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Non : une frappe paume vers le haut est toujours un ballon tenu.",
+    "correcte": false
+   },
+   {
+    "lettre": "B",
+    "texte": "Oui, mais seulement lors de la première touche de l'équipe.",
+    "correcte": false
+   },
+   {
+    "lettre": "C",
+    "texte": "Non, sauf si le ballon est joué au-dessus de la tête du joueur.",
+    "correcte": false
+   },
+   {
+    "lettre": "D",
+    "texte": "Oui, si le ballon n'est ni tenu ni lancé : on juge la qualité du contact.",
+    "correcte": true
+   }
+  ],
+  "explication": "Oui, un joueur peut frapper le ballon paume vers le haut. La frappe se juge sur la qualité du contact, selon que le ballon a été tenu et/ou lancé ou non. Le 1er arbitre ne doit pas siffler trop vite cette action, sauf s'il voit clairement que le ballon est tenu et/ou lancé.",
+  "theme": "Jouer le ballon",
+  "niveau": "Niveau 2",
+  "role_cible": "arbitre",
+  "regles": [
+   "9.2.1",
+   "9.2.2",
+   "9.3.3",
+   "9.3.4",
+   "Cas 3.2"
+  ],
+  "regle_principale": "9.2.1"
+ },
+ {
+  "cas": "Cas 3.3",
+  "enonce": "Lors de la première touche de son équipe, le ballon rebondit d'un bras sur l'autre, puis sur la poitrine d'un joueur, au cours d'une seule action et sans être tenu ni lancé. Quelle est votre décision ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Laisser jouer : des contacts successifs sont permis à la 1re touche en une seule action.",
+    "correcte": true
+   },
+   {
+    "lettre": "B",
+    "texte": "Siffler une double touche : le ballon a touché plusieurs parties du corps.",
+    "correcte": false
+   },
+   {
+    "lettre": "C",
+    "texte": "Siffler un ballon tenu, car le ballon est resté trop longtemps au contact du corps.",
+    "correcte": false
+   },
+   {
+    "lettre": "D",
+    "texte": "Laisser jouer uniquement s'il s'agit de la réception du service.",
+    "correcte": false
+   }
+  ],
+  "explication": "À la première touche (réception du service, d'une frappe d'attaque douce ou puissante, d'un ballon contré par sa propre équipe ou par l'adversaire), un joueur peut effectuer des contacts successifs, pourvu qu'il n'accomplisse qu'une seule action. Il fallait donc laisser jouer. Un « ballon tenu » ou « lancé » reste possible sur la première touche si deux phases distinctes (tenu puis lancé) sont identifiées.",
+  "theme": "Jouer le ballon",
+  "niveau": "Niveau 2",
+  "role_cible": "arbitre",
+  "regles": [
+   "9.2.3.2",
+   "14.2",
+   "Cas 3.3"
+  ],
+  "regle_principale": "9.2.3.2"
+ },
+ {
+  "cas": "Cas 3.4",
+  "enonce": "Un contreur de l'équipe B « réoriente » le ballon vers le sol de l'équipe A. Quelle est votre décision ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "C'est toujours une faute : un contreur ne peut pas diriger le ballon.",
+    "correcte": false
+   },
+   {
+    "lettre": "B",
+    "texte": "C'est toujours réglementaire : on ne siffle jamais de ballon tenu au contre.",
+    "correcte": false
+   },
+   {
+    "lettre": "C",
+    "texte": "C'est réglementaire si le ballon rebondit ; faute seulement s'il est tenu ou lancé.",
+    "correcte": true
+   },
+   {
+    "lettre": "D",
+    "texte": "C'est une faute, car le contre compte alors comme une touche d'équipe.",
+    "correcte": false
+   }
+  ],
+  "explication": "Il est réglementaire de contrer le ballon et de le diriger vers le terrain adverse. Tout dépend de la qualité du contact : si le ballon rebondit, il n'y a pas de faute ; s'il est tenu ou lancé, c'est une faute. Le « ballon tenu » peut donc être sifflé pendant un contre.",
+  "theme": "Jouer le ballon",
+  "niveau": "Niveau 2",
+  "role_cible": "arbitre",
+  "regles": [
+   "9.2.2",
+   "Cas 3.4"
+  ],
+  "regle_principale": "9.2.2"
+ },
+ {
+  "cas": "Cas 3.5",
+  "enonce": "L'attaquant côté gauche joue le ballon à deux mains dans un mouvement de lancer : il touche le ballon presque derrière sa tête et le relâche plus de 50 cm plus loin. Quelle est votre décision ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Laisser jouer : l'attaque à deux mains est réglementaire dans tous les cas.",
+    "correcte": false
+   },
+   {
+    "lettre": "B",
+    "texte": "Siffler un ballon tenu : le ballon est tenu puis lancé.",
+    "correcte": true
+   },
+   {
+    "lettre": "C",
+    "texte": "Siffler une double touche, le ballon ayant été joué des deux mains.",
+    "correcte": false
+   },
+   {
+    "lettre": "D",
+    "texte": "Siffler une faute, car une frappe d'attaque doit se faire d'une seule main.",
+    "correcte": false
+   }
+  ],
+  "explication": "Rien n'interdit à un joueur d'attaquer à deux mains, mais pas par une action de ballon tenu puis lancé. Ici, le ballon est touché presque derrière la tête et relâché plus de 50 cm plus loin : il s'agit d'un ballon tenu.",
+  "theme": "Jouer le ballon",
+  "niveau": "Niveau 2",
+  "role_cible": "arbitre",
+  "regles": [
+   "9.2.2",
+   "Cas 3.5"
+  ],
+  "regle_principale": "9.2.2"
+ },
+ {
+  "cas": "Cas 3.6",
+  "enonce": "Un joueur de l'équipe A bondit par-dessus les panneaux publicitaires pour récupérer le ballon près des sièges des spectateurs, de son propre côté du filet. Après avoir touché le ballon, il atterrit dans les gradins. Quelle est votre décision ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Action réglementaire : de son côté, hors de la zone libre, il peut jouer le ballon.",
+    "correcte": true
+   },
+   {
+    "lettre": "B",
+    "texte": "Faute : un joueur ne peut pas jouer le ballon au-delà des panneaux publicitaires.",
+    "correcte": false
+   },
+   {
+    "lettre": "C",
+    "texte": "Ballon dehors : le ballon a été touché au-dessus des sièges des spectateurs.",
+    "correcte": false
+   },
+   {
+    "lettre": "D",
+    "texte": "Action réglementaire seulement si le joueur n'atterrit pas dans les gradins.",
+    "correcte": false
+   }
+  ],
+  "explication": "L'action est réglementaire. À l'extérieur de sa propre moitié de la zone libre, un joueur peut jouer le ballon et même prendre appui pour le frapper, y compris sur le banc de sa propre équipe. La même action est en revanche interdite du côté adverse du filet.",
+  "theme": "Jouer le ballon",
+  "niveau": "Niveau 2",
+  "role_cible": "arbitre",
+  "regles": [
+   "9",
+   "9.1.3",
+   "10.1.2",
+   "Cas 3.6"
+  ],
+  "regle_principale": "9"
+ },
+ {
+  "cas": "Cas 3.7",
+  "enonce": "Pendant un échange, une joueuse poursuit le ballon dans les gradins. Au moment où elle va le frapper, un spectateur tend le bras et l'attrape. L'entraîneur demande une balle à rejouer ; le 1er arbitre refuse. Le 1er arbitre a-t-il raison ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Non : l'intervention d'un spectateur impose de faire rejouer l'échange.",
+    "correcte": false
+   },
+   {
+    "lettre": "B",
+    "texte": "Non : l'équipe de la joueuse gênée doit marquer le point.",
+    "correcte": false
+   },
+   {
+    "lettre": "C",
+    "texte": "Oui, car une joueuse n'a pas le droit de poursuivre le ballon dans les gradins.",
+    "correcte": false
+   },
+   {
+    "lettre": "D",
+    "texte": "Oui : hors de l'aire de jeu, la joueuse n'a aucune priorité sur le ballon.",
+    "correcte": true
+   }
+  ],
+  "explication": "Le refus est correct. La joueuse peut aller chercher le ballon n'importe où à l'extérieur de sa propre moitié de l'aire de jeu (banc d'équipe, sièges des spectateurs, etc.). Mais si elle est prioritaire sur le ballon à l'intérieur de l'aire de jeu, elle ne bénéficie d'aucune priorité de ce type à l'extérieur.",
+  "theme": "Jouer le ballon",
+  "niveau": "Niveau 2",
+  "role_cible": "arbitre",
+  "regles": [
+   "9",
+   "9.1.3",
+   "Cas 3.7"
+  ],
+  "regle_principale": "9"
+ },
+ {
+  "cas": "Cas 3.8",
+  "enonce": "Un joueur réalise un sauvetage spectaculaire au prix d'un mouvement rapide et d'un gros effort ; une légère double touche se produit pendant la frappe. Comment devez-vous juger cette action ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Siffler la double touche comme dans n'importe quelle autre situation de jeu.",
+    "correcte": false
+   },
+   {
+    "lettre": "B",
+    "texte": "Ne jamais siffler de faute de touche lors d'un sauvetage, même un ballon tenu.",
+    "correcte": false
+   },
+   {
+    "lettre": "C",
+    "texte": "Se montrer moins sévère qu'en situation normale, selon le principe « laisser le ballon voler ».",
+    "correcte": true
+   },
+   {
+    "lettre": "D",
+    "texte": "Laisser jouer uniquement s'il s'agit de la première touche de l'équipe.",
+    "correcte": false
+   }
+  ],
+  "explication": "L'arbitre doit garder à l'esprit le principe « laisser le ballon voler ». Si un joueur accomplit un mouvement rapide et un gros effort pour récupérer le ballon et qu'une légère double touche se produit, l'arbitre doit se montrer moins sévère que dans une situation normale (Directives et instructions, règle 9, point 7).",
+  "theme": "Jouer le ballon",
+  "niveau": "Niveau 2",
+  "role_cible": "arbitre",
+  "regles": [
+   "Cas 3.8"
+  ],
+  "regle_principale": "Cas 3.8"
+ },
+ {
+  "cas": "Cas 3.9",
+  "enonce": "Le ballon part de la tête du contreur de l'équipe A, passe au-dessus de l'antenne et file dans la zone libre de l'équipe B. Un joueur de A le poursuit pour le renvoyer de son côté du filet. Peut-il le rejouer ainsi ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Oui : il peut le renvoyer dans son camp par l'espace extérieur, du même côté.",
+    "correcte": true
+   },
+   {
+    "lettre": "B",
+    "texte": "Non : un ballon touché par le contre de A ne peut plus être joué par A.",
+    "correcte": false
+   },
+   {
+    "lettre": "C",
+    "texte": "Non : le ballon est « dehors » dès qu'il passe au-dessus de l'antenne.",
+    "correcte": false
+   },
+   {
+    "lettre": "D",
+    "texte": "Oui, mais le ballon doit revenir en passant par l'espace de passage.",
+    "correcte": false
+   }
+  ],
+  "explication": "Oui. Le ballon est passé au-dessus de l'antenne vers la zone libre adverse, en partie par l'espace extérieur. L'équipe A peut donc le renvoyer dans son propre terrain par l'espace extérieur, du même côté du terrain. Les juges de ligne ne doivent pas signaler tant que le ballon se déplace ainsi, jusqu'au moment où il est définitivement hors jeu.",
+  "theme": "Jouer le ballon",
+  "niveau": "Niveau 2",
+  "role_cible": "arbitre",
+  "regles": [
+   "10.1.2",
+   "Cas 3.9"
+  ],
+  "regle_principale": "10.1.2"
+ },
+ {
+  "cas": "Cas 3.10",
+  "enonce": "Un joueur poursuit le ballon hors du terrain et prend appui sur la table de marque pour le renvoyer à son équipe. Le contact avec le ballon a lieu au-dessus de l'extrémité de la table de marque située du côté adverse du filet. Quelle est votre décision ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Siffler une faute : le ballon a été joué du côté adverse du filet.",
+    "correcte": false
+   },
+   {
+    "lettre": "B",
+    "texte": "Laisser jouer : le ballon peut être récupéré au-dessus de toute la table de marque.",
+    "correcte": true
+   },
+   {
+    "lettre": "C",
+    "texte": "Siffler une faute : un joueur ne peut pas prendre appui sur la table de marque.",
+    "correcte": false
+   },
+   {
+    "lettre": "D",
+    "texte": "Faire rejouer l'échange, la table de marque constituant un obstacle.",
+    "correcte": false
+   }
+  ],
+  "explication": "Selon le texte des règles, le ballon peut être récupéré au-dessus de toute la longueur de la table de marque, y compris la partie située du côté de l'adversaire. L'action est donc réglementaire, et le 1er arbitre a raison de laisser l'échange se poursuivre.",
+  "theme": "Jouer le ballon",
+  "niveau": "Niveau 3",
+  "role_cible": "arbitre",
+  "regles": [
+   "9",
+   "Cas 3.10"
+  ],
+  "regle_principale": "9"
+ },
+ {
+  "cas": "Cas 3.11",
+  "enonce": "Après la deuxième ou la troisième touche d'une équipe, le ballon franchit le plan du filet par l'espace extérieur vers la zone libre adverse. Le juge de ligne doit-il signaler ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Non : seul le 1er arbitre juge un ballon qui passe par l'espace extérieur.",
+    "correcte": false
+   },
+   {
+    "lettre": "B",
+    "texte": "Non : ce ballon relève du 2ème arbitre, de son côté du filet.",
+    "correcte": false
+   },
+   {
+    "lettre": "C",
+    "texte": "Non : le ballon reste en jeu tant qu'il n'a pas touché le sol.",
+    "correcte": false
+   },
+   {
+    "lettre": "D",
+    "texte": "Oui : juger ce ballon relève du devoir du juge de ligne.",
+    "correcte": true
+   }
+  ],
+  "explication": "Oui. Selon le Casebook, juger un ballon qui, après la deuxième ou la troisième touche d'une équipe, franchit le plan du filet par l'espace extérieur vers la zone libre adverse fait partie des devoirs du juge de ligne.",
+  "theme": "Jouer le ballon",
+  "niveau": "Niveau 3",
+  "role_cible": "arbitre",
+  "regles": [
+   "8.4.1",
+   "8.4.2",
+   "9.1",
+   "10.1.2",
+   "10.1.2.1",
+   "10.1.2.2",
+   "29.2.1.3",
+   "Cas 3.11"
+  ],
+  "regle_principale": "8.4.1"
+ },
+ {
+  "cas": "Cas 3.12",
+  "enonce": "Le passeur de l'équipe A joue le ballon au-dessus du filet, ses doigts se trouvant dans l'espace adverse au moment de la touche. Le ballon part parallèlement au filet vers un attaquant de A, mais le contreur de l'équipe B le touche dans l'espace de A, empêchant la frappe d'attaque. Quelle est votre décision ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Faute du contreur de B, qui a touché le ballon dans l'espace de A avant l'attaque.",
+    "correcte": false
+   },
+   {
+    "lettre": "B",
+    "texte": "Double faute : l'échange est rejoué.",
+    "correcte": false
+   },
+   {
+    "lettre": "C",
+    "texte": "Faute du passeur de A, qui a joué le ballon dans l'espace adverse : seule cette 1re faute est sanctionnée.",
+    "correcte": true
+   },
+   {
+    "lettre": "D",
+    "texte": "Pas de faute du passeur : le ballon n'avait pas complètement franchi le plan du filet.",
+    "correcte": false
+   }
+  ],
+  "explication": "Chaque équipe doit jouer le ballon dans sa propre aire et son propre espace de jeu ; au-dessus du bord supérieur du filet, c'est la position de la main qui compte. Le passeur a donc commis une faute, et le contreur aussi en touchant le ballon dans l'espace adverse avant la frappe d'attaque, mais seule la première faute est sanctionnée. Sous le filet, en revanche, c'est la position du ballon qui compte.",
+  "theme": "Jouer le ballon",
+  "niveau": "Niveau 3",
+  "role_cible": "arbitre",
+  "regles": [
+   "9",
+   "Cas 3.12"
+  ],
+  "regle_principale": "9"
+ },
+ {
+  "cas": "Cas 3.13",
+  "enonce": "L'entraîneur de l'équipe A, placé réglementairement dans sa zone libre, attrape le ballon qui vole au-dessus de l'antenne alors qu'un joueur de l'équipe B court pour le rejouer. Cette action est-elle permise ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Oui : l'entraîneur se trouve en position réglementaire dans sa zone libre.",
+    "correcte": false
+   },
+   {
+    "lettre": "B",
+    "texte": "Non : il doit laisser le passage au joueur adverse qui court rejouer le ballon.",
+    "correcte": true
+   },
+   {
+    "lettre": "C",
+    "texte": "Oui, à condition que son geste n'ait pas été intentionnel.",
+    "correcte": false
+   },
+   {
+    "lettre": "D",
+    "texte": "Non, mais uniquement si le ballon est passé par l'espace de passage.",
+    "correcte": false
+   }
+  ],
+  "explication": "Non. Aucun membre d'une équipe, entraîneur compris, n'a le droit d'empêcher un joueur adverse de rejouer un ballon qui franchit le plan du filet à l'extérieur de l'espace de passage, que son geste soit intentionnel ou non. Même placé réglementairement dans sa zone libre, l'entraîneur doit « laisser le passage ».",
+  "theme": "Jouer le ballon",
+  "niveau": "Niveau 3",
+  "role_cible": "arbitre",
+  "regles": [
+   "10.1.2.2",
+   "Cas 3.13"
+  ],
+  "regle_principale": "10.1.2.2"
+ },
+ {
+  "cas": "Cas 3.13.1",
+  "enonce": "Après une mauvaise réception de l'équipe B, le ballon vole à l'extérieur de l'espace de passage vers la zone libre de l'équipe A. Un joueur de B court pour le rejouer et passe sous le filet sans toucher le terrain adverse ni le filet, mais un joueur de A, qui se dirige aussi vers le ballon, l'empêche de le rejouer. Y a-t-il interférence du joueur de A ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Cela dépend : réglementaire s'il était dans son terrain, faute s'il était dans la zone libre et a agi intentionnellement.",
+    "correcte": true
+   },
+   {
+    "lettre": "B",
+    "texte": "Oui, dans tous les cas : le joueur de B était prioritaire pour rejouer ce ballon.",
+    "correcte": false
+   },
+   {
+    "lettre": "C",
+    "texte": "Non, dans tous les cas : chaque joueur peut toujours se déplacer librement vers le ballon.",
+    "correcte": false
+   },
+   {
+    "lettre": "D",
+    "texte": "Oui, mais seulement s'il y a eu un contact physique entre les deux joueurs.",
+    "correcte": false
+   }
+  ],
+  "explication": "Chaque joueur peut se tenir et se déplacer librement dans son propre terrain et son propre espace de jeu, avec des limites dans la zone libre. Le point déterminant est donc la position du joueur de A : s'il s'est déplacé dans son propre terrain, son action était réglementaire ; s'il se trouvait dans la zone libre et que son mouvement était intentionnel, il peut s'agir d'une interférence, donc d'une faute.",
+  "theme": "Jouer le ballon",
+  "niveau": "Niveau 3",
+  "role_cible": "arbitre",
+  "regles": [
+   "10.1.2.2",
+   "Cas 3.13.1"
+  ],
+  "regle_principale": "10.1.2.2"
+ },
+ {
+  "cas": "Cas 3.13.2",
+  "enonce": "Le ballon rebondit sur le contreur de l'équipe A, touche en même temps l'antenne et la bande de côté du côté de l'équipe B, change de direction puis retombe sur le terrain. Le 1er arbitre juge le contre réussi et accorde le service à l'équipe A. Cette décision est-elle correcte ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Oui : le ballon est retombé dans le terrain de B, le contre est réussi.",
+    "correcte": false
+   },
+   {
+    "lettre": "B",
+    "texte": "Oui : un contact avec la bande de côté n'est jamais une faute.",
+    "correcte": false
+   },
+   {
+    "lettre": "C",
+    "texte": "Non : en cas de doute, il fallait faire rejouer l'échange.",
+    "correcte": false
+   },
+   {
+    "lettre": "D",
+    "texte": "Non : le ballon a touché l'antenne, il fallait siffler ballon « dehors ».",
+    "correcte": true
+   }
+  ],
+  "explication": "La décision n'est pas correcte : le ballon a touché l'antenne et la bande de côté en même temps et a changé de direction. Un ballon qui touche l'antenne est « dehors », et les arbitres doivent siffler et montrer le geste de ballon « dehors ». Un contact avec la seule bande de côté n'est pas une faute ; les arbitres ne sifflent que lorsqu'ils sont sûrs de la faute et de sa nature, sans se fonder sur des suppositions.",
+  "theme": "Jouer le ballon",
+  "niveau": "Niveau 2",
+  "role_cible": "arbitre",
+  "regles": [
+   "8.4.3",
+   "22.2.1",
+   "Cas 3.13.2"
+  ],
+  "regle_principale": "8.4.3"
+ },
+ {
+  "cas": "Cas 3.13.3",
+  "enonce": "Le ballon touche la bande de côté, mais pas l'antenne, et rebondit. Devez-vous automatiquement considérer ce rebond comme un contact avec l'antenne ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Oui : un rebond sur la bande de côté prouve un contact avec l'antenne.",
+    "correcte": false
+   },
+   {
+    "lettre": "B",
+    "texte": "Oui : la bande de côté est considérée comme faisant partie de l'antenne.",
+    "correcte": false
+   },
+   {
+    "lettre": "C",
+    "texte": "Non : les arbitres doivent réellement voir le ballon toucher l'antenne.",
+    "correcte": true
+   },
+   {
+    "lettre": "D",
+    "texte": "Non, mais le ballon est « dehors » car il a touché la bande de côté.",
+    "correcte": false
+   }
+  ],
+  "explication": "Non. Les arbitres doivent effectivement voir le ballon toucher l'antenne. De nombreuses forces entrent en jeu lors du rebond : ils ne doivent donc pas présumer automatiquement qu'une faute s'est produite.",
+  "theme": "Jouer le ballon",
+  "niveau": "Niveau 2",
+  "role_cible": "arbitre",
+  "regles": [
+   "8.4.3",
+   "22.2.1",
+   "Cas 3.13.3"
+  ],
+  "regle_principale": "8.4.3"
+ },
+ {
+  "cas": "Cas 3.13.4",
+  "enonce": "Après une mauvaise touche de son équipe, le passeur court après le ballon et le joue dans la zone libre adverse. Quel élément devez-vous avant tout vérifier ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Si le ballon est passé vers la zone libre adverse par l'espace de passage ou à l'extérieur de l'antenne.",
+    "correcte": true
+   },
+   {
+    "lettre": "B",
+    "texte": "Si le passeur a franchi la ligne centrale pour aller chercher le ballon.",
+    "correcte": false
+   },
+   {
+    "lettre": "C",
+    "texte": "Si le passeur a sauté depuis sa propre zone libre avant de toucher le ballon.",
+    "correcte": false
+   },
+   {
+    "lettre": "D",
+    "texte": "Si un joueur adverse se trouvait sur la trajectoire du passeur.",
+    "correcte": false
+   }
+  ],
+  "explication": "Une bonne position doit permettre de savoir si le ballon est passé dans la zone libre adverse à l'intérieur de l'espace de passage. Si c'est le cas, il y a faute dès que le passeur joue le ballon, et elle doit être sifflée. Si le ballon est passé au-dessus ou à l'extérieur de l'antenne, la touche du passeur est réglementaire, et le ballon revenu de son côté au-dessus ou à l'extérieur de l'antenne peut être attaqué.",
+  "theme": "Jouer le ballon",
+  "niveau": "Niveau 3",
+  "role_cible": "arbitre",
+  "regles": [
+   "Cas 3.13.4"
+  ],
+  "regle_principale": "Cas 3.13.4"
+ },
+ {
+  "cas": "Cas 3.14",
+  "enonce": "Un attaquant de l'équipe A atterrit sur la ligne centrale en position réglementaire, mais le contreur de l'équipe B lui marche sur les pieds et l'empêche ainsi de se déplacer. S'agit-il d'une interférence ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Non : les deux joueurs étaient en position réglementaire sur la ligne centrale.",
+    "correcte": false
+   },
+   {
+    "lettre": "B",
+    "texte": "Oui : le contreur a empêché l'attaquant de se déplacer.",
+    "correcte": true
+   },
+   {
+    "lettre": "C",
+    "texte": "Non : il s'agit d'un simple contact fortuit entre adversaires.",
+    "correcte": false
+   },
+   {
+    "lettre": "D",
+    "texte": "Oui, mais la faute est commise par l'attaquant posé sur la ligne centrale.",
+    "correcte": false
+   }
+  ],
+  "explication": "Oui, il s'agit d'une interférence. L'interférence consiste à empêcher un adversaire de se déplacer ou de jouer le ballon, ou à le gêner alors qu'il tente de le jouer. Bien que les deux joueurs aient occupé une position réglementaire sur la ligne centrale, l'attaquant a subi une interférence.",
+  "theme": "Pénétration sous le filet",
+  "niveau": "Niveau 2",
+  "role_cible": "arbitre",
+  "regles": [
+   "11.2.1",
+   "11.2.2.1",
+   "11.2.4",
+   "Cas 3.14"
+  ],
+  "regle_principale": "11.2.1"
+ },
+ {
+  "cas": "Cas 3.15",
+  "enonce": "Un contact physique entre adversaires constitue-t-il toujours une interférence ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Oui : tout contact physique avec un adversaire sous le filet est une faute.",
+    "correcte": false
+   },
+   {
+    "lettre": "B",
+    "texte": "Non : un contact n'est jamais une interférence s'il est involontaire.",
+    "correcte": false
+   },
+   {
+    "lettre": "C",
+    "texte": "Oui, dès que le contact a lieu dans le terrain adverse.",
+    "correcte": false
+   },
+   {
+    "lettre": "D",
+    "texte": "Non : on siffle seulement si le joueur a gêné l'adversaire ou l'a empêché de jouer.",
+    "correcte": true
+   }
+  ],
+  "explication": "Non. De nombreux contacts fortuits se produisent au cours d'un match. L'arbitre doit siffler un joueur seulement s'il a gêné l'adversaire ou l'a empêché de jouer.",
+  "theme": "Pénétration sous le filet",
+  "niveau": "Niveau 2",
+  "role_cible": "arbitre",
+  "regles": [
+   "11.2.1",
+   "Cas 3.15"
+  ],
+  "regle_principale": "11.2.1"
+ },
+ {
+  "cas": "Cas 3.16",
+  "enonce": "Lors d'une défense spectaculaire, un joueur pénètre dans le terrain adverse : son corps touche le sol adverse, mais ses deux jambes sont entièrement en l'air au-dessus du terrain adverse, sans aucune partie au-dessus de la ligne centrale. Il n'y a aucune interférence avec les adversaires. Quelle est votre décision ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Faute : le corps du joueur a touché le terrain adverse.",
+    "correcte": false
+   },
+   {
+    "lettre": "B",
+    "texte": "Faute : les jambes du joueur ont entièrement franchi la ligne centrale.",
+    "correcte": false
+   },
+   {
+    "lettre": "C",
+    "texte": "Pas de faute : les pieds n'ont pas touché le terrain adverse et il n'y a pas d'interférence.",
+    "correcte": true
+   },
+   {
+    "lettre": "D",
+    "texte": "Pas de faute seulement si le joueur garde un contact avec la ligne centrale.",
+    "correcte": false
+   }
+  ],
+  "explication": "Il n'y a pas de faute. Selon la règle 11.2.2, il est permis de toucher le terrain adverse avec toute partie du corps située au-dessus du ou des pieds, à condition de ne pas interférer avec le jeu adverse. Les pieds n'ayant pas touché le terrain adverse et aucune interférence n'ayant eu lieu, l'action est réglementaire.",
+  "theme": "Pénétration sous le filet",
+  "niveau": "Niveau 2",
+  "role_cible": "arbitre",
+  "regles": [
+   "11.2.2",
+   "Cas 3.16"
+  ],
+  "regle_principale": "11.2.2"
+ },
+ {
+  "cas": "Cas 3.17",
+  "enonce": "Croyant pouvoir récupérer le ballon, un joueur de l'équipe A passe sous le filet et pose le pied sur le terrain et la ligne de côté de l'équipe B. Un joueur de B doit s'écarter en urgence pour l'éviter. Quelle est votre décision ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Faute de A : pied sur le terrain adverse, et la manœuvre d'évitement imposée peut être une interférence.",
+    "correcte": true
+   },
+   {
+    "lettre": "B",
+    "texte": "Pas de faute : il n'y a eu aucun contact physique entre les joueurs.",
+    "correcte": false
+   },
+   {
+    "lettre": "C",
+    "texte": "Pas de faute : la ligne de côté ne fait pas partie du terrain adverse.",
+    "correcte": false
+   },
+   {
+    "lettre": "D",
+    "texte": "Faire rejouer l'échange, la gêne étant involontaire.",
+    "correcte": false
+   }
+  ],
+  "explication": "La première faute est que le pied du joueur de A se trouvait sur le terrain et la ligne de côté adverses. Même sans cela, l'interférence consiste à empêcher un joueur de jouer le ballon : en contraignant l'adversaire à une telle manœuvre d'évitement, l'action peut être jugée comme une interférence.",
+  "theme": "Pénétration sous le filet",
+  "niveau": "Niveau 2",
+  "role_cible": "arbitre",
+  "regles": [
+   "7.5",
+   "Cas 3.17"
+  ],
+  "regle_principale": "7.5"
+ },
+ {
+  "cas": "Cas 3.18",
+  "enonce": "Une joueuse poursuit le ballon, qui passe en partie à l'extérieur de l'espace de passage vers la zone libre adverse. Ce faisant, son pied entier entre en contact avec la ligne de côté adverse, sans toucher la ligne centrale. Devez-vous siffler une faute ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Non : la ligne de côté ne fait pas partie du terrain adverse.",
+    "correcte": false
+   },
+   {
+    "lettre": "B",
+    "texte": "Non : en poursuivant ce ballon, la joueuse peut pénétrer librement chez l'adversaire.",
+    "correcte": false
+   },
+   {
+    "lettre": "C",
+    "texte": "Non : la pénétration n'est fautive que si elle gêne l'adversaire.",
+    "correcte": false
+   },
+   {
+    "lettre": "D",
+    "texte": "Oui : le pied entier touche le terrain adverse, dont la ligne de côté fait partie.",
+    "correcte": true
+   }
+  ],
+  "explication": "Oui, c'est une faute : la ligne de côté fait partie du terrain adverse. Si ce contact du pied entier avec la ligne de côté avait été simultané à un contact du même pied avec la ligne centrale (ou si une partie du pied s'était trouvée au-dessus de la ligne centrale), il n'y aurait pas eu faute.",
+  "theme": "Pénétration sous le filet",
+  "niveau": "Niveau 2",
+  "role_cible": "arbitre",
+  "regles": [
+   "11.2.2.1",
+   "Cas 3.18"
+  ],
+  "regle_principale": "11.2.2.1"
+ },
+ {
+  "cas": "Cas 3.19",
+  "enonce": "Après un contact simultané de deux adversaires au-dessus du plan du filet, le ballon retombe à l'extérieur du terrain de l'équipe A. Quelle équipe obtient le service suivant ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "L'équipe B, puisque le ballon est sorti du côté de l'équipe A.",
+    "correcte": false
+   },
+   {
+    "lettre": "B",
+    "texte": "L'équipe A : la faute incombe à l'équipe du côté opposé.",
+    "correcte": true
+   },
+   {
+    "lettre": "C",
+    "texte": "Aucune : il y a double faute et l'échange est rejoué.",
+    "correcte": false
+   },
+   {
+    "lettre": "D",
+    "texte": "L'équipe qui servait lors de cet échange.",
+    "correcte": false
+   }
+  ],
+  "explication": "Lorsque le contact est véritablement simultané entre adversaires au-dessus du filet (ou même entièrement au-dessus du terrain adverse), le jeu se poursuit, les deux joueurs ayant le droit de jouer le ballon. Si le ballon retombe ensuite à l'extérieur d'un terrain, la faute incombe à l'équipe du côté opposé : ici l'équipe B, donc l'équipe A obtient le service.",
+  "theme": "Joueur au filet",
+  "niveau": "Niveau 2",
+  "role_cible": "arbitre",
+  "regles": [
+   "9.1.2.2",
+   "9.1.2.3",
+   "Cas 3.19"
+  ],
+  "regle_principale": "9.1.2.2"
+ },
+ {
+  "cas": "Cas 3.20",
+  "enonce": "Une frappe d'attaque de l'équipe A pousse le filet contre les avant-bras du contreur de l'équipe B. Quelle est votre décision ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Faute au filet : tout contact du contreur avec le filet est fautif.",
+    "correcte": false
+   },
+   {
+    "lettre": "B",
+    "texte": "Faute au filet, car le contreur était dans l'action de jouer le ballon.",
+    "correcte": false
+   },
+   {
+    "lettre": "C",
+    "texte": "Pas de faute : c'est le filet qui a touché le joueur.",
+    "correcte": true
+   },
+   {
+    "lettre": "D",
+    "texte": "Pas de faute seulement si le contact a eu lieu sur la bande supérieure du filet.",
+    "correcte": false
+   }
+  ],
+  "explication": "Il n'y a pas de faute au filet. Lorsque c'est le filet, poussé par le ballon, qui vient toucher le joueur, ce contact n'est pas une faute.",
+  "theme": "Joueur au filet",
+  "niveau": "Niveau 2",
+  "role_cible": "arbitre",
+  "regles": [
+   "11.3.1",
+   "11.4.4",
+   "Cas 3.20"
+  ],
+  "regle_principale": "11.3.1"
+ },
+ {
+  "cas": "Cas 3.21",
+  "enonce": "Après avoir atterri en toute sécurité, un contreur se retourne et heurte la maille du filet, entre les antennes, avec son poignet. Devez-vous siffler une faute ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Non : son action de jouer le ballon était terminée avant qu'il ne se retourne.",
+    "correcte": true
+   },
+   {
+    "lettre": "B",
+    "texte": "Oui : tout contact avec la maille entre les antennes est fautif.",
+    "correcte": false
+   },
+   {
+    "lettre": "C",
+    "texte": "Oui : le contreur reste dans l'action tant que le ballon est en jeu.",
+    "correcte": false
+   },
+   {
+    "lettre": "D",
+    "texte": "Non, mais uniquement parce que le contact a eu lieu avec le poignet.",
+    "correcte": false
+   }
+  ],
+  "explication": "Non. L'action de jouer le ballon était achevée avant que le contreur ne se retourne : le contact avec le filet n'est donc pas une faute.",
+  "theme": "Joueur au filet",
+  "niveau": "Niveau 2",
+  "role_cible": "arbitre",
+  "regles": [
+   "11.3.1",
+   "11.4.4",
+   "Cas 3.21"
+  ],
+  "regle_principale": "11.3.1"
+ },
+ {
+  "cas": "Cas 3.22",
+  "enonce": "En tentant de contrer, sans toucher le ballon qui passe près de lui, un contreur touche le filet entre les antennes. S'agit-il d'une faute ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Non : le contreur n'a pas touché le ballon.",
+    "correcte": false
+   },
+   {
+    "lettre": "B",
+    "texte": "Non : le contact n'est fautif que s'il gêne le jeu de l'adversaire.",
+    "correcte": false
+   },
+   {
+    "lettre": "C",
+    "texte": "Oui, mais seulement si le contact a eu lieu avec la bande supérieure.",
+    "correcte": false
+   },
+   {
+    "lettre": "D",
+    "texte": "Oui : il est dans l'action de jouer le ballon, même sans l'avoir touché.",
+    "correcte": true
+   }
+  ],
+  "explication": "Oui. Le contreur est « dans l'action » de jouer ou de tenter de jouer le ballon, même si aucun contact avec le ballon n'a eu lieu : le contact avec le filet est donc une faute.",
+  "theme": "Joueur au filet",
+  "niveau": "Niveau 1",
+  "role_cible": "arbitre",
+  "regles": [
+   "11.3.1",
+   "11.4.4",
+   "Cas 3.22"
+  ],
+  "regle_principale": "11.3.1"
+ },
+ {
+  "cas": "Cas 3.23",
+  "enonce": "Un contreur central tend les bras au-dessus du filet et en touche la bande supérieure en tentant d'arrêter une combinaison jouée près de lui. S'agit-il d'une faute ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Non : le contreur n'a pas touché le ballon.",
+    "correcte": false
+   },
+   {
+    "lettre": "B",
+    "texte": "Oui : il était proche de l'action et a touché le filet entre les antennes.",
+    "correcte": true
+   },
+   {
+    "lettre": "C",
+    "texte": "Non : seul un contact avec la maille, sous la bande supérieure, est fautif.",
+    "correcte": false
+   },
+   {
+    "lettre": "D",
+    "texte": "Non : la combinaison étant jouée par l'adversaire, il n'était pas dans l'action.",
+    "correcte": false
+   }
+  ],
+  "explication": "Oui, c'est une faute au filet. Le contreur était proche de l'action de jeu et le contact a eu lieu entre les antennes.",
+  "theme": "Joueur au filet",
+  "niveau": "Niveau 2",
+  "role_cible": "arbitre",
+  "regles": [
+   "11.3.1",
+   "11.4.4",
+   "Cas 3.23"
+  ],
+  "regle_principale": "11.3.1"
+ },
+ {
+  "cas": "Cas 3.24",
+  "enonce": "Un attaquant atterrit en toute sécurité, fait deux pas et frôle le filet à l'extérieur de l'antenne alors que le ballon est encore en jeu. Il ne s'appuie pas sur le filet. S'agit-il d'une faute ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Oui : le ballon était encore en jeu au moment du contact.",
+    "correcte": false
+   },
+   {
+    "lettre": "B",
+    "texte": "Oui : tout contact avec le filet pendant l'échange est fautif.",
+    "correcte": false
+   },
+   {
+    "lettre": "C",
+    "texte": "Non : le contact a eu lieu hors de l'antenne, sans appui ni stabilisation.",
+    "correcte": true
+   },
+   {
+    "lettre": "D",
+    "texte": "Non, mais uniquement parce que l'attaquant avait déjà atterri.",
+    "correcte": false
+   }
+  ],
+  "explication": "Le joueur n'a pas commis de faute. D'abord, le contact a eu lieu à l'extérieur de l'antenne ; ensuite, il ne s'est pas servi du filet comme appui ni pour se stabiliser.",
+  "theme": "Joueur au filet",
+  "niveau": "Niveau 2",
+  "role_cible": "arbitre",
+  "regles": [
+   "11.3.1",
+   "11.3.2",
+   "11.4.4",
+   "Cas 3.24"
+  ],
+  "regle_principale": "11.3.1"
+ },
+ {
+  "cas": "Cas 3.25",
+  "enonce": "Un attaquant atterrit en déséquilibre, fait deux pas et pousse de la poitrine contre le filet, entre les antennes, alors que le ballon est encore en jeu. Sans ce contact, il serait tombé sur le terrain adverse. S'agit-il d'une faute ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Non : l'attaquant n'était plus dans l'action de jouer le ballon.",
+    "correcte": false
+   },
+   {
+    "lettre": "B",
+    "texte": "Non : le contact a eu lieu avec la poitrine et non avec les mains.",
+    "correcte": false
+   },
+   {
+    "lettre": "C",
+    "texte": "Oui, mais seulement s'il touche ensuite le terrain adverse.",
+    "correcte": false
+   },
+   {
+    "lettre": "D",
+    "texte": "Oui : se servir du filet comme appui entre les antennes est une interférence.",
+    "correcte": true
+   }
+  ],
+  "explication": "Oui. Lorsqu'un joueur se sert du filet comme appui ou pour se stabiliser, entre les antennes, son action est considérée comme une interférence avec le jeu.",
+  "theme": "Joueur au filet",
+  "niveau": "Niveau 2",
+  "role_cible": "arbitre",
+  "regles": [
+   "11.3.1",
+   "11.4.4",
+   "Cas 3.25"
+  ],
+  "regle_principale": "11.3.1"
+ },
+ {
+  "cas": "Cas 3.26",
+  "enonce": "Un passeur effectue une passe courte ; en frappant le ballon, l'attaquant le heurte du genou, ce qui fait frôler le filet au passeur. S'agit-il d'une faute ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Oui : le passeur était dans l'action de jouer le ballon.",
+    "correcte": true
+   },
+   {
+    "lettre": "B",
+    "texte": "Non : le passeur a été poussé dans le filet par son coéquipier.",
+    "correcte": false
+   },
+   {
+    "lettre": "C",
+    "texte": "Non : la passe était terminée au moment du contact avec le filet.",
+    "correcte": false
+   },
+   {
+    "lettre": "D",
+    "texte": "Non : c'est le filet qui a touché le passeur, et non l'inverse.",
+    "correcte": false
+   }
+  ],
+  "explication": "Oui, c'est une faute, parce que le passeur était dans l'action de jouer le ballon au moment où il a touché le filet.",
+  "theme": "Joueur au filet",
+  "niveau": "Niveau 2",
+  "role_cible": "arbitre",
+  "regles": [
+   "11.3.1",
+   "11.4.4",
+   "Cas 3.26"
+  ],
+  "regle_principale": "11.3.1"
+ },
+ {
+  "cas": "Cas 3.27",
+  "enonce": "Une joueuse touche le filet avec ses cheveux en jouant le ballon, sans gêner l'adversaire ni interrompre l'échange. Son action est-elle réglementaire ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Non : tout contact avec le filet en jouant le ballon est une faute.",
+    "correcte": false
+   },
+   {
+    "lettre": "B",
+    "texte": "Oui : ce n'est une faute que si le contact gêne l'adversaire ou interrompt l'échange.",
+    "correcte": true
+   },
+   {
+    "lettre": "C",
+    "texte": "Non : les cheveux sont considérés comme une partie du corps.",
+    "correcte": false
+   },
+   {
+    "lettre": "D",
+    "texte": "Oui, mais les arbitres doivent interrompre le jeu pour vérifier le filet.",
+    "correcte": false
+   }
+  ],
+  "explication": "Oui. Ce contact ne doit être considéré comme une faute que s'il est clair qu'il a affecté la capacité de l'adversaire à jouer le ballon ou interrompu l'échange (par exemple une queue-de-cheval prise dans le filet). Sans interférence sur le jeu adverse ni sur l'échange, les arbitres ne doivent pas interrompre le jeu.",
+  "theme": "Joueur au filet",
+  "niveau": "Niveau 2",
+  "role_cible": "arbitre",
+  "regles": [
+   "11.3.1",
+   "11.4.4",
+   "Cas 3.27"
+  ],
+  "regle_principale": "11.3.1"
+ },
+ {
+  "cas": "Cas 3.27.1",
+  "sans_question": true,
+  "raison": "Cas en deux situations distinctes aux décisions différentes (premier cas : pas de faute au filet du contreur, mais sanction pour conduite grossière de l'attaquant si le geste est délibéré ; second cas : pas d'interférence, le jeu continue) : impossible à résumer en une seule bonne réponse."
+ },
+ {
+  "cas": "Cas 3.27.2",
+  "enonce": "Lors d'un contre collectif, une joueuse a terminé son action de contre et atterri. Sa coéquipière, encore en train de retomber, lui tombe dessus et la pousse dans le filet, entre les antennes. Ce contact avec le filet est-il fautif ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Non : la joueuse avait terminé son action et atterri.",
+    "correcte": false
+   },
+   {
+    "lettre": "B",
+    "texte": "Non : elle a été poussée dans le filet par sa coéquipière.",
+    "correcte": false
+   },
+   {
+    "lettre": "C",
+    "texte": "Oui : le contre collectif forme une unité encore dans l'action de jouer le ballon.",
+    "correcte": true
+   },
+   {
+    "lettre": "D",
+    "texte": "Non : seul le contact de la coéquipière encore en l'air pourrait être fautif.",
+    "correcte": false
+   }
+  ],
+  "explication": "Oui. Les joueurs d'un contre collectif forment une « unité » : si l'un d'eux est encore dans l'action de jouer le ballon, toute l'unité l'est. Le contact au filet de l'autre joueuse doit donc être considéré comme une faute.",
+  "theme": "Joueur au filet",
+  "niveau": "Niveau 3",
+  "role_cible": "arbitre",
+  "regles": [
+   "11.3.1",
+   "Cas 3.27.2"
+  ],
+  "regle_principale": "11.3.1"
+ },
+ {
+  "cas": "Cas 3.27.3",
+  "enonce": "Un joueur de l'équipe A pénètre dans l'espace adverse sous le filet. Il n'y a aucun contact physique, mais le joueur de l'équipe B en est surpris. Cette pénétration est-elle autorisée ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Oui, toujours : sans contact physique, il ne peut pas y avoir d'interférence.",
+    "correcte": false
+   },
+   {
+    "lettre": "B",
+    "texte": "Non, jamais : toute pénétration dans l'espace adverse sous le filet est fautive.",
+    "correcte": false
+   },
+   {
+    "lettre": "C",
+    "texte": "Oui, sauf si le joueur qui pénètre touche le ballon dans l'espace adverse.",
+    "correcte": false
+   },
+   {
+    "lettre": "D",
+    "texte": "Oui, sauf si l'adversaire est empêché de jouer, même sans contact physique.",
+    "correcte": true
+   }
+  ],
+  "explication": "La pénétration est autorisée à condition que le joueur adverse ne subisse pas d'interférence l'empêchant de jouer le ballon. Une interférence peut exister même sans contact physique. Le 1er arbitre peut alors interrompre le jeu pour faute du joueur qui pénètre et, si nécessaire, l'avertir ou le sanctionner.",
+  "theme": "Joueur au filet",
+  "niveau": "Niveau 3",
+  "role_cible": "arbitre",
+  "regles": [
+   "11.2.1",
+   "Cas 3.27.3"
+  ],
+  "regle_principale": "11.2.1"
+ }
+]

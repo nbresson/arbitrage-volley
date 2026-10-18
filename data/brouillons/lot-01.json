@@ -1,0 +1,279 @@
+[
+ {
+  "cas": "Cas 1.1",
+  "enonce": "Avant le match, vous constatez qu’un joueur porte un plâtre rigide sur un poignet blessé et qu’un autre porte une attelle de jambe rembourrée. Ces dispositifs sont-ils autorisés ?",
+  "propositions": [
+   {"lettre": "A", "texte": "Les deux sont autorisés, puisqu’ils servent à protéger une blessure.", "correcte": false},
+   {"lettre": "B", "texte": "Le plâtre rigide est interdit ; l’attelle de jambe rembourrée est autorisée.", "correcte": true},
+   {"lettre": "C", "texte": "L’attelle est interdite ; le plâtre est autorisé s’il est recouvert de ruban adhésif.", "correcte": false},
+   {"lettre": "D", "texte": "Les deux sont interdits, car aucun dispositif de soutien n’est admis.", "correcte": false}
+  ],
+  "explication": "Il faut distinguer les objets susceptibles de heurter ou de blesser autrui des matériaux de soutien ou en tissu. Le plâtre rigide n’est donc pas autorisé, alors qu’une attelle de jambe rembourrée l’est. Un maintien d’avant-bras ne doit pas procurer de contrôle supplémentaire du ballon, et les dispositifs de compression destinés à protéger d’une blessure sont autorisés (Règle 4.5.3).",
+  "theme": "Objets interdits",
+  "niveau": "Niveau 2",
+  "role_cible": "arbitre",
+  "regles": ["4.5.1", "4.5.3", "Cas 1.1"],
+  "regle_principale": "4.5.1"
+ },
+ {
+  "cas": "Cas 1.2",
+  "enonce": "Lors du contrôle avant le match, vous constatez qu’un joueur porte une bague susceptible de causer une blessure. Quelle est votre décision ?",
+  "propositions": [
+   {"lettre": "A", "texte": "Le joueur peut jouer : une bague est un bijou personnel autorisé.", "correcte": false},
+   {"lettre": "B", "texte": "Le joueur peut jouer, mais son équipe reçoit un avertissement.", "correcte": false},
+   {"lettre": "C", "texte": "Le joueur est exclu du match, même s’il retire sa bague.", "correcte": false},
+   {"lettre": "D", "texte": "Le joueur doit retirer la bague ou la faire recouvrir de ruban adhésif.", "correcte": true}
+  ],
+  "explication": "En raison du risque de blessure, le joueur ne peut pas jouer avec cette bague telle quelle. Il doit la retirer ou la faire recouvrir de ruban adhésif ; aucune sanction n’est prévue.",
+  "theme": "Objets interdits",
+  "niveau": "Niveau 1",
+  "role_cible": "arbitre",
+  "regles": ["4.5.1", "Cas 1.2"],
+  "regle_principale": "4.5.1"
+ },
+ {
+  "cas": "Cas 1.3",
+  "enonce": "Vous êtes 1er arbitre. Le capitaine de jeu de l’équipe A conteste continuellement vos décisions, au-delà de ce que lui permet la Règle 5.1.2. Quelle est votre décision ?",
+  "propositions": [
+   {"lettre": "A", "texte": "Vous l’avertissez sans sanction ; s’il persiste, carton rouge pour conduite grossière.", "correcte": true},
+   {"lettre": "B", "texte": "Vous le sanctionnez immédiatement d’un carton rouge pour conduite grossière.", "correcte": false},
+   {"lettre": "C", "texte": "Vous l’expulsez immédiatement pour avoir contesté les décisions arbitrales.", "correcte": false},
+   {"lettre": "D", "texte": "Vous laissez faire : le capitaine de jeu peut contester toutes les décisions.", "correcte": false}
+  ],
+  "explication": "Lorsque le capitaine de jeu dépasse les limites fixées par la Règle 5.1.2, le 1er arbitre doit d’abord l’avertir sans sanction (Règle 21.1). Si ce comportement persiste, le capitaine de jeu doit être sanctionné pour conduite grossière par un carton rouge, ce qui entraîne point et service à l’adversaire.",
+  "theme": "Capitaine",
+  "niveau": "Niveau 2",
+  "role_cible": "arbitre",
+  "regles": ["5.1.2", "20.1", "20.2", "21.2", "21.3.1", "Fig.9", "Cas 1.3"],
+  "regle_principale": "5.1.2"
+ },
+ {
+  "cas": "Cas 1.4",
+  "enonce": "Pendant un arrêt de jeu, le capitaine de jeu de l’équipe A vous demande une vérification des positions. Est-ce autorisé ?",
+  "propositions": [
+   {"lettre": "A", "texte": "Non, seul l’entraîneur peut demander une vérification des positions.", "correcte": false},
+   {"lettre": "B", "texte": "Oui, et vous lui détaillez les positions des joueurs des deux équipes.", "correcte": false},
+   {"lettre": "C", "texte": "Oui, sans abus : détails pour son équipe, simple « bien placée ou non » pour l’adversaire.", "correcte": true},
+   {"lettre": "D", "texte": "Non, cette demande est considérée comme un retard de jeu et sanctionnée.", "correcte": false}
+  ],
+  "explication": "Le capitaine de jeu a le droit de demander une vérification des positions, mais ce droit ne doit pas être utilisé abusivement, sans quoi l’arbitre pourrait y voir une intention de retarder le jeu. Seules des informations détaillées sur sa propre équipe peuvent lui être fournies. Pour l’équipe adverse, on indique seulement si les joueurs sont correctement placés ou non, sans préciser qui est avant ou arrière.",
+  "theme": "Capitaine",
+  "niveau": "Niveau 2",
+  "role_cible": "les_deux",
+  "regles": ["5.1.2.2", "Cas 1.4"],
+  "regle_principale": "5.1.2.2"
+ },
+ {
+  "cas": "Cas 1.5",
+  "enonce": "Après un échange, l’équipe A conteste votre décision et vous réalisez que vous vous êtes trompé. Votre décision est-elle définitive, ou pouvez-vous la modifier ?",
+  "propositions": [
+   {"lettre": "A", "texte": "Vous pouvez la modifier si vous prenez conscience de l’erreur avant le service suivant.", "correcte": true},
+   {"lettre": "B", "texte": "Vous ne pouvez pas : une décision est définitive dès qu’elle est signalée.", "correcte": false},
+   {"lettre": "C", "texte": "Vous pouvez la modifier à tout moment du set, dès que l’équipe le demande.", "correcte": false},
+   {"lettre": "D", "texte": "Vous ne pouvez la modifier qu’après une réclamation inscrite sur la feuille de match.", "correcte": false}
+  ],
+  "explication": "L’arbitre peut modifier sa propre décision s’il prend conscience de son erreur avant le service suivant. En revanche, les équipes ne sont pas autorisées à contester les décisions normales des arbitres : c’est la prise de conscience de l’erreur, et non la contestation, qui justifie la correction.",
+  "theme": "Capitaine",
+  "niveau": "Niveau 2",
+  "role_cible": "arbitre",
+  "regles": ["5.1.2.1", "23.2.4", "Cas 1.5"],
+  "regle_principale": "5.1.2.1"
+ },
+ {
+  "cas": "Cas 1.6",
+  "enonce": "Pendant le match, l’entraîneur de l’équipe A s’adresse au 2ème arbitre pour discuter d’une décision et formuler une réclamation. Est-il autorisé à le faire ?",
+  "propositions": [
+   {"lettre": "A", "texte": "Oui, l’entraîneur peut s’adresser au 2ème arbitre, mais pas au 1er arbitre.", "correcte": false},
+   {"lettre": "B", "texte": "Oui, mais uniquement pendant les temps-morts et les arrêts de jeu.", "correcte": false},
+   {"lettre": "C", "texte": "Non, seul le capitaine de jeu peut s’adresser aux arbitres pour demander des explications.", "correcte": true},
+   {"lettre": "D", "texte": "Oui, s’il reste dans sa zone de déplacement et ne gêne pas le jeu.", "correcte": false}
+  ],
+  "explication": "Seul le capitaine de jeu est autorisé à s’adresser aux arbitres pour demander des explications sur leurs décisions. L’entraîneur n’y est pas autorisé, que ce soit auprès du 1er ou du 2ème arbitre.",
+  "theme": "Entraîneur, entraîneur adjoint",
+  "niveau": "Niveau 1",
+  "role_cible": "arbitre",
+  "regles": ["5.1.2", "5.2.3.4", "21.1", "21.2", "21.3", "Cas 1.6"],
+  "regle_principale": "5.1.2"
+ },
+ {
+  "cas": "Cas 1.7",
+  "enonce": "L’entraîneur adjoint de l’équipe A (ou un joueur) actionne le buzzer pour demander un temps-mort. Est-ce autorisé ?",
+  "propositions": [
+   {"lettre": "A", "texte": "Non, seul l’entraîneur peut actionner le buzzer pour un temps-mort.", "correcte": false},
+   {"lettre": "B", "texte": "Oui, et le buzzer suffit : aucun geste officiel n’est alors nécessaire.", "correcte": false},
+   {"lettre": "C", "texte": "Oui, mais uniquement lorsque les tablettes ne sont pas utilisées.", "correcte": false},
+   {"lettre": "D", "texte": "Oui, mais l’entraîneur doit tout de même effectuer le geste officiel.", "correcte": true}
+  ],
+  "explication": "L’entraîneur adjoint ou un joueur peut actionner le buzzer pour demander un temps-mort. L’entraîneur doit malgré tout effectuer le geste officiel, même lorsque des tablettes sont utilisées pour formuler ces demandes.",
+  "theme": "Entraîneur, entraîneur adjoint",
+  "niveau": "Niveau 2",
+  "role_cible": "les_deux",
+  "regles": ["5.2.1", "5.2.3.3", "5.3.1", "Cas 1.7"],
+  "regle_principale": "5.2.1"
+ },
+ {
+  "cas": "Cas 1.8",
+  "enonce": "Pendant le match, l’entraîneur de l’équipe A souhaite se déplacer pour donner des consignes. Où est-il autorisé à le faire ?",
+  "propositions": [
+   {"lettre": "A", "texte": "Uniquement devant le banc de son équipe, sans s’en éloigner.", "correcte": false},
+   {"lettre": "B", "texte": "Dans la zone libre, entre le prolongement de la ligne d’attaque et l’aire d’échauffement.", "correcte": true},
+   {"lettre": "C", "texte": "Dans toute la zone libre de son côté, y compris derrière la ligne de fond.", "correcte": false},
+   {"lettre": "D", "texte": "Dans cette zone, tout comme l’entraîneur adjoint, qui dispose du même droit.", "correcte": false}
+  ],
+  "explication": "L’entraîneur, et lui seul, a le droit de se déplacer dans la zone libre pendant le match, entre le prolongement de la ligne d’attaque et l’aire d’échauffement. Il doit le faire sans gêner le jeu ni le travail du juge de ligne ou du 2ème arbitre.",
+  "theme": "Entraîneur, entraîneur adjoint",
+  "niveau": "Niveau 1",
+  "role_cible": "arbitre",
+  "regles": ["5.2.1", "5.2.3.1", "5.2.3.4", "Cas 1.8"],
+  "regle_principale": "5.2.1"
+ },
+ {
+  "cas": "Cas 1.9",
+  "enonce": "L’entraîneur de l’équipe A, blessé, se présente avec des béquilles et souhaite les utiliser dans la zone libre pour exercer ses fonctions pendant le match. Quelle est votre décision ?",
+  "propositions": [
+   {"lettre": "A", "texte": "Vous refusez : les béquilles sont des objets dangereux interdits dans la zone libre.", "correcte": false},
+   {"lettre": "B", "texte": "Vous acceptez, mais il doit rester assis sur le banc pendant tout le match.", "correcte": false},
+   {"lettre": "C", "texte": "Vous acceptez : se tenir debout ou se déplacer avec des béquilles ne lui est pas interdit.", "correcte": true},
+   {"lettre": "D", "texte": "Vous refusez : il doit confier ses fonctions à l’entraîneur adjoint.", "correcte": false}
+  ],
+  "explication": "Aucune règle n’interdit à l’entraîneur de se tenir debout ou de se déplacer avec des béquilles. Il peut donc exercer ses fonctions dans la zone libre pendant le match.",
+  "theme": "Entraîneur, entraîneur adjoint",
+  "niveau": "Niveau 3",
+  "role_cible": "arbitre",
+  "regles": ["Cas 1.9"],
+  "regle_principale": "Cas 1.9"
+ },
+ {
+  "cas": "Cas 1.10",
+  "enonce": "Pendant l’intervalle entre deux sets, l’entraîneur adjoint de l’équipe A aide ses joueurs à s’échauffer avec des ballons dans la zone libre. Quelle est votre décision ?",
+  "propositions": [
+   {"lettre": "A", "texte": "Vous l’invitez poliment à regagner le banc : entre les sets, seuls les joueurs s’échauffent.", "correcte": true},
+   {"lettre": "B", "texte": "Vous laissez faire : l’entraîneur adjoint peut participer à tout échauffement.", "correcte": false},
+   {"lettre": "C", "texte": "Vous laissez faire s’il reste dans la zone libre derrière son propre terrain.", "correcte": false},
+   {"lettre": "D", "texte": "Vous infligez à l’équipe A un avertissement pour retard de jeu.", "correcte": false}
+  ],
+  "explication": "L’entraîneur et l’entraîneur adjoint ne peuvent aider les joueurs à s’échauffer avec des ballons que pendant la séance officielle d’échauffement avant le match. Entre les sets, seuls les joueurs peuvent s’échauffer dans la zone libre derrière leur propre terrain. Les arbitres doivent donc inviter poliment l’entraîneur adjoint à regagner le banc de l’équipe.",
+  "theme": "Entraîneur, entraîneur adjoint",
+  "niveau": "Niveau 2",
+  "role_cible": "arbitre",
+  "regles": ["4.2.4", "5.3.1", "Cas 1.10"],
+  "regle_principale": "4.2.4"
+ },
+ {
+  "cas": "Cas 1.11",
+  "sans_question": true,
+  "raison": "La décision distingue deux régimes (échauffement officiel commun au filet ou séparé) avec des nuances sur le rôle de surveillance et de prévention des blessures des entraîneurs ; elle ne se résume pas en une seule proposition correcte sans inventer une situation précise."
+ },
+ {
+  "cas": "Cas 1.11.1",
+  "enonce": "Lors d’une compétition FIVB, un entraîneur adjoint supplémentaire, qui ne fait pas partie des cinq officiels sur le banc, sert des ballons à certains joueurs à l’intérieur du terrain pendant l’échauffement. Le Délégué technique vous demande de faire cesser cette activité. Cette demande est-elle correcte ?",
+  "propositions": [
+   {"lettre": "A", "texte": "Non : tout officiel d’équipe accrédité peut participer à l’échauffement.", "correcte": false},
+   {"lettre": "B", "texte": "Non : il peut participer à l’échauffement non officiel, avant celui au filet.", "correcte": false},
+   {"lettre": "C", "texte": "Oui, et vous sanctionnez en plus l’équipe d’un carton jaune.", "correcte": false},
+   {"lettre": "D", "texte": "Oui : seuls les cinq officiels du banc y participent ; vous le signalez au Délégué technique.", "correcte": true}
+  ],
+  "explication": "Seuls les cinq officiels présents sur le banc peuvent prendre part à l’échauffement officiel. Les personnes supplémentaires ne figurant pas sur l’O-2bis et les autres officiels d’équipe (team manager, etc.) ne peuvent participer ni à l’échauffement non officiel ni à celui au filet ; seul le physiothérapeute non inscrit parmi les cinq peut aider, jusqu’au début de l’échauffement officiel au filet. Les arbitres doivent signaler ce type d’activité au Délégué technique.",
+  "theme": "Entraîneur, entraîneur adjoint",
+  "niveau": "Niveau 3",
+  "role_cible": "arbitre",
+  "regles": ["4.1.1", "Cas 1.11.1"],
+  "regle_principale": "4.1.1"
+ },
+ {
+  "cas": "Cas 1.11.2",
+  "enonce": "Pendant l’échauffement sur le terrain, des entraîneurs supplémentaires non inscrits sur la feuille de match se tiennent à l’extérieur des panneaux publicitaires et participent activement à l’échauffement des joueurs (ils ne se contentent pas de ramasser les ballons). Est-ce autorisé ?",
+  "propositions": [
+   {"lettre": "A", "texte": "Oui, puisqu’ils restent à l’extérieur des panneaux, hors de l’aire de jeu.", "correcte": false},
+   {"lettre": "B", "texte": "Non : seuls les inscrits sur la feuille de match y participent ; vous informez le Délégué technique.", "correcte": true},
+   {"lettre": "C", "texte": "Non, et l’équipe reçoit un carton jaune pour conduite incorrecte.", "correcte": false},
+   {"lettre": "D", "texte": "Oui, si leur nombre ne dépasse pas celui des officiels autorisés sur le banc.", "correcte": false}
+  ],
+  "explication": "Seules les personnes inscrites sur la feuille de match peuvent pénétrer sur l’aire de jeu, et seuls ces entraîneurs peuvent prendre part à l’échauffement. Ici, les entraîneurs supplémentaires participent activement à la préparation de l’équipe : ce n’est pas autorisé. Les arbitres doivent en informer le Délégué technique et la pratique doit cesser.",
+  "theme": "Entraîneur, entraîneur adjoint",
+  "niveau": "Niveau 3",
+  "role_cible": "arbitre",
+  "regles": ["4.2.2", "Cas 1.11.2"],
+  "regle_principale": "4.2.2"
+ },
+ {
+  "cas": "Cas 1.11.3",
+  "enonce": "Pendant l’échauffement, des entraîneurs de l’équipe A se tiennent dans le camp adverse et servent ou smashent des ballons en direction de leurs propres joueurs. Cela doit-il être autorisé ?",
+  "propositions": [
+   {"lettre": "A", "texte": "Oui, tant que l’équipe adverse n’est pas gênée dans son échauffement.", "correcte": false},
+   {"lettre": "B", "texte": "Oui, à condition qu’ils restent à proximité des poteaux pour smasher.", "correcte": false},
+   {"lettre": "C", "texte": "Non ; ils peuvent seulement se tenir près des poteaux pour prévenir les ballons dangereux.", "correcte": true},
+   {"lettre": "D", "texte": "Non, et aucun officiel ne peut se tenir dans le camp adverse, même près des poteaux.", "correcte": false}
+  ],
+  "explication": "Rester dans le camp adverse et participer activement à l’échauffement est interdit. Il est toutefois permis aux officiels figurant sur la liste de l’équipe de se tenir près des poteaux, afin d’éviter qu’un ballon retombant du filet ne crée une situation dangereuse pour les joueurs.",
+  "theme": "Entraîneur, entraîneur adjoint",
+  "niveau": "Niveau 3",
+  "role_cible": "arbitre",
+  "regles": ["Cas 1.11.3"],
+  "regle_principale": "Cas 1.11.3"
+ },
+ {
+  "cas": "Cas 1.12",
+  "enonce": "Lors de la Coupe du Monde masculine, deux joueurs d’une équipe portent les numéros 21 et 22. Est-ce autorisé ?",
+  "propositions": [
+   {"lettre": "A", "texte": "Oui : en compétition FIVB seniors, le règlement de la compétition peut aller au-delà de 20.", "correcte": true},
+   {"lettre": "B", "texte": "Non : les règles limitent les numéros des joueurs à 20 dans tous les matchs.", "correcte": false},
+   {"lettre": "C", "texte": "Oui : la numérotation des joueurs est libre dans toutes les compétitions.", "correcte": false},
+   {"lettre": "D", "texte": "Non, sauf si ces deux joueurs sont les Libéros de l’équipe.", "correcte": false}
+  ],
+  "explication": "Pour les matchs ordinaires, les règles autorisent une numérotation des joueurs jusqu’à 20. Dans les Compétitions FIVB, Mondiales et Officielles pour les seniors, dont fait partie la Coupe du Monde, les numéros supérieurs à 20 sont permis. C’est le règlement de la compétition qui fixe la limite supérieure.",
+  "theme": "L'uniforme",
+  "niveau": "Niveau 2",
+  "role_cible": "les_deux",
+  "regles": ["4.3.3", "Cas 1.12"],
+  "regle_principale": "4.3.3"
+ },
+ {
+  "cas": "Cas 1.13",
+  "enonce": "Une équipe compte deux Libéros. Chacun porte un uniforme différent de celui de l’autre Libéro et de celui du reste de l’équipe. Est-ce autorisé ?",
+  "propositions": [
+   {"lettre": "A", "texte": "Non : les deux Libéros doivent porter un uniforme identique entre eux.", "correcte": false},
+   {"lettre": "B", "texte": "Non : seul le Libéro en jeu peut porter un uniforme différent de l’équipe.", "correcte": false},
+   {"lettre": "C", "texte": "Oui, mais seulement avec l’accord préalable du Délégué technique.", "correcte": false},
+   {"lettre": "D", "texte": "Oui : les deux Libéros n’ont pas à porter le même modèle ni la même couleur.", "correcte": true}
+  ],
+  "explication": "Il n’est pas nécessaire que chaque Libéro porte un uniforme de même couleur ou de même modèle que l’autre. Cela peut même aider les spectateurs et les commentateurs à comprendre le rôle de chaque joueur.",
+  "theme": "L'uniforme",
+  "niveau": "Niveau 2",
+  "role_cible": "arbitre",
+  "regles": ["19.2", "Cas 1.13"],
+  "regle_principale": "19.2"
+ },
+ {
+  "cas": "Cas 1.14",
+  "enonce": "Lors d’une compétition FIVB pour seniors, plusieurs joueurs d’une équipe portent des dispositifs de compression : certains sont noirs, d’autres blancs. Quelle est votre décision ?",
+  "propositions": [
+   {"lettre": "A", "texte": "Vous laissez jouer : le noir et le blanc sont acceptés, donc le mélange l’est aussi.", "correcte": false},
+   {"lettre": "B", "texte": "Vous signalez l’infraction au Délégué technique : les dispositifs doivent être uniformes.", "correcte": true},
+   {"lettre": "C", "texte": "Vous faites retirer vous-même les dispositifs blancs avant le début du match.", "correcte": false},
+   {"lettre": "D", "texte": "Vous laissez jouer : la règle ne dit rien de l’uniformité de ces dispositifs.", "correcte": false}
+  ],
+  "explication": "Dans les Compétitions FIVB, Mondiales et Officielles pour les seniors, les dispositifs de compression doivent être de la couleur de la partie correspondante de l’uniforme (noir, blanc et couleurs neutres acceptés) et uniformes en couleur et en modèle pour tous les joueurs. Les arbitres contrôlent ce point et signalent toute infraction au Délégué technique, seul habilité à prendre la décision finale. Ce n’est que dans les autres compétitions que la règle ne dit rien de cette uniformité.",
+  "theme": "L'uniforme",
+  "niveau": "Niveau 3",
+  "role_cible": "arbitre",
+  "regles": ["4.5.3", "Cas 1.14"],
+  "regle_principale": "4.5.3"
+ },
+ {
+  "cas": "Cas 1.15",
+  "enonce": "Pendant l’échauffement général, plusieurs joueurs portent des vêtements par-dessus leur uniforme officiel ou à sa place. Aucun numéro n’est visible, ce qui empêche de vérifier qu’ils correspondent aux cartes d’identité présentées. Cela doit-il être autorisé ?",
+  "propositions": [
+   {"lettre": "A", "texte": "Oui : l’uniforme n’est exigé qu’à partir du début du premier set.", "correcte": false},
+   {"lettre": "B", "texte": "Non en principe : l’uniforme est exigé dès l’entrée sur le terrain pour l’échauffement.", "correcte": true},
+   {"lettre": "C", "texte": "Oui, si les joueurs présentent leur carte d’identité au 2ème arbitre.", "correcte": false},
+   {"lettre": "D", "texte": "Non, et les joueurs concernés ne peuvent plus participer au match.", "correcte": false}
+  ],
+  "explication": "Le principe est que tous les joueurs doivent être en uniforme dès l’instant où ils entrent sur le terrain pour s’échauffer. Dans certaines compétitions de haut niveau, le protocole d’avant-match est conduit par une équipe de présentation du sport et la réglementation peut alors être différente ; les arbitres doivent en être bien informés.",
+  "theme": "L'uniforme",
+  "niveau": "Niveau 2",
+  "role_cible": "arbitre",
+  "regles": ["Cas 1.15"],
+  "regle_principale": "Cas 1.15"
+ }
+]

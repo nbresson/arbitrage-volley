@@ -1,0 +1,338 @@
+[
+  {
+    "cas": "Cas 6.1",
+    "enonce": "Vous êtes 1er arbitre. Un joueur commet un comportement incorrect mineur dont la gravité vous paraît justifier une sanction. Sans avertissement verbal préalable, vous lui montrez directement un carton jaune, par l'intermédiaire du capitaine de jeu, et le faites enregistrer sur la feuille de match. Votre action est-elle correcte ?",
+    "propositions": [
+      { "lettre": "A", "texte": "Non : il faut toujours commencer par un avertissement verbal à l'équipe via le capitaine de jeu (étape 1).", "correcte": false },
+      { "lettre": "B", "texte": "Oui : selon la gravité, le 1er arbitre peut passer directement à l'étape 2 ; le carton jaune est enregistré.", "correcte": true },
+      { "lettre": "C", "texte": "Oui, mais un carton jaune pour comportement incorrect mineur ne s'enregistre pas sur la feuille de match.", "correcte": false },
+      { "lettre": "D", "texte": "Non : un comportement incorrect mineur ne peut être sanctionné que par un avertissement verbal, jamais par un carton.", "correcte": false }
+    ],
+    "explication": "L'action du 1er arbitre est correcte : c'est à lui de maîtriser les comportements incorrects mineurs. Il peut adresser un avertissement verbal à l'équipe via le capitaine de jeu (étape 1) si le comportement revêt un caractère général, mais, selon la gravité, il peut commencer directement par l'étape 2 en montrant un carton jaune au joueur concerné. Ce carton jaune doit être enregistré sur la feuille de match.",
+    "theme": "Conduite des participants",
+    "niveau": "Niveau 2",
+    "role_cible": "arbitre",
+    "regles": ["21.1", "21.2", "Cas 6.1"],
+    "regle_principale": "21.1"
+  },
+  {
+    "cas": "Cas 6.2",
+    "enonce": "Vous êtes 1er arbitre. Le 2ème arbitre observe un contreur qui tire le filet pour tenter de tromper les arbitres, et siffle pour attribuer l'échange à l'équipe attaquante. Quelle sanction devez-vous infliger au contreur ?",
+    "propositions": [
+      { "lettre": "A", "texte": "Un avertissement (carton jaune) pour comportement incorrect mineur.", "correcte": false },
+      { "lettre": "B", "texte": "Aucune : la faute de filet sanctionnée par la perte de l'échange suffit.", "correcte": false },
+      { "lettre": "C", "texte": "Une expulsion (cartons rouge et jaune ensemble) pour conduite injurieuse.", "correcte": false },
+      { "lettre": "D", "texte": "Une pénalisation (carton rouge) pour conduite grossière.", "correcte": true }
+    ],
+    "explication": "L'échange est gagné par l'équipe attaquante, car le contact au filet du contreur a interféré avec le jeu. En outre, tenter d'induire les arbitres en erreur constitue une conduite grossière : le contreur doit recevoir une pénalisation (carton rouge). Un simple avertissement par carton jaune n'est donc pas la sanction correcte.",
+    "theme": "Conduite des participants",
+    "niveau": "Niveau 2",
+    "role_cible": "arbitre",
+    "regles": ["21.2.1", "21.3", "Cas 6.2"],
+    "regle_principale": "21.2.1"
+  },
+  {
+    "cas": "Cas 6.3",
+    "enonce": "Vous êtes 1er arbitre. À la fin d'un échange, l'entraîneur de l'équipe A se lève et agite les bras d'une manière qui traduit son mécontentement à l'égard de votre décision. Quelle est votre décision ?",
+    "propositions": [
+      { "lettre": "A", "texte": "Une réaction normale est tolérée : vous le calmez sans autre suite ; carton jaune seulement si elle atteint l'étape 2.", "correcte": true },
+      { "lettre": "B", "texte": "Vous pénalisez l'entraîneur (carton rouge) pour conduite grossière dès cette première réaction.", "correcte": false },
+      { "lettre": "C", "texte": "Vous expulsez l'entraîneur (cartons rouge et jaune ensemble), car il conteste ouvertement votre décision.", "correcte": false },
+      { "lettre": "D", "texte": "Vous infligez à l'équipe A un avertissement pour retard, l'entraîneur s'étant levé du banc.", "correcte": false }
+    ],
+    "explication": "L'entraîneur doit pouvoir exprimer certaines réactions normales ; l'arbitre se contente alors de le calmer, sans autre conséquence. Si la réaction est jugée constituer un comportement incorrect mineur atteignant l'étape 2, le 1er arbitre l'avertit d'un carton jaune. En cas de répétition, l'entraîneur est pénalisé d'un carton rouge pour conduite grossière.",
+    "theme": "Conduite des participants",
+    "niveau": "Niveau 2",
+    "role_cible": "arbitre",
+    "regles": ["5.2", "21.1", "21.2", "21.3", "Cas 6.3"],
+    "regle_principale": "5.2"
+  },
+  {
+    "cas": "Cas 6.4",
+    "enonce": "Vous êtes 1er arbitre. Entre deux sets, vous infligez une pénalisation pour conduite grossière à un membre de l'équipe A, qui doit effectuer le premier service du set suivant. Quelle est la conséquence ?",
+    "propositions": [
+      { "lettre": "A", "texte": "La pénalisation s'applique au set terminé : un point est ajouté à l'équipe B dans ce set.", "correcte": false },
+      { "lettre": "B", "texte": "Avant le premier service, l'équipe B gagne un point, mais l'équipe A conserve le service.", "correcte": false },
+      { "lettre": "C", "texte": "Avant le premier service, l'équipe B gagne un point, effectue une rotation et sert.", "correcte": true },
+      { "lettre": "D", "texte": "La pénalisation est enregistrée sans effet sur la marque, car elle a lieu entre les sets.", "correcte": false }
+    ],
+    "explication": "Les sanctions infligées entre les sets s'appliquent au set suivant. Avant le premier service, le 1er arbitre signale la pénalisation contre l'équipe A : l'équipe B gagne un point, effectue une rotation et obtient le service. La sanction doit être enregistrée sur la feuille de match.",
+    "theme": "Conduite des participants",
+    "niveau": "Niveau 2",
+    "role_cible": "les_deux",
+    "regles": ["21.5", "Cas 6.4"],
+    "regle_principale": "21.5"
+  },
+  {
+    "cas": "Cas 6.5",
+    "enonce": "Vous êtes 1er arbitre. Après la fin d'un échange, le passeur tire le bas du filet vers le bas. Devez-vous siffler une faute ?",
+    "propositions": [
+      { "lettre": "A", "texte": "Oui : c'est une faute de filet, et le point est attribué à l'équipe adverse.", "correcte": false },
+      { "lettre": "B", "texte": "Non : le contact survient après l'échange ; seule une sanction de conduite est possible, selon la gravité.", "correcte": true },
+      { "lettre": "C", "texte": "Non, et ce geste ne peut jamais donner lieu à une sanction de conduite.", "correcte": false },
+      { "lettre": "D", "texte": "Oui : il faut systématiquement pénaliser le joueur (carton rouge) pour conduite grossière.", "correcte": false }
+    ],
+    "explication": "Le contact au filet étant survenu après l'échange, il ne peut pas être considéré comme une faute technique. Sur le plan de la conduite, le 1er arbitre sanctionne selon la gravité : tirer le filet peut être une réaction émotionnelle normale d'un joueur déçu, maîtrisable par un arbitrage fluide. Dans certains cas, par exemple pendant l'échange pour induire en erreur l'arbitre ou l'adversaire, ce geste intentionnel peut constituer une conduite grossière.",
+    "theme": "Conduite des participants",
+    "niveau": "Niveau 2",
+    "role_cible": "arbitre",
+    "regles": ["21.2", "21.2.1", "21.3", "Cas 6.5"],
+    "regle_principale": "21.2"
+  },
+  {
+    "cas": "Cas 6.6",
+    "enonce": "Vous êtes 1er arbitre. Un joueur, qui a déjà reçu un avertissement, se dirige vers vous en gesticulant violemment et en vous criant dessus. Quelle est votre décision ?",
+    "propositions": [
+      { "lettre": "A", "texte": "Pénalisation pour conduite grossière (carton rouge).", "correcte": false },
+      { "lettre": "B", "texte": "Disqualification pour agression (cartons rouge et jaune séparément).", "correcte": false },
+      { "lettre": "C", "texte": "Nouvel avertissement pour comportement incorrect mineur (carton jaune).", "correcte": false },
+      { "lettre": "D", "texte": "Expulsion pour conduite injurieuse (cartons rouge et jaune ensemble).", "correcte": true }
+    ],
+    "explication": "Se diriger vers le 1er arbitre en gesticulant violemment et en criant, après un avertissement, doit être considéré comme une conduite injurieuse. Elle est sanctionnée par une expulsion, signalée par les cartons rouge et jaune présentés ensemble.",
+    "theme": "Conduite des participants",
+    "niveau": "Niveau 2",
+    "role_cible": "arbitre",
+    "regles": ["21.1", "21.2", "21.3", "Cas 6.6"],
+    "regle_principale": "21.1"
+  },
+  {
+    "cas": "Cas 6.7",
+    "enonce": "Vous êtes 1er arbitre. Un joueur de l'équipe A a été expulsé directement pour conduite injurieuse, sans sanction préalable. Plus tard, un autre membre de l'équipe A commet un comportement incorrect mineur. Quelle est votre décision ?",
+    "propositions": [
+      { "lettre": "A", "texte": "Vous pouvez lui adresser un avertissement (carton jaune), l'équipe n'en ayant pas encore reçu.", "correcte": true },
+      { "lettre": "B", "texte": "Vous devez le pénaliser (carton rouge), l'équipe ayant déjà atteint le niveau de l'expulsion.", "correcte": false },
+      { "lettre": "C", "texte": "Vous devez l'expulser à son tour, l'échelle reprenant au niveau déjà atteint par l'équipe.", "correcte": false },
+      { "lettre": "D", "texte": "Vous ne pouvez rien faire : aucun avertissement n'est possible après une expulsion.", "correcte": false }
+    ],
+    "explication": "Le 1er arbitre doit normalement s'efforcer d'éviter qu'une équipe n'atteigne le niveau des sanctions, mais une conduite injurieuse manifeste entraîne l'expulsion sans sanction préalable. Après cette expulsion, il peut encore adresser un avertissement aux autres membres de l'équipe. En revanche, une fois le carton jaune montré, il ne peut plus l'être à aucun membre de l'équipe.",
+    "theme": "Conduite des participants",
+    "niveau": "Niveau 3",
+    "role_cible": "arbitre",
+    "regles": ["21", "Cas 6.7"],
+    "regle_principale": "21"
+  },
+  {
+    "cas": "Cas 6.8",
+    "enonce": "Vous êtes 1er arbitre. Le joueur n° 5 vient d'être expulsé. Où doit-il se rendre après avoir quitté le terrain ?",
+    "propositions": [
+      { "lettre": "A", "texte": "Dans l'aire de pénalité, où il reste assis jusqu'à la fin du set en cours.", "correcte": false },
+      { "lettre": "B", "texte": "Au vestiaire jusqu'à la fin du match, sans pouvoir revenir dans l'aire de compétition.", "correcte": false },
+      { "lettre": "C", "texte": "Au vestiaire, accompagné de l'arbitre de réserve, jusqu'à la fin du set, puis il revient dans l'aire de compétition.", "correcte": true },
+      { "lettre": "D", "texte": "Sur le banc de son équipe, sans pouvoir entrer en jeu jusqu'à la fin du set.", "correcte": false }
+    ],
+    "explication": "Le joueur expulsé doit se rendre au vestiaire de son équipe, accompagné de l'arbitre de réserve, pour le reste du set en cours. À la fin du set, il doit revenir dans l'aire de compétition.",
+    "theme": "Conduite des participants",
+    "niveau": "Niveau 2",
+    "role_cible": "arbitre",
+    "regles": ["21.3.2.1", "Cas 6.8"],
+    "regle_principale": "21.3.2.1"
+  },
+  {
+    "cas": "Cas 6.9",
+    "enonce": "Vous êtes 1er arbitre. Au moment de la frappe de service, le 2ème arbitre siffle une faute de position contre l'équipe en réception. Malgré les explications posées du 2ème arbitre au capitaine de jeu, l'entraîneur proteste avec colère, affirme que les positions étaient correctes « selon les nouvelles règles » et répète au 2ème arbitre : « Vous ne connaissez pas les règles ». Quelle est votre décision ?",
+    "propositions": [
+      { "lettre": "A", "texte": "Un avertissement verbal à l'entraîneur par l'intermédiaire du capitaine de jeu.", "correcte": false },
+      { "lettre": "B", "texte": "Une pénalisation (carton rouge) de l'entraîneur pour conduite grossière.", "correcte": true },
+      { "lettre": "C", "texte": "Un avertissement (carton jaune) de l'entraîneur pour comportement incorrect mineur.", "correcte": false },
+      { "lettre": "D", "texte": "Une expulsion (cartons rouge et jaune ensemble) de l'entraîneur pour conduite injurieuse.", "correcte": false }
+    ],
+    "explication": "Le 1er arbitre doit ici protéger le 2ème arbitre : les actes et propos de l'entraîneur dépassent un niveau acceptable, et le tolérer ferait de lui le centre de l'attention. Malgré l'explication donnée au capitaine de jeu, l'entraîneur a poursuivi ses protestations et cherché à discréditer la décision. Le 1er arbitre aurait dû sanctionner cette conduite grossière d'une pénalisation.",
+    "theme": "Conduite des participants",
+    "niveau": "Niveau 2",
+    "role_cible": "arbitre",
+    "regles": ["21", "Cas 6.9"],
+    "regle_principale": "21"
+  },
+  {
+    "cas": "Cas 6.10",
+    "enonce": "Vous êtes 1er arbitre lors d'une épreuve de la FIVB. Après le match, un capitaine d'équipe a un comportement très antisportif à votre égard. Quelle est la procédure correcte ?",
+    "propositions": [
+      { "lettre": "A", "texte": "Signaler le comportement au Délégué technique et le décrire dans la case REMARQUES de la feuille de match.", "correcte": true },
+      { "lettre": "B", "texte": "Ne rien faire : le match étant terminé, plus aucune sanction n'est possible.", "correcte": false },
+      { "lettre": "C", "texte": "Montrer un carton rouge au capitaine et l'enregistrer dans la case des sanctions de la feuille de match.", "correcte": false },
+      { "lettre": "D", "texte": "Disqualifier le capitaine (cartons séparés) et l'enregistrer dans la case des sanctions de la feuille de match.", "correcte": false }
+    ],
+    "explication": "Le joueur doit malgré tout être sanctionné d'une manière ou d'une autre. Pour les épreuves de la FIVB, le match n'est pas considéré comme terminé au dernier coup de sifflet : le comportement doit être signalé au Délégué technique de la FIVB et détaillé dans la case REMARQUES de la feuille de match. La Commission de contrôle de la FIVB dispose ensuite d'un éventail de sanctions, pouvant aller jusqu'à la suspension de la compétition.",
+    "theme": "Conduite des participants",
+    "niveau": "Niveau 3",
+    "role_cible": "les_deux",
+    "regles": ["Cas 6.10"],
+    "regle_principale": "Cas 6.10"
+  },
+  {
+    "cas": "Cas 6.11",
+    "enonce": "Vous êtes 1er arbitre. Le Libéro est sur le terrain ; le joueur qu'il a remplacé est assis sur le banc. Vous sanctionnez ce joueur d'une pénalisation ; il continue en vous applaudissant et reçoit une expulsion, puis, continuant, une disqualification. Comment le match doit-il se poursuivre ?",
+    "propositions": [
+      { "lettre": "A", "texte": "Le Libéro doit d'abord quitter le terrain, puis le joueur sanctionné est remplacé.", "correcte": false },
+      { "lettre": "B", "texte": "L'équipe est déclarée incomplète, le joueur sanctionné ne pouvant plus revenir en jeu.", "correcte": false },
+      { "lettre": "C", "texte": "Le Libéro reste en jeu ; le joueur sanctionné n'est remplacé que lorsque le Libéro doit sortir.", "correcte": false },
+      { "lettre": "D", "texte": "Le joueur sanctionné est remplacé immédiatement (remplacement régulier ou exceptionnel), le Libéro restant en jeu.", "correcte": true }
+    ],
+    "explication": "Le Libéro ne pouvant pas jouer en ligne avant, le joueur expulsé ou disqualifié doit être remplacé immédiatement, par un remplacement régulier ou exceptionnel. Cela se fait sans que le Libéro ait à quitter le terrain ni que l'équipe joue sans ce joueur. Après la sanction, l'entraîneur (ou le capitaine) indique par le geste officiel quel joueur remplace le joueur sanctionné, et cela est enregistré sur la feuille de match.",
+    "theme": "Conduite des participants",
+    "niveau": "Niveau 3",
+    "role_cible": "les_deux",
+    "regles": ["6.4.3", "15.5.2", "15.8", "21.3.3.1", "21.4.3", "Cas 6.11"],
+    "regle_principale": "6.4.3"
+  },
+  {
+    "cas": "Cas 7.1",
+    "enonce": "Vous êtes 2ème arbitre. Un entraîneur parle au marqueur et le déconcentre. Vous lui demandez simplement de cesser. Votre action est-elle correcte ?",
+    "propositions": [
+      { "lettre": "A", "texte": "Non : seul le 1er arbitre peut intervenir auprès d'un entraîneur.", "correcte": false },
+      { "lettre": "B", "texte": "Non : vous deviez passer par le capitaine de jeu pour faire cette remarque.", "correcte": false },
+      { "lettre": "C", "texte": "Oui : le 2ème arbitre peut régler cela sans formalisme, dans l'esprit d'un arbitrage fluide.", "correcte": true },
+      { "lettre": "D", "texte": "Oui, mais l'entraîneur doit en plus recevoir un avertissement (carton jaune).", "correcte": false }
+    ],
+    "explication": "L'action du 2ème arbitre est correcte. Dans l'esprit d'un arbitrage fluide, lorsqu'une telle situation peut être réglée par le 2ème arbitre sans formalisme, il faut le faire.",
+    "theme": "Les arbitres et leurs responsabilités",
+    "niveau": "Niveau 1",
+    "role_cible": "arbitre",
+    "regles": ["23.3.2.2", "Cas 7.1"],
+    "regle_principale": "23.3.2.2"
+  },
+  {
+    "cas": "Cas 7.2",
+    "enonce": "Vous êtes 2ème arbitre. Un joueur remplaçant s'assoit par terre dans l'aire d'échauffement au lieu de rester debout ou de s'étirer. Est-ce autorisé ?",
+    "propositions": [
+      { "lettre": "A", "texte": "Oui, mais il ne peut pas s'asseoir sur un banc, une chaise, une rambarde ou un mur, sauf autorisation du Délégué technique.", "correcte": true },
+      { "lettre": "B", "texte": "Non : dans l'aire d'échauffement, les joueurs doivent rester debout ou s'étirer.", "correcte": false },
+      { "lettre": "C", "texte": "Oui, et il peut aussi s'asseoir sur une chaise ou un banc placé dans l'aire d'échauffement.", "correcte": false },
+      { "lettre": "D", "texte": "Non : s'il veut s'asseoir, il doit retourner sur le banc de son équipe.", "correcte": false }
+    ],
+    "explication": "Oui : les joueurs ne sont pas tenus de rester debout dans l'aire d'échauffement et peuvent s'asseoir par terre. En revanche, ils ne peuvent pas s'asseoir sur des bancs, des chaises, des rambardes ou des murs de l'aire d'échauffement, sauf raison particulière autorisée par le Délégué technique de la FIVB.",
+    "theme": "Les arbitres et leurs responsabilités",
+    "niveau": "Niveau 2",
+    "role_cible": "arbitre",
+    "regles": ["4.2.1", "4.2.3", "24.2.4", "24.2.5", "Cas 7.2"],
+    "regle_principale": "4.2.1"
+  },
+  {
+    "cas": "Cas 7.3",
+    "enonce": "Vous êtes marqueur. L'entraîneur de l'équipe A vous demande combien de temps-morts l'équipe B a déjà pris. Quelle est votre décision ?",
+    "propositions": [
+      { "lettre": "A", "texte": "Vous lui répondez, car un entraîneur a droit à cette information à tout moment.", "correcte": false },
+      { "lettre": "B", "texte": "Vous ne répondez pas : un entraîneur ne peut pas vous demander d'information sur l'équipe adverse.", "correcte": true },
+      { "lettre": "C", "texte": "Vous lui répondez si le tableau électronique n'affiche pas le nombre d'interruptions.", "correcte": false },
+      { "lettre": "D", "texte": "Vous demandez au 2ème arbitre d'avertir l'entraîneur d'un carton jaune.", "correcte": false }
+    ],
+    "explication": "Le marqueur ne doit pas répondre : de manière générale, les entraîneurs ne sont pas autorisés à lui demander une quelconque information. Seule exception : si un tableau d'affichage électronique est utilisé sans indiquer le nombre d'interruptions, l'entraîneur peut demander cette information au marqueur, mais uniquement pour sa propre équipe et à un moment qui ne déconcentre pas le marqueur ni ne retarde le match.",
+    "theme": "Les arbitres et leurs responsabilités",
+    "niveau": "Niveau 2",
+    "role_cible": "marqueur",
+    "regles": ["27.2.2", "Cas 7.3"],
+    "regle_principale": "27.2.2"
+  },
+  {
+    "cas": "Cas 7.4",
+    "enonce": "Vous êtes 1er arbitre. À la fin du match, le capitaine veut inscrire une réclamation officielle sur la feuille de match, alors qu'il n'a fait part d'aucune intention de réclamation au moment de l'incident. Est-ce possible ?",
+    "propositions": [
+      { "lettre": "A", "texte": "Oui : une réclamation peut toujours être inscrite sur la feuille de match en fin de match.", "correcte": false },
+      { "lettre": "B", "texte": "Oui, à condition que l'entraîneur signe également la réclamation.", "correcte": false },
+      { "lettre": "C", "texte": "Oui, si le 1er arbitre accepte de l'enregistrer après la fin du match.", "correcte": false },
+      { "lettre": "D", "texte": "Non : sans mention d'une réclamation au moment de l'incident, aucune réclamation écrite n'est possible.", "correcte": true }
+    ],
+    "explication": "Si, au moment de l'incident, le capitaine de jeu n'a fait aucune mention d'une réclamation, il ne peut pas formuler de réclamation écrite sur la feuille de match à la fin du match.",
+    "theme": "Les arbitres et leurs responsabilités",
+    "niveau": "Niveau 2",
+    "role_cible": "les_deux",
+    "regles": ["5.1.2.1", "5.1.3.2", "23.2.4", "Cas 7.4"],
+    "regle_principale": "5.1.2.1"
+  },
+  {
+    "cas": "Cas 7.5",
+    "enonce": "Vous êtes 1er arbitre. Après la fin d'un set, vous vous rendez compte que vous vous êtes trompé dans l'application d'une règle. Pouvez-vous encore corriger votre décision ?",
+    "propositions": [
+      { "lettre": "A", "texte": "Non : une fois le set terminé, sa marque ne peut plus être modifiée.", "correcte": false },
+      { "lettre": "B", "texte": "Oui, à tout moment jusqu'à la signature de la feuille de match.", "correcte": false },
+      { "lettre": "C", "texte": "Oui, jusqu'au début du set suivant ; la marque est corrigée en conséquence.", "correcte": true },
+      { "lettre": "D", "texte": "Oui, mais seulement si le capitaine de jeu a formulé une réclamation.", "correcte": false }
+    ],
+    "explication": "Oui. Jusqu'au début du set suivant, les arbitres peuvent corriger immédiatement leurs décisions concernant l'application des règles s'ils se rendent compte qu'ils se sont trompés. La marque du match est alors corrigée en conséquence.",
+    "theme": "Les arbitres et leurs responsabilités",
+    "niveau": "Niveau 2",
+    "role_cible": "les_deux",
+    "regles": ["Cas 7.5"],
+    "regle_principale": "Cas 7.5"
+  },
+  {
+    "cas": "Cas 7.6",
+    "enonce": "Vous êtes 2ème arbitre. L'entraîneure de l'équipe A demande un troisième temps-mort, refusé comme demande non fondée. Elle change d'avis et envoie aussitôt un joueur pour un remplacement, avant le coup de sifflet de service. Quelle est votre décision ?",
+    "propositions": [
+      { "lettre": "A", "texte": "Refuser le remplacement, une demande non fondée ayant déjà été faite pendant cet arrêt de jeu.", "correcte": false },
+      { "lettre": "B", "texte": "Accepter le remplacement et faire enregistrer la demande non fondée de temps-mort.", "correcte": true },
+      { "lettre": "C", "texte": "Accepter le remplacement sans rien enregistrer, la demande de temps-mort étant annulée.", "correcte": false },
+      { "lettre": "D", "texte": "Refuser le remplacement et sanctionner l'équipe A d'un avertissement pour retard.", "correcte": false }
+    ],
+    "explication": "Dès lors que le coup de sifflet de service n'a pas eu lieu, la demande de remplacement est fondée et doit être acceptée : seule la demande de temps-mort était non fondée. Cette demande non fondée de temps-mort doit toutefois être enregistrée sur la feuille de match.",
+    "theme": "Les arbitres et leurs responsabilités",
+    "niveau": "Niveau 3",
+    "role_cible": "les_deux",
+    "regles": ["15.1", "15.2.1", "15.11", "16.1", "16.2", "24.2.6", "24.2.7", "Cas 7.6"],
+    "regle_principale": "15.1"
+  },
+  {
+    "cas": "Cas 7.7",
+    "enonce": "Vous êtes 2ème arbitre. Pendant un temps-mort, un entraîneur réunit toute son équipe dans le coin le plus reculé de la zone libre, près de l'aire d'échauffement. Quelle est votre décision ?",
+    "propositions": [
+      { "lettre": "A", "texte": "Demander à l'équipe de se rendre dans la zone libre près de son banc.", "correcte": true },
+      { "lettre": "B", "texte": "Laisser faire : pendant un temps-mort, l'équipe peut se réunir n'importe où dans la zone libre.", "correcte": false },
+      { "lettre": "C", "texte": "Faire infliger à l'équipe un avertissement pour retard.", "correcte": false },
+      { "lettre": "D", "texte": "Demander aux joueurs de rester assis sur le banc pendant le temps-mort.", "correcte": false }
+    ],
+    "explication": "Pendant un temps-mort, l'équipe doit se rendre dans la zone libre près de son banc. Le 2ème arbitre doit demander à l'équipe de le faire.",
+    "theme": "Les arbitres et leurs responsabilités",
+    "niveau": "Niveau 1",
+    "role_cible": "arbitre",
+    "regles": ["15.4.2", "Cas 7.7"],
+    "regle_principale": "15.4.2"
+  },
+  {
+    "cas": "Cas 7.8",
+    "enonce": "Vous êtes 1er arbitre. L'entraîneur adjoint vient à la ligne de côté pour aider les joueurs à repérer une zone mouillée. Vous appelez le capitaine de jeu et lui demandez de dire à l'entraîneur adjoint de rester sur le banc. Votre décision est-elle correcte ?",
+    "propositions": [
+      { "lettre": "A", "texte": "Non : l'entraîneur adjoint peut se tenir à la ligne de côté pour une raison de sécurité.", "correcte": false },
+      { "lettre": "B", "texte": "Non : vous auriez dû avertir directement l'entraîneur adjoint d'un carton jaune.", "correcte": false },
+      { "lettre": "C", "texte": "Non : seul le 2ème arbitre peut intervenir auprès du banc des équipes.", "correcte": false },
+      { "lettre": "D", "texte": "Oui : l'entraîneur adjoint doit rester sur le banc ; seul l'entraîneur peut se déplacer près de la ligne de côté.", "correcte": true }
+    ],
+    "explication": "La décision du 1er arbitre est correcte. L'entraîneur adjoint est autorisé à s'asseoir sur le banc mais ne peut pas intervenir dans le match. Seul l'entraîneur peut se déplacer près de la ligne de côté.",
+    "theme": "Les arbitres et leurs responsabilités",
+    "niveau": "Niveau 2",
+    "role_cible": "arbitre",
+    "regles": ["5.2.3.4", "5.3.1", "Cas 7.8"],
+    "regle_principale": "5.2.3.4"
+  },
+  {
+    "cas": "Cas 7.9",
+    "enonce": "Vous êtes 2ème arbitre. Après un échange, un entraîneur vous demande si son serveur est le bon. Vous vérifiez l'ordre de rotation avec le marqueur et lui répondez que le joueur correct s'apprête à servir ; le 1er arbitre poursuit le match. Cette procédure est-elle correcte ?",
+    "propositions": [
+      { "lettre": "A", "texte": "Non : seul le capitaine de jeu peut parler aux arbitres ; vous ne deviez pas répondre.", "correcte": false },
+      { "lettre": "B", "texte": "Non : vous auriez dû faire avertir l'entraîneur d'un carton jaune pour cette demande.", "correcte": false },
+      { "lettre": "C", "texte": "Oui : ce bref échange n'affecte pas le jeu et favorise un arbitrage fluide.", "correcte": true },
+      { "lettre": "D", "texte": "Non : c'est au marqueur de répondre directement à l'entraîneur.", "correcte": false }
+    ],
+    "explication": "Bien que le capitaine de jeu soit le seul membre de l'équipe autorisé à parler aux arbitres, ce bref échange entre l'entraîneur et le 2ème arbitre n'affecte en rien le jeu. Le 2ème arbitre peut donc répondre à certaines demandes de l'entraîneur, au bénéfice d'un arbitrage fluide.",
+    "theme": "Les arbitres et leurs responsabilités",
+    "niveau": "Niveau 2",
+    "role_cible": "arbitre",
+    "regles": ["5.1.2", "Cas 7.9"],
+    "regle_principale": "5.1.2"
+  },
+  {
+    "cas": "Cas 7.10",
+    "enonce": "Vous êtes 1er arbitre. Avez-vous le droit de siffler une faute de position contre l'équipe en réception ?",
+    "propositions": [
+      { "lettre": "A", "texte": "Oui : le 1er arbitre peut siffler les fautes de position des deux équipes.", "correcte": false },
+      { "lettre": "B", "texte": "Non : vous ne pouvez pas voir cette faute au moment exact où elle est commise.", "correcte": true },
+      { "lettre": "C", "texte": "Oui, mais seulement si le 2ème arbitre ne l'a pas sifflée.", "correcte": false },
+      { "lettre": "D", "texte": "Non : seul le marqueur peut signaler une faute de position de l'équipe en réception.", "correcte": false }
+    ],
+    "explication": "Non : le 1er arbitre ne doit pas siffler cette faute, car il ne peut pas la voir au moment exact où elle est commise. Il conserve toutefois le droit d'infirmer la décision de tout membre du corps arbitral du match.",
+    "theme": "Les arbitres et leurs responsabilités",
+    "niveau": "Niveau 2",
+    "role_cible": "arbitre",
+    "regles": ["23.2.1", "Cas 7.10"],
+    "regle_principale": "23.2.1"
+  }
+]

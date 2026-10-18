@@ -1,0 +1,130 @@
+[
+ {
+  "cas": "Cas 2.1",
+  "enonce": "Avant le service de son équipe, le passeur en position 1 se tient nettement devant le joueur en position 2. Juste avant la frappe de service, il saute et se trouve en l'air au moment où le serveur frappe le ballon. Cette position est-elle réglementaire ?",
+  "propositions": [
+   {"lettre": "A", "texte": "Oui : un joueur en l'air n'a plus de position et ne peut pas commettre de faute de position.", "correcte": false},
+   {"lettre": "B", "texte": "Non : faute de position, le joueur en l'air conserve la position de son dernier appui au sol.", "correcte": true},
+   {"lettre": "C", "texte": "Oui : seule la position des joueurs de l'équipe en réception est contrôlée au service.", "correcte": false},
+   {"lettre": "D", "texte": "Non : c'est une faute de rotation, car le passeur a quitté sa position avant la frappe.", "correcte": false}
+  ],
+  "explication": "C'est une faute. Lorsqu'un joueur saute, il conserve la position qui était la sienne lors de son dernier contact avec le sol. Tant que le joueur arrière était en l'air, le point de son dernier appui au sol, nettement devant le joueur en position 2, restait donc « conservé » : il y a faute de position.",
+  "theme": "Fautes de position et de rotation",
+  "niveau": "Niveau 2",
+  "role_cible": "arbitre",
+  "regles": ["7.4", "7.4.2", "7.4.3", "7.5", "Cas 2.1"],
+  "regle_principale": "7.4"
+ },
+ {
+  "cas": "Cas 2.2",
+  "enonce": "Au moment de la frappe de service, le pied d'un joueur sur le terrain est en contact avec le camp adverse, au-delà de la ligne centrale. Est-ce une faute ?",
+  "propositions": [
+   {"lettre": "A", "texte": "Oui : faute de position, tous les joueurs doivent être dans leur propre camp au service.", "correcte": false},
+   {"lettre": "B", "texte": "Oui : faute de pénétration dans le camp adverse, point pour l'équipe adverse.", "correcte": false},
+   {"lettre": "C", "texte": "Oui, mais seulement si le joueur concerné est un joueur avant de l'équipe en réception.", "correcte": false},
+   {"lettre": "D", "texte": "Non : la pénétration dans le camp adverse n'est à considérer que pendant l'échange.", "correcte": true}
+  ],
+  "explication": "Ce n'est pas une faute. La pénétration dans le camp adverse par-dessus la ligne centrale n'est à prendre en considération que lorsqu'elle se produit pendant l'échange, et non au moment de la frappe de service.",
+  "theme": "Fautes de position et de rotation",
+  "niveau": "Niveau 2",
+  "role_cible": "arbitre",
+  "regles": ["1.3.3", "7.4", "Cas 2.2"],
+  "regle_principale": "1.3.3"
+ },
+ {
+  "cas": "Cas 2.3",
+  "enonce": "Une équipe a reçu une information erronée sur le joueur qui devait servir, et le jeu s'est poursuivi. L'erreur n'est relevée que plus tard dans le set. Quelle est votre décision ?",
+  "propositions": [
+   {"lettre": "A", "texte": "Revenir à la formation d'origine, ramener la marque au moment de l'erreur ; les sanctions restent valables.", "correcte": true},
+   {"lettre": "B", "texte": "Sanctionner l'équipe d'une faute de rotation et annuler tous les points marqués depuis l'erreur.", "correcte": false},
+   {"lettre": "C", "texte": "Rétablir la bonne formation sans toucher à la marque, puisque l'erreur ne vient pas de l'équipe.", "correcte": false},
+   {"lettre": "D", "texte": "Ramener la marque au moment de l'erreur et annuler aussi les avertissements et sanctions infligés depuis.", "correcte": false}
+  ],
+  "explication": "Les équipes doivent revenir à une formation aussi proche que possible de leur formation d'origine. La marque est ramenée au point où l'information erronée a été donnée et le serveur correct est autorisé à servir. Les avertissements et sanctions déjà infligés restent valables, et l'événement doit être consigné sur la feuille de match.",
+  "theme": "Fautes de position et de rotation",
+  "niveau": "Niveau 3",
+  "role_cible": "les_deux",
+  "regles": ["Cas 2.3"],
+  "regle_principale": "Cas 2.3"
+ },
+ {
+  "cas": "Cas 2.4",
+  "enonce": "Vous êtes 1er arbitre et vous vous apprêtez à siffler le service. Avant de siffler, vous remarquez qu'une équipe n'a que cinq joueurs sur le terrain (ou en a sept). Quelle est votre décision ?",
+  "propositions": [
+   {"lettre": "A", "texte": "Siffler le service puis arrêter l'échange et le faire rejouer sans sanction.", "correcte": false},
+   {"lettre": "B", "texte": "Sanctionner l'équipe fautive d'une faute de position : point et service à l'adversaire.", "correcte": false},
+   {"lettre": "C", "texte": "Ne pas siffler le service et infliger une sanction pour retard de jeu à l'équipe fautive.", "correcte": true},
+   {"lettre": "D", "texte": "Ne pas siffler le service et demander à l'équipe de se compléter, sans aucune sanction.", "correcte": false}
+  ],
+  "explication": "Le 1er arbitre ne siffle le service que lorsqu'il s'est assuré que les équipes sont prêtes et que le serveur a le ballon ; il doit toujours y avoir 6 joueurs par équipe en jeu. Ayant remarqué l'erreur avant de siffler, il doit infliger une sanction pour retard de jeu à l'équipe fautive, l'équipe qui sert ensuite dépendant du type de sanction. C'est seulement si le service a déjà été sifflé que l'échange doit être interrompu et rejoué sans sanction.",
+  "theme": "Fautes de position et de rotation",
+  "niveau": "Niveau 2",
+  "role_cible": "arbitre",
+  "regles": ["7.3.1", "7.5", "12.3", "Cas 2.4"],
+  "regle_principale": "7.3.1"
+ },
+ {
+  "cas": "Cas 2.5",
+  "enonce": "Le service est effectué par le mauvais serveur et le ballon sort. À la fin de l'échange, le marqueur signale la faute de rotation. Combien de points l'équipe en réception reçoit-elle ?",
+  "propositions": [
+   {"lettre": "A", "texte": "Deux points : un pour le service dehors et un pour la faute de rotation.", "correcte": false},
+   {"lettre": "B", "texte": "Aucun point : l'échange est rejoué après correction de la rotation.", "correcte": false},
+   {"lettre": "C", "texte": "Un seul point, au titre de la faute de rotation, quel que soit le gagnant de l'échange.", "correcte": true},
+   {"lettre": "D", "texte": "Un seul point, au titre du service dehors ; la faute de rotation est seulement corrigée.", "correcte": false}
+  ],
+  "explication": "Un seul point est accordé à l'équipe en réception, au titre de la faute de rotation. Ce point est accordé quelle que soit l'équipe qui a « gagné » l'échange : la faute de rotation et le service dehors ne se cumulent pas.",
+  "theme": "Fautes de position et de rotation",
+  "niveau": "Niveau 2",
+  "role_cible": "les_deux",
+  "regles": ["7.7.1.1", "Cas 2.5"],
+  "regle_principale": "7.7.1.1"
+ },
+ {
+  "cas": "Cas 2.6",
+  "enonce": "Au moment de la frappe de service, le pied d'un joueur sur le terrain (autre que le serveur) est en contact avec la zone libre, en dehors de son terrain. Est-ce une faute ?",
+  "propositions": [
+   {"lettre": "A", "texte": "Oui : au service, tous les joueurs sauf le serveur doivent être dans leur propre terrain.", "correcte": true},
+   {"lettre": "B", "texte": "Non : seule la position relative des joueurs entre eux est contrôlée au service.", "correcte": false},
+   {"lettre": "C", "texte": "Non : un pied dans la zone libre n'est fautif que s'il touche aussi la ligne.", "correcte": false},
+   {"lettre": "D", "texte": "Oui, mais uniquement si le joueur appartient à l'équipe au service.", "correcte": false}
+  ],
+  "explication": "C'est une faute. Au moment de la frappe de service, tous les joueurs, à l'exception du serveur, doivent se trouver à l'intérieur de leur propre terrain. Un joueur sur le terrain en contact avec la zone libre au moment du service commet donc une faute.",
+  "theme": "Fautes de position et de rotation",
+  "niveau": "Niveau 1",
+  "role_cible": "arbitre",
+  "regles": ["7.4", "Cas 2.6"],
+  "regle_principale": "7.4"
+ },
+ {
+  "cas": "Cas 2.7",
+  "enonce": "Vous êtes 2ème arbitre. Au moment de la frappe de service, le joueur en position 1 de l'équipe en réception a le talon de son pied arrière (par rapport à la ligne centrale) au niveau de la pointe du pied avant du joueur en position 2. Quelle est votre décision ?",
+  "propositions": [
+   {"lettre": "A", "texte": "Siffler une faute de position : le joueur arrière doit être entièrement derrière le joueur avant.", "correcte": false},
+   {"lettre": "B", "texte": "Siffler une faute de rotation : point et service à l'équipe au service.", "correcte": false},
+   {"lettre": "C", "texte": "Siffler une faute de position, car les pieds des deux joueurs sont au même niveau.", "correcte": false},
+   {"lettre": "D", "texte": "Ne rien faire : la position est réglementaire, le joueur arrière n'est pas complètement devant.", "correcte": true}
+  ],
+  "explication": "Le 2ème arbitre ne doit rien faire : selon les Règles 2025-28, cette position est réglementaire. Les arbitres n'ont à siffler que si un joueur arrière se trouve complètement devant le joueur avant qui lui correspond au moment de la frappe de service, et ce sont les pieds au sol qui déterminent la position.",
+  "theme": "Fautes de position et de rotation",
+  "niveau": "Niveau 2",
+  "role_cible": "arbitre",
+  "regles": ["1.3.3", "7.4.3.1", "Cas 2.7"],
+  "regle_principale": "1.3.3"
+ },
+ {
+  "cas": "Cas 2.8",
+  "enonce": "Dans deux situations différentes, le 1er arbitre siffle une faute de position de l'équipe au service, entre les joueurs en positions 5 et 6. Comment le 1er arbitre aurait-il dû appliquer les Règles 2025-28 dans cette situation ?",
+  "propositions": [
+   {"lettre": "A", "texte": "Siffler la faute de position : point et service à l'équipe en réception.", "correcte": false},
+   {"lettre": "B", "texte": "Laisser le jeu se poursuivre : c'est une position réglementaire pour l'équipe au service.", "correcte": true},
+   {"lettre": "C", "texte": "Siffler la faute uniquement si le 2ème arbitre l'a également signalée.", "correcte": false},
+   {"lettre": "D", "texte": "Laisser jouer la première fois, puis siffler la faute de position en cas de récidive.", "correcte": false}
+  ],
+  "explication": "Le 1er arbitre doit laisser le jeu se poursuivre : selon les Règles 2025-28, il s'agit d'une position réglementaire pour l'équipe au service. Cette modification de règle, approuvée par le Congrès de la FIVB en 2024, ne s'applique pas à l'équipe en réception.",
+  "theme": "Fautes de position et de rotation",
+  "niveau": "Niveau 2",
+  "role_cible": "arbitre",
+  "regles": ["1.3.3", "7.4", "7.4.3.2", "Cas 2.8"],
+  "regle_principale": "1.3.3"
+ }
+]

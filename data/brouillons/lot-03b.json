@@ -1,0 +1,1145 @@
+[
+ {
+  "cas": "Cas 3.27.4",
+  "enonce": "Après une réception de service manquée de l'équipe B, le ballon part dans le filet, près de la bande de côté. Un joueur de l'équipe A en position 2 se déplace nettement latéralement vers le ballon et le frappe à travers le filet, avant-bras levés haut. Le joueur adverse ne peut pas jouer le ballon en raison du rebond modifié sur le filet. Vous sifflez une faute au filet contre le joueur de l'équipe A. Est-ce la bonne décision ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Non : un ballon qui touche un joueur à travers le filet ne peut jamais entraîner de faute.",
+    "correcte": false
+   },
+   {
+    "lettre": "B",
+    "texte": "Oui : le joueur s'est déplacé vers le ballon et l'a frappé délibérément à travers le filet.",
+    "correcte": true
+   },
+   {
+    "lettre": "C",
+    "texte": "Non : seul un contact du joueur avec la bande supérieure du filet constitue une faute.",
+    "correcte": false
+   },
+   {
+    "lettre": "D",
+    "texte": "Non : le joueur protégeait son corps, il n'y a donc aucune faute à siffler.",
+    "correcte": false
+   }
+  ],
+  "explication": "La décision est correcte. Il n'y aurait pas faute si le ballon frappait à travers le filet un joueur en position passive ou neutre, sans mouvement vers le ballon, ou qui protège son visage ou son corps d'un ballon violemment smashé. En revanche, se déplacer vers le ballon, le « chasser » et le frapper délibérément en modifiant la direction ou la vitesse de son rebond n'est pas autorisé.",
+  "theme": "Joueur au filet",
+  "niveau": "Niveau 2",
+  "role_cible": "arbitre",
+  "regles": [
+   "11.4.4",
+   "Cas 3.27.4"
+  ],
+  "regle_principale": "11.4.4"
+ },
+ {
+  "cas": "Cas 3.27.5",
+  "enonce": "Le ballon smashé rebondit sur le contre adverse et revient sur la poitrine du smasheur, dont la tête se trouve à cet instant au-dessus de la hauteur du filet. Le ballon part ensuite dans le filet, insuffisamment tendu, qui est fortement agité. Les images du challenge établissent que l'un des contreurs a touché le filet, celui-ci ayant été mis en mouvement par l'action du smasheur jouant le ballon. Quelle est votre décision ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Faute au filet du contreur ; l'échange est gagné par l'équipe du smasheur.",
+    "correcte": false
+   },
+   {
+    "lettre": "B",
+    "texte": "Double touche du smasheur, son contact de poitrine comptant comme une première touche.",
+    "correcte": false
+   },
+   {
+    "lettre": "C",
+    "texte": "Double faute (filet du contreur et double touche du smasheur) ; balle à rejouer.",
+    "correcte": false
+   },
+   {
+    "lettre": "D",
+    "texte": "Aucune faute : le smasheur a réalisé un contre, et le contact du contreur avec le filet n'est pas fautif.",
+    "correcte": true
+   }
+  ],
+  "explication": "Les décisions des arbitres étaient correctes. Le smasheur est devenu contreur après le rebond du ballon sur le contre adverse : sa tête étant au-dessus du filet, il a réalisé un contre, et sa frappe suivante était réglementaire en tant que première touche d'équipe. Par ailleurs, lorsqu'un ballon projeté du côté adverse dans le filet provoque le contact du filet avec un joueur, ce dernier ne commet pas de faute.",
+  "theme": "Joueur au filet",
+  "niveau": "Niveau 3",
+  "role_cible": "arbitre",
+  "regles": [
+   "11.4.4",
+   "Cas 3.27.5"
+  ],
+  "regle_principale": "11.4.4"
+ },
+ {
+  "cas": "Cas 3.27.6",
+  "sans_question": true,
+  "raison": "Cas en deux parties (feinte d'attaque avec contact du bras adverse, puis contact du contreur avec le bras du passeur) appelant deux décisions distinctes, dont une sanction de conduite grossière après l'échange : impossible à résumer en une seule bonne réponse."
+ },
+ {
+  "cas": "Cas 3.28",
+  "enonce": "Dès qu'un joueur frappe le ballon au service, le marqueur vous signale, en tant que 2ème arbitre, « mauvais serveur » (faute de rotation), et vous interrompez le jeu. Le marqueur a-t-il agi correctement ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Oui : le marqueur doit attendre que le service soit effectué avant de signaler la faute de rotation.",
+    "correcte": true
+   },
+   {
+    "lettre": "B",
+    "texte": "Non : il devait signaler la faute dès que le mauvais serveur est entré dans la zone de service.",
+    "correcte": false
+   },
+   {
+    "lettre": "C",
+    "texte": "Non : il devait signaler la faute avant le coup de sifflet du 1er arbitre autorisant le service.",
+    "correcte": false
+   },
+   {
+    "lettre": "D",
+    "texte": "Non : il devait attendre la fin de l'échange pour signaler la faute de rotation aux arbitres.",
+    "correcte": false
+   }
+  ],
+  "explication": "L'action du marqueur est correcte. Lorsqu'un mauvais serveur s'apprête à servir, le marqueur doit attendre que l'action de service soit achevée avant de signaler la faute aux arbitres.",
+  "theme": "Service",
+  "niveau": "Niveau 2",
+  "role_cible": "les_deux",
+  "regles": [
+   "7.7.1",
+   "12.2.1",
+   "12.7.1",
+   "27.2.2.2",
+   "Cas 3.28"
+  ],
+  "regle_principale": "7.7.1"
+ },
+ {
+  "cas": "Cas 3.29",
+  "enonce": "Après votre coup de sifflet autorisant le service, l'équipe au service s'aperçoit que ce n'est pas le bon serveur. Le serveur correct entre alors dans la zone de service, prêt à servir. Ce joueur peut-il servir ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Oui, mais le 1er arbitre doit siffler une seconde fois pour l'autoriser à servir.",
+    "correcte": false
+   },
+   {
+    "lettre": "B",
+    "texte": "Non : seul le joueur présent dans la zone au coup de sifflet peut effectuer le service.",
+    "correcte": false
+   },
+   {
+    "lettre": "C",
+    "texte": "Oui, s'il sert dans les 8 secondes suivant le coup de sifflet ; le 1er arbitre ne siffle pas à nouveau.",
+    "correcte": true
+   },
+   {
+    "lettre": "D",
+    "texte": "Non : le 1er arbitre sanctionne immédiatement une faute de rotation de l'équipe au service.",
+    "correcte": false
+   }
+  ],
+  "explication": "Le serveur correct peut servir, à condition que le service soit effectué par lui dans les 8 secondes suivant le coup de sifflet de service. Le 1er arbitre ne siffle pas une seconde fois.",
+  "theme": "Service",
+  "niveau": "Niveau 2",
+  "role_cible": "arbitre",
+  "regles": [
+   "12.4.4",
+   "Cas 3.29"
+  ],
+  "regle_principale": "12.4.4"
+ },
+ {
+  "cas": "Cas 3.30",
+  "enonce": "L'équipe A sert. Le ballon touche le filet et retombe vers le sol du côté de l'équipe A. Un joueur de l'équipe B passe le bras sous le filet et attrape le ballon avant qu'il ne touche le sol. Est-ce autorisé ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Non : le joueur de B a touché le ballon dans l'espace adverse ; point à l'équipe A.",
+    "correcte": false
+   },
+   {
+    "lettre": "B",
+    "texte": "Non : faute de pénétration sous le filet du joueur de B ; point à l'équipe A.",
+    "correcte": false
+   },
+   {
+    "lettre": "C",
+    "texte": "Oui : le ballon est hors jeu dès qu'il est clair qu'il ne franchira pas le filet par l'espace de passage.",
+    "correcte": true
+   },
+   {
+    "lettre": "D",
+    "texte": "Non : les deux équipes ont commis une faute ; la balle est à rejouer.",
+    "correcte": false
+   }
+  ],
+  "explication": "C'est autorisé. Le 1er arbitre doit siffler dès qu'il est clair que le ballon de service ne franchira pas le filet par l'espace de passage : à cet instant, le ballon est hors jeu. Il ne doit pas attendre que le ballon touche le sol ou un joueur de l'équipe au service.",
+  "theme": "Service",
+  "niveau": "Niveau 2",
+  "role_cible": "arbitre",
+  "regles": [
+   "12.6.2.1",
+   "Cas 3.30"
+  ],
+  "regle_principale": "12.6.2.1"
+ },
+ {
+  "cas": "Cas 3.31",
+  "enonce": "Un joueur effectue un service en suspension en frappant le ballon à deux mains. Est-ce autorisé ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Non : au service, en suspension comme au sol, le ballon doit être frappé d'une seule main ou d'un seul bras.",
+    "correcte": true
+   },
+   {
+    "lettre": "B",
+    "texte": "Oui : l'obligation de frapper d'une seule main ne concerne que le service effectué au sol.",
+    "correcte": false
+   },
+   {
+    "lettre": "C",
+    "texte": "Oui, à condition que le ballon soit frappé nettement, sans être tenu ni accompagné.",
+    "correcte": false
+   },
+   {
+    "lettre": "D",
+    "texte": "Oui, à condition que le serveur ait lancé ou lâché le ballon avant de le frapper.",
+    "correcte": false
+   }
+  ],
+  "explication": "Ce n'est pas autorisé. La règle établit que pendant le service, qu'il soit en suspension ou au sol, le ballon doit être frappé d'une seule main ou d'un seul bras. Frapper le ballon à deux mains est donc interdit et fautif.",
+  "theme": "Service",
+  "niveau": "Niveau 1",
+  "role_cible": "arbitre",
+  "regles": [
+   "12.4.1",
+   "12.6.1.2",
+   "Cas 3.31"
+  ],
+  "regle_principale": "12.4.1"
+ },
+ {
+  "cas": "Cas 3.31.1",
+  "enonce": "Le ballon de service déchire le milieu du filet, puis passe à travers le trou dans le terrain adverse. Quelle est votre décision ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Balle à rejouer, car le filet a été détérioré pendant l'échange.",
+    "correcte": false
+   },
+   {
+    "lettre": "B",
+    "texte": "Le jeu continue, puisque le ballon de service est parvenu dans le terrain adverse.",
+    "correcte": false
+   },
+   {
+    "lettre": "C",
+    "texte": "L'échange est gagné par l'équipe au service, l'équipe en réception n'ayant pas pu jouer le ballon.",
+    "correcte": false
+   },
+   {
+    "lettre": "D",
+    "texte": "L'échange est gagné par l'équipe en réception : le ballon n'est pas passé par l'espace de passage.",
+    "correcte": true
+   }
+  ],
+  "explication": "L'échange doit être gagné par l'équipe en réception. La faute commise est que le ballon de service n'est pas passé par l'espace de passage ; la déchirure du filet intervient après, il ne doit donc pas y avoir de balle à rejouer. La règle relative à la détérioration du filet vise les actions qui se produisent à l'intérieur des trois touches d'une équipe.",
+  "theme": "Service",
+  "niveau": "Niveau 3",
+  "role_cible": "arbitre",
+  "regles": [
+   "Cas 3.31.1"
+  ],
+  "regle_principale": "Cas 3.31.1"
+ },
+ {
+  "cas": "Cas 3.31.2",
+  "enonce": "Les trois joueurs avant de l'équipe au service se regroupent au filet. L'un d'eux lève la main bien haut. Vous sifflez un écran, puis expliquez clairement votre décision au capitaine de jeu. La procédure est-elle correcte ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Non : il n'y a écran que si le joueur se trouve sur la trajectoire du ballon de service.",
+    "correcte": false
+   },
+   {
+    "lettre": "B",
+    "texte": "Oui : lever la main au-dessus de la tête jusqu'au passage du filet par le ballon est un écran, où que soit le joueur.",
+    "correcte": true
+   },
+   {
+    "lettre": "C",
+    "texte": "Non : le 1er arbitre doit obligatoirement avertir d'abord les joueurs avant de siffler un écran.",
+    "correcte": false
+   },
+   {
+    "lettre": "D",
+    "texte": "Non : un écran ne peut être sifflé que si plusieurs joueurs lèvent les bras en même temps.",
+    "correcte": false
+   }
+  ],
+  "explication": "Oui. Selon la règle de l'écran approuvée par le Congrès de la FIVB en 2024, aucun joueur de l'équipe au service ne peut empêcher l'adversaire de voir le serveur et la trajectoire du ballon en levant la ou les mains au-dessus de la tête tant que le ballon n'a pas franchi le filet ; la position du joueur par rapport à la trajectoire est sans incidence. Le 1er arbitre peut, sans y être obligé, demander d'abord aux joueurs de cesser ; il est toutefois préférable de le leur rappeler avant de siffler la faute.",
+  "theme": "Service",
+  "niveau": "Niveau 2",
+  "role_cible": "arbitre",
+  "regles": [
+   "12.5.3",
+   "Cas 3.31.2"
+  ],
+  "regle_principale": "12.5.3"
+ },
+ {
+  "cas": "Cas 3.32",
+  "enonce": "Un passeur arrière saute depuis la zone avant et effectue une passe alors que le ballon est entièrement au-dessus de la hauteur du filet, en le dirigeant vers un attaquant. Avant que l'attaquant ne puisse le toucher, le ballon franchit le plan vertical du filet, où il est contré par le passeur adverse. Quelle est votre décision ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Frappe d'attaque irrégulière du passeur arrière ; l'échange est gagné par l'équipe qui a contré.",
+    "correcte": true
+   },
+   {
+    "lettre": "B",
+    "texte": "Faute de contre du passeur adverse, qui a contré une passe ; point à l'équipe du passeur arrière.",
+    "correcte": false
+   },
+   {
+    "lettre": "C",
+    "texte": "Pas de faute : il s'agissait d'une passe destinée à un coéquipier, le jeu continue.",
+    "correcte": false
+   },
+   {
+    "lettre": "D",
+    "texte": "Double faute du passeur arrière et du contreur adverse ; la balle est à rejouer.",
+    "correcte": false
+   }
+  ],
+  "explication": "Il y a faute. La passe est devenue une frappe d'attaque irrégulière d'un joueur arrière au moment où la frappe d'attaque a été achevée, ici par le contact avec le contre adverse. L'échange est gagné par l'équipe qui a contré.",
+  "theme": "Frappe d'attaque",
+  "niveau": "Niveau 2",
+  "role_cible": "arbitre",
+  "regles": [
+   "13.1.3",
+   "Cas 3.32"
+  ],
+  "regle_principale": "13.1.3"
+ },
+ {
+  "cas": "Cas 3.33",
+  "enonce": "Sur la deuxième touche, un joueur de l'équipe A passe le ballon près du filet en direction du terrain adverse. Selon votre appréciation, aucun joueur de A ne peut atteindre le ballon. Le contreur de l'équipe B franchit le plan du filet et contre le ballon. Quelle est votre décision ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Faute de contre de B, qui a contré une passe dans l'espace adverse ; point à l'équipe A.",
+    "correcte": false
+   },
+   {
+    "lettre": "B",
+    "texte": "Faute de B, qui a pénétré dans l'espace adverse au-dessus du filet ; point à l'équipe A.",
+    "correcte": false
+   },
+   {
+    "lettre": "C",
+    "texte": "Contre réglementaire : le ballon allant vers le terrain adverse, c'est une frappe d'attaque ; le jeu continue.",
+    "correcte": true
+   },
+   {
+    "lettre": "D",
+    "texte": "Faute de contre de B : on ne peut contrer qu'après la troisième touche de l'adversaire.",
+    "correcte": false
+   }
+  ],
+  "explication": "Le contre de B était réglementaire. Même s'il ne s'agissait que de la deuxième touche d'équipe, un ballon qui se dirige vers le terrain adverse constitue une frappe d'attaque. Comme, selon l'appréciation de l'arbitre, aucun joueur de A ne pouvait atteindre le ballon ni n'était disposé à le jouer, le contre de B était réglementaire.",
+  "theme": "Frappe d'attaque",
+  "niveau": "Niveau 2",
+  "role_cible": "arbitre",
+  "regles": [
+   "13.1.1",
+   "14.3",
+   "Cas 3.33"
+  ],
+  "regle_principale": "13.1.1"
+ },
+ {
+  "cas": "Cas 3.34",
+  "enonce": "Un joueur arrière prend son appel dans la zone avant et, en deuxième touche, smashe le ballon, qui se trouve entièrement plus haut que le bord supérieur du filet. Le ballon rebondit sur la bande du filet et ne passe pas chez l'adversaire. Quelle est votre décision ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Frappe d'attaque irrégulière du joueur arrière ; point à l'adversaire.",
+    "correcte": false
+   },
+   {
+    "lettre": "B",
+    "texte": "Pas de faute : la frappe d'attaque n'est pas achevée, l'échange se poursuit.",
+    "correcte": true
+   },
+   {
+    "lettre": "C",
+    "texte": "Faute : l'appel dans la zone avant suffit à rendre l'action du joueur arrière irrégulière.",
+    "correcte": false
+   },
+   {
+    "lettre": "D",
+    "texte": "Faute au filet, le ballon frappé ayant touché la bande supérieure ; point à l'adversaire.",
+    "correcte": false
+   }
+  ],
+  "explication": "Il n'y a pas de faute. Le ballon n'ayant ni franchi le plan du filet ni été touché par un contreur, la frappe d'attaque n'a pas été achevée. L'échange se poursuit.",
+  "theme": "Frappe d'attaque",
+  "niveau": "Niveau 2",
+  "role_cible": "arbitre",
+  "regles": [
+   "9.1",
+   "13.1.3",
+   "13.2.2",
+   "13.3.3",
+   "Cas 3.34"
+  ],
+  "regle_principale": "9.1"
+ },
+ {
+  "cas": "Cas 3.35",
+  "enonce": "Le réceptionneur de l'équipe A saute depuis derrière la ligne d'attaque et touche le ballon de service alors que celui-ci est entièrement plus haut que le bord supérieur du filet. Le contact a lieu derrière la ligne d'attaque et le ballon repart du côté de l'équipe au service. Le jeu doit-il se poursuivre ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Non : toute frappe d'attaque sur le service plus haut que le filet est interdite, quelle que soit la zone.",
+    "correcte": false
+   },
+   {
+    "lettre": "B",
+    "texte": "Non : le réceptionneur a contré le service adverse ; point à l'équipe au service.",
+    "correcte": false
+   },
+   {
+    "lettre": "C",
+    "texte": "Oui, mais seulement si le réceptionneur est un joueur avant ; sinon, point à l'équipe au service.",
+    "correcte": false
+   },
+   {
+    "lettre": "D",
+    "texte": "Oui : la frappe d'attaque sur le service est réglementaire, le contact ayant eu lieu derrière la ligne d'attaque.",
+    "correcte": true
+   }
+  ],
+  "explication": "Oui, l'action est réglementaire. Il est interdit de contrer le service ou d'achever une frappe d'attaque sur le service depuis une position entièrement au-dessus de la hauteur du filet et au-dessus de la zone avant. Ici, l'attaque était réglementaire puisque le point de contact se situait entièrement derrière la ligne d'attaque.",
+  "theme": "Frappe d'attaque",
+  "niveau": "Niveau 3",
+  "role_cible": "arbitre",
+  "regles": [
+   "13.3.4",
+   "19.3.1.3",
+   "Cas 3.35"
+  ],
+  "regle_principale": "13.3.4"
+ },
+ {
+  "cas": "Cas 3.35.1",
+  "enonce": "Le Libéro, dans la zone avant, joue confortablement le ballon en passe haute des doigts, puis un coéquipier achève une frappe d'attaque en frappant le ballon plus haut que la bande supérieure. Vous jugez la frappe d'attaque fautive en raison de la passe du Libéro. Est-ce la bonne décision ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Non : la passe du Libéro est une action défensive, la frappe d'attaque est donc réglementaire.",
+    "correcte": false
+   },
+   {
+    "lettre": "B",
+    "texte": "Non : seule une passe haute des doigts effectuée en sautant par le Libéro est concernée.",
+    "correcte": false
+   },
+   {
+    "lettre": "C",
+    "texte": "Non : la faute n'existe que si le ballon est attaqué par un joueur arrière.",
+    "correcte": false
+   },
+   {
+    "lettre": "D",
+    "texte": "Oui : la passe haute des doigts du Libéro en zone avant rend fautive cette frappe d'attaque.",
+    "correcte": true
+   }
+  ],
+  "explication": "La décision est correcte : l'attaque est fautive en raison de la passe haute des doigts du Libéro dans la zone avant. Lorsque le Libéro n'a pas à effectuer une action défensive rapide pour éviter qu'un ballon puissant ne le blesse au visage ou au corps, mais joue confortablement le ballon en passe haute des doigts, l'action doit être considérée comme une passe classique.",
+  "theme": "Frappe d'attaque",
+  "niveau": "Niveau 2",
+  "role_cible": "arbitre",
+  "regles": [
+   "13.3.6",
+   "19.3.1.4",
+   "Cas 3.35.1"
+  ],
+  "regle_principale": "13.3.6"
+ },
+ {
+  "cas": "Cas 3.36",
+  "enonce": "L'équipe A effectue une mauvaise passe et le ballon franchit le plan du filet. Le contreur central de l'équipe B frappe le ballon par-dessus le filet contre le bras levé du passeur arrière de A, qui se trouve encore près du filet et au-dessus de la hauteur du filet. Le ballon rebondit ensuite par-dessus le filet dans le terrain de B. Qui a commis la faute ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Le contreur central de B, qui a frappé le ballon dans l'espace adverse.",
+    "correcte": false
+   },
+   {
+    "lettre": "B",
+    "texte": "Le passeur arrière de A, dont l'interception constitue un contre irrégulier.",
+    "correcte": true
+   },
+   {
+    "lettre": "C",
+    "texte": "Personne : le ballon est revenu dans le terrain de B, l'échange se poursuit.",
+    "correcte": false
+   },
+   {
+    "lettre": "D",
+    "texte": "Le passeur arrière de A, pour une frappe d'attaque irrégulière d'un joueur arrière.",
+    "correcte": false
+   }
+  ],
+  "explication": "Le « contre » du passeur était irrégulier, car il était joueur arrière. Intercepter près du filet un ballon venant de l'adversaire constitue un contre si une partie du corps se trouve au-dessus de la hauteur du filet.",
+  "theme": "Contre",
+  "niveau": "Niveau 2",
+  "role_cible": "arbitre",
+  "regles": [
+   "14.1.1",
+   "14.1.3",
+   "14.6.2",
+   "Cas 3.36"
+  ],
+  "regle_principale": "14.1.1"
+ },
+ {
+  "cas": "Cas 3.37",
+  "enonce": "Alors que le ballon se trouve entièrement au-dessus du terrain de l'équipe A, il est attaqué par le joueur de A en position 2. Simultanément, le contreur adverse touche lui aussi le ballon. S'agit-il d'une faute de contre ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Oui : le contreur a touché le ballon dans l'espace adverse ; point à l'équipe A.",
+    "correcte": false
+   },
+   {
+    "lettre": "B",
+    "texte": "Oui, mais l'attaquant est aussi fautif : double faute et balle à rejouer.",
+    "correcte": false
+   },
+   {
+    "lettre": "C",
+    "texte": "Non : contrer simultanément à la frappe d'attaque n'est une faute pour aucun des deux joueurs.",
+    "correcte": true
+   },
+   {
+    "lettre": "D",
+    "texte": "Non, mais l'attaquant commet une faute de ballon tenu entre les deux joueurs.",
+    "correcte": false
+   }
+  ],
+  "explication": "Ce n'est une faute pour aucun des deux joueurs. Il y aurait faute si le contreur avait touché le ballon en premier, mais contrer simultanément n'est pas une faute.",
+  "theme": "Contre",
+  "niveau": "Niveau 2",
+  "role_cible": "arbitre",
+  "regles": [
+   "14.3",
+   "Cas 3.37"
+  ],
+  "regle_principale": "14.3"
+ },
+ {
+  "cas": "Cas 3.38",
+  "enonce": "Un contreur franchit le filet pour contrer une action de passe de l'adversaire effectuée parallèlement au filet. Est-ce réglementaire ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Non : contrer une passe est une faute de contre.",
+    "correcte": true
+   },
+   {
+    "lettre": "B",
+    "texte": "Oui, à condition que le contreur ne touche pas le filet.",
+    "correcte": false
+   },
+   {
+    "lettre": "C",
+    "texte": "Oui, si le ballon se trouve entièrement au-dessus de la hauteur du filet.",
+    "correcte": false
+   },
+   {
+    "lettre": "D",
+    "texte": "Oui : le contre est permis sur toute touche de l'adversaire.",
+    "correcte": false
+   }
+  ],
+  "explication": "Contrer une passe est une faute. Le 1er arbitre doit toutefois apprécier la nature de l'action du passeur : une passe parallèle au filet ne peut pas être contrée (faute de contre), alors qu'une passe dirigée vers le filet constitue une frappe d'attaque, qui peut être contrée si aucun coéquipier du passeur n'est près du ballon et disposé à le jouer.",
+  "theme": "Contre",
+  "niveau": "Niveau 1",
+  "role_cible": "arbitre",
+  "regles": [
+   "14.1.1",
+   "14.3",
+   "Cas 3.38"
+  ],
+  "regle_principale": "14.1.1"
+ },
+ {
+  "cas": "Cas 3.39",
+  "enonce": "Un joueur de l'équipe A contre l'attaque de l'équipe B. Le contreur central de B contre alors le contre de A. Est-il réglementaire de contrer un ballon contré ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Non : seul un ballon provenant d'une frappe d'attaque peut être contré.",
+    "correcte": false
+   },
+   {
+    "lettre": "B",
+    "texte": "Oui : contrer, c'est intercepter un ballon venant de l'adversaire, y compris un contre.",
+    "correcte": true
+   },
+   {
+    "lettre": "C",
+    "texte": "Oui, mais le contre de B compte alors comme la première touche de son équipe.",
+    "correcte": false
+   },
+   {
+    "lettre": "D",
+    "texte": "Non : c'est un double contre ; l'échange est gagné par l'équipe A.",
+    "correcte": false
+   }
+  ],
+  "explication": "C'est réglementaire. Contrer consiste à intercepter un ballon venant de l'adversaire ; il est donc permis de contrer le contre d'un adversaire.",
+  "theme": "Contre",
+  "niveau": "Niveau 2",
+  "role_cible": "arbitre",
+  "regles": [
+   "14.1.1",
+   "Cas 3.39"
+  ],
+  "regle_principale": "14.1.1"
+ },
+ {
+  "cas": "Cas 3.40",
+  "enonce": "Un ballon contré par un contreur de l'équipe B, qui a réglementairement franchi le filet, vole sur quelques mètres parallèlement au filet. Un second joueur de B le frappe alors, dans une action de contre, vers le sol du côté de l'équipe A. Le ballon n'est jamais entré dans l'espace aérien de B. Quelle équipe obtient le service suivant ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "L'équipe A : le second joueur de B a attaqué le ballon dans l'espace adverse.",
+    "correcte": true
+   },
+   {
+    "lettre": "B",
+    "texte": "L'équipe B : l'action du second joueur fait partie d'un contre collectif réglementaire.",
+    "correcte": false
+   },
+   {
+    "lettre": "C",
+    "texte": "L'équipe A : en comptant le contre, l'équipe B a effectué une quatrième touche.",
+    "correcte": false
+   },
+   {
+    "lettre": "D",
+    "texte": "Aucune : les deux contreurs ont commis une faute simultanée, la balle est à rejouer.",
+    "correcte": false
+   }
+  ],
+  "explication": "L'équipe A obtient le service. L'action du second joueur ne peut pas être considérée comme un contre, car le ballon venait du contre de son coéquipier et non de l'adversaire. Il attaquait donc dans l'espace adverse, ce qui est une faute.",
+  "theme": "Contre",
+  "niveau": "Niveau 3",
+  "role_cible": "arbitre",
+  "regles": [
+   "11.1.2",
+   "14.1.1",
+   "14.2",
+   "14.3",
+   "Cas 3.40"
+  ],
+  "regle_principale": "11.1.2"
+ },
+ {
+  "cas": "Cas 3.41",
+  "enonce": "Un attaquant frappe à deux mains, dans une action de contre, le ballon venant de la réception de son coéquipier, en le dirigeant de l'autre côté du filet. Est-ce réglementaire ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Non : une action de contre n'est permise que sur un ballon venant de l'adversaire.",
+    "correcte": false
+   },
+   {
+    "lettre": "B",
+    "texte": "Non : un ballon frappé à deux mains vers l'adversaire est toujours un ballon tenu.",
+    "correcte": false
+   },
+   {
+    "lettre": "C",
+    "texte": "Oui, et le contact peut avoir lieu indifféremment de part et d'autre du filet.",
+    "correcte": false
+   },
+   {
+    "lettre": "D",
+    "texte": "Oui, si le contact a lieu de son côté du filet, sans double touche ni ballon tenu ou lancé.",
+    "correcte": true
+   }
+  ],
+  "explication": "C'est une action réglementaire, à condition qu'il n'y ait ni double touche, ni ballon tenu ou lancé. Le contact doit toutefois avoir lieu du côté du filet du joueur, et non du côté adverse.",
+  "theme": "Contre",
+  "niveau": "Niveau 2",
+  "role_cible": "arbitre",
+  "regles": [
+   "Cas 3.41"
+  ],
+  "regle_principale": "Cas 3.41"
+ },
+ {
+  "cas": "Cas 3.42",
+  "enonce": "Lors d'un contre, le ballon touche successivement la tête et les mains de plusieurs contreurs. Cela doit-il être autorisé ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Non : plusieurs contacts successifs au contre constituent une double touche.",
+    "correcte": false
+   },
+   {
+    "lettre": "B",
+    "texte": "Oui, mais chaque contreur ayant touché le ballon compte pour une touche d'équipe.",
+    "correcte": false
+   },
+   {
+    "lettre": "C",
+    "texte": "Oui, s'il s'agit d'une seule action de contre : c'est une touche de contre, suivie de trois touches.",
+    "correcte": true
+   },
+   {
+    "lettre": "D",
+    "texte": "Oui, mais l'équipe ne dispose plus que de deux touches après ce contre.",
+    "correcte": false
+   }
+  ],
+  "explication": "À condition qu'il s'agisse d'une action de contre et non d'actions distinctes, ces contacts sont considérés comme une touche de contre. Après le contre, l'équipe dispose de trois touches supplémentaires.",
+  "theme": "Contre",
+  "niveau": "Niveau 1",
+  "role_cible": "arbitre",
+  "regles": [
+   "9.1",
+   "9.2.3.2",
+   "14.2",
+   "14.4.1",
+   "Cas 3.42"
+  ],
+  "regle_principale": "9.1"
+ },
+ {
+  "cas": "Cas 3.43",
+  "enonce": "Un joueur arrière de l'équipe A effectue une frappe d'attaque irrégulière. Simultanément, un joueur arrière de l'équipe B touche le ballon en contre, dans l'espace de l'équipe A. Quelle est votre décision ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Seule la frappe d'attaque est fautive : point à l'équipe B.",
+    "correcte": false
+   },
+   {
+    "lettre": "B",
+    "texte": "Seul le contre est fautif : point à l'équipe A.",
+    "correcte": false
+   },
+   {
+    "lettre": "C",
+    "texte": "Double faute : la balle est à rejouer.",
+    "correcte": true
+   },
+   {
+    "lettre": "D",
+    "texte": "Le contre dans l'espace adverse est la première faute : point à l'équipe A.",
+    "correcte": false
+   }
+  ],
+  "explication": "Il y a double faute, donc balle à rejouer. La frappe d'attaque du joueur arrière était irrégulière, et le contre simultané du joueur arrière adverse l'était également.",
+  "theme": "Contre",
+  "niveau": "Niveau 3",
+  "role_cible": "arbitre",
+  "regles": [
+   "13.3.3",
+   "14.1.1",
+   "14.6.2",
+   "Cas 3.43"
+  ],
+  "regle_principale": "13.3.3"
+ },
+ {
+  "cas": "Cas 3.44",
+  "enonce": "Lors d'un contre collectif, un joueur arrière, éloigné des contreurs et plus bas que le bord supérieur du filet, est touché par le ballon. S'agit-il d'un contre irrégulier ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Oui : un joueur arrière touché par le ballon lors d'un contre collectif participe au contre.",
+    "correcte": false
+   },
+   {
+    "lettre": "B",
+    "texte": "Non, mais ce contact est compté comme une touche de contre de son équipe.",
+    "correcte": false
+   },
+   {
+    "lettre": "C",
+    "texte": "Oui, dès lors que le contre collectif a lui aussi touché le ballon.",
+    "correcte": false
+   },
+   {
+    "lettre": "D",
+    "texte": "Non : il ne fait pas partie du contre et n'est pas au-dessus du filet ; c'est la première touche d'équipe.",
+    "correcte": true
+   }
+  ],
+  "explication": "Ce n'est pas un contre irrégulier. Le joueur ne faisait pas partie du contre collectif et ne se trouvait pas plus haut que le bord supérieur du filet lorsque le ballon l'a touché. Ce contact est considéré comme la première touche d'équipe.",
+  "theme": "Contre",
+  "niveau": "Niveau 2",
+  "role_cible": "arbitre",
+  "regles": [
+   "9.3.1",
+   "14.1.1",
+   "Cas 3.44"
+  ],
+  "regle_principale": "9.3.1"
+ },
+ {
+  "cas": "Cas 3.45",
+  "enonce": "Le contreur touche le ballon plus bas que le bord supérieur du filet, alors qu'une partie de sa main se trouve au-dessus du filet. S'agit-il d'un contre ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Oui : une partie du corps est au-dessus du filet ; l'équipe dispose encore de trois touches.",
+    "correcte": true
+   },
+   {
+    "lettre": "B",
+    "texte": "Non : le contact a lieu sous le bord du filet, c'est la première touche d'équipe.",
+    "correcte": false
+   },
+   {
+    "lettre": "C",
+    "texte": "Oui, mais ce contact compte aussi comme la première touche de l'équipe.",
+    "correcte": false
+   },
+   {
+    "lettre": "D",
+    "texte": "Non : c'est une touche ordinaire ; l'équipe ne dispose plus que de deux touches.",
+    "correcte": false
+   }
+  ],
+  "explication": "C'est un contre : avoir une partie du corps au-dessus du filet est déterminant. L'équipe dispose donc de trois touches supplémentaires.",
+  "theme": "Contre",
+  "niveau": "Niveau 2",
+  "role_cible": "arbitre",
+  "regles": [
+   "9.1",
+   "14.1.1",
+   "14.4.1",
+   "Cas 3.45"
+  ],
+  "regle_principale": "9.1"
+ },
+ {
+  "cas": "Cas 3.46",
+  "enonce": "Un contreur frappe le ballon alors qu'il est déjà retombé de son saut et que tout son corps se trouve plus bas que le bord supérieur du filet. Il frappe ensuite le ballon une seconde fois, et vous sifflez une double touche. Est-ce la bonne décision ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Non : un contreur peut toujours rejouer le ballon après sa touche de contre.",
+    "correcte": false
+   },
+   {
+    "lettre": "B",
+    "texte": "Oui : sans partie du corps au-dessus du filet, le premier contact est une touche d'équipe, d'où la double touche.",
+    "correcte": true
+   },
+   {
+    "lettre": "C",
+    "texte": "Non : au premier contact d'équipe, des contacts successifs sont toujours autorisés.",
+    "correcte": false
+   },
+   {
+    "lettre": "D",
+    "texte": "Non : il fallait siffler une faute de contre plutôt qu'une double touche.",
+    "correcte": false
+   }
+  ],
+  "explication": "La décision est correcte. Au moment du contact, aucune partie du corps du contreur ne se trouvait plus haut que le bord supérieur du filet : l'action ne pouvait donc pas être un contre, mais la première touche de l'équipe. Son contact suivant en a fait une double touche.",
+  "theme": "Contre",
+  "niveau": "Niveau 2",
+  "role_cible": "arbitre",
+  "regles": [
+   "9.1",
+   "14.1.1",
+   "14.4.1",
+   "Cas 3.46"
+  ],
+  "regle_principale": "9.1"
+ },
+ {
+  "cas": "Cas 3.47",
+  "enonce": "Un joueur arrière de l'équipe A effectue une frappe d'attaque irrégulière, face à une tentative de contre du Libéro de l'équipe B. Quelle faute intervient en premier ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "La tentative de contre du Libéro, antérieure à l'achèvement de la frappe d'attaque.",
+    "correcte": true
+   },
+   {
+    "lettre": "B",
+    "texte": "La frappe d'attaque du joueur arrière, fautive dès son contact avec le ballon.",
+    "correcte": false
+   },
+   {
+    "lettre": "C",
+    "texte": "Aucune : les deux fautes sont simultanées, il y a double faute et balle à rejouer.",
+    "correcte": false
+   },
+   {
+    "lettre": "D",
+    "texte": "La frappe d'attaque, car la tentative du Libéro n'est fautive que s'il touche le ballon.",
+    "correcte": false
+   }
+  ],
+  "explication": "La frappe d'attaque devient fautive au moment où le ballon a entièrement franchi le filet ou lorsque le contre l'a touché. La tentative de contre du Libéro est une action antérieure à l'achèvement de la frappe d'attaque adverse : c'est donc la première faute.",
+  "theme": "Contre",
+  "niveau": "Niveau 3",
+  "role_cible": "arbitre",
+  "regles": [
+   "19.3.1.3",
+   "Cas 3.47"
+  ],
+  "regle_principale": "19.3.1.3"
+ },
+ {
+  "cas": "Cas 3.48",
+  "enonce": "Un joueur de l'équipe A attaque le ballon, qui est contré par un contreur de l'équipe B. Après la touche de contre, le ballon franchit l'espace inférieur (sous le filet) et retombe sur le terrain de l'équipe B. Quelle équipe gagne l'échange ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "L'équipe A : le ballon est retombé dans le terrain de l'équipe B.",
+    "correcte": false
+   },
+   {
+    "lettre": "B",
+    "texte": "L'équipe A : après le contre, le ballon est passé sous le filet, faute de B.",
+    "correcte": false
+   },
+   {
+    "lettre": "C",
+    "texte": "Aucune : la balle est à rejouer, le ballon ayant franchi l'espace inférieur.",
+    "correcte": false
+   },
+   {
+    "lettre": "D",
+    "texte": "L'équipe B : l'action est considérée comme un contre parfait.",
+    "correcte": true
+   }
+  ],
+  "explication": "L'action doit être considérée comme un contre parfait : l'échange est gagné par l'équipe B.",
+  "theme": "Contre",
+  "niveau": "Niveau 3",
+  "role_cible": "arbitre",
+  "regles": [
+   "Cas 3.48"
+  ],
+  "regle_principale": "Cas 3.48"
+ },
+ {
+  "cas": "Cas 3.49",
+  "enonce": "Un attaquant smashe le ballon DEHORS, mais la queue-de-cheval du contreur touche le ballon ; le contact est établi par les images du challenge vidéo. Vous décidez « ballon touché » et accordez le service suivant à l'équipe attaquante. Est-ce la bonne décision ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Oui : tout contact du ballon établi par la vidéo compte comme une touche de contre.",
+    "correcte": false
+   },
+   {
+    "lettre": "B",
+    "texte": "Oui : les cheveux faisant partie du corps, le ballon a bien été touché.",
+    "correcte": false
+   },
+   {
+    "lettre": "C",
+    "texte": "Non : la touche par les cheveux ne compte pas ; l'échange revient à l'équipe en défense.",
+    "correcte": true
+   },
+   {
+    "lettre": "D",
+    "texte": "Non : le contact étant involontaire, la balle aurait dû être rejouée.",
+    "correcte": false
+   }
+  ],
+  "explication": "La décision n'est pas correcte. Le contact du filet par les cheveux n'est pas considéré comme une faute, sauf s'il a une influence sur le jeu ; par cohérence, la touche du ballon par les cheveux du contreur n'est pas non plus comptée comme une touche. L'échange aurait dû être gagné par l'équipe en défense.",
+  "theme": "Contre",
+  "niveau": "Niveau 3",
+  "role_cible": "arbitre",
+  "regles": [
+   "Cas 3.49"
+  ],
+  "regle_principale": "Cas 3.49"
+ },
+ {
+  "cas": "Cas 3.50",
+  "enonce": "Pendant un contre, vous voyez le joueur tenir le ballon puis le lancer vers le bas. Une telle action est-elle autorisée ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Oui : au contre, les contacts prolongés avec le ballon sont tolérés.",
+    "correcte": false
+   },
+   {
+    "lettre": "B",
+    "texte": "Non : c'est un ballon tenu puis lancé, que le 1er arbitre doit siffler comme une faute.",
+    "correcte": true
+   },
+   {
+    "lettre": "C",
+    "texte": "Oui, à condition que le ballon soit renvoyé vers le sol adverse.",
+    "correcte": false
+   },
+   {
+    "lettre": "D",
+    "texte": "Oui : la touche de contre ne comptant pas, les fautes de toucher ne s'y appliquent pas.",
+    "correcte": false
+   }
+  ],
+  "explication": "Ce n'est pas autorisé. Le volley-ball est un sport de rebond : tout ballon tenu puis lancé est une faute. Le ballon ne peut qu'être réorienté vers le sol, et cette action doit être sifflée comme une faute par le 1er arbitre.",
+  "theme": "Contre",
+  "niveau": "Niveau 1",
+  "role_cible": "arbitre",
+  "regles": [
+   "9.2.2",
+   "Cas 3.50"
+  ],
+  "regle_principale": "9.2.2"
+ },
+ {
+  "cas": "Cas 3.51",
+  "enonce": "Le ballon rebondit haut sur le contre de l'équipe A, puis revient dans l'espace adverse. Là, un joueur proche du filet, tendant les bras par-dessus le bord supérieur du filet, intercepte le ballon d'une ou deux mains, sans mouvement classique de smash ni armé du bras. Le ballon rebondit sur la bande supérieure, et le même joueur le frappe à nouveau. Est-ce une action réglementaire ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Non : sa première frappe est une frappe d'attaque, il y a donc double touche.",
+    "correcte": false
+   },
+   {
+    "lettre": "B",
+    "texte": "Non : c'est un contre, mais le contreur ne peut pas rejouer immédiatement le ballon.",
+    "correcte": false
+   },
+   {
+    "lettre": "C",
+    "texte": "Non : le ballon étant plus haut que le filet, sa première frappe est une attaque.",
+    "correcte": false
+   },
+   {
+    "lettre": "D",
+    "texte": "Oui : sa première frappe est un contre, il peut donc toucher à nouveau le ballon.",
+    "correcte": true
+   }
+  ],
+  "explication": "L'action est réglementaire : le 1er arbitre a eu raison de laisser l'échange se poursuivre. Lorsqu'un joueur proche du filet, tendant les bras par-dessus le bord supérieur, intercepte un ballon venant de l'adversaire, on juge d'après la position de ses mains ou de son corps, la hauteur du ballon étant sans importance. S'il s'étire pour intercepter le ballon d'une ou deux mains, sans mouvement classique de smash ou d'armé, c'est un contre réglementaire.",
+  "theme": "Contre",
+  "niveau": "Niveau 3",
+  "role_cible": "arbitre",
+  "regles": [
+   "Cas 3.51"
+  ],
+  "regle_principale": "Cas 3.51"
+ },
+ {
+  "cas": "Cas 3.52",
+  "enonce": "Un ballon est contré à la verticale vers le bas. Avant qu'il ne touche le sol adverse, il touche la jambe du contreur central, qui se tient déjà au sol sans intention de frapper le ballon du pied. Sans ce contact, le ballon serait nettement retombé au sol du côté de l'équipe B. Ce contact constitue-t-il une interférence avec le jeu adverse ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Oui : sans ce contact, le ballon serait tombé au sol ; c'est une interférence.",
+    "correcte": false
+   },
+   {
+    "lettre": "B",
+    "texte": "Oui : tout contact avec le ballon dans l'espace adverse sous le filet est une faute.",
+    "correcte": false
+   },
+   {
+    "lettre": "C",
+    "texte": "Non : le contact est involontaire et le contreur se tenait déjà au sol ; il n'y a pas de faute.",
+    "correcte": true
+   },
+   {
+    "lettre": "D",
+    "texte": "Non, mais le contact involontaire impose de faire rejouer la balle.",
+    "correcte": false
+   }
+  ],
+  "explication": "Ce n'est pas une interférence. Le contact de la jambe du contreur central était involontaire et celui-ci se tenait déjà au sol : il n'a pas commis de faute. En revanche, si le contact avait eu lieu nettement au-dessus du sol et qu'un adversaire avait eu la possibilité de jouer le ballon, il y aurait eu interférence.",
+  "theme": "Contre",
+  "niveau": "Niveau 3",
+  "role_cible": "arbitre",
+  "regles": [
+   "Cas 3.52"
+  ],
+  "regle_principale": "Cas 3.52"
+ },
+ {
+  "cas": "Cas 3.53",
+  "enonce": "Un passeur arrière, tourné vers sa propre ligne de fond, saute près du filet au moment où le ballon attaqué par l'adversaire heurte sa tête. Comment devez-vous apprécier cette action ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Ce n'est jamais un contre, le joueur étant tourné vers sa propre ligne de fond.",
+    "correcte": false
+   },
+   {
+    "lettre": "B",
+    "texte": "C'est un contre si les trois conditions sont réunies, quelle que soit l'orientation du joueur.",
+    "correcte": true
+   },
+   {
+    "lettre": "C",
+    "texte": "C'est un contre uniquement si le joueur a cherché volontairement à intercepter le ballon.",
+    "correcte": false
+   },
+   {
+    "lettre": "D",
+    "texte": "Ce n'est jamais un contre, le ballon l'ayant touché à la tête et non aux mains.",
+    "correcte": false
+   }
+  ],
+  "explication": "Pour qu'une action soit un contre, trois conditions doivent être réunies simultanément : le joueur est proche du filet, le ballon vient de l'adversaire et une partie de son corps dépasse le bord supérieur du filet. La direction vers laquelle le joueur est tourné est sans importance. Si l'arbitre juge que les trois conditions sont remplies, l'action est un contre.",
+  "theme": "Contre",
+  "niveau": "Niveau 3",
+  "role_cible": "arbitre",
+  "regles": [
+   "Cas 3.53"
+  ],
+  "regle_principale": "Cas 3.53"
+ },
+ {
+  "cas": "Cas 3.54",
+  "enonce": "Un joueur de l'équipe B envoie doucement le ballon chez l'adversaire. Un joueur de l'équipe A proche du filet, tendant les bras par-dessus le bord supérieur du filet, frappe le ballon avec un mouvement classique de smash et d'armé du bras, en le dirigeant vers l'adversaire. Le ballon rebondit sur la bande supérieure, et le même joueur le frappe à nouveau. Faut-il laisser l'échange se poursuivre ?",
+  "propositions": [
+   {
+    "lettre": "A",
+    "texte": "Non : sa première frappe est une frappe d'attaque ; double touche, point à l'équipe B.",
+    "correcte": true
+   },
+   {
+    "lettre": "B",
+    "texte": "Oui : sa première frappe est un contre, il peut donc rejouer le ballon.",
+    "correcte": false
+   },
+   {
+    "lettre": "C",
+    "texte": "Oui : un ballon qui rebondit du filet peut être rejoué par le même joueur.",
+    "correcte": false
+   },
+   {
+    "lettre": "D",
+    "texte": "Non : faute de contre dans l'espace adverse ; point à l'équipe B.",
+    "correcte": false
+   }
+  ],
+  "explication": "Il ne fallait pas laisser l'échange se poursuivre. Lorsqu'un joueur proche du filet, tendant les bras par-dessus le bord supérieur, frappe avec un mouvement classique de smash ou d'armé le ballon venant de l'adversaire, sa frappe est une attaque, donc la première touche d'équipe ; la hauteur du ballon est sans importance. En frappant à nouveau le ballon qui rebondit du filet, il commet une double touche : l'échange doit être interrompu et gagné par l'équipe B.",
+  "theme": "Contre",
+  "niveau": "Niveau 3",
+  "role_cible": "arbitre",
+  "regles": [
+   "Cas 3.54"
+  ],
+  "regle_principale": "Cas 3.54"
+ }
+]

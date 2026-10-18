@@ -1,0 +1,940 @@
+[
+	{
+		"cas": "Cas 4.1",
+		"enonce": "Deux joueurs remplaçants de l'équipe A entrent dans la zone de remplacement. Une fois la demande reconnue et enregistrée par le marqueur, l'entraîneur décide de n'effectuer qu'un seul remplacement. En tant que 2ème arbitre, quelle est votre décision ?",
+		"propositions": [
+			{
+				"lettre": "A",
+				"texte": "Vous effectuez les deux remplacements, puisque les deux demandes ont déjà été enregistrées par le marqueur.",
+				"correcte": false
+			},
+			{
+				"lettre": "B",
+				"texte": "Vous effectuez un seul remplacement, sans sanction tant qu'il n'y a pas de retard, et vérifiez la feuille de match.",
+				"correcte": true
+			},
+			{
+				"lettre": "C",
+				"texte": "Vous refusez le second remplacement comme demande non fondée et le faites inscrire sur la feuille de match.",
+				"correcte": false
+			},
+			{
+				"lettre": "D",
+				"texte": "Vous effectuez un seul remplacement et sanctionnez l'équipe d'un avertissement pour retard de jeu.",
+				"correcte": false
+			}
+		],
+		"explication": "C'est réglementaire tant que cela n'entraîne pas de retard : le 2ème arbitre procède simplement à un seul remplacement. Le marqueur ne doit enregistrer que les remplacements réellement effectués, et le 2ème arbitre doit vérifier attentivement combien de remplacements ont été enregistrés sur la feuille de match, papier ou électronique.",
+		"theme": "Remplacements",
+		"niveau": "Niveau 2",
+		"role_cible": "les_deux",
+		"regles": [
+			"15.10.2",
+			"15.10.3.1",
+			"15.10.4",
+			"16.1",
+			"Cas 4.1"
+		],
+		"regle_principale": "15.10.2"
+	},
+	{
+		"cas": "Cas 4.2",
+		"enonce": "Un joueur remplaçant de l'équipe A entre dans la zone de remplacement et le marqueur actionne le buzzer, tandis qu'un second remplaçant quitte tout juste l'aire d'échauffement pour tenter d'entrer à son tour dans la zone. En tant que 2ème arbitre, combien de remplacements accordez-vous ?",
+		"propositions": [
+			{
+				"lettre": "A",
+				"texte": "Deux : les deux remplacements relèvent de la même interruption et doivent être accordés ensemble.",
+				"correcte": false
+			},
+			{
+				"lettre": "B",
+				"texte": "Aucun : la demande étant incomplète au moment du buzzer, les deux remplacements sont refusés.",
+				"correcte": false
+			},
+			{
+				"lettre": "C",
+				"texte": "Deux, mais l'équipe est sanctionnée d'un avertissement pour retard de jeu à cause du second joueur.",
+				"correcte": false
+			},
+			{
+				"lettre": "D",
+				"texte": "Un seul : celui du joueur entré dans la zone ; le second est refusé, car il ne fait pas partie de la demande initiale.",
+				"correcte": true
+			}
+		],
+		"explication": "Le moment de la demande est l'entrée du ou des joueurs remplaçants dans la zone de remplacement. Le 2ème arbitre n'accorde donc que le remplacement du joueur effectivement entré dans la zone ; la seconde action est refusée car elle ne fait pas partie de la demande initiale. Le 2ème arbitre peut d'ailleurs écarter d'un geste le joueur qui tente d'entrer, afin d'éviter une demande non fondée (« arbitrage fluide »).",
+		"theme": "Remplacements",
+		"niveau": "Niveau 2",
+		"role_cible": "arbitre",
+		"regles": [
+			"15.10.3.1",
+			"15.10.3.2",
+			"15.11.1.3",
+			"Cas 4.2"
+		],
+		"regle_principale": "15.10.3.1"
+	},
+	{
+		"cas": "Cas 4.3",
+		"enonce": "Un échange est interrompu en raison de la blessure d'un joueur de l'équipe A. Après un bref traitement sur le terrain, le joueur blessé est jugé apte à jouer. Avant le coup de sifflet du service suivant, l'équipe A demande un remplacement. Quelle est votre décision ?",
+		"propositions": [
+			{
+				"lettre": "A",
+				"texte": "Vous refusez : après un échange interrompu, seul un remplacement imposé par une blessure ou une sanction est admis.",
+				"correcte": true
+			},
+			{
+				"lettre": "B",
+				"texte": "Vous acceptez : l'équipe A n'a encore demandé aucune interruption de jeu pendant cet arrêt.",
+				"correcte": false
+			},
+			{
+				"lettre": "C",
+				"texte": "Vous acceptez, mais uniquement si le remplacement concerne le joueur qui vient d'être soigné.",
+				"correcte": false
+			},
+			{
+				"lettre": "D",
+				"texte": "Vous acceptez le remplacement et sanctionnez l'équipe A d'un avertissement pour retard de jeu.",
+				"correcte": false
+			}
+		],
+		"explication": "Ce n'est pas autorisé. Lorsqu'un échange a été interrompu en raison d'une blessure ou d'une intervention extérieure (ballon sur le terrain, filet cassé, panne d'électricité…), il n'est pas fondé de demander une interruption de jeu réglementaire. Seul un remplacement imposé par la blessure ou la sanction d'un joueur, y compris un remplacement exceptionnel pour ces motifs, est admis ; or le joueur a été jugé apte à jouer.",
+		"theme": "Remplacements",
+		"niveau": "Niveau 2",
+		"role_cible": "arbitre",
+		"regles": [
+			"Cas 4.3"
+		],
+		"regle_principale": "Cas 4.3"
+	},
+	{
+		"cas": "Cas 4.4",
+		"enonce": "L'équipe A tente un remplacement, refusé car le joueur entrant n'est pas prêt à jouer ; elle reçoit un avertissement pour retard de jeu. L'échange suivant commence, puis est interrompu lorsqu'un ballon égaré entre sur le terrain. Avant la reprise du jeu, l'équipe A tente immédiatement d'effectuer le même remplacement. Quelle est votre décision ?",
+		"propositions": [
+			{
+				"lettre": "A",
+				"texte": "Vous acceptez : l'échange interrompu par le ballon égaré sépare les deux demandes de remplacement.",
+				"correcte": false
+			},
+			{
+				"lettre": "B",
+				"texte": "Vous acceptez : l'avertissement pour retard de jeu a clôturé la première demande de l'équipe.",
+				"correcte": false
+			},
+			{
+				"lettre": "C",
+				"texte": "Vous refusez : aucune nouvelle interruption réglementaire n'est possible tant que l'échange interrompu n'est pas terminé.",
+				"correcte": true
+			},
+			{
+				"lettre": "D",
+				"texte": "Vous refusez le remplacement, mais autorisez l'équipe A à demander un temps-mort à la place.",
+				"correcte": false
+			}
+		],
+		"explication": "Le refus est correct. Une équipe ne peut pas formuler une nouvelle demande d'interruption de jeu réglementaire (remplacement ou temps-mort) tant que l'échange interrompu n'est pas terminé, c'est-à-dire tant qu'un point n'a pas été attribué. L'échange interrompu par le ballon égaré ne compte donc pas comme un échange complet.",
+		"theme": "Remplacements",
+		"niveau": "Niveau 3",
+		"role_cible": "arbitre",
+		"regles": [
+			"15.2",
+			"Cas 4.4"
+		],
+		"regle_principale": "15.2"
+	},
+	{
+		"cas": "Cas 4.5",
+		"enonce": "Lors d'une compétition utilisant des plaquettes numérotées, un joueur remplaçant de l'équipe A entre dans la zone de remplacement avec la mauvaise plaquette (la sienne) et s'empresse ensuite de prendre la bonne. Quelle est votre décision ?",
+		"propositions": [
+			{
+				"lettre": "A",
+				"texte": "Vous autorisez le remplacement et infligez une sanction pour retard de jeu.",
+				"correcte": false
+			},
+			{
+				"lettre": "B",
+				"texte": "Vous autorisez le remplacement sans sanction, la bonne plaquette ayant finalement été présentée.",
+				"correcte": false
+			},
+			{
+				"lettre": "C",
+				"texte": "Vous refusez la demande de remplacement et infligez une sanction pour retard de jeu.",
+				"correcte": true
+			},
+			{
+				"lettre": "D",
+				"texte": "Vous refusez le remplacement comme demande non fondée, sans sanction pour retard de jeu.",
+				"correcte": false
+			}
+		],
+		"explication": "Dans les compétitions où des plaquettes numérotées sont utilisées, le joueur remplaçant doit entrer dans la zone de remplacement avec la bonne plaquette. À défaut, cela sème la confusion chez le marqueur, dans l'équipe et dans le public, et provoque vraisemblablement un retard. La demande de remplacement doit donc être refusée et une sanction pour retard de jeu infligée ; autoriser le remplacement n'est pas correct.",
+		"theme": "Remplacements",
+		"niveau": "Niveau 2",
+		"role_cible": "arbitre",
+		"regles": [
+			"15.10.3.1",
+			"16.1.1",
+			"16.2",
+			"Cas 4.5"
+		],
+		"regle_principale": "15.10.3.1"
+	},
+	{
+		"cas": "Cas 4.6",
+		"enonce": "Un joueur remplaçant de l'équipe A entre dans la zone de remplacement au moment précis où retentit le coup de sifflet de service. Le jeu n'est pas interrompu et c'est la première demande non fondée de l'équipe A. En tant que 2ème arbitre, quelle est votre décision ?",
+		"propositions": [
+			{
+				"lettre": "A",
+				"texte": "Vous refusez le remplacement comme demande non fondée et laissez le jeu se poursuivre.",
+				"correcte": true
+			},
+			{
+				"lettre": "B",
+				"texte": "Vous autorisez le remplacement, le joueur étant entré dans la zone avant la frappe du service.",
+				"correcte": false
+			},
+			{
+				"lettre": "C",
+				"texte": "Vous refusez le remplacement et sanctionnez l'équipe A d'un avertissement pour retard de jeu.",
+				"correcte": false
+			},
+			{
+				"lettre": "D",
+				"texte": "Vous interrompez le jeu, autorisez le remplacement, puis faites siffler à nouveau le service.",
+				"correcte": false
+			}
+		],
+		"explication": "Le remplacement ne doit pas être autorisé : c'est un cas typique de demande non fondée. Si le jeu n'a pas été interrompu et qu'il s'agit de la première demande non fondée de l'équipe, on la refuse et on laisse le jeu se poursuivre. En revanche, si le jeu a été interrompu du fait de cette demande, ou s'il s'agit d'une demande non fondée répétée, elle est considérée comme un retard et entraîne une sanction pour retard de jeu.",
+		"theme": "Remplacements",
+		"niveau": "Niveau 2",
+		"role_cible": "les_deux",
+		"regles": [
+			"15.10.3.1",
+			"15.11.1.1",
+			"15.11.3",
+			"16.2",
+			"Cas 4.6"
+		],
+		"regle_principale": "15.10.3.1"
+	},
+	{
+		"cas": "Cas 4.7",
+		"enonce": "Le joueur n° 8 entre dans la zone de remplacement avec la plaquette n° 10. L'entraîneur insiste pour effectuer le remplacement avec le n° 9. Après une brève discussion, le 2ème arbitre refuse le remplacement et l'équipe est sanctionnée d'un avertissement pour retard de jeu. Cette décision est-elle correcte ?",
+		"propositions": [
+			{
+				"lettre": "A",
+				"texte": "Non : le remplacement voulu par l'entraîneur (n° 8 et n° 9) aurait dû être accordé sans sanction.",
+				"correcte": false
+			},
+			{
+				"lettre": "B",
+				"texte": "Non : il fallait effectuer le remplacement n° 8 – n° 10 correspondant à la plaquette présentée, sans sanction.",
+				"correcte": false
+			},
+			{
+				"lettre": "C",
+				"texte": "Non : il fallait refuser le remplacement comme demande non fondée, sans sanction pour retard de jeu.",
+				"correcte": false
+			},
+			{
+				"lettre": "D",
+				"texte": "Oui : la mauvaise plaquette a provoqué un retard ; le remplacement est refusé et l'équipe sanctionnée pour retard.",
+				"correcte": true
+			}
+		],
+		"explication": "La décision est correcte. Le remplacement du n° 8 par le n° 10 aurait été réglementaire, mais l'entraîneur a insisté pour le n° 9. La mauvaise plaquette ayant été présentée et cela ayant provoqué un retard, l'équipe est à juste titre sanctionnée pour retard de jeu, et le remplacement doit être refusé.",
+		"theme": "Remplacements",
+		"niveau": "Niveau 2",
+		"role_cible": "arbitre",
+		"regles": [
+			"16.1.1",
+			"16.2",
+			"Cas 4.7"
+		],
+		"regle_principale": "16.1.1"
+	},
+	{
+		"cas": "Cas 4.8",
+		"enonce": "Dans une compétition où la technologie est pleinement déployée (tablettes du banc, feuille de match électronique), les plaquettes de remplacement ne sont pas utilisées. Cette procédure est-elle correcte ?",
+		"propositions": [
+			{
+				"lettre": "A",
+				"texte": "Non : les plaquettes numérotées restent obligatoires pour tout remplacement, quelle que soit la compétition.",
+				"correcte": false
+			},
+			{
+				"lettre": "B",
+				"texte": "Oui : les tablettes du banc transmettent à l'avance les numéros des remplaçants ; les plaquettes ne sont pas nécessaires.",
+				"correcte": true
+			},
+			{
+				"lettre": "C",
+				"texte": "Non : sans plaquettes, chaque remplaçant doit annoncer oralement son numéro au marqueur avant d'entrer.",
+				"correcte": false
+			},
+			{
+				"lettre": "D",
+				"texte": "Oui, mais uniquement si les deux entraîneurs l'ont accepté par écrit avant le début du match.",
+				"correcte": false
+			}
+		],
+		"explication": "Oui. Les plaquettes ne permettent qu'un nombre limité de numéros de maillot, alors que les Compétitions FIVB, Mondiales et Officielles seniors utilisent des numéros étendus. De plus, les tablettes du banc permettent aux équipes de transmettre à l'avance les numéros des joueurs remplaçants : les plaquettes ne sont donc pas nécessaires dans ces compétitions.",
+		"theme": "Remplacements",
+		"niveau": "Niveau 3",
+		"role_cible": "les_deux",
+		"regles": [
+			"15.10.3.1",
+			"Cas 4.8"
+		],
+		"regle_principale": "15.10.3.1"
+	},
+	{
+		"cas": "Cas 4.9",
+		"enonce": "Un joueur de l'équipe A se blesse et doit être remplacé de manière exceptionnelle. Pendant la même interruption de jeu, l'équipe A demande un remplacement supplémentaire, que le 2ème arbitre accepte. Cette décision est-elle correcte ?",
+		"propositions": [
+			{
+				"lettre": "A",
+				"texte": "Oui : après le remplacement exceptionnel, l'équipe conserve le droit de demander un remplacement dans la même interruption.",
+				"correcte": true
+			},
+			{
+				"lettre": "B",
+				"texte": "Non : le remplacement exceptionnel tient lieu de demande de remplacement pour cette interruption.",
+				"correcte": false
+			},
+			{
+				"lettre": "C",
+				"texte": "Non : une équipe ne peut effectuer qu'un seul remplacement au cours d'une même interruption de jeu.",
+				"correcte": false
+			},
+			{
+				"lettre": "D",
+				"texte": "Oui, mais ce remplacement supplémentaire doit lui aussi être enregistré comme remplacement exceptionnel.",
+				"correcte": false
+			}
+		],
+		"explication": "La décision est correcte. Le premier joueur a dû faire l'objet d'un remplacement exceptionnel en raison de sa blessure, mais l'équipe conservait le droit de demander un remplacement dans la même interruption.",
+		"theme": "Remplacements",
+		"niveau": "Niveau 2",
+		"role_cible": "les_deux",
+		"regles": [
+			"15.7",
+			"Cas 4.9"
+		],
+		"regle_principale": "15.7"
+	},
+	{
+		"cas": "Cas 4.10",
+		"enonce": "Le joueur n° 6 de l'équipe A est disqualifié et régulièrement remplacé par le n° 7 ; c'est le premier remplacement de l'équipe A dans le set et trois autres joueurs sont sur le banc. Pendant l'échange suivant, le n° 7 se blesse et ne peut plus jouer. Comment le jeu doit-il se poursuivre ?",
+		"propositions": [
+			{
+				"lettre": "A",
+				"texte": "Le n° 7 est remplacé régulièrement par un joueur du banc, au titre du deuxième remplacement de l'équipe A.",
+				"correcte": false
+			},
+			{
+				"lettre": "B",
+				"texte": "Le n° 6 revient exceptionnellement sur le terrain pour remplacer le n° 7 blessé.",
+				"correcte": false
+			},
+			{
+				"lettre": "C",
+				"texte": "Le n° 7 ne pouvant pas être remplacé régulièrement, il fait l'objet d'un remplacement exceptionnel.",
+				"correcte": true
+			},
+			{
+				"lettre": "D",
+				"texte": "L'équipe A est déclarée incomplète et perd le set en cours.",
+				"correcte": false
+			}
+		],
+		"explication": "Le joueur blessé n° 7 ne peut pas être remplacé de manière régulière : il doit donc faire l'objet d'un remplacement exceptionnel, ce qui permet au jeu de se poursuivre.",
+		"theme": "Remplacements",
+		"niveau": "Niveau 3",
+		"role_cible": "les_deux",
+		"regles": [
+			"15.7",
+			"15.8",
+			"Cas 4.10"
+		],
+		"regle_principale": "15.7"
+	},
+	{
+		"cas": "Cas 4.11",
+		"enonce": "Un joueur de l'équipe A est expulsé et ne peut pas être remplacé par un remplacement régulier. De quelles options l'entraîneur dispose-t-il ?",
+		"propositions": [
+			{
+				"lettre": "A",
+				"texte": "Uniquement un remplacement exceptionnel, le joueur expulsé pouvant revenir au set suivant.",
+				"correcte": false
+			},
+			{
+				"lettre": "B",
+				"texte": "Remplacement exceptionnel (le joueur ne revient plus dans le match) ou abandon du set, l'équipe étant incomplète.",
+				"correcte": true
+			},
+			{
+				"lettre": "C",
+				"texte": "Uniquement l'abandon du set, l'équipe étant incomplète, le joueur expulsé étant exclu du match.",
+				"correcte": false
+			},
+			{
+				"lettre": "D",
+				"texte": "Remplacement exceptionnel ou abandon du set ; dans les deux cas, le joueur revient au set suivant.",
+				"correcte": false
+			}
+		],
+		"explication": "L'entraîneur a deux possibilités : effectuer un remplacement exceptionnel du joueur expulsé, ou abandonner le set à l'adversaire, l'équipe étant incomplète. Avec le remplacement exceptionnel, le set continue mais le joueur expulsé ne peut plus reprendre part au match. Avec l'abandon, l'équipe perd le set en cours mais le joueur expulsé peut revenir au set suivant.",
+		"theme": "Remplacements",
+		"niveau": "Niveau 3",
+		"role_cible": "les_deux",
+		"regles": [
+			"15.8",
+			"Cas 4.11"
+		],
+		"regle_principale": "15.8"
+	},
+	{
+		"cas": "Cas 4.12",
+		"enonce": "Un joueur de l'équipe A inscrit sur la feuille de position se blesse avant le début du match. L'entraîneur souhaite le remplacer. Quelle est votre décision (hors règlement particulier de la compétition) ?",
+		"propositions": [
+			{
+				"lettre": "A",
+				"texte": "Le remplacement est possible et n'est pas compté, le match n'ayant pas encore commencé.",
+				"correcte": false
+			},
+			{
+				"lettre": "B",
+				"texte": "Le remplacement est impossible : la feuille de position remise ne peut plus être modifiée.",
+				"correcte": false
+			},
+			{
+				"lettre": "C",
+				"texte": "Le joueur blessé doit faire l'objet d'un remplacement exceptionnel avant le premier service.",
+				"correcte": false
+			},
+			{
+				"lettre": "D",
+				"texte": "Le remplacement est possible, formalisé par le geste officiel et enregistré comme remplacement régulier.",
+				"correcte": true
+			}
+		],
+		"explication": "Le remplacement est possible, mais il doit être formalisé par le geste de remplacement (entraîneur et 2ème arbitre, pour que chacun comprenne la situation) et enregistré sur la feuille de match comme un remplacement régulier. Certaines compétitions de haut niveau peuvent prévoir, dans leurs Règlements spécifiques, que ce remplacement ne soit pas compté comme régulier.",
+		"theme": "Remplacements",
+		"niveau": "Niveau 2",
+		"role_cible": "les_deux",
+		"regles": [
+			"7.3.2",
+			"7.3.4",
+			"Cas 4.12"
+		],
+		"regle_principale": "7.3.2"
+	},
+	{
+		"cas": "Cas 4.13",
+		"enonce": "On constate que le joueur n° 7 de l'équipe A se trouve sur le terrain alors qu'il devrait être sur le banc. L'équipe A a déjà utilisé ses six remplacements. Quelle est la procédure correcte ?",
+		"propositions": [
+			{
+				"lettre": "A",
+				"texte": "Point et service à B ; faute de remplacement régulier disponible, l'équipe A est déclarée incomplète.",
+				"correcte": false
+			},
+			{
+				"lettre": "B",
+				"texte": "Le n° 7 est retiré par un remplacement exceptionnel ; la marque des deux équipes reste inchangée.",
+				"correcte": false
+			},
+			{
+				"lettre": "C",
+				"texte": "Point et service à B ; n° 7 retiré, points de A annulés et pénalité de retard infligée à l'équipe A.",
+				"correcte": false
+			},
+			{
+				"lettre": "D",
+				"texte": "Point et service à B ; n° 7 retiré du set, joueur correct remis en jeu (non compté) ; points de A obtenus avec le n° 7 annulés.",
+				"correcte": true
+			}
+		],
+		"explication": "L'équipe A a une formation incorrecte causée par un remplacement illégal : la Règle 15.9.2 s'applique. Point et service pour l'équipe B ; le remplacement est corrigé, le n° 7 étant retiré du set et le joueur correct revenant sur le terrain, sans que cette correction compte comme remplacement régulier. Les points marqués par A pendant la présence irrégulière du n° 7 sont annulés, la marque de B reste inchangée, et il n'y a pas d'autre sanction.",
+		"theme": "Remplacements",
+		"niveau": "Niveau 2",
+		"role_cible": "les_deux",
+		"regles": [
+			"15.9.2",
+			"Cas 4.13"
+		],
+		"regle_principale": "15.9.2"
+	},
+	{
+		"cas": "Cas 4.14",
+		"enonce": "L'équipe B a déjà effectué cinq remplacements dans le set. Deux joueurs remplaçants entrent dans la zone de remplacement. En tant que 2ème arbitre, quelle est votre réaction ?",
+		"propositions": [
+			{
+				"lettre": "A",
+				"texte": "Vous refusez les deux remplacements comme demande non fondée, la demande dépassant la limite autorisée.",
+				"correcte": false
+			},
+			{
+				"lettre": "B",
+				"texte": "Vous rappelez qu'un seul remplacement est possible, demandez lequel effectuer et refusez l'autre comme demande non fondée.",
+				"correcte": true
+			},
+			{
+				"lettre": "C",
+				"texte": "Vous effectuez le premier remplacement présenté et sanctionnez l'autre d'un avertissement pour retard de jeu.",
+				"correcte": false
+			},
+			{
+				"lettre": "D",
+				"texte": "Vous effectuez le remplacement choisi par l'entraîneur, sans rien inscrire d'autre sur la feuille de match.",
+				"correcte": false
+			}
+		],
+		"explication": "Le 2ème arbitre rappelle à l'entraîneur qu'un seul remplacement est possible et lui demande lequel sera effectué. À condition qu'il n'y ait pas de retard, l'autre remplacement est refusé comme demande non fondée, ce qui est noté sur la feuille de match.",
+		"theme": "Remplacements",
+		"niveau": "Niveau 2",
+		"role_cible": "les_deux",
+		"regles": [
+			"15.5",
+			"15.6",
+			"15.11",
+			"16.1",
+			"Cas 4.14"
+		],
+		"regle_principale": "15.5"
+	},
+	{
+		"cas": "Cas 4.15",
+		"enonce": "L'équipe A demande deux remplacements. En les vérifiant, le marqueur indique que l'un est régulier et l'autre irrégulier. En tant que 2ème arbitre, quelle est votre réaction ?",
+		"propositions": [
+			{
+				"lettre": "A",
+				"texte": "Vous accordez le remplacement régulier, refusez l'irrégulier et sanctionnez l'équipe pour retard de jeu.",
+				"correcte": true
+			},
+			{
+				"lettre": "B",
+				"texte": "Vous refusez les deux remplacements et sanctionnez l'équipe A pour retard de jeu.",
+				"correcte": false
+			},
+			{
+				"lettre": "C",
+				"texte": "Vous accordez le remplacement régulier et refusez l'irrégulier comme demande non fondée, sans sanction.",
+				"correcte": false
+			},
+			{
+				"lettre": "D",
+				"texte": "Vous accordez uniquement le premier joueur qui se présente à la ligne de côté, qu'il soit régulier ou non.",
+				"correcte": false
+			}
+		],
+		"explication": "Le 2ème arbitre laisse s'effectuer le remplacement régulier. Le remplacement irrégulier est refusé, quel que soit l'ordre dans lequel les remplaçants se présentent à la ligne de côté, et la demande de remplacement irrégulier est sanctionnée par une sanction pour retard de jeu.",
+		"theme": "Remplacements",
+		"niveau": "Niveau 2",
+		"role_cible": "les_deux",
+		"regles": [
+			"15.6",
+			"16.1.3",
+			"Cas 4.15"
+		],
+		"regle_principale": "15.6"
+	},
+	{
+		"cas": "Cas 4.16",
+		"enonce": "Le marqueur refuse un remplacement demandé par une équipe en actionnant le buzzer une seconde fois. En vérifiant la feuille de match, vous, 2ème arbitre, découvrez que le remplacement était en réalité régulier, et vous corrigez la situation en l'accordant, au prix d'un certain embarras. Votre procédure est-elle correcte ?",
+		"propositions": [
+			{
+				"lettre": "A",
+				"texte": "Non : une fois le refus signalé par le buzzer, la décision ne peut plus être modifiée.",
+				"correcte": false
+			},
+			{
+				"lettre": "B",
+				"texte": "Non : il fallait maintenir le refus et laisser l'équipe renouveler sa demande après l'échange suivant.",
+				"correcte": false
+			},
+			{
+				"lettre": "C",
+				"texte": "Oui : une erreur de l'équipe arbitrale doit être corrigée, même si cela donne une impression défavorable.",
+				"correcte": true
+			},
+			{
+				"lettre": "D",
+				"texte": "Oui, mais l'équipe doit être sanctionnée d'un avertissement pour retard de jeu.",
+				"correcte": false
+			}
+		],
+		"explication": "La procédure de la 2ème arbitre est correcte. Lorsque les arbitres se rendent compte que l'un d'eux a commis une erreur, celle-ci doit être corrigée et la décision modifiée, même si cela donne une impression défavorable sur le corps arbitral.",
+		"theme": "Remplacements",
+		"niveau": "Niveau 2",
+		"role_cible": "les_deux",
+		"regles": [
+			"Cas 4.16"
+		],
+		"regle_principale": "Cas 4.16"
+	},
+	{
+		"cas": "Cas 4.17",
+		"enonce": "Un joueur remplaçant de l'équipe A se tient dans la zone de remplacement, prêt à entrer, mais le joueur sur le terrain refuse d'abord de quitter le terrain. S'agit-il d'un retard de jeu, et le remplacement doit-il être refusé ?",
+		"propositions": [
+			{
+				"lettre": "A",
+				"texte": "C'est un retard de jeu et le remplacement doit être refusé.",
+				"correcte": false
+			},
+			{
+				"lettre": "B",
+				"texte": "Ce n'est pas un retard de jeu ; le remplacement est accordé sans autre conséquence.",
+				"correcte": false
+			},
+			{
+				"lettre": "C",
+				"texte": "C'est un retard de jeu, mais le remplacement est accordé, le remplaçant n'étant pas à l'origine du retard.",
+				"correcte": true
+			},
+			{
+				"lettre": "D",
+				"texte": "Ce n'est pas un retard de jeu, mais le remplacement est refusé comme demande non fondée.",
+				"correcte": false
+			}
+		],
+		"explication": "Oui, c'est un retard. Le remplacement doit toutefois être accordé cette fois : la demande était réglementaire, c'est le joueur en jeu qui a créé ce cas particulier, et le joueur remplaçant n'est pas à l'origine du retard.",
+		"theme": "Remplacements",
+		"niveau": "Niveau 2",
+		"role_cible": "arbitre",
+		"regles": [
+			"16.1.1",
+			"23.2.3",
+			"Cas 4.17"
+		],
+		"regle_principale": "16.1.1"
+	},
+	{
+		"cas": "Cas 4.18",
+		"enonce": "Lors du contrôle avant le set, vous, 2ème arbitre, constatez qu'un joueur figurant sur la feuille de position de l'équipe A ne correspond pas aux joueurs présents sur le terrain. Que faites-vous ?",
+		"propositions": [
+			{
+				"lettre": "A",
+				"texte": "Vous montrez la feuille à l'entraîneur ; s'il garde la formation présente, il fait un remplacement régulier à 0-0 avec le geste officiel.",
+				"correcte": true
+			},
+			{
+				"lettre": "B",
+				"texte": "Vous faites replacer les joueurs selon la feuille de position, sans demander l'avis de l'entraîneur.",
+				"correcte": false
+			},
+			{
+				"lettre": "C",
+				"texte": "Vous laissez l'entraîneur modifier la feuille de position pour l'aligner sur le terrain, sans remplacement.",
+				"correcte": false
+			},
+			{
+				"lettre": "D",
+				"texte": "Vous sanctionnez l'équipe A d'un avertissement pour retard de jeu et faites corriger la formation.",
+				"correcte": false
+			}
+		],
+		"explication": "Le 2ème arbitre montre la feuille de position à l'entraîneur et lui demande ce qu'il souhaite faire. Si l'entraîneur veut conserver la composition présente sur le terrain, il doit effectuer un remplacement régulier à 0-0, en faisant le geste officiel pour éviter tout malentendu. Le 2ème arbitre formalise lui aussi cette opération, pour que le public, les statistiques, etc. comprennent la situation.",
+		"theme": "Remplacements",
+		"niveau": "Niveau 2",
+		"role_cible": "les_deux",
+		"regles": [
+			"7.3.5.2",
+			"7.3.5.3",
+			"Cas 4.18"
+		],
+		"regle_principale": "7.3.5.2"
+	},
+	{
+		"cas": "Cas 4.19",
+		"enonce": "Pendant une interruption, le joueur n° 6 de l'équipe A, prêt à jouer, entre dans la zone de remplacement et le marqueur reconnaît la demande en actionnant le buzzer. L'entraîneur change alors d'avis et renvoie le joueur dans l'aire d'échauffement. Quelle est votre décision ?",
+		"propositions": [
+			{
+				"lettre": "A",
+				"texte": "Le remplacement doit obligatoirement être effectué, la demande ayant été reconnue par le buzzer.",
+				"correcte": false
+			},
+			{
+				"lettre": "B",
+				"texte": "Le remplacement n'est pas effectué et la demande est enregistrée comme demande non fondée.",
+				"correcte": false
+			},
+			{
+				"lettre": "C",
+				"texte": "Le remplacement n'est pas effectué, sans aucune sanction : l'entraîneur peut retirer sa demande.",
+				"correcte": false
+			},
+			{
+				"lettre": "D",
+				"texte": "Le remplacement n'est pas obligatoire, mais la procédure a provoqué un retard et doit être sanctionnée.",
+				"correcte": true
+			}
+		],
+		"explication": "La demande de remplacement était correcte et déjà reconnue par le marqueur au moyen du buzzer ; le jeu a donc été interrompu du fait de cette demande. Il n'est pas obligatoire d'effectuer le remplacement, mais la procédure a provoqué un retard et doit être sanctionnée.",
+		"theme": "Remplacements",
+		"niveau": "Niveau 2",
+		"role_cible": "les_deux",
+		"regles": [
+			"15.10.3.1",
+			"15.10.3.3",
+			"16.1.1",
+			"Cas 4.19"
+		],
+		"regle_principale": "15.10.3.1"
+	},
+	{
+		"cas": "Cas 4.20",
+		"enonce": "Après le coup de sifflet de service, un joueur remplaçant de l'équipe A entre dans la zone de remplacement. Le marqueur n'en tient pas compte et le jeu ne s'arrête pas. À la fin de l'échange, vous, 2ème arbitre, demandez au marqueur d'enregistrer une demande non fondée sur la feuille de match. Est-ce la bonne procédure ?",
+		"propositions": [
+			{
+				"lettre": "A",
+				"texte": "Non : le jeu n'ayant pas été interrompu, aucune demande non fondée ne doit être enregistrée.",
+				"correcte": false
+			},
+			{
+				"lettre": "B",
+				"texte": "Oui : c'est une demande non fondée, à enregistrer sur la feuille de match et à signaler à l'entraîneur.",
+				"correcte": true
+			},
+			{
+				"lettre": "C",
+				"texte": "Non : l'équipe A aurait dû recevoir un avertissement pour retard de jeu à la fin de l'échange.",
+				"correcte": false
+			},
+			{
+				"lettre": "D",
+				"texte": "Non : le remplacement aurait dû être accordé à la fin de l'échange, la demande étant valable.",
+				"correcte": false
+			}
+		],
+		"explication": "Le 2ème arbitre a raison : c'est un cas typique de demande non fondée, qui doit être enregistrée sur la feuille de match, et le 2ème arbitre doit en avertir l'entraîneur. S'il s'était agi d'une demande non fondée répétée, une sanction pour retard de jeu aurait dû être infligée.",
+		"theme": "Remplacements",
+		"niveau": "Niveau 2",
+		"role_cible": "les_deux",
+		"regles": [
+			"15.11.1.1",
+			"15.11.2",
+			"16.1.1",
+			"Cas 4.20"
+		],
+		"regle_principale": "15.11.1.1"
+	},
+	{
+		"cas": "Cas 4.21",
+		"enonce": "Le marqueur actionne par erreur le buzzer de remplacement, après le coup de sifflet de service, alors qu'aucun joueur n'est entré dans la zone de remplacement. L'équipe concernée doit-elle se voir imputer une demande non fondée ?",
+		"propositions": [
+			{
+				"lettre": "A",
+				"texte": "Oui : le buzzer a interrompu le jeu, une demande non fondée est donc enregistrée pour l'équipe.",
+				"correcte": false
+			},
+			{
+				"lettre": "B",
+				"texte": "Non : la faute est celle du marqueur ; ce n'est ni une demande non fondée ni un retard de jeu.",
+				"correcte": true
+			},
+			{
+				"lettre": "C",
+				"texte": "Non, mais l'équipe reçoit un avertissement pour retard de jeu, puisque le jeu a été interrompu.",
+				"correcte": false
+			},
+			{
+				"lettre": "D",
+				"texte": "Oui, si l'entraîneur avait fait le geste de remplacement avant le coup de sifflet de service.",
+				"correcte": false
+			}
+		],
+		"explication": "Non. La faute étant commise par le marqueur, cette situation ne doit être considérée ni comme une demande non fondée, ni comme un retard de jeu ; rien n'est donc imputé à l'équipe.",
+		"theme": "Remplacements",
+		"niveau": "Niveau 2",
+		"role_cible": "marqueur",
+		"regles": [
+			"15.10.3.1",
+			"15.10.3.3",
+			"Cas 4.21"
+		],
+		"regle_principale": "15.10.3.1"
+	},
+	{
+		"cas": "Cas 4.22",
+		"enonce": "En cours de set, on constate qu'un joueur de l'équipe A non inscrit sur la feuille de match se trouve sur le terrain. Que font les officiels ?",
+		"propositions": [
+			{
+				"lettre": "A",
+				"texte": "Le joueur est remplacé par un joueur inscrit, sans autre conséquence sur la marque.",
+				"correcte": false
+			},
+			{
+				"lettre": "B",
+				"texte": "L'équipe A perd immédiatement le match en raison de la présence d'un joueur non inscrit.",
+				"correcte": false
+			},
+			{
+				"lettre": "C",
+				"texte": "Le joueur est inscrit sur la feuille de match avec la signature du capitaine, puis le jeu reprend.",
+				"correcte": false
+			},
+			{
+				"lettre": "D",
+				"texte": "Le joueur est remplacé par un joueur inscrit, les points marqués pendant sa présence annulés, et B obtient point et service.",
+				"correcte": true
+			}
+		],
+		"explication": "Le joueur non inscrit est retiré du terrain dès que l'erreur est découverte, au profit d'un joueur régulièrement inscrit. Tous les points marqués pendant sa présence sont annulés et les adversaires obtiennent un point et le service. Si l'erreur n'était décelée qu'après la fin du set, le set serait perdu ; après la fin du match, c'est le match qui serait perdu. Pour l'éviter, le 2ème arbitre et le marqueur vérifient avant chaque set la concordance entre feuille de position et feuille de match.",
+		"theme": "Remplacements",
+		"niveau": "Niveau 2",
+		"role_cible": "les_deux",
+		"regles": [
+			"4.1.3",
+			"4.2.2",
+			"5.1.1",
+			"5.2.2",
+			"7.3.5.4",
+			"15.9.2",
+			"Cas 4.22"
+		],
+		"regle_principale": "4.1.3"
+	},
+	{
+		"cas": "Cas 4.23",
+		"enonce": "Pendant une interruption, l'équipe A, en réception, demande un remplacement. Au cours de cette même interruption, l'équipe B est pénalisée, ce qui fait tourner l'équipe A d'une position. L'équipe A demande alors un nouveau remplacement. Quelle est votre décision ?",
+		"propositions": [
+			{
+				"lettre": "A",
+				"texte": "Vous l'acceptez : la pénalité infligée à B constitue un échange complet entre les deux demandes.",
+				"correcte": true
+			},
+			{
+				"lettre": "B",
+				"texte": "Vous la refusez : deux demandes de remplacement doivent être séparées par un échange réellement joué.",
+				"correcte": false
+			},
+			{
+				"lettre": "C",
+				"texte": "Vous la refusez comme demande non fondée, l'équipe A ayant déjà obtenu un remplacement dans l'interruption.",
+				"correcte": false
+			},
+			{
+				"lettre": "D",
+				"texte": "Vous l'acceptez, mais uniquement si le remplacement concerne un autre joueur que le précédent.",
+				"correcte": false
+			}
+		],
+		"explication": "La nouvelle demande est possible. Une pénalité est un échange complet au sens des règles : il y a donc eu en réalité un échange terminé entre les deux demandes de remplacement de l'équipe A.",
+		"theme": "Remplacements",
+		"niveau": "Niveau 3",
+		"role_cible": "les_deux",
+		"regles": [
+			"6.1.3",
+			"15.2.3",
+			"Cas 4.23"
+		],
+		"regle_principale": "6.1.3"
+	},
+	{
+		"cas": "Cas 4.24",
+		"enonce": "Lors du contrôle de la formation, vous, 2ème arbitre, constatez que le numéro du Libéro figure dans la formation de départ de l'équipe A. Vous demandez à l'entraîneur de corriger la feuille de position et en informez le marqueur, puis le match commence. Cette procédure est-elle correcte ?",
+		"propositions": [
+			{
+				"lettre": "A",
+				"texte": "Non : la feuille ayant été remise, le Libéro doit commencer le set à la position où il est inscrit.",
+				"correcte": false
+			},
+			{
+				"lettre": "B",
+				"texte": "Non : la correction de la feuille de position doit être comptée comme un remplacement régulier.",
+				"correcte": false
+			},
+			{
+				"lettre": "C",
+				"texte": "Oui : l'entraîneur fournit une feuille corrigée, modifiée seulement à la position du Libéro, puis le Libéro peut entrer.",
+				"correcte": true
+			},
+			{
+				"lettre": "D",
+				"texte": "Oui, et l'entraîneur peut à cette occasion modifier librement l'ensemble de sa formation de départ.",
+				"correcte": false
+			}
+		],
+		"explication": "La procédure est correcte. Le 2ème arbitre demande à l'entraîneur une nouvelle feuille de position correcte, qui ne peut être modifiée qu'à la position où le Libéro avait été inscrit par erreur. Une fois la feuille corrigée vérifiée par rapport à la formation présente sur le terrain, le 2ème arbitre autorise le Libéro à entrer sur le terrain.",
+		"theme": "Remplacements",
+		"niveau": "Niveau 2",
+		"role_cible": "les_deux",
+		"regles": [
+			"7.3.5.2",
+			"Cas 4.24"
+		],
+		"regle_principale": "7.3.5.2"
+	},
+	{
+		"cas": "Cas 4.25",
+		"enonce": "L'équipe A, qui a déjà reçu un avertissement pour retard de jeu dans le match, demande un remplacement refusé en raison d'une mauvaise plaquette ; elle reçoit donc une pénalité pour retard de jeu. Elle formule aussitôt une nouvelle demande de remplacement. Quelle est votre décision ?",
+		"propositions": [
+			{
+				"lettre": "A",
+				"texte": "Vous l'acceptez : la pénalité de retard équivaut à un échange complet, la nouvelle demande est possible.",
+				"correcte": true
+			},
+			{
+				"lettre": "B",
+				"texte": "Vous la refusez : aucune nouvelle demande n'est possible tant qu'un échange n'a pas été joué.",
+				"correcte": false
+			},
+			{
+				"lettre": "C",
+				"texte": "Vous la refusez : après une pénalité de retard, l'équipe ne peut plus demander de remplacement dans le set.",
+				"correcte": false
+			},
+			{
+				"lettre": "D",
+				"texte": "Vous l'acceptez, mais elle entraîne automatiquement une nouvelle pénalité pour retard de jeu.",
+				"correcte": false
+			}
+		],
+		"explication": "La nouvelle demande peut être acceptée. Les pénalités étant considérées comme des échanges complets, la pénalité pour retard de jeu sépare la demande refusée de la nouvelle demande de remplacement.",
+		"theme": "Remplacements",
+		"niveau": "Niveau 3",
+		"role_cible": "les_deux",
+		"regles": [
+			"6.1.3",
+			"15.2.3",
+			"Cas 4.25"
+		],
+		"regle_principale": "6.1.3"
+	},
+	{
+		"cas": "Cas 4.26",
+		"enonce": "L'équipe A souhaite effectuer un double remplacement. Un joueur entre dans la zone de remplacement, prêt à jouer, pendant que l'autre cherche encore sa plaquette numérotée ; ce second joueur est en place avant la fin des formalités du premier remplacement. Vous accordez les deux remplacements sans intervenir. Cette procédure est-elle correcte ?",
+		"propositions": [
+			{
+				"lettre": "A",
+				"texte": "Non : seul le premier remplacement devait être accordé, le second ne faisant pas partie de la demande initiale.",
+				"correcte": false
+			},
+			{
+				"lettre": "B",
+				"texte": "Non : les deux remplacements devaient être refusés et l'équipe sanctionnée pour retard de jeu.",
+				"correcte": false
+			},
+			{
+				"lettre": "C",
+				"texte": "Non : le second remplacement devait être accordé, mais enregistré comme demande non fondée.",
+				"correcte": false
+			},
+			{
+				"lettre": "D",
+				"texte": "Oui : en l'absence de retard réel, les arbitres font preuve de souplesse et accordent les deux remplacements.",
+				"correcte": true
+			}
+		],
+		"explication": "Oui, la procédure des remplacements multiples a été bien appliquée : s'il n'y a pas de retard réel, les arbitres doivent faire preuve de souplesse. Ce cas diffère du cas 4.2, où le second joueur se trouvait encore trop loin de la zone de remplacement.",
+		"theme": "Remplacements",
+		"niveau": "Niveau 2",
+		"role_cible": "arbitre",
+		"regles": [
+			"Cas 4.26"
+		],
+		"regle_principale": "Cas 4.26"
+	}
+]
