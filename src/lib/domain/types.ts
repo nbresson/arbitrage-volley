@@ -23,3 +23,26 @@ export type CasImport = {
 	texte_original: string;
 	ordre: number;
 };
+
+export type Lettre = 'A' | 'B' | 'C' | 'D';
+export type RoleCible = 'arbitre' | 'marqueur' | 'les_deux';
+
+/** Brouillon de question rédigé à partir d'un cas du Casebook (data/brouillons-*.json). */
+export type BrouillonQuestion = {
+	cas: string; // « Cas 3.35.1 »
+	enonce: string;
+	propositions: { lettre: Lettre; texte: string; correcte: boolean }[];
+	explication: string;
+	theme: string;
+	niveau: string;
+	role_cible: RoleCible;
+	regles: string[]; // références de règles et/ou du cas lui-même
+	regle_principale: string;
+};
+
+/** Cas volontairement laissé sans question (question ouverte, décisions multiples…). */
+export type CasSansQuestion = { cas: string; sans_question: true; raison: string };
+
+export type EntreeBrouillon = BrouillonQuestion | CasSansQuestion;
+
+export type Probleme = { cas: string; gravite: 'erreur' | 'avertissement'; message: string };
