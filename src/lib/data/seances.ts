@@ -1,5 +1,6 @@
 import { supabase } from '#lib/supabase.ts';
 import type { QuestionSeance, ResultatValidation } from '#lib/seance/pedagogique.ts';
+import type { Avancement } from './avancement.ts';
 import type { ParametresSeance } from './parametres-seance.ts';
 
 export type Option = { id: string; libelle: string };
@@ -87,6 +88,36 @@ export async function terminerSeance(id: string): Promise<BilanSeance> {
 	const { data, error } = await supabase.rpc('terminer_seance', { p_seance: id });
 	if (error) throw new Error(error.message);
 	return data as BilanSeance;
+}
+
+export async function avancement(stagiaire?: string): Promise<Avancement[]> {
+	const { data, error } = await supabase.rpc('avancement', stagiaire ? { p_stagiaire: stagiaire } : {});
+	if (error) throw new Error(error.message);
+	return data ?? [];
+}
+
+/** Dernière séance pédagogique non terminée, avec sa progression. */
+export async function seanceAReprendre(): Promise<{ id: string; theme: string; index: number; total: number; acquises: number; aRevoir: number } | null> {
+	const { data, error } = await supabase
+		.from('seances')
+		.select('id')
+		.eq('type', 'pedagogique')
+		.is('fin', null)
+		.order('debut', { ascending: false })
+		.limit(1);
+	if (error || !data?.length) return null;
+	const qs = await questionsDeSeance(data[0].id);
+	const faites = qs.filter((q) => q.correcte_precedente !== null);
+	if (!qs.length || faites.length === qs.length) return null;
+	const themes = new Set(qs.map((q) => q.theme));
+	return {
+		id: data[0].id,
+		theme: themes.size === 1 ? qs[0].theme : 'plusieurs thèmes',
+		index: faites.length + 1,
+		total: qs.length,
+		acquises: faites.filter((q) => q.correcte_precedente).length,
+		aRevoir: faites.filter((q) => q.correcte_precedente === false).length
+	};
 }
 
 export const urlSeance =(type: ParametresSeance['type'], id: string) =>
