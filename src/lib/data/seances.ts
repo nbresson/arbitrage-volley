@@ -1,4 +1,5 @@
 import { supabase } from '#lib/supabase.ts';
+import type { QuestionSeance, ResultatValidation } from '#lib/seance/pedagogique.ts';
 import type { ParametresSeance } from './parametres-seance.ts';
 
 export type Option = { id: string; libelle: string };
@@ -28,5 +29,55 @@ export async function creerSeance(p: ParametresSeance): Promise<string> {
 	return data as string;
 }
 
-export const urlSeance = (type: ParametresSeance['type'], id: string) =>
+export type InfoSeance = {
+	id: string;
+	type: ParametresSeance['type'];
+	debut: string;
+	fin: string | null;
+	duree_minutes: number | null;
+	nb_questions: number;
+};
+
+export async function infoSeance(id: string): Promise<InfoSeance> {
+	const { data, error } = await supabase
+		.from('seances')
+		.select('id, type, debut, fin, duree_minutes, nb_questions')
+		.eq('id', id)
+		.single();
+	if (error) throw new Error(error.message);
+	return data as InfoSeance;
+}
+
+/** Questions de la séance, sans les bonnes réponses. `correcte_precedente` : null si pas encore répondue. */
+export async function questionsDeSeance(id: string): Promise<(QuestionSeance & { correcte_precedente: boolean | null })[]> {
+	const { data, error } = await supabase.rpc('questions_de_seance', { p_seance: id });
+	if (error) throw new Error(error.message);
+	return data ?? [];
+}
+
+export async function validerReponse(seance: string, question: string, proposition: string, reponduLe?: string) {
+	const { data, error } = await supabase.rpc('valider_reponse', {
+		p_seance: seance,
+		p_question: question,
+		p_proposition: proposition,
+		...(reponduLe ? { p_repondu_le: reponduLe } : {})
+	});
+	if (error) throw new Error(error.message);
+	return data as ResultatValidation | { enregistree: true };
+}
+
+export async function signalerQuestion(seance: string, question: string, signalee: boolean) {
+	const { error } = await supabase.rpc('signaler_question', { p_seance: seance, p_question: question, p_signalee: signalee });
+	if (error) throw new Error(error.message);
+}
+
+export type BilanSeance = { score: number; total: number; par_theme: { theme: string; justes: number; total: number }[] };
+
+export async function terminerSeance(id: string): Promise<BilanSeance> {
+	const { data, error } = await supabase.rpc('terminer_seance', { p_seance: id });
+	if (error) throw new Error(error.message);
+	return data as BilanSeance;
+}
+
+export const urlSeance =(type: ParametresSeance['type'], id: string) =>
 	type === 'pedagogique' ? `/entrainement/${id}` : `/examen-entrainement/${id}`;
