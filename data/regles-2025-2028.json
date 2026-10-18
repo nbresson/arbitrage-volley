@@ -1,0 +1,5497 @@
+[
+	{
+		"reference": "1",
+		"parent_reference": null,
+		"titre": "AIRE DE JEU",
+		"texte": "L’aire de jeu comprend le terrain de jeu et la zone libre. Elle doit être rectangulaire et symétrique.",
+		"renvois": [
+			"1.1",
+			"Fig.1a",
+			"Fig.1b"
+		],
+		"ordre": 0
+	},
+	{
+		"reference": "1.1",
+		"parent_reference": "1",
+		"titre": "DIMENSIONS",
+		"texte": "Le terrain de jeu est un rectangle mesurant 18 x 9 m, entouré d’une zone libre d’au moins 3 m de large sur tous les côtés. L'espace de jeu libre est l'espace situé au-dessus de l'aire de jeu et libre de tout obstacle sur une hauteur d'au moins 7 m, mesurée à partir de la surface de jeu. Pour les compétitions FIVB, Mondiales et Officielles, la zone libre mesurera 5 m à partir des lignes de côté et 6,5 m à partir des lignes de fond. L'espace de jeu libre doit mesurer au moins 12,5 m de haut à partir de la surface de jeu.",
+		"renvois": [
+			"Fig.2"
+		],
+		"ordre": 1
+	},
+	{
+		"reference": "1.2",
+		"parent_reference": "1",
+		"titre": "SURFACE DE JEU",
+		"texte": "",
+		"renvois": [],
+		"ordre": 2
+	},
+	{
+		"reference": "1.2.1",
+		"parent_reference": "1.2",
+		"titre": null,
+		"texte": "La surface de jeu est plate, horizontale et uniforme. Elle ne doit présenter aucun danger de blessure pour les joueurs. Il est interdit de jouer sur une surface rugueuse ou glissante. Pour les compétitions FIVB, Mondiales et Officielles, seule une surface en bois ou synthétique est autorisée. Toute surface doit être au préalable homologuée par la FIVB.",
+		"renvois": [],
+		"ordre": 3
+	},
+	{
+		"reference": "1.2.2",
+		"parent_reference": "1.2",
+		"titre": null,
+		"texte": "En salle, la surface du terrain de jeu doit être de couleur claire. Pour les compétitions FIVB, mondiales et officielles, les lignes doivent être de couleur blanches. D’autres couleurs, différentes les unes des autres, sont requises pour le terrain de jeu et la zone libre. Le terrain de jeu peut être de couleurs différentes pour différencier la zone avant et la zone arrière.",
+		"renvois": [
+			"1.1",
+			"1.3"
+		],
+		"ordre": 4
+	},
+	{
+		"reference": "1.2.3",
+		"parent_reference": "1.2",
+		"titre": null,
+		"texte": "Pour les terrains de plein air, une pente d’écoulement de 5 mm par mètre est autorisée. Les lignes constituées par des matériaux solides sont interdites.",
+		"renvois": [
+			"1.3"
+		],
+		"ordre": 5
+	},
+	{
+		"reference": "1.3",
+		"parent_reference": "1",
+		"titre": "LIGNES DU TERRAIN",
+		"texte": "",
+		"renvois": [
+			"Fig.2"
+		],
+		"ordre": 6
+	},
+	{
+		"reference": "1.3.1",
+		"parent_reference": "1.3",
+		"titre": null,
+		"texte": "La largeur des lignes est de 5 cm. Les lignes doivent être d’une couleur claire, différente de celle du sol et des autres tracés.",
+		"renvois": [
+			"1.2.2"
+		],
+		"ordre": 7
+	},
+	{
+		"reference": "1.3.2",
+		"parent_reference": "1.3",
+		"titre": "Lignes de délimitation",
+		"texte": "Deux lignes de côté et deux lignes de fond délimitent le terrain de jeu. Les lignes de côté et les lignes de fond sont tracées à l’intérieur du terrain de jeu.",
+		"renvois": [
+			"1.1"
+		],
+		"ordre": 8
+	},
+	{
+		"reference": "1.3.3",
+		"parent_reference": "1.3",
+		"titre": "Ligne centrale",
+		"texte": "L’axe de la ligne centrale divise le terrain de jeu en deux camps égaux de 9 x 9 m chacun; par contre la largeur entière de la ligne est considérée appartenir de manière égale aux deux camps. Elle s’étend sous le filet jusqu’aux lignes de côté.",
+		"renvois": [
+			"Fig.2"
+		],
+		"ordre": 9
+	},
+	{
+		"reference": "1.3.4",
+		"parent_reference": "1.3",
+		"titre": "Ligne d’attaque",
+		"texte": "Dans chaque camp, une ligne d’attaque, dont le bord extérieur est tracé à 3 m de l’axe de la ligne centrale, délimite la zone avant. Pour les compétitions FIVB, Mondiales et Officielles, la ligne d’attaque est prolongée au-delà des lignes de côté par une ligne de 5 traits pointillés de 15 cm de longueur et de 5 cm de largeur espacés de 20 cm les uns des autres sur une longueur totale de 1,75 m.",
+		"renvois": [
+			"1.3.3",
+			"1.4.1",
+			"Fig.2"
+		],
+		"ordre": 10
+	},
+	{
+		"reference": "1.4",
+		"parent_reference": "1",
+		"titre": "ZONES ET AIRES",
+		"texte": "",
+		"renvois": [
+			"Fig.1b",
+			"Fig.2"
+		],
+		"ordre": 11
+	},
+	{
+		"reference": "1.4.1",
+		"parent_reference": "1.4",
+		"titre": "Zone avant",
+		"texte": "Dans chaque camp, la zone avant est délimitée par l’axe de la ligne centrale et le bord extérieur de la ligne d’attaque. Les zones avant sont censées se prolonger au-delà des lignes de côté jusqu'à la fin de la zone libre.",
+		"renvois": [
+			"19.3.1.4",
+			"23.3.2.3e",
+			"Fig.2",
+			"1.3.3",
+			"1.3.4",
+			"19.3.1.4",
+			"23.3.2.3e",
+			"1.1",
+			"1.3.2"
+		],
+		"ordre": 12
+	},
+	{
+		"reference": "1.4.2",
+		"parent_reference": "1.4",
+		"titre": "Zone de service",
+		"texte": "La zone de service est la zone de 9 m de large située derrière chaque ligne de fond. Elle est limitée latéralement par deux traits de 15 cm de long tracés à 20 cm en arrière et dans le prolongement des lignes de côté. Ces deux traits sont inclus dans la largeur de la zone de service. En profondeur, la zone de service s’étend jusqu’au fond de la zone libre.",
+		"renvois": [
+			"1.3.2",
+			"12",
+			"Fig.1b",
+			"1.1"
+		],
+		"ordre": 13
+	},
+	{
+		"reference": "1.4.3",
+		"parent_reference": "1.4",
+		"titre": "Zone de remplacement",
+		"texte": "La zone de remplacement est délimitée par le prolongement des deux lignes d’attaque jusqu’à la table du marqueur.",
+		"renvois": [
+			"1.3.4",
+			"15.10.1",
+			"Fig.1b"
+		],
+		"ordre": 14
+	},
+	{
+		"reference": "1.4.4",
+		"parent_reference": "1.4",
+		"titre": "Zone de changement du Libéro",
+		"texte": "La zone de changement du Libéro est une partie de la zone libre située du côté des bancs d'équipe, limitée par le prolongement de la zone d'attaque et de la ligne de fond.",
+		"renvois": [
+			"19.3.2.7",
+			"Fig.1b"
+		],
+		"ordre": 15
+	},
+	{
+		"reference": "1.4.5",
+		"parent_reference": "1.4",
+		"titre": "Aire d’échauffement",
+		"texte": "Pour les compétitions FIVB, Mondiales et Officielles, les zones d’échauffement, d’une taille d’environ 3 x 3 m, sont situées dans les deux coins du banc, en dehors de la zone libre, où elles n’obstruent pas la vue des spectateurs, ou alternativement derrière le banc de l’équipe où la tribune commence à plus de 2,5 m de la surface du court.",
+		"renvois": [
+			"24.2.5",
+			"Fig.1a",
+			"Fig.1b"
+		],
+		"ordre": 16
+	},
+	{
+		"reference": "1.5",
+		"parent_reference": "1",
+		"titre": "TEMPÉRATURE",
+		"texte": "La température minimale ne peut être inférieure à 10° C (50° F). Pour les compétitions FIVB, Mondiales et Officielles, la température maximale sera déterminée par le délégué technique de la FIVB de la rencontre.",
+		"renvois": [],
+		"ordre": 17
+	},
+	{
+		"reference": "1.6",
+		"parent_reference": "1",
+		"titre": "ÉCLAIRAGE",
+		"texte": "Il ne devrait pas être inférieur à 300 lux. 1 Pour les compétitions FIVB, Mondiales et Officielles, l’éclairage de l’aire de jeu ne doit pas être inférieur à 2000 lux, mesuré à 1 m au-dessus de l’aire de jeu.",
+		"renvois": [],
+		"ordre": 18
+	},
+	{
+		"reference": "2",
+		"parent_reference": null,
+		"titre": "FILET ET POTEAUX",
+		"texte": "",
+		"renvois": [
+			"Fig.3"
+		],
+		"ordre": 19
+	},
+	{
+		"reference": "2.1",
+		"parent_reference": "2",
+		"titre": "HAUTEUR DU FILET",
+		"texte": "",
+		"renvois": [],
+		"ordre": 20
+	},
+	{
+		"reference": "2.1.1",
+		"parent_reference": "2.1",
+		"titre": null,
+		"texte": "Un filet tendu verticalement est installé au-dessus de l’axe de la ligne centrale. Sa partie supérieure doit être placée à 2,43m pour les hommes et 2,24m pour les femmes.",
+		"renvois": [
+			"1.3.3",
+			"2.1.2"
+		],
+		"ordre": 21
+	},
+	{
+		"reference": "2.1.2",
+		"parent_reference": "2.1",
+		"titre": null,
+		"texte": "Sa hauteur est mesurée au centre du terrain de jeu. Les deux extrémités du filet (au-dessus des lignes de côté) doivent être exactement à la même hauteur et ne pas dépasser de plus de 2 cm la hauteur réglementaire.",
+		"renvois": [
+			"1.1",
+			"1.3.2",
+			"2.1.1"
+		],
+		"ordre": 22
+	},
+	{
+		"reference": "2.2",
+		"parent_reference": "2",
+		"titre": "STRUCTURE",
+		"texte": "Le filet est d’une largeur de 1 m (+/- 3 cm) et d’une longueur de 9,50 à 10 m (avec 25 à 50 cm de chaque côté des bandes latérales), constitué de mailles noires carrées de 10 cm. Pour les compétitions FIVB, Mondiales et Officielles, en liaison avec les règlements spécifiques des compétitions, la maille peut être modifiée pour faciliter la publicité selon les accords de marketing. À son sommet, une bande horizontale de 7 cm de large, faite de toile blanche pliée en deux, est cousue sur toute sa longueur. Chaque extrémité de la bande est percée d'un trou dans lequel passe une cordelette qui fixe la bande aux poteaux et maintient son sommet tendu. À l'intérieur de la bande, un câble flexible fixe le filet aux poteaux et maintient son sommet tendu. Au bas du filet se trouve une autre bande horizontale de 5 cm de large, similaire à la bande supérieure, dans laquelle est enfilée une corde. Cette corde fixe le filet aux poteaux et maintient sa partie inférieure tendue.",
+		"renvois": [
+			"Fig.3"
+		],
+		"ordre": 23
+	},
+	{
+		"reference": "2.3",
+		"parent_reference": "2",
+		"titre": "BANDES DE CÔTÉ",
+		"texte": "Deux bandes blanches sont cousues verticalement sur le filet exactement au-dessus de chaque ligne de côté. Elles mesurent 5 cm de large et 1 m de long et sont considérées comme faisant partie du filet.",
+		"renvois": [
+			"1.3.2",
+			"Fig.3"
+		],
+		"ordre": 24
+	},
+	{
+		"reference": "2.4",
+		"parent_reference": "2",
+		"titre": "ANTENNES",
+		"texte": "L’antenne est une tige flexible de 1,80 m de long et de 10 mm de diamètre, faite en fibre de verre ou matériau similaire. Une antenne est fixée sur le bord extérieur de chaque bande de côté. Les antennes sont placées en opposition de chaque côté du filet. La partie supérieure de l’antenne dépassant le filet de 80 cm est peinte de bandes contrastées de 10 cm, de préférence rouges et blanches. Les antennes sont considérées comme faisant partie du filet et délimitent latéralement l’espace de passage.",
+		"renvois": [
+			"2.3",
+			"Fig.3",
+			"10.1.1",
+			"Fig.3",
+			"Fig.5a",
+			"Fig.5b"
+		],
+		"ordre": 25
+	},
+	{
+		"reference": "2.5",
+		"parent_reference": "2",
+		"titre": "POTEAUX",
+		"texte": "",
+		"renvois": [],
+		"ordre": 26
+	},
+	{
+		"reference": "2.5.1",
+		"parent_reference": "2.5",
+		"titre": null,
+		"texte": "Les poteaux supportant le filet sont placés à une distance de 0,50 m à 1 m à l’extérieur de chaque ligne de côté. Ils doivent avoir une hauteur de 2,55 m et être de préférence réglables. Pour les compétitions FIVB, Mondiales et Officielles, les poteaux supportant le filet sont placés à une distance de 1 m à l’extérieur des lignes de côté et doivent être rembourrés.",
+		"renvois": [
+			"Fig.3"
+		],
+		"ordre": 27
+	},
+	{
+		"reference": "2.5.2",
+		"parent_reference": "2.5",
+		"titre": null,
+		"texte": "Les poteaux sont arrondis et lisses, fixés au sol sans câbles. Il ne doit y avoir aucun dispositif dangereux ou obstruant.",
+		"renvois": [],
+		"ordre": 28
+	},
+	{
+		"reference": "2.6",
+		"parent_reference": "2",
+		"titre": "ÉQUIPEMENT COMPLÉMENTAIRE",
+		"texte": "Tout équipement complémentaire est déterminé par les règlements de la FIVB.",
+		"renvois": [],
+		"ordre": 29
+	},
+	{
+		"reference": "3",
+		"parent_reference": null,
+		"titre": "BALLONS",
+		"texte": "",
+		"renvois": [],
+		"ordre": 30
+	},
+	{
+		"reference": "3.1",
+		"parent_reference": "3",
+		"titre": "NORMES",
+		"texte": "Le ballon doit être sphérique avec une enveloppe en cuir souple naturel ou synthétique comportant à l’intérieur une vessie en caoutchouc ou en matériau similaire. Le ballon doit être d’une couleur uniforme et claire, ou présenter une combinaison de couleurs. Les cuirs synthétiques et les combinaisons de couleurs des ballons utilisés dans les compétitions internationales officielles doivent être conformes aux normes de la FIVB. Sa circonférence doit être comprise entre 65 et 67 cm et son poids entre 260 et 280g. La pression intérieure doit être de 0.30 à 0. 325 kg/cm2 (4.26 à 4.61 psi) (294.3 à 318.82 mbar ou hPa).",
+		"renvois": [],
+		"ordre": 31
+	},
+	{
+		"reference": "3.2",
+		"parent_reference": "3",
+		"titre": "UNIFORMITÉ DES BALLONS",
+		"texte": "Tous les ballons utilisés lors d’un match doivent avoir les mêmes caractéristiques de circonférence, poids, pression, modèle, couleur, etc. Les compétitions FIVB, Mondiales et Officielles, ainsi que les championnats Nationaux ou de Ligues doivent être joués avec des ballons homologués par la FIVB, sauf autorisation spéciale.",
+		"renvois": [
+			"3.1"
+		],
+		"ordre": 32
+	},
+	{
+		"reference": "3.3",
+		"parent_reference": "3",
+		"titre": "SYSTÈME DE RÉCUPÉRATION DES BALLONS",
+		"texte": "Pour les compétitions FIVB, Mondiales et Officielles, cinq ballons seront utilisés. Dans ce cas, six ramasseurs sont placés comme suit: un à chaque angle de la zone libre et un derrière chaque arbitre.",
+		"renvois": [
+			"Fig.10"
+		],
+		"ordre": 33
+	},
+	{
+		"reference": "4",
+		"parent_reference": null,
+		"titre": "ÉQUIPES",
+		"texte": "",
+		"renvois": [],
+		"ordre": 34
+	},
+	{
+		"reference": "4.1",
+		"parent_reference": "4",
+		"titre": "COMPOSITION DES ÉQUIPES",
+		"texte": "",
+		"renvois": [],
+		"ordre": 35
+	},
+	{
+		"reference": "4.1.1",
+		"parent_reference": "4.1",
+		"titre": null,
+		"texte": "Pour le match, une équipe peut être composée de 12 joueurs au maximum, plus – Personnel d’entraîneurs: un entraîneur, deux entraîneurs adjoints au maximum, – Personnel médical: un thérapeute d’équipe et un médecin. Seules les personnes inscrites sur la feuille de match peuvent normalement entrer dans la zone de compétition/de contrôle et participer à l’échauffement officiel et au match. Pour les compétitions FIVB, mondiales et officielles pour les seniors: Jusqu’à 14 joueurs peuvent être inscrits sur la feuille de match et jouer dans un match. Les cinq membres maximum du personnel sur le banc (y compris l’entraîneur) sont choisis par l’entraîneur lui-même, mais doivent figurer sur la feuille de match et être inscrits sur le O-2(bis). Le manager de l’équipe et/ou le journaliste de l’équipe ne peuvent pas s’asseoir sur ou derrière le banc d’équipe dans la zone de contrôle. Tout médecin ou thérapeute d’équipe utilisé lors des compétitions FIVB, mondiales et officielles doit faire partie de la délégation officielle et être accrédité au préalable par la FIVB. Cependant, pour les compétitions FIVB, mondiales et officielles pour les seniors, s’ils ne sont pas inclus comme membres sur le banc de l’équipe, ils doivent s’asseoir contre la barrière de délimitation, à l’intérieur de la zone de contrôle de la compétition ou s’asseoir à un endroit spécial indiqué dans le manuel de la compétition spécifique, et ne peuvent intervenir que si les arbitres les invitent à traiter une urgence pour les joueurs. Le thérapeute de l’équipe (même s’il n’est pas sur le banc) peut aider à l’échauffement jusqu’au début de la séance officielle d’échauffement au filet. Le règlement officiel de chaque épreuve se trouve dans le manuel de compétition spécifique.",
+		"renvois": [
+			"5.2",
+			"5.3",
+			"Fig.1a",
+			"7.2.1"
+		],
+		"ordre": 36
+	},
+	{
+		"reference": "4.1.2",
+		"parent_reference": "4.1",
+		"titre": null,
+		"texte": "L’un des joueurs est le capitaine de l’équipe, et doit être identifié sur la feuille de match.",
+		"renvois": [
+			"5.1"
+		],
+		"ordre": 37
+	},
+	{
+		"reference": "4.1.3",
+		"parent_reference": "4.1",
+		"titre": null,
+		"texte": "Seuls les joueurs enregistrés sur la feuille de match peuvent pénétrer sur le terrain et participer à la rencontre. Après la signature de la feuille de match par le capitaine et l’entraineur, la composition de l’équipe ne peut plus être modifiée.",
+		"renvois": [
+			"1",
+			"4.1.1",
+			"5.1.1",
+			"5.2.2"
+		],
+		"ordre": 38
+	},
+	{
+		"reference": "4.2",
+		"parent_reference": "4",
+		"titre": "EMPLACEMENT DES ÉQUIPES",
+		"texte": "",
+		"renvois": [],
+		"ordre": 39
+	},
+	{
+		"reference": "4.2.1",
+		"parent_reference": "4.2",
+		"titre": null,
+		"texte": "Les joueurs qui ne sont pas en jeu doivent être assis sur le banc d’équipe ou rester dans leur aire d’échauffement. L’entraîneur et les autres membres de l’équipe doivent être assis sur le banc, mais peuvent le quitter momentanément. Les bancs d’équipe sont situés de part et d'autre de la table de marque, à l’extérieur de la zone libre.",
+		"renvois": [
+			"1.4.5",
+			"5.2.3",
+			"7.3.3",
+			"Fig.1a",
+			"Fig.1b"
+		],
+		"ordre": 40
+	},
+	{
+		"reference": "4.2.2",
+		"parent_reference": "4.2",
+		"titre": null,
+		"texte": "Seuls les membres de la composition de l’équipe sont autorisés à entrer dans l’aire de jeu, à s’asseoir sur le banc pendant le match et à participer à la séance d’échauffement officielle.",
+		"renvois": [
+			"4.1.1",
+			"7.2"
+		],
+		"ordre": 41
+	},
+	{
+		"reference": "4.2.3",
+		"parent_reference": "4.2",
+		"titre": null,
+		"texte": "Les joueurs qui ne sont pas en jeu peuvent s’échauffer sans ballons comme suit:",
+		"renvois": [],
+		"ordre": 42
+	},
+	{
+		"reference": "4.2.3.1",
+		"parent_reference": "4.2.3",
+		"titre": null,
+		"texte": "pendant le jeu: dans leur aire d’échauffement;",
+		"renvois": [
+			"1.4.5",
+			"Fig.1a",
+			"Fig.1b"
+		],
+		"ordre": 43
+	},
+	{
+		"reference": "4.2.3.2",
+		"parent_reference": "4.2.3",
+		"titre": null,
+		"texte": "Pendant les arrêts de jeu: dans la zone libre derrière leur terrain.",
+		"renvois": [
+			"1.3.3",
+			"15.4"
+		],
+		"ordre": 44
+	},
+	{
+		"reference": "4.2.4",
+		"parent_reference": "4.2",
+		"titre": null,
+		"texte": "Pendant les intervalles de set, les joueurs peuvent s’échauffer en utilisant des ballons dans leur propre zone libre.",
+		"renvois": [
+			"18.1"
+		],
+		"ordre": 45
+	},
+	{
+		"reference": "4.3",
+		"parent_reference": "4",
+		"titre": "ÉQUIPEMENT",
+		"texte": "L’équipement du joueur se compose d’un maillot, d’un short, de chaussettes et de chaussures de sport.",
+		"renvois": [],
+		"ordre": 46
+	},
+	{
+		"reference": "4.3.1",
+		"parent_reference": "4.3",
+		"titre": null,
+		"texte": "Les maillots, les shorts et les chaussettes doivent être de couleurs et de modèles uniformes pour toute l’équipe (à l’exception du Libéro). Les équipements doivent être propres.",
+		"renvois": [
+			"4.1",
+			"19.2"
+		],
+		"ordre": 47
+	},
+	{
+		"reference": "4.3.2",
+		"parent_reference": "4.3",
+		"titre": null,
+		"texte": "Les chaussures doivent être légères et souples avec des semelles en caoutchouc ne laissant pas de traces ou des semelles composites sans talon.",
+		"renvois": [],
+		"ordre": 48
+	},
+	{
+		"reference": "4.3.3",
+		"parent_reference": "4.3",
+		"titre": null,
+		"texte": "Les maillots des joueurs doivent être numérotés de 1 à 20. En FIVB, pour les compétitions Mondiales et Officielles séniores, où des compositions d’équipes plus importantes sont utilisées, les numéros peuvent être étendus.",
+		"renvois": [
+			"4.3.3.2"
+		],
+		"ordre": 49
+	},
+	{
+		"reference": "4.3.3.1",
+		"parent_reference": "4.3.3",
+		"titre": null,
+		"texte": "Les numéros doivent être placés sur le maillot au centre de la poitrine et du dos. La couleur des numéros et leur luminosité doivent contraster nettement avec celles des maillots.",
+		"renvois": [],
+		"ordre": 50
+	},
+	{
+		"reference": "4.3.3.2",
+		"parent_reference": "4.3.3",
+		"titre": null,
+		"texte": "Les numéros doivent avoir une hauteur minimale de 15 cm sur la poitrine et de 20 cm sur le dos. La largeur de la bande formant le chiffre doit être d’au moins 2 cm.",
+		"renvois": [],
+		"ordre": 51
+	},
+	{
+		"reference": "4.3.4",
+		"parent_reference": "4.3",
+		"titre": null,
+		"texte": "Le capitaine d’équipe est identifié grâce à une barrette de 8 X 2 cm, placée sous le numéro de la poitrine.",
+		"renvois": [
+			"5.1"
+		],
+		"ordre": 52
+	},
+	{
+		"reference": "4.3.5",
+		"parent_reference": "4.3",
+		"titre": null,
+		"texte": "Il est interdit de porter une tenue d'une couleur différente de celle des autres joueurs (excepté pour les Libéros) et sans numéro officiel.",
+		"renvois": [
+			"19.2"
+		],
+		"ordre": 53
+	},
+	{
+		"reference": "4.4",
+		"parent_reference": "4",
+		"titre": "CHANGEMENT D'ÉQUIPEMENT",
+		"texte": "Le premier arbitre peut autoriser un ou plusieurs joueurs: 23",
+		"renvois": [],
+		"ordre": 54
+	},
+	{
+		"reference": "4.4.1",
+		"parent_reference": "4.4",
+		"titre": null,
+		"texte": "à jouer pieds nus,",
+		"renvois": [],
+		"ordre": 55
+	},
+	{
+		"reference": "4.4.2",
+		"parent_reference": "4.4",
+		"titre": null,
+		"texte": "à changer, entre deux sets ou après un remplacement, un uniforme mouillé ou endommagé à condition que la couleur, le modèle et le numéro du nouvel uniforme soit identique au précédent,",
+		"renvois": [
+			"4.3",
+			"15.5"
+		],
+		"ordre": 56
+	},
+	{
+		"reference": "4.4.3",
+		"parent_reference": "4.4",
+		"titre": null,
+		"texte": "à jouer en survêtement par temps froid à condition qu’ils soient de couleur et de modèle identiques pour toute l’équipe (à l’exception des Libéros) et réglementairement numérotés en accord avec la règle 4.3.3.",
+		"renvois": [
+			"4.1.1",
+			"19.2"
+		],
+		"ordre": 57
+	},
+	{
+		"reference": "4.5",
+		"parent_reference": "4",
+		"titre": "OBJETS INTERDITS",
+		"texte": "",
+		"renvois": [],
+		"ordre": 58
+	},
+	{
+		"reference": "4.5.1",
+		"parent_reference": "4.5",
+		"titre": null,
+		"texte": "Il est interdit de porter des objets pouvant occasionner des blessures ou procurer un avantage artificiel à un joueur.",
+		"renvois": [],
+		"ordre": 59
+	},
+	{
+		"reference": "4.5.2",
+		"parent_reference": "4.5",
+		"titre": null,
+		"texte": "Les joueurs peuvent porter des lunettes ou des lentilles à leur propre risque.",
+		"renvois": [],
+		"ordre": 60
+	},
+	{
+		"reference": "4.5.3",
+		"parent_reference": "4.5",
+		"titre": null,
+		"texte": "Des dispositifs de compression (dispositifs de protection contre les blessures) peuvent être portés pour la protection ou le soutien. Pour les compétitions FIVB, Mondiales et Officielles pour les seniors, ces dispositifs doivent être de la même couleur que la partie correspondante de l’uniforme. Le noir, le blanc ou des couleurs neutres peuvent également être utilisées à condition que tous les joueurs qui les utilisent portent la même couleur.",
+		"renvois": [],
+		"ordre": 61
+	},
+	{
+		"reference": "5",
+		"parent_reference": null,
+		"titre": "RESPONSABLES D'ÉQUIPE",
+		"texte": "Le capitaine de l’équipe et l’entraîneur sont tous deux responsables de la conduite et de la discipline des membres de leur équipe. Les libéros peuvent être capitaine d’équipe ou de match.",
+		"renvois": [],
+		"ordre": 62
+	},
+	{
+		"reference": "5.1",
+		"parent_reference": "5",
+		"titre": "CAPITAINE",
+		"texte": "",
+		"renvois": [],
+		"ordre": 63
+	},
+	{
+		"reference": "5.1.1",
+		"parent_reference": "5.1",
+		"titre": null,
+		"texte": "AVANT LE MATCH, le capitaine d’équipe signe la feuille de match et représente son équipe lors du tirage au sort.",
+		"renvois": [
+			"7.1",
+			"25.2.1.1"
+		],
+		"ordre": 64
+	},
+	{
+		"reference": "5.1.2",
+		"parent_reference": "5.1",
+		"titre": null,
+		"texte": "PENDANT LE MATCH et sur le terrain, le capitaine de l’équipe est le capitaine de jeu. Lorsque le capitaine de l’équipe n’est pas sur le terrain de jeu, l’entraîneur ou le capitaine de l’équipe doit désigner un autre joueur sur le terrain de jeu, pour assumer le rôle de capitaine de jeu. Ce capitaine de jeu conserve ses responsabilités jusqu’à ce qu’il/elle soit remplacé(e), que le capitaine d’équipe revienne au jeu ou que le set soit terminé. Quand le ballon est hors-jeu, le capitaine au jeu est le seul membre de l’équipe autorisé à parler aux arbitres et uniquement:",
+		"renvois": [
+			"15.2.1",
+			"8.2"
+		],
+		"ordre": 65
+	},
+	{
+		"reference": "5.1.2.1",
+		"parent_reference": "5.1.2",
+		"titre": null,
+		"texte": "pour demander une explication sur l’application ou l’interprétation des Règles et soumettre les demandes ou questions de ses coéquipiers. Au cas où l’explication du premier arbitre ne le satisfait pas, il peut décider d’y faire opposition et doit immédiatement indiquer à l'arbitre qu’il se réserve le droit d'enregistrer à la fin du match une réclamation officielle sur la feuille de match;",
+		"renvois": [
+			"23.2.4"
+		],
+		"ordre": 66
+	},
+	{
+		"reference": "5.1.2.2",
+		"parent_reference": "5.1.2",
+		"titre": null,
+		"texte": "pour demander l’autorisation: a) de changer tout ou une partie de l’équipement, b) de vérifier les positions des équipes, c) de contrôler la surface de jeu, le filet, les ballons, etc.",
+		"renvois": [
+			"4.3",
+			"4.4.2",
+			"7.4",
+			"7.6",
+			"1.2",
+			"2",
+			"3"
+		],
+		"ordre": 67
+	},
+	{
+		"reference": "5.1.2.3",
+		"parent_reference": "5.1.2",
+		"titre": null,
+		"texte": "en l’absence de l’entraîneur, à moins que l’équipe ne dispose d’un entraîneur adjoint qui s’est substitué à l’entraîneur, de demander des temps morts et des remplacements.",
+		"renvois": [
+			"5.2",
+			"5.3",
+			"15.3.1",
+			"15.4.1",
+			"15.5.2"
+		],
+		"ordre": 68
+	},
+	{
+		"reference": "5.1.3",
+		"parent_reference": "5.1",
+		"titre": null,
+		"texte": "À LA FIN DU MATCH, le capitaine d’équipe:",
+		"renvois": [
+			"6.3"
+		],
+		"ordre": 69
+	},
+	{
+		"reference": "5.1.3.1",
+		"parent_reference": "5.1.3",
+		"titre": null,
+		"texte": "remercie les arbitres et signe la feuille de match afin de ratifier le résultat:",
+		"renvois": [
+			"25.2.3.3"
+		],
+		"ordre": 70
+	},
+	{
+		"reference": "5.1.3.2",
+		"parent_reference": "5.1.3",
+		"titre": null,
+		"texte": "peut, si elle a été notifiée en temps utile au 1er arbitre, confirmer et enregistrer sur la feuille de match une réclamation officielle concernant l'application ou l'interprétation des Règles par l'arbitre.",
+		"renvois": [
+			"5.1.2.1",
+			"25.2.3.2"
+		],
+		"ordre": 71
+	},
+	{
+		"reference": "5.2",
+		"parent_reference": "5",
+		"titre": "ENTRAÎNEUR",
+		"texte": "",
+		"renvois": [],
+		"ordre": 72
+	},
+	{
+		"reference": "5.2.1",
+		"parent_reference": "5.2",
+		"titre": null,
+		"texte": "Pendant tout le match, l’entraîneur dirige le jeu de son équipe depuis l'extérieur du terrain de jeu. Il décide des formations de départ, des remplacements et des temps-morts pour donner ses instructions. Dans ses fonctions, son interlocuteur officiel est le second arbitre.",
+		"renvois": [
+			"1.1",
+			"7.3.2",
+			"15.4.1",
+			"15.5.2"
+		],
+		"ordre": 73
+	},
+	{
+		"reference": "5.2.2",
+		"parent_reference": "5.2",
+		"titre": null,
+		"texte": "AVANT LE MATCH, l’entraîneur inscrit ou vérifie les noms et les numéros de ses joueurs sur la feuille de match et sur la liste des joueurs et les signent.",
+		"renvois": [
+			"4.1",
+			"19.1.3",
+			"25.2.1.1"
+		],
+		"ordre": 74
+	},
+	{
+		"reference": "5.2.3",
+		"parent_reference": "5.2",
+		"titre": null,
+		"texte": "PENDANT LE MATCH, l’entraîneur:",
+		"renvois": [],
+		"ordre": 75
+	},
+	{
+		"reference": "5.2.3.1",
+		"parent_reference": "5.2.3",
+		"titre": null,
+		"texte": "avant chaque set, remet au 2ème arbitre ou au marqueur la ou les feuilles de position dûment remplies et signées; En cas d’utilisation des tablettes, la transmission électronique des positions est automatiquement considérée comme officielle.",
+		"renvois": [
+			"7.3.2",
+			"7.4",
+			"7.6"
+		],
+		"ordre": 76
+	},
+	{
+		"reference": "5.2.3.2",
+		"parent_reference": "5.2.3",
+		"titre": null,
+		"texte": "est assis sur le banc d’équipe près du marqueur, mais peut quitter sa position;",
+		"renvois": [
+			"4.2"
+		],
+		"ordre": 77
+	},
+	{
+		"reference": "5.2.3.3",
+		"parent_reference": "5.2.3",
+		"titre": null,
+		"texte": "demande les temps-morts et les remplacements;",
+		"renvois": [
+			"15.4",
+			"15.5"
+		],
+		"ordre": 78
+	},
+	{
+		"reference": "5.2.3.4",
+		"parent_reference": "5.2.3",
+		"titre": null,
+		"texte": "peut, ainsi que d’autres membres de l’équipe, donner des instructions aux joueurs sur l’aire de jeu. L’entraîneur peut donner ces instructions en se tenant debout ou en marchant dans la zone libre située devant le banc de son équipe, depuis le prolongement de la ligne d’attaque jusqu’à la zone d’échauffement, si elle est située dans le coin de la zone de contrôle de la compétition, sans perturber ou retarder le match. Si la zone d’échauffement est située derrière le banc de l’équipe, l’entraîneur peut se déplacer depuis le prolongement de la ligne d’attaque jusqu’à l’extrémité du terrain de son équipe, mais sans gêner la vue des juges de ligne.",
+		"renvois": [
+			"1.3.4",
+			"1.4.5",
+			"Fig.1a",
+			"Fig.1b",
+			"Fig.2"
+		],
+		"ordre": 79
+	},
+	{
+		"reference": "5.3",
+		"parent_reference": "5",
+		"titre": "ENTRAÎNEUR-ADJOINT",
+		"texte": "",
+		"renvois": [],
+		"ordre": 80
+	},
+	{
+		"reference": "5.3.1",
+		"parent_reference": "5.3",
+		"titre": null,
+		"texte": "L’entraîneur-adjoint est assis sur le banc d’équipe, sans droit d’intervention.",
+		"renvois": [
+			"4.2.1"
+		],
+		"ordre": 81
+	},
+	{
+		"reference": "5.3.2",
+		"parent_reference": "5.3",
+		"titre": null,
+		"texte": "Au cas où l’entraîneur doit quitter son équipe pour n’importe quelle raison y compris une sanction, un entraîneur-adjoint peut, à la demande du capitaine au jeu et avec l’autorisation du 1er arbitre, assumer les fonctions d’entraîneur durant la durée de l’absence mais il ne peut entrer au jeu comme joueur.",
+		"renvois": [
+			"5.1.2.3",
+			"5.2"
+		],
+		"ordre": 82
+	},
+	{
+		"reference": "6",
+		"parent_reference": null,
+		"titre": "POUR MARQUER UN POINT, GAGNER UN SET ET LE MATCH",
+		"texte": "",
+		"renvois": [],
+		"ordre": 83
+	},
+	{
+		"reference": "6.1",
+		"parent_reference": "6",
+		"titre": "POUR MARQUER UN POINT",
+		"texte": "",
+		"renvois": [],
+		"ordre": 84
+	},
+	{
+		"reference": "6.1.1",
+		"parent_reference": "6.1",
+		"titre": "Point",
+		"texte": "Une équipe marque un point:",
+		"renvois": [],
+		"ordre": 85
+	},
+	{
+		"reference": "6.1.1.1",
+		"parent_reference": "6.1.1",
+		"titre": null,
+		"texte": "lorsqu'elle réussit à envoyer le ballon toucher le sol du camp adverse;",
+		"renvois": [
+			"8.3"
+		],
+		"ordre": 86
+	},
+	{
+		"reference": "6.1.1.2",
+		"parent_reference": "6.1.1",
+		"titre": null,
+		"texte": "lorsque l’équipe adverse commet une faute;",
+		"renvois": [
+			"6.1.2"
+		],
+		"ordre": 87
+	},
+	{
+		"reference": "6.1.1.3",
+		"parent_reference": "6.1.1",
+		"titre": null,
+		"texte": "lorsque l'équipe adverse reçoit une pénalité.",
+		"renvois": [
+			"16.2.3",
+			"21.3.1"
+		],
+		"ordre": 88
+	},
+	{
+		"reference": "6.1.2",
+		"parent_reference": "6.1",
+		"titre": "Faute",
+		"texte": "Une équipe commet une faute en effectuant une action de jeu contraire aux Règles (ou en violant celles-ci de quelque manière que ce soit). Les arbitres jugent les fautes et décident de leur sanction conformément aux présentes règles:",
+		"renvois": [],
+		"ordre": 89
+	},
+	{
+		"reference": "6.1.2.1",
+		"parent_reference": "6.1.2",
+		"titre": null,
+		"texte": "si deux ou plusieurs fautes sont commises successivement, seule la première est prise en compte.",
+		"renvois": [],
+		"ordre": 90
+	},
+	{
+		"reference": "6.1.2.2",
+		"parent_reference": "6.1.2",
+		"titre": null,
+		"texte": "si deux ou plusieurs fautes sont commises simultanément par des adversaires, une DOUBLE FAUTE est comptée et l’échange est rejoué.",
+		"renvois": [
+			"Fig.11 (23)"
+		],
+		"ordre": 91
+	},
+	{
+		"reference": "6.1.3",
+		"parent_reference": "6.1",
+		"titre": null,
+		"texte": "Echange de jeu et échange de jeu terminé. Un échange de jeu est la séquence d’actions de jeu à partir de la frappe de service par le serveur jusqu’à ce que le ballon soit hors-jeu. Un échange de jeu terminé est la succession d’actions de jeu dont le résultat est l’attribution d’un point. Ceci comprend: – l’octroi d’une pénalité – la perte du service si celui-ci est exécuté après le temps limite",
+		"renvois": [
+			"8.1",
+			"8.2",
+			"12.2.2.1",
+			"15.2.3",
+			"15.11.1.3",
+			"19.3.2.1",
+			"19.3.2.9",
+			"21.3.1",
+			"12.4.4"
+		],
+		"ordre": 92
+	},
+	{
+		"reference": "6.1.3.1",
+		"parent_reference": "6.1.3",
+		"titre": null,
+		"texte": "Si l’équipe ayant le service gagne l’échange de jeu, elle marque un point et continue à servir",
+		"renvois": [],
+		"ordre": 93
+	},
+	{
+		"reference": "6.1.3.2",
+		"parent_reference": "6.1.3",
+		"titre": null,
+		"texte": "Si l’équipe en réception de service gagne l’échange de jeu, elle marque un point et doit ensuite servir.",
+		"renvois": [],
+		"ordre": 94
+	},
+	{
+		"reference": "6.2",
+		"parent_reference": "6",
+		"titre": "POUR GAGNER UN SET",
+		"texte": "Un set (excepté le 5ème set décisif) est gagné par l’équipe qui marque la première 25 points avec une avance d’au moins deux points sur l’autre équipe. En cas d’égalité 24-24, le jeu continue jusqu’à ce qu’un écart de deux points soit atteint (26-24; 27-25; etc.).",
+		"renvois": [
+			"Fig.11 (9)",
+			"6.3.2"
+		],
+		"ordre": 95
+	},
+	{
+		"reference": "6.3",
+		"parent_reference": "6",
+		"titre": "POUR GAGNER LE MATCH",
+		"texte": "",
+		"renvois": [
+			"Fig.11 (9)"
+		],
+		"ordre": 96
+	},
+	{
+		"reference": "6.3.1",
+		"parent_reference": "6.3",
+		"titre": null,
+		"texte": "Le match est gagné par l’équipe qui remporte trois sets.",
+		"renvois": [
+			"6.2"
+		],
+		"ordre": 97
+	},
+	{
+		"reference": "6.3.2",
+		"parent_reference": "6.3",
+		"titre": null,
+		"texte": "En cas d’égalité de sets 2-2, le 5ème set décisif est joué en 15 points, avec un écart minimum d'au moins deux points.",
+		"renvois": [
+			"7.1"
+		],
+		"ordre": 98
+	},
+	{
+		"reference": "6.4",
+		"parent_reference": "6",
+		"titre": "FORFAIT ET ÉQUIPE INCOMPLÈTE",
+		"texte": "",
+		"renvois": [],
+		"ordre": 99
+	},
+	{
+		"reference": "6.4.1",
+		"parent_reference": "6.4",
+		"titre": null,
+		"texte": "Si une équipe refuse de jouer, après en avoir reçu la sommation, elle est déclarée forfait et perd le match sur le score de 0-3 pour le match et la marque 0-25 pour chaque set.",
+		"renvois": [
+			"6.2",
+			"6.3"
+		],
+		"ordre": 100
+	},
+	{
+		"reference": "6.4.2",
+		"parent_reference": "6.4",
+		"titre": null,
+		"texte": "Une équipe qui, sans raison valable, ne se présente pas à l’heure sur le terrain, est déclarée forfait avec le même score que celui mentionné à la Règle 6.4.1.",
+		"renvois": [],
+		"ordre": 101
+	},
+	{
+		"reference": "6.4.3",
+		"parent_reference": "6.4",
+		"titre": null,
+		"texte": "Une équipe déclarée INCOMPLETE pour un set ou pour le match perd le set ou le match. On attribue à son adversaire les points, ou les points et les sets manquants pour gagner le set ou le match. L’équipe incomplète conserve les points et les sets acquis.",
+		"renvois": [
+			"6.2",
+			"6.3",
+			"7.3.1"
+		],
+		"ordre": 102
+	},
+	{
+		"reference": "7",
+		"parent_reference": null,
+		"titre": "STRUCTURE DU JEU",
+		"texte": "",
+		"renvois": [],
+		"ordre": 103
+	},
+	{
+		"reference": "7.1",
+		"parent_reference": "7",
+		"titre": "TIRAGE AU SORT",
+		"texte": "Avant le match, le premier arbitre effectue un tirage au sort pour décider du premier service et des côtés du terrain pour le premier set. Si un set décisif doit être joué, un nouveau tirage au sort sera effectué.",
+		"renvois": [
+			"12.1.1",
+			"6.3.2"
+		],
+		"ordre": 104
+	},
+	{
+		"reference": "7.1.1",
+		"parent_reference": "7.1",
+		"titre": null,
+		"texte": "Le tirage au sort est effectué en présence des deux capitaines d’équipe.",
+		"renvois": [
+			"5.1"
+		],
+		"ordre": 105
+	},
+	{
+		"reference": "7.1.2",
+		"parent_reference": "7.1",
+		"titre": null,
+		"texte": "Le gagnant du tirage au sort choisit:",
+		"renvois": [],
+		"ordre": 106
+	},
+	{
+		"reference": "7.1.2.1",
+		"parent_reference": "7.1.2",
+		"titre": null,
+		"texte": "le droit de servir ou de recevoir le service,",
+		"renvois": [
+			"12.1.1"
+		],
+		"ordre": 107
+	},
+	{
+		"reference": "7.1.2.2",
+		"parent_reference": "7.1.2",
+		"titre": null,
+		"texte": "le côté du terrain. Le perdant obtient le choix restant.",
+		"renvois": [],
+		"ordre": 108
+	},
+	{
+		"reference": "7.2",
+		"parent_reference": "7",
+		"titre": "SÉANCE OFFICIELLE D’ÉCHAUFFEMENT",
+		"texte": "",
+		"renvois": [],
+		"ordre": 109
+	},
+	{
+		"reference": "7.2.1",
+		"parent_reference": "7.2",
+		"titre": null,
+		"texte": "Avant le match, les équipes ont le droit de s’échauffer au filet pendant 6 minutes ensemble si elles ont disposé au préalable d’un terrain ou pendant 10 minutes ensemble si elles n’ont pas eu cette possibilité. Pour les compétition FIVB, Mondiales et Officielles, les équipes auront droit à une période d’échauffement de 10 minutes ensembles au filet.",
+		"renvois": [],
+		"ordre": 110
+	},
+	{
+		"reference": "7.2.2",
+		"parent_reference": "7.2",
+		"titre": null,
+		"texte": "Si l’un des capitaines demande des échauffements officiels séparés (consécutifs) au filet, les équipes ont droit à 3 minutes chacune ou 5 minutes chacune.",
+		"renvois": [
+			"7.2.1"
+		],
+		"ordre": 111
+	},
+	{
+		"reference": "7.2.3",
+		"parent_reference": "7.2",
+		"titre": null,
+		"texte": "Dans le cas d’échauffements officiels consécutifs, l’équipe qui a le premier service prend le premier tour au filet. Pour les compétitions FIVB, Mondiales et Officielles, tous les joueurs doivent porter une tenue de jeu pour l’ensemble du protocole et de l’échauffement.",
+		"renvois": [
+			"7.1.2.1",
+			"7.2.2"
+		],
+		"ordre": 112
+	},
+	{
+		"reference": "7.3",
+		"parent_reference": "7",
+		"titre": "FORMATION DES ÉQUIPES",
+		"texte": "",
+		"renvois": [],
+		"ordre": 113
+	},
+	{
+		"reference": "7.3.1",
+		"parent_reference": "7.3",
+		"titre": null,
+		"texte": "Il doit toujours y avoir six joueurs en jeu pour chaque équipe. La fiche de position indique l'ordre de rotation des joueurs sur le terrain. Cet ordre doit être respecté pendant la totalité du set.",
+		"renvois": [
+			"6.4.3",
+			"7.6"
+		],
+		"ordre": 114
+	},
+	{
+		"reference": "7.3.2",
+		"parent_reference": "7.3",
+		"titre": null,
+		"texte": "Avant de commencer un set, l’entraîneur doit inscrire la formation de départ de son équipe sur une fiche de position ou via l’équipement électronique, s’il est utilisé. Cette fiche dûment remplie et signée est remise au second arbitre ou au marqueur ou envoyée directement électroniquement vers la feuille de match.",
+		"renvois": [
+			"5.2.3.1",
+			"24.3.1",
+			"25.2.1.2"
+		],
+		"ordre": 115
+	},
+	{
+		"reference": "7.3.3",
+		"parent_reference": "7.3",
+		"titre": null,
+		"texte": "Les joueurs qui n’appartiennent pas à la formation de départ sont les remplaçants pour ce set (sauf le libéro).",
+		"renvois": [
+			"7.3.2",
+			"15.5"
+		],
+		"ordre": 116
+	},
+	{
+		"reference": "7.3.4",
+		"parent_reference": "7.3",
+		"titre": null,
+		"texte": "Après la remise de la fiche de position au second arbitre ou au marqueur, aucun changement de formation n’est autorisé sans un remplacement régulier.",
+		"renvois": [
+			"15.2.2",
+			"15.5",
+			"Fig.11 (5)"
+		],
+		"ordre": 117
+	},
+	{
+		"reference": "7.3.5",
+		"parent_reference": "7.3",
+		"titre": null,
+		"texte": "Les différences entre les positions des joueurs sur le terrain et la fiche de position, sont traitées comme suit:",
+		"renvois": [
+			"24.3.1"
+		],
+		"ordre": 118
+	},
+	{
+		"reference": "7.3.5.1",
+		"parent_reference": "7.3.5",
+		"titre": null,
+		"texte": "lorsqu’une telle différence est constatée avant le début du set, les joueurs doivent revenir aux positions indiquées sur la fiche de position. Aucune pénalité n'est infligée.",
+		"renvois": [
+			"7.3.2"
+		],
+		"ordre": 119
+	},
+	{
+		"reference": "7.3.5.2",
+		"parent_reference": "7.3.5",
+		"titre": null,
+		"texte": "lorsque, avant le début d’un set, on constate qu’un joueur sur le terrain n’est pas inscrit sur la fiche de position, ce joueur doit être changé pour se conformer à la fiche de position. Aucune pénalité n’est infligée.",
+		"renvois": [
+			"7.3.2"
+		],
+		"ordre": 120
+	},
+	{
+		"reference": "7.3.5.3",
+		"parent_reference": "7.3.5",
+		"titre": null,
+		"texte": "Toutefois, si l’entraîneur désire conserver sur le terrain ce joueur non inscrit, il devra demander le remplacement réglementaire qui sera enregistré sur la feuille de match. Si, par après, une discordance entre les positions des joueurs et la fiche de position est découverte, l’équipe fautive doit reprendre ses positions correctes. Tous les points marqués à partir du moment exact de la faute jusqu’au moment où elle a été découverte sont annulés. Les points marqués par l’adversaire sont maintenus, de plus ceux-ci reçoivent un point et le prochain service.",
+		"renvois": [
+			"15.2.2",
+			"Fig.11 (5)"
+		],
+		"ordre": 121
+	},
+	{
+		"reference": "7.3.5.4",
+		"parent_reference": "7.3.5",
+		"titre": null,
+		"texte": "Si un joueur est découvert sur le terrain alors qu’il n’est pas enregistré sur la liste des joueurs, les points marqués par l’adversaire sont maintenus et de plus il gagne un point et le service. L’équipe fautive perdra tous ses points et/ou les sets gagnés (0:25 si nécessaire) depuis le moment où le joueur non-enregistré était sur le terrain, elle devra remettre une nouvelle fiche de position et placer sur le terrain un nouveau joueur enregistré à la position du joueur non-enregistré.",
+		"renvois": [
+			"6.1.2",
+			"7.3.2"
+		],
+		"ordre": 122
+	},
+	{
+		"reference": "7.4",
+		"parent_reference": "7",
+		"titre": "POSITIONS",
+		"texte": "Au moment où la balle est frappée par le serveur, chaque équipe doit être positionnée dans son propre camp (à l’exception du serveur). Les joueurs de l’équipe en réception doivent être dans l’ordre de rotation au moment de la frappe du service. Cependant, les joueurs de l’équipe au service sont libres d’occuper n’importe quelle position au moment de la frappe du service.",
+		"renvois": [
+			"Fig.4",
+			"7.6.1",
+			"8.1",
+			"12.4"
+		],
+		"ordre": 123
+	},
+	{
+		"reference": "7.4.1",
+		"parent_reference": "7.4",
+		"titre": null,
+		"texte": "Les positions des joueurs sont numérotées comme suit:",
+		"renvois": [],
+		"ordre": 124
+	},
+	{
+		"reference": "7.4.1.1",
+		"parent_reference": "7.4.1",
+		"titre": null,
+		"texte": "Les trois joueurs placés le long du filet sont les avants et occupent respectivement les positions 4 (avant gauche), 3 (avant central), 2 (avant droit).",
+		"renvois": [],
+		"ordre": 125
+	},
+	{
+		"reference": "7.4.1.2",
+		"parent_reference": "7.4.1",
+		"titre": null,
+		"texte": "Les trois autres joueurs sont les arrières et occupent les positions 5 (arrière gauche), 6 (arrière central), 1 (arrière droit).",
+		"renvois": [],
+		"ordre": 126
+	},
+	{
+		"reference": "7.4.2",
+		"parent_reference": "7.4",
+		"titre": null,
+		"texte": "Positions relatives des joueurs entre eux:",
+		"renvois": [],
+		"ordre": 127
+	},
+	{
+		"reference": "7.4.2.1",
+		"parent_reference": "7.4.2",
+		"titre": null,
+		"texte": "Chaque joueur de la ligne arrière doit être placé plus loin de la ligne centrale que son avant correspondant.",
+		"renvois": [],
+		"ordre": 128
+	},
+	{
+		"reference": "7.4.2.2",
+		"parent_reference": "7.4.2",
+		"titre": null,
+		"texte": "Les joueurs avants et arrières, respectivement, doivent être positionnés latéralement conformément à la Règle 7.4.1.",
+		"renvois": [],
+		"ordre": 129
+	},
+	{
+		"reference": "7.4.3",
+		"parent_reference": "7.4",
+		"titre": null,
+		"texte": "Les positions des joueurs sont déterminées et contrôlées en fonction des positions de leurs pieds en contact avec le sol (le dernier contact avec le sol fixe la position du joueur) comme suit:",
+		"renvois": [
+			"Fig.4"
+		],
+		"ordre": 130
+	},
+	{
+		"reference": "7.4.3.1",
+		"parent_reference": "7.4.3",
+		"titre": null,
+		"texte": "chaque joueur de la ligne arrière doit être au même niveau ou avoir au moins une partie d'un pied plus éloignée de la ligne centrale que le pied avant du joueur de la ligne avant correspondant;",
+		"renvois": [
+			"1.3.3",
+			"7.4.2.1",
+			"7.4.3"
+		],
+		"ordre": 131
+	},
+	{
+		"reference": "7.4.3.2",
+		"parent_reference": "7.4.3",
+		"titre": null,
+		"texte": "chaque joueur du côté droit (gauche) doit être au même niveau ou avoir au moins une partie d'un pied plus proche de la ligne du côté droit (gauche) que les pieds plus éloignés de la ligne du côté droit (gauche) des autres joueurs de cette rangée.",
+		"renvois": [
+			"1.3.2",
+			"7.4.1.2",
+			"7.4.2.2",
+			"7.4.3"
+		],
+		"ordre": 132
+	},
+	{
+		"reference": "7.4.4",
+		"parent_reference": "7.4",
+		"titre": null,
+		"texte": "Après la frappe du service, les joueurs des deux équipes peuvent se déplacer et occuper n’importe quelle position dans leur camp et dans la zone libre.",
+		"renvois": [],
+		"ordre": 133
+	},
+	{
+		"reference": "7.5",
+		"parent_reference": "7",
+		"titre": "FAUTE DE POSITION",
+		"texte": "",
+		"renvois": [
+			"Fig.4",
+			"Fig.11 (13)"
+		],
+		"ordre": 134
+	},
+	{
+		"reference": "7.5.1",
+		"parent_reference": "7.5",
+		"titre": null,
+		"texte": "Une équipe commet une faute de position si un joueur n’occupe pas sa position correcte au moment où le joueur au service frappe le ballon. Quand un joueur est sur le terrain suite à un remplacement illégal et que le jeu a repris, ceci est compté comme une faute de position avec les conséquences d’un remplacement illégal.",
+		"renvois": [
+			"7.3",
+			"7.4",
+			"15.9"
+		],
+		"ordre": 135
+	},
+	{
+		"reference": "7.5.2",
+		"parent_reference": "7.5",
+		"titre": null,
+		"texte": "Si le joueur au service commet une faute de service au moment de frapper le ballon, sa faute prévaudra sur une faute de position.",
+		"renvois": [
+			"12.4",
+			"12.7.1"
+		],
+		"ordre": 136
+	},
+	{
+		"reference": "7.5.3",
+		"parent_reference": "7.5",
+		"titre": null,
+		"texte": "Si, après la frappe du ballon, le service devient fautif, c’est la faute de position qui sera prise en compte.",
+		"renvois": [
+			"12.7.2"
+		],
+		"ordre": 137
+	},
+	{
+		"reference": "7.5.4",
+		"parent_reference": "7.5",
+		"titre": null,
+		"texte": "Une faute de position entraîne les conséquences suivantes:",
+		"renvois": [],
+		"ordre": 138
+	},
+	{
+		"reference": "7.5.4.1",
+		"parent_reference": "7.5.4",
+		"titre": null,
+		"texte": "l'équipe est sanctionnée: l’adversaire gagne un point et le service;",
+		"renvois": [
+			"6.1.3"
+		],
+		"ordre": 139
+	},
+	{
+		"reference": "7.5.4.2",
+		"parent_reference": "7.5.4",
+		"titre": null,
+		"texte": "les positions des joueurs sont rectifiées.",
+		"renvois": [
+			"7.3",
+			"7.4"
+		],
+		"ordre": 140
+	},
+	{
+		"reference": "7.6",
+		"parent_reference": "7",
+		"titre": "ROTATION",
+		"texte": "",
+		"renvois": [],
+		"ordre": 141
+	},
+	{
+		"reference": "7.6.1",
+		"parent_reference": "7.6",
+		"titre": null,
+		"texte": "L’ordre de rotation est déterminé par la formation de départ de l'équipe et est contrôlé via l'ordre au service et la position des joueurs tout au long du set.",
+		"renvois": [
+			"7.3.1",
+			"7.4.1",
+			"12.2"
+		],
+		"ordre": 142
+	},
+	{
+		"reference": "7.6.2",
+		"parent_reference": "7.6",
+		"titre": null,
+		"texte": "Lorsque l’équipe qui reçoit le service a gagné le droit de servir, ses joueurs effectuent une rotation en se déplaçant d’une position dans le sens des aiguilles d’une montre: le joueur en position 2 va à la position 1 pour servir, le joueur 1 en 6, etc.",
+		"renvois": [
+			"12.2.2.2"
+		],
+		"ordre": 143
+	},
+	{
+		"reference": "7.7",
+		"parent_reference": "7",
+		"titre": "FAUTE DE ROTATION",
+		"texte": "",
+		"renvois": [
+			"Fig.11 (13)"
+		],
+		"ordre": 144
+	},
+	{
+		"reference": "7.7.1",
+		"parent_reference": "7.7",
+		"titre": null,
+		"texte": "Une faute de rotation est commise quand le SERVICE n’est pas effectué selon l’ordre de rotation. Elle entraîne les conséquences suivantes:",
+		"renvois": [
+			"7.6.1",
+			"12"
+		],
+		"ordre": 145
+	},
+	{
+		"reference": "7.7.1.1",
+		"parent_reference": "7.7.1",
+		"titre": null,
+		"texte": "Le marqueur arrête le jeu en actionnant le buzzer, l’adversaire gagne un point et le prochain service. Si la faute de rotation est déterminée seulement après la fin de l’échange qui a démarré avec une faute de rotation, un seul point est attribué à l’adversaire, sans tenir compte du résultat de l’échange joué.",
+		"renvois": [
+			"6.1.3"
+		],
+		"ordre": 146
+	},
+	{
+		"reference": "7.7.1.2",
+		"parent_reference": "7.7.1",
+		"titre": null,
+		"texte": "l'ordre de rotation de l’équipe fautive doit être rectifié.",
+		"renvois": [
+			"7.6.1"
+		],
+		"ordre": 147
+	},
+	{
+		"reference": "7.7.2",
+		"parent_reference": "7.7",
+		"titre": null,
+		"texte": "En outre, le marqueur doit déterminer le moment exact où la faute a été commise. Tous les points marqués à partir de l’erreur sont annulés pour l’équipe fautive. Les points marqués par l’adversaire sont maintenus. Si le moment de la faute ne peut pas être déterminé, aucun point n’est supprimé et le gain d’un point et du service pour l’adversaire est la seule sanction.",
+		"renvois": [
+			"25.2.2.2",
+			"6.1.3"
+		],
+		"ordre": 148
+	},
+	{
+		"reference": "8",
+		"parent_reference": null,
+		"titre": "SITUATIONS DE JEU",
+		"texte": "",
+		"renvois": [],
+		"ordre": 149
+	},
+	{
+		"reference": "8.1",
+		"parent_reference": "8",
+		"titre": "BALLON EN JEU",
+		"texte": "Le ballon est en jeu à partir du moment de la frappe de service qui a été autorisée par le premier arbitre.",
+		"renvois": [
+			"12",
+			"12.3"
+		],
+		"ordre": 150
+	},
+	{
+		"reference": "8.2",
+		"parent_reference": "8",
+		"titre": "BALLON HORS-JEU",
+		"texte": "Le ballon est hors-jeu au moment de la faute signalée par un coup de sifflet de l’un des arbitres; en l’absence d’une faute, au moment du coup de sifflet.",
+		"renvois": [],
+		"ordre": 151
+	},
+	{
+		"reference": "8.3",
+		"parent_reference": "8",
+		"titre": "BALLON “DEDANS” (IN)",
+		"texte": "Le ballon est “dedans” quand à tout moment du contact avec le sol, une partie du ballon touche le terrain de jeu, incluant le contact avec les lignes de délimitation.",
+		"renvois": [
+			"Fig.11 (14)",
+			"Fig.12 (1)",
+			"1.1",
+			"1.3.2"
+		],
+		"ordre": 152
+	},
+	{
+		"reference": "8.4",
+		"parent_reference": "8",
+		"titre": "BALLON “DEHORS” (OUT)",
+		"texte": "Le ballon est “dehors” quand:",
+		"renvois": [],
+		"ordre": 153
+	},
+	{
+		"reference": "8.4.1",
+		"parent_reference": "8.4",
+		"titre": null,
+		"texte": "toute partie du ballon qui touche le sol est entièrement en dehors des lignes de délimitation;",
+		"renvois": [
+			"1.3.2",
+			"Fig.11 (15)",
+			"Fig.12 (2)"
+		],
+		"ordre": 154
+	},
+	{
+		"reference": "8.4.2",
+		"parent_reference": "8.4",
+		"titre": null,
+		"texte": "il touche un objet hors du terrain, le plafond ou une personne extérieure au jeu;",
+		"renvois": [
+			"Fig.11 (15)",
+			"Fig.12 (4)"
+		],
+		"ordre": 155
+	},
+	{
+		"reference": "8.4.3",
+		"parent_reference": "8.4",
+		"titre": null,
+		"texte": "il touche les antennes, câbles, poteaux ou le filet lui-même à l’extérieur des bandes de côté;",
+		"renvois": [
+			"2.3",
+			"Fig.3",
+			"Fig.5a",
+			"Fig.11 (15)",
+			"Fig.12 (4)"
+		],
+		"ordre": 156
+	},
+	{
+		"reference": "8.4.4",
+		"parent_reference": "8.4",
+		"titre": null,
+		"texte": "il traverse le plan vertical du filet, totalement ou en partie à l’extérieur de l’espace de passage, sauf pour le cas prévu à la Règle 10.1.2;",
+		"renvois": [
+			"2.3",
+			"Fig.5a",
+			"Fig.5b",
+			"Fig.11 (15)",
+			"Fig.12 (4)"
+		],
+		"ordre": 157
+	},
+	{
+		"reference": "8.4.5",
+		"parent_reference": "8.4",
+		"titre": null,
+		"texte": "il franchit entièrement l’espace inférieur situé sous le filet.",
+		"renvois": [
+			"23.3.2.3f",
+			"Fig.5a",
+			"Fig.11 (22)"
+		],
+		"ordre": 158
+	},
+	{
+		"reference": "9",
+		"parent_reference": null,
+		"titre": "JOUER LE BALLON",
+		"texte": "Chaque équipe doit jouer dans sa propre zone de jeu et son propre espace (sauf Règle 10.1.2). Le ballon peut cependant être récupéré au-delà de sa propre zone libre et au-dessus de la table de marque dans son extension complète.",
+		"renvois": [
+			"Fig.1b"
+		],
+		"ordre": 159
+	},
+	{
+		"reference": "9.1",
+		"parent_reference": "9",
+		"titre": "TOUCHES D’ÉQUIPE",
+		"texte": "Une touche est chaque contact avec le ballon par un joueur en jeu. Une équipe a droit au maximum à trois touches (en plus du contre, Règle 14.4.1) pour renvoyer le ballon. Si plus de touches sont utilisées, l’équipe commet une faute des “QUATRE TOUCHES”.",
+		"renvois": [
+			"14.4.1"
+		],
+		"ordre": 160
+	},
+	{
+		"reference": "9.1.1",
+		"parent_reference": "9.1",
+		"titre": "CONTACTS CONSECUTIFS",
+		"texte": "Un joueur ne peut pas toucher deux fois consécutivement le ballon (à l’exception des cas prévus aux Règles 9.2.3, 14.2 et 14.4.2).",
+		"renvois": [
+			"9.2.3",
+			"14.2",
+			"14.4.2"
+		],
+		"ordre": 161
+	},
+	{
+		"reference": "9.1.2",
+		"parent_reference": "9.1",
+		"titre": "CONTACTS SIMULTANES",
+		"texte": "Deux ou trois joueurs peuvent toucher le ballon en même temps.",
+		"renvois": [],
+		"ordre": 162
+	},
+	{
+		"reference": "9.1.2.1",
+		"parent_reference": "9.1.2",
+		"titre": null,
+		"texte": "Lorsque deux (ou trois) coéquipiers touchent le ballon simultanément, il est compté deux (ou trois) touches (excepté au contre). Si le ballon joué par deux (ou trois) coéquipiers n’est touché que par un seul, il n’est compté qu’une touche. Une collision entre joueurs ne constitue pas une faute.",
+		"renvois": [],
+		"ordre": 163
+	},
+	{
+		"reference": "9.1.2.2",
+		"parent_reference": "9.1.2",
+		"titre": null,
+		"texte": "Lorsque deux adversaires touchent simultanément le ballon au-dessus du filet et que le ballon reste en jeu, l’équipe recevant le ballon a droit à trois nouvelles touches. Si le ballon tombe en “dehors” du terrain\", la faute revient à l’équipe placée de l’autre côté du filet.",
+		"renvois": [],
+		"ordre": 164
+	},
+	{
+		"reference": "9.1.2.3",
+		"parent_reference": "9.1.2",
+		"titre": null,
+		"texte": "Si des contacts simultanés du ballon entre deux adversaires au-dessus du fillet entraînent un contact prolongé avec le ballon, même si le contact est réalisé au-dessus du camp adverse le jeu continue.",
+		"renvois": [],
+		"ordre": 165
+	},
+	{
+		"reference": "9.1.3",
+		"parent_reference": "9.1",
+		"titre": "TOUCHE ASSISTEE",
+		"texte": "Dans l'aire de jeu, un joueur n’est pas autorisé à prendre appui sur un partenaire, ou toute structure/objet pour toucher le ballon. Toutefois, le joueur qui est sur le point de commettre une faute (toucher le filet ou franchir la ligne centrale, etc.) peut être arrêté ou retenu par un partenaire.",
+		"renvois": [
+			"1.3.3",
+			"11.4.4"
+		],
+		"ordre": 166
+	},
+	{
+		"reference": "9.2",
+		"parent_reference": "9",
+		"titre": "CARACTÉRISTIQUES DE LA TOUCHE",
+		"texte": "",
+		"renvois": [],
+		"ordre": 167
+	},
+	{
+		"reference": "9.2.1",
+		"parent_reference": "9.2",
+		"titre": null,
+		"texte": "Le ballon peut toucher n'importe quelle partie du corps.",
+		"renvois": [],
+		"ordre": 168
+	},
+	{
+		"reference": "9.2.2",
+		"parent_reference": "9.2",
+		"titre": null,
+		"texte": "Le ballon ne doit pas être tenu ni lancé. Il peut rebondir dans n’importe quelle direction.",
+		"renvois": [
+			"9.3.3",
+			"Fig.11 (16)"
+		],
+		"ordre": 169
+	},
+	{
+		"reference": "9.2.3",
+		"parent_reference": "9.2",
+		"titre": null,
+		"texte": "Le ballon peut toucher plusieurs parties du corps à la seule condition que ces contacts aient lieu simultanément. Exceptions:",
+		"renvois": [],
+		"ordre": 170
+	},
+	{
+		"reference": "9.2.3.1",
+		"parent_reference": "9.2.3",
+		"titre": null,
+		"texte": "au contre, des contacts consécutifs peuvent être réalisés par un ou plusieurs contreurs, à condition que ces contacts aient lieu au cours de la même action.",
+		"renvois": [
+			"14.1.1",
+			"14.2"
+		],
+		"ordre": 171
+	},
+	{
+		"reference": "9.2.3.2",
+		"parent_reference": "9.2.3",
+		"titre": null,
+		"texte": "à la première touche de l’équipe (excepté 9.2.4), le ballon peut toucher consécutivement plusieurs parties du corps à condition que ces contacts aient lieu au cours de la même action.",
+		"renvois": [
+			"9.1",
+			"14.4.1"
+		],
+		"ordre": 172
+	},
+	{
+		"reference": "9.3",
+		"parent_reference": "9",
+		"titre": "FAUTES EN JOUANT LE BALLON",
+		"texte": "",
+		"renvois": [],
+		"ordre": 173
+	},
+	{
+		"reference": "9.3.1",
+		"parent_reference": "9.3",
+		"titre": null,
+		"texte": "QUATRE TOUCHES: une équipe touche le ballon quatre fois avant de le renvoyer.",
+		"renvois": [
+			"9.1",
+			"Fig.11 (18)"
+		],
+		"ordre": 174
+	},
+	{
+		"reference": "9.3.2",
+		"parent_reference": "9.3",
+		"titre": null,
+		"texte": "TOUCHE ASSISTEE: un joueur prend appui dans l'aire de jeu sur un partenaire ou une structure/objet extérieur pour toucher le ballon.",
+		"renvois": [
+			"9.1.3"
+		],
+		"ordre": 175
+	},
+	{
+		"reference": "9.3.3",
+		"parent_reference": "9.3",
+		"titre": null,
+		"texte": "TENU: le ballon est saisi et/ou lancé, il ne rebondit pas après la touche.",
+		"renvois": [
+			"9.2.2",
+			"Fig.11 (16)"
+		],
+		"ordre": 176
+	},
+	{
+		"reference": "9.3.4",
+		"parent_reference": "9.3",
+		"titre": null,
+		"texte": "DOUBLE TOUCHE: un joueur touche deux fois le ballon successivement ou le ballon touche successivement plusieurs parties de son corps.",
+		"renvois": [
+			"9.2.3",
+			"Fig.11 (17)"
+		],
+		"ordre": 177
+	},
+	{
+		"reference": "10",
+		"parent_reference": null,
+		"titre": "BALLON AU FILET",
+		"texte": "",
+		"renvois": [],
+		"ordre": 178
+	},
+	{
+		"reference": "10.1",
+		"parent_reference": "10",
+		"titre": "BALLON TRAVERSANT LE PLAN DU FILET",
+		"texte": "",
+		"renvois": [],
+		"ordre": 179
+	},
+	{
+		"reference": "10.1.1",
+		"parent_reference": "10.1",
+		"titre": null,
+		"texte": "Le ballon envoyé dans le camp adverse doit passer au-dessus du filet dans l’espace de passage. L’espace de passage est la partie du plan vertical du filet limitée:",
+		"renvois": [
+			"2.4",
+			"10.2",
+			"Fig.5a"
+		],
+		"ordre": 180
+	},
+	{
+		"reference": "10.1.1.1",
+		"parent_reference": "10.1.1",
+		"titre": null,
+		"texte": "en-dessous par la partie supérieure du filet,",
+		"renvois": [
+			"2.2"
+		],
+		"ordre": 181
+	},
+	{
+		"reference": "10.1.1.2",
+		"parent_reference": "10.1.1",
+		"titre": null,
+		"texte": "sur les côtés par les antennes et leur prolongement imaginaire,",
+		"renvois": [
+			"2.4"
+		],
+		"ordre": 182
+	},
+	{
+		"reference": "10.1.1.3",
+		"parent_reference": "10.1.1",
+		"titre": null,
+		"texte": "au-dessus par le plafond.",
+		"renvois": [],
+		"ordre": 183
+	},
+	{
+		"reference": "10.1.2",
+		"parent_reference": "10.1",
+		"titre": null,
+		"texte": "Le ballon, venant de la première touche de l’équipe, qui a traversé le plan du filet vers la zone libre de l’adversaire totalement ou partiellement à travers l’espace extérieur, peut être rejoué, dans la limite des touches de l’équipe, à condition que:",
+		"renvois": [
+			"9.1",
+			"Fig.5b"
+		],
+		"ordre": 184
+	},
+	{
+		"reference": "10.1.2.1",
+		"parent_reference": "10.1.2",
+		"titre": null,
+		"texte": "le camp adverse ne soit pas touché par le joueur, (excepté règle 11.2.2.1)",
+		"renvois": [
+			"11.2.2"
+		],
+		"ordre": 185
+	},
+	{
+		"reference": "10.1.2.2",
+		"parent_reference": "10.1.2",
+		"titre": null,
+		"texte": "lorsqu’il est renvoyé, le ballon traverse à nouveau le plan du filet totalement ou partiellement par l’espace externe du même côté du terrain – si ce n’est pas le cas, il est considéré comme hors-jeu. L’équipe adverse ne peut pas empêcher une telle action.",
+		"renvois": [
+			"11.4.4",
+			"Fig.5b"
+		],
+		"ordre": 186
+	},
+	{
+		"reference": "10.1.2.3",
+		"parent_reference": "10.1.2",
+		"titre": null,
+		"texte": "le ballon, envoyé dans la zone libre de l’adversaire totalement ou partiellement à travers l’espace extérieur, qui provient de la deuxième ou troisième touche de l’équipe, ne peut pas être joué à nouveau et sera jugé comme hors-jeu dès qu’il traversera le plan du filet.",
+		"renvois": [
+			"Fig.5b"
+		],
+		"ordre": 187
+	},
+	{
+		"reference": "10.1.3",
+		"parent_reference": "10.1",
+		"titre": null,
+		"texte": "Le ballon qui se dirige vers le terrain de jeu de l'adversaire au travers de l'espace inférieur reste en jeu jusqu'au moment où il a complètement franchit le plan vertical du filet.",
+		"renvois": [
+			"23.3.2.3f",
+			"Fig.5a",
+			"Fig.11 (22)"
+		],
+		"ordre": 188
+	},
+	{
+		"reference": "10.2",
+		"parent_reference": "10",
+		"titre": "BALLON TOUCHANT LE FILET",
+		"texte": "Le ballon peut toucher le filet lors de son franchissement.",
+		"renvois": [
+			"10.1.1"
+		],
+		"ordre": 189
+	},
+	{
+		"reference": "10.3",
+		"parent_reference": "10",
+		"titre": "BALLON DANS LE FILET",
+		"texte": "",
+		"renvois": [],
+		"ordre": 190
+	},
+	{
+		"reference": "10.3.1",
+		"parent_reference": "10.3",
+		"titre": null,
+		"texte": "Un ballon envoyé dans le filet peut être repris dans le cadre des trois touches de l’équipe.",
+		"renvois": [
+			"9.1"
+		],
+		"ordre": 191
+	},
+	{
+		"reference": "10.3.2",
+		"parent_reference": "10.3",
+		"titre": null,
+		"texte": "Si le ballon déchire les mailles du filet ou le démonte, l’échange de jeu est annulé et rejoué.",
+		"renvois": [],
+		"ordre": 192
+	},
+	{
+		"reference": "11",
+		"parent_reference": null,
+		"titre": "JOUEUR AU FILET",
+		"texte": "",
+		"renvois": [],
+		"ordre": 193
+	},
+	{
+		"reference": "11.1",
+		"parent_reference": "11",
+		"titre": "FRANCHISSEMENT AU-DELÀ DU FILET",
+		"texte": "",
+		"renvois": [],
+		"ordre": 194
+	},
+	{
+		"reference": "11.1.1",
+		"parent_reference": "11.1",
+		"titre": null,
+		"texte": "Au contre, il est permis de toucher le ballon au-delà du filet à condition que le joueur ne gêne pas le jeu de l’adversaire, avant son attaque.",
+		"renvois": [
+			"14.1",
+			"14.3"
+		],
+		"ordre": 195
+	},
+	{
+		"reference": "11.1.2",
+		"parent_reference": "11.1",
+		"titre": null,
+		"texte": "Après la frappe d’attaque, le joueur est autorisé à passer la main de l’autre côté du filet, à condition que le contact du ballon ait eu lieu dans son propre espace de jeu, et le ballon n’est pas attrapé ou lancé.",
+		"renvois": [],
+		"ordre": 196
+	},
+	{
+		"reference": "11.2",
+		"parent_reference": "11",
+		"titre": "PÉNÉTRATION SOUS LE FILET",
+		"texte": "",
+		"renvois": [],
+		"ordre": 197
+	},
+	{
+		"reference": "11.2.1",
+		"parent_reference": "11.2",
+		"titre": null,
+		"texte": "Il est permis de pénétrer dans l’espace adverse sous le filet, à condition de ne pas gêner le jeu de l’adversaire.",
+		"renvois": [],
+		"ordre": 198
+	},
+	{
+		"reference": "11.2.2",
+		"parent_reference": "11.2",
+		"titre": null,
+		"texte": "Pénétration dans le camp adverse, au-delà de la ligne centrale:",
+		"renvois": [
+			"1.3.3",
+			"11.2.2.1",
+			"Fig.11 (22)"
+		],
+		"ordre": 199
+	},
+	{
+		"reference": "11.2.2.1",
+		"parent_reference": "11.2.2",
+		"titre": null,
+		"texte": "Il est permis de toucher le terrain de l’adversaire avec un (des) pied(s), à condition qu’une partie du (des) pied(s) pénétrant reste soit en contact avec la ligne médiane, soit directement au-dessus de celle-ci, et que cette action ne gêne pas le jeu de l’adversaire;",
+		"renvois": [
+			"1.3.3",
+			"Fig.11 (22)"
+		],
+		"ordre": 200
+	},
+	{
+		"reference": "11.2.2.2",
+		"parent_reference": "11.2.2",
+		"titre": null,
+		"texte": "toucher le camp de jeu de l’adversaire avec toute partie du corps située au-dessus des pieds est permis pour autant que cela n’interfère pas avec le jeu de l’adversaire.",
+		"renvois": [
+			"1.3.3",
+			"11.2.2.1",
+			"Fig.11 (22)"
+		],
+		"ordre": 201
+	},
+	{
+		"reference": "11.2.3",
+		"parent_reference": "11.2",
+		"titre": null,
+		"texte": "Un joueur peut pénétrer dans le camp adverse après que le ballon soit déclaré hors-jeu.",
+		"renvois": [
+			"8.2"
+		],
+		"ordre": 202
+	},
+	{
+		"reference": "11.2.4",
+		"parent_reference": "11.2",
+		"titre": null,
+		"texte": "Un joueur peut pénétrer dans la zone libre du côté du camp adverse, à condition de ne pas gêner le jeu de l’adversaire.",
+		"renvois": [],
+		"ordre": 203
+	},
+	{
+		"reference": "11.3",
+		"parent_reference": "11",
+		"titre": "CONTACT AVEC LE FILET",
+		"texte": "",
+		"renvois": [],
+		"ordre": 204
+	},
+	{
+		"reference": "11.3.1",
+		"parent_reference": "11.3",
+		"titre": null,
+		"texte": "Le contact du filet entre les antennes par un joueur, au cours de l’action de jouer le ballon, est une faute. L’action de jouer le ballon comprend (entre autre) l’impulsion, la frappe (ou sa tentative) et la reprise de contact avec le sol sans danger, prêt pour une nouvelle action.",
+		"renvois": [
+			"11.4.4",
+			"23.3.2.3c",
+			"24.3.2.3",
+			"Fig.3"
+		],
+		"ordre": 205
+	},
+	{
+		"reference": "11.3.2",
+		"parent_reference": "11.3",
+		"titre": null,
+		"texte": "Les joueurs peuvent toucher le poteau, les cordes ou tout autre objet situé à l’extérieur des antennes, y compris le filet lui-même, à condition que cela n’interfère pas avec le jeu (sauf règle 9.1.3).",
+		"renvois": [
+			"Fig.3"
+		],
+		"ordre": 206
+	},
+	{
+		"reference": "11.3.3",
+		"parent_reference": "11.3",
+		"titre": null,
+		"texte": "Il n’y a pas de faute si le ballon envoyé dans le filet provoque le contact du filet avec un joueur adverse.",
+		"renvois": [],
+		"ordre": 207
+	},
+	{
+		"reference": "11.4",
+		"parent_reference": "11",
+		"titre": "FAUTES DU JOUEUR AU FILET",
+		"texte": "",
+		"renvois": [],
+		"ordre": 208
+	},
+	{
+		"reference": "11.4.1",
+		"parent_reference": "11.4",
+		"titre": null,
+		"texte": "Un joueur touche le ballon dans l’espace adverse avant la frappe d’attaque de l’adversaire.",
+		"renvois": [
+			"11.1.1",
+			"Fig.11 (20)"
+		],
+		"ordre": 209
+	},
+	{
+		"reference": "11.4.2",
+		"parent_reference": "11.4",
+		"titre": null,
+		"texte": "Un joueur gêne le jeu de l’adversaire en pénétrant dans l’espace adverse sous le filet.",
+		"renvois": [
+			"11.2.1"
+		],
+		"ordre": 210
+	},
+	{
+		"reference": "11.4.3",
+		"parent_reference": "11.4",
+		"titre": null,
+		"texte": "Le(s) pied(s) d’un joueur pénètre(nt) complètement dans le camp adverse.",
+		"renvois": [
+			"11.2.2.2",
+			"Fig.11 (22)"
+		],
+		"ordre": 211
+	},
+	{
+		"reference": "11.4.4",
+		"parent_reference": "11.4",
+		"titre": null,
+		"texte": "Un joueur interfère sur le jeu de l’adversaire (entre-autre): – en touchant le filet entre les antennes ou l’antenne elle-même durant son action de jouer le ballon – en utilisant le filet entre les antennes comme support ou pour se stabiliser – en se créant un avantage injuste sur l’adversaire en touchant le filet – en réalisant une action qui empêche la tentative légitime d’un adversaire de jouer le ballon – en attrapant ou en tenant le filet Tout joueur proche du ballon, et qui essaye de le jouer, est considéré être dans l’action de jouer le ballon, même s’il n’y a aucun contact avec le ballon. Cependant, toucher le filet en dehors des antennes n’est pas considéré comme une faute (à l’exception de la Règle 9.1.3)",
+		"renvois": [
+			"Fig.11 (19)",
+			"11.3.1"
+		],
+		"ordre": 212
+	},
+	{
+		"reference": "12",
+		"parent_reference": null,
+		"titre": "SERVICE",
+		"texte": "Le service est la mise en jeu du ballon par l’arrière droit, placé dans la zone de service.",
+		"renvois": [
+			"1.4.2",
+			"8.1",
+			"12.4.1"
+		],
+		"ordre": 213
+	},
+	{
+		"reference": "12.1",
+		"parent_reference": "12",
+		"titre": "PREMIER SERVICE D’UN SET",
+		"texte": "",
+		"renvois": [],
+		"ordre": 214
+	},
+	{
+		"reference": "12.1.1",
+		"parent_reference": "12.1",
+		"titre": null,
+		"texte": "Le premier service du premier set, ainsi que celui du 5ème set décisif est effectué par l’équipe désignée par le tirage au sort.",
+		"renvois": [
+			"6.3.2",
+			"7.1"
+		],
+		"ordre": 215
+	},
+	{
+		"reference": "12.1.2",
+		"parent_reference": "12.1",
+		"titre": null,
+		"texte": "Les autres sets seront commencés par le service de l’équipe qui n'a pas servi la première au set précédent.",
+		"renvois": [],
+		"ordre": 216
+	},
+	{
+		"reference": "12.2",
+		"parent_reference": "12",
+		"titre": "ORDRE AU SERVICE",
+		"texte": "",
+		"renvois": [],
+		"ordre": 217
+	},
+	{
+		"reference": "12.2.1",
+		"parent_reference": "12.2",
+		"titre": null,
+		"texte": "Les joueurs doivent suivre l’ordre au service indiqué sur la fiche de position.",
+		"renvois": [
+			"7.3.1",
+			"7.3.2"
+		],
+		"ordre": 218
+	},
+	{
+		"reference": "12.2.2",
+		"parent_reference": "12.2",
+		"titre": null,
+		"texte": "Après le premier service du set, les joueurs au service sont désignés comme suit:",
+		"renvois": [
+			"12.1"
+		],
+		"ordre": 219
+	},
+	{
+		"reference": "12.2.2.1",
+		"parent_reference": "12.2.2",
+		"titre": null,
+		"texte": "quand l’équipe au service gagne l’échange, le joueur qui a effectué le service précédent (ou son remplaçant) sert à nouveau;",
+		"renvois": [
+			"6.1.3",
+			"15.5"
+		],
+		"ordre": 220
+	},
+	{
+		"reference": "12.2.2.2",
+		"parent_reference": "12.2.2",
+		"titre": null,
+		"texte": "quand l’équipe en réception gagne l’échange, elle obtient le droit de servir et effectue une rotation avant de servir. Le service sera effectué par le joueur qui passe de la position d’avant droit à celle d’arrière droit.",
+		"renvois": [
+			"6.1.3",
+			"7.6.2"
+		],
+		"ordre": 221
+	},
+	{
+		"reference": "12.3",
+		"parent_reference": "12",
+		"titre": "AUTORISATION DU SERVICE",
+		"texte": "Le 1er arbitre autorise l’exécution du service après avoir vérifié que les équipes sont prêtes à jouer et que le serveur est en possession du ballon.",
+		"renvois": [
+			"12",
+			"Fig.11 (1)"
+		],
+		"ordre": 222
+	},
+	{
+		"reference": "12.4",
+		"parent_reference": "12",
+		"titre": "EXÉCUTION DU SERVICE",
+		"texte": "",
+		"renvois": [
+			"Fig.11 (10)"
+		],
+		"ordre": 223
+	},
+	{
+		"reference": "12.4.1",
+		"parent_reference": "12.4",
+		"titre": null,
+		"texte": "Le ballon doit être frappé avec une main ou n’importe quelle partie du bras après avoir été lancé en l’air ou lâché de la/des main(s).",
+		"renvois": [],
+		"ordre": 224
+	},
+	{
+		"reference": "12.4.2",
+		"parent_reference": "12.4",
+		"titre": null,
+		"texte": "Un seul lancer ou lâcher de ballon est autorisé. Faire rebondir le ballon ou jongler avec est autorisé.",
+		"renvois": [],
+		"ordre": 225
+	},
+	{
+		"reference": "12.4.3",
+		"parent_reference": "12.4",
+		"titre": null,
+		"texte": "Au moment de la frappe de service ou de l’impulsion en cas de service sauté, le joueur au service ne doit ni toucher le terrain (ligne de fond incluse) ni le sol à l’extérieur de la zone de service. Après la frappe, il peut retomber ou marcher en dehors de la zone de service ou à l’intérieur du terrain.",
+		"renvois": [
+			"1.4.2",
+			"29.2.1.4",
+			"Fig.11 (22)",
+			"Fig.12 (4)"
+		],
+		"ordre": 226
+	},
+	{
+		"reference": "12.4.4",
+		"parent_reference": "12.4",
+		"titre": null,
+		"texte": "Le joueur au service doit frapper le ballon au cours des 8 secondes qui suivent le coup de sifflet du premier arbitre.",
+		"renvois": [
+			"12.3",
+			"Fig.11 (11)"
+		],
+		"ordre": 227
+	},
+	{
+		"reference": "12.4.5",
+		"parent_reference": "12.4",
+		"titre": null,
+		"texte": "Un service effectué avant le coup de sifflet de l’arbitre doit être annulé et recommencé.",
+		"renvois": [
+			"12.3"
+		],
+		"ordre": 228
+	},
+	{
+		"reference": "12.5",
+		"parent_reference": "12",
+		"titre": "ÉCRAN",
+		"texte": "",
+		"renvois": [
+			"Fig.6",
+			"Fig.11"
+		],
+		"ordre": 229
+	},
+	{
+		"reference": "12.5.1",
+		"parent_reference": "12.5",
+		"titre": null,
+		"texte": "Les joueurs de l’équipe au service ne doivent pas empêcher leur adversaire, par un écran individuel ou collectif, de voir la frappe du service et la trajectoire du ballon.",
+		"renvois": [
+			"12.5.2"
+		],
+		"ordre": 230
+	},
+	{
+		"reference": "12.5.2",
+		"parent_reference": "12.5",
+		"titre": null,
+		"texte": "Un joueur ou un groupe de joueurs de l’équipe au service fait un écran en agitant les bras, en sautant ou en se déplaçant latéralement pendant l’exécution du service, ou en se tenant groupés, afin que la frappe du service et la trajectoire du ballon soient cachées jusqu’à ce que le ballon atteigne le plan vertical du filet. Si l’un ou l’autre est visible pour l’équipe qui reçoit, il ne s’agit pas d’un écran.",
+		"renvois": [
+			"12.4",
+			"Fig.6"
+		],
+		"ordre": 231
+	},
+	{
+		"reference": "12.5.3",
+		"parent_reference": "12.5",
+		"titre": null,
+		"texte": "Tout joueur de l’équipe au service n’est pas autorisé à lever les mains au-dessus de la tête pendant le service, jusqu’à ce que le ballon ait franchi le filet. Le premier arbitre est autorisé à avertir une équipe par l’intermédiaire du capitaine de jeu, s’il/elle soupçonne qu’il y a un écran délibéré.",
+		"renvois": [
+			"12.4",
+			"12.5.2",
+			"Fig.6",
+			"Fig.11 (12)"
+		],
+		"ordre": 232
+	},
+	{
+		"reference": "12.6",
+		"parent_reference": "12",
+		"titre": "FAUTES EFFECTUÉES PENDANT LE SERVICE",
+		"texte": "",
+		"renvois": [],
+		"ordre": 233
+	},
+	{
+		"reference": "12.6.1",
+		"parent_reference": "12.6",
+		"titre": null,
+		"texte": "Fautes de service: Les fautes suivantes entraînent un changement de service, même si l’adversaire est en faute de position. Le joueur au service:",
+		"renvois": [
+			"12.2.2.2",
+			"12.7.1"
+		],
+		"ordre": 234
+	},
+	{
+		"reference": "12.6.1.1",
+		"parent_reference": "12.6.1",
+		"titre": null,
+		"texte": "enfreint l’ordre du service,",
+		"renvois": [
+			"12.2"
+		],
+		"ordre": 235
+	},
+	{
+		"reference": "12.6.1.2",
+		"parent_reference": "12.6.1",
+		"titre": null,
+		"texte": "n’effectue pas son service correctement.",
+		"renvois": [
+			"12.4"
+		],
+		"ordre": 236
+	},
+	{
+		"reference": "12.6.2",
+		"parent_reference": "12.6",
+		"titre": null,
+		"texte": "Fautes après la frappe de service: Après la frappe correcte du ballon, le service devient fautif (à moins qu’un joueur ne soit en faute de position) lorsque le ballon:",
+		"renvois": [
+			"12.4",
+			"12.7.2"
+		],
+		"ordre": 237
+	},
+	{
+		"reference": "12.6.2.1",
+		"parent_reference": "12.6.2",
+		"titre": null,
+		"texte": "touche un joueur de l’équipe au service ou ne dépasse pas le plan vertical du filet complètement au travers de l’espace de passage;",
+		"renvois": [
+			"8.4.4",
+			"8.4.5",
+			"10.1.1",
+			"Fig.11 (19)"
+		],
+		"ordre": 238
+	},
+	{
+		"reference": "12.6.2.2",
+		"parent_reference": "12.6.2",
+		"titre": null,
+		"texte": "tombe “dehors”;",
+		"renvois": [
+			"8.4",
+			"Fig.11 (15)"
+		],
+		"ordre": 239
+	},
+	{
+		"reference": "12.6.2.3",
+		"parent_reference": "12.6.2",
+		"titre": null,
+		"texte": "passe au-dessus d’un écran.",
+		"renvois": [
+			"12.5",
+			"Fig.11 (12)"
+		],
+		"ordre": 240
+	},
+	{
+		"reference": "12.7",
+		"parent_reference": "12",
+		"titre": "FAUTES DE SERVICE ET FAUTES DE POSITION",
+		"texte": "",
+		"renvois": [],
+		"ordre": 241
+	},
+	{
+		"reference": "12.7.1",
+		"parent_reference": "12.7",
+		"titre": null,
+		"texte": "Si le joueur au service commet une faute au moment du service (mauvaise exécution, ordre de rotation erroné, etc.) et que l'adversaire commet une faute de position, c'est la faute de service qui est sanctionnée.",
+		"renvois": [
+			"7.5.1",
+			"7.5.2",
+			"12.6.1"
+		],
+		"ordre": 242
+	},
+	{
+		"reference": "12.7.2",
+		"parent_reference": "12.7",
+		"titre": null,
+		"texte": "Au contraire, lorsque l’exécution du service a été correcte, mais que le service devient ensuite fautif (ballon dehors, écran, etc.), la faute de position a été commise en premier et est donc sanctionnée.",
+		"renvois": [
+			"7.5.3",
+			"12.6.2"
+		],
+		"ordre": 243
+	},
+	{
+		"reference": "13",
+		"parent_reference": null,
+		"titre": "FRAPPE D’ATTAQUE",
+		"texte": "",
+		"renvois": [],
+		"ordre": 244
+	},
+	{
+		"reference": "13.1",
+		"parent_reference": "13",
+		"titre": "CARACTÉRISTIQUES DE LA FRAPPE D'ATTAQUE",
+		"texte": "",
+		"renvois": [
+			"12",
+			"14.1.1"
+		],
+		"ordre": 245
+	},
+	{
+		"reference": "13.1.1",
+		"parent_reference": "13.1",
+		"titre": null,
+		"texte": "Toutes les actions envoyant le ballon en direction de l’adversaire, à l’exception du service et du contre, sont considérées comme des frappes d’attaque.",
+		"renvois": [],
+		"ordre": 246
+	},
+	{
+		"reference": "13.1.2",
+		"parent_reference": "13.1",
+		"titre": null,
+		"texte": "Lors d’une frappe d’attaque, placer le ballon est autorisé si le ballon est clairement frappé, et qu’il n’est ni tenu ni lancé.",
+		"renvois": [
+			"9.2.2"
+		],
+		"ordre": 247
+	},
+	{
+		"reference": "13.1.3",
+		"parent_reference": "13.1",
+		"titre": null,
+		"texte": "La frappe d’attaque est effective dès que le ballon traverse entièrement le plan vertical du filet ou qu’il est touché par un adversaire.",
+		"renvois": [],
+		"ordre": 248
+	},
+	{
+		"reference": "13.2",
+		"parent_reference": "13",
+		"titre": "RESTRICTIONS DE LA FRAPPE D’ATTAQUE",
+		"texte": "",
+		"renvois": [],
+		"ordre": 249
+	},
+	{
+		"reference": "13.2.1",
+		"parent_reference": "13.2",
+		"titre": null,
+		"texte": "Un joueur de la ligne avant peut effectuer une frappe d’attaque à n’importe quelle hauteur, à condition que le contact du ballon ait lieu dans son propre espace de jeu (à l’exception de la Règle 13.2.4 et 13.3.6).",
+		"renvois": [
+			"7.4.1.1"
+		],
+		"ordre": 250
+	},
+	{
+		"reference": "13.2.2",
+		"parent_reference": "13.2",
+		"titre": null,
+		"texte": "Un joueur de la ligne arrière peut réaliser une attaque à n’importe quelle hauteur depuis l’arrière de la zone avant.",
+		"renvois": [
+			"1.4.1",
+			"7.4.1.2",
+			"19.3.1.2",
+			"Fig.8"
+		],
+		"ordre": 251
+	},
+	{
+		"reference": "13.2.2.1",
+		"parent_reference": "13.2.2",
+		"titre": null,
+		"texte": "lors de son impulsion, son (ses) pied(s) ne doit (doivent) avoir ni touché ni franchi la ligne d’attaque;",
+		"renvois": [
+			"1.3.4"
+		],
+		"ordre": 252
+	},
+	{
+		"reference": "13.2.2.2",
+		"parent_reference": "13.2.2",
+		"titre": null,
+		"texte": "après la frappe, il peut retomber dans la zone avant.",
+		"renvois": [
+			"1.4.1"
+		],
+		"ordre": 253
+	},
+	{
+		"reference": "13.2.3",
+		"parent_reference": "13.2",
+		"titre": null,
+		"texte": "Un joueur arrière peut aussi effectuer une attaque dans la zone avant si, au moment du contact, une partie du ballon est plus basse que le sommet du filet.",
+		"renvois": [
+			"1.4.1",
+			"7.4.1.2",
+			"Fig.8"
+		],
+		"ordre": 254
+	},
+	{
+		"reference": "13.2.4",
+		"parent_reference": "13.2",
+		"titre": null,
+		"texte": "Aucun joueur ne peut effectuer une frappe d’attaque sur le service adverse, alors que le ballon est dans la zone avant et entièrement au-dessus du bord supérieur du filet.",
+		"renvois": [
+			"1.4.1"
+		],
+		"ordre": 255
+	},
+	{
+		"reference": "13.3",
+		"parent_reference": "13",
+		"titre": "FAUTES DE FRAPPE D’ATTAQUE",
+		"texte": "",
+		"renvois": [],
+		"ordre": 256
+	},
+	{
+		"reference": "13.3.1",
+		"parent_reference": "13.3",
+		"titre": null,
+		"texte": "Un joueur frappe le ballon dans l’espace de jeu de l’équipe adverse;",
+		"renvois": [
+			"13.2.1",
+			"Fig.11 (20)"
+		],
+		"ordre": 257
+	},
+	{
+		"reference": "13.3.2",
+		"parent_reference": "13.3",
+		"titre": null,
+		"texte": "Un joueur envoie le ballon “dehors”;",
+		"renvois": [
+			"8.4",
+			"Fig.11 (15)"
+		],
+		"ordre": 258
+	},
+	{
+		"reference": "13.3.3",
+		"parent_reference": "13.3",
+		"titre": null,
+		"texte": "Un joueur arrière effectue une attaque dans la zone avant, alors que le ballon est entièrement au-dessus du bord supérieur du filet;",
+		"renvois": [
+			"1.4.1",
+			"7.4.1.2",
+			"13.2.3",
+			"Fig.11 (21)"
+		],
+		"ordre": 259
+	},
+	{
+		"reference": "13.3.4",
+		"parent_reference": "13.3",
+		"titre": null,
+		"texte": "Un joueur effectue une frappe d’attaque sur le service adverse, alors que le ballon est dans la zone avant et entièrement au-dessus du bord supérieur du filet;",
+		"renvois": [
+			"1.4.1",
+			"13.2.4",
+			"Fig.11 (21)"
+		],
+		"ordre": 260
+	},
+	{
+		"reference": "13.3.5",
+		"parent_reference": "13.3",
+		"titre": null,
+		"texte": "Un Libéro effectue une frappe d’attaque alors que le ballon est entièrement au-dessus du bord supérieur du filet;",
+		"renvois": [
+			"19.3.1.2",
+			"23.3.2.3d",
+			"Fig.11 (21)"
+		],
+		"ordre": 261
+	},
+	{
+		"reference": "13.3.6",
+		"parent_reference": "13.3",
+		"titre": null,
+		"texte": "Un joueur effectue une frappe d'attaque sur un ballon entièrement au-dessus du bord supérieur du filet provenant d’une passe haute avec les doigts effectuée par le Libéro dans sa zone avant.",
+		"renvois": [
+			"1.4.1",
+			"19.3.1.4",
+			"23.3.2.3e",
+			"Fig.11 (21)"
+		],
+		"ordre": 262
+	},
+	{
+		"reference": "14",
+		"parent_reference": null,
+		"titre": "CONTRE",
+		"texte": "",
+		"renvois": [],
+		"ordre": 263
+	},
+	{
+		"reference": "14.1",
+		"parent_reference": "14",
+		"titre": "CONTRER",
+		"texte": "",
+		"renvois": [],
+		"ordre": 264
+	},
+	{
+		"reference": "14.1.1",
+		"parent_reference": "14.1",
+		"titre": null,
+		"texte": "Le contre est l’action des joueurs placés près du filet pour intercepter le ballon provenant de l’adversaire en dépassant le haut du filet, sans tenir compte de la hauteur du contact du ballon. Seuls les joueurs de la ligne avant peuvent effectuer un contre, mais au moment du contact avec le ballon, une partie du corps doit être plus haute que le sommet du filet.",
+		"renvois": [
+			"7.4.1.1"
+		],
+		"ordre": 265
+	},
+	{
+		"reference": "14.1.2",
+		"parent_reference": "14.1",
+		"titre": "Tentative de contre",
+		"texte": "Une tentative de contre est l’action de contrer sans toucher le ballon.",
+		"renvois": [],
+		"ordre": 266
+	},
+	{
+		"reference": "14.1.3",
+		"parent_reference": "14.1",
+		"titre": "Contre effectif",
+		"texte": "Un contre est effectif chaque fois que le ballon est touché par un contreur.",
+		"renvois": [
+			"Fig.7"
+		],
+		"ordre": 267
+	},
+	{
+		"reference": "14.1.4",
+		"parent_reference": "14.1",
+		"titre": "Contre collectif",
+		"texte": "Un contre est collectif lorsqu’il est réalisé par un groupe de deux ou trois joueurs proches les uns des autres et est effectif lorsque l’un d’eux touche le ballon.",
+		"renvois": [],
+		"ordre": 268
+	},
+	{
+		"reference": "14.2",
+		"parent_reference": "14",
+		"titre": "TOUCHE DE CONTRE",
+		"texte": "Des touches consécutives (rapides et continues) avec le ballon peuvent être réalisées par un ou plusieurs contreurs, à condition que ces contacts aient lieu au cours d’une seule action.",
+		"renvois": [
+			"9.1.1",
+			"9.2.3"
+		],
+		"ordre": 269
+	},
+	{
+		"reference": "14.3",
+		"parent_reference": "14",
+		"titre": "CONTRE DANS L’ESPACE ADVERSE",
+		"texte": "En contrant, le joueur peut placer ses mains et ses bras au-delà du filet, à condition que cette action ne gêne pas le jeu de l’adversaire. Ainsi, il n’est pas permis de toucher le ballon au-delà du filet avant que l’adversaire n’ait exécuté une frappe d’attaque.",
+		"renvois": [
+			"Fig.11 (20)",
+			"13.1.1"
+		],
+		"ordre": 270
+	},
+	{
+		"reference": "14.4",
+		"parent_reference": "14",
+		"titre": "CONTRE ET TOUCHES D’ÉQUIPE",
+		"texte": "",
+		"renvois": [],
+		"ordre": 271
+	},
+	{
+		"reference": "14.4.1",
+		"parent_reference": "14.4",
+		"titre": null,
+		"texte": "Le contact du ballon par le contre n’est pas compté comme une touche d’équipe. Par conséquent, après une touche de contre, l’équipe a droit à trois touches pour renvoyer le ballon.",
+		"renvois": [
+			"9.1",
+			"14.4.2"
+		],
+		"ordre": 272
+	},
+	{
+		"reference": "14.4.2",
+		"parent_reference": "14.4",
+		"titre": null,
+		"texte": "La première touche après le contre peut être faite par n’importe quel joueur, y compris celui qui a touché le ballon au contre.",
+		"renvois": [
+			"14.4.1"
+		],
+		"ordre": 273
+	},
+	{
+		"reference": "14.5",
+		"parent_reference": "14",
+		"titre": "CONTRER LE SERVICE",
+		"texte": "Contrer le service adverse est interdit.",
+		"renvois": [
+			"12",
+			"Fig.11 (12)"
+		],
+		"ordre": 274
+	},
+	{
+		"reference": "14.6",
+		"parent_reference": "14",
+		"titre": "FAUTES AU CONTRE",
+		"texte": "",
+		"renvois": [
+			"Fig.11 (20)"
+		],
+		"ordre": 275
+	},
+	{
+		"reference": "14.6.1",
+		"parent_reference": "14.6",
+		"titre": null,
+		"texte": "Le contreur touche le ballon dans l’espace de l’OPPOSANT avant que l’attaque de l’adversaire ne frappe.",
+		"renvois": [
+			"14.3"
+		],
+		"ordre": 276
+	},
+	{
+		"reference": "14.6.2",
+		"parent_reference": "14.6",
+		"titre": null,
+		"texte": "Un joueur arrière ou le libéro effectue un contre ou participe à un contre effectif;",
+		"renvois": [
+			"14.1",
+			"14.5",
+			"19.3.1.3"
+		],
+		"ordre": 277
+	},
+	{
+		"reference": "14.6.3",
+		"parent_reference": "14.6",
+		"titre": null,
+		"texte": "Contrer le service adverse;",
+		"renvois": [
+			"14.5",
+			"Fig.11 (12)"
+		],
+		"ordre": 278
+	},
+	{
+		"reference": "14.6.4",
+		"parent_reference": "14.6",
+		"titre": null,
+		"texte": "Le contre envoie le ballon “dehors”;",
+		"renvois": [
+			"8.4"
+		],
+		"ordre": 279
+	},
+	{
+		"reference": "14.6.5",
+		"parent_reference": "14.6",
+		"titre": null,
+		"texte": "Contrer le ballon dans l’espace adverse à l’extérieur des antennes;",
+		"renvois": [],
+		"ordre": 280
+	},
+	{
+		"reference": "14.6.6",
+		"parent_reference": "14.6",
+		"titre": null,
+		"texte": "Un Libéro tente d’effectuer un contre collectif ou individuel.",
+		"renvois": [
+			"14.1.1",
+			"19.3.1.3"
+		],
+		"ordre": 281
+	},
+	{
+		"reference": "15",
+		"parent_reference": null,
+		"titre": "INTERRUPTIONS",
+		"texte": "Une interruption est le temps compris entre un échange de jeu terminé et le coup de sifflet de l’arbitre pour le service suivant. Les seules interruptions réglementaires sont les TEMPS-MORTS et les",
+		"renvois": [
+			"6.1.3",
+			"8.1",
+			"8.2",
+			"15.4",
+			"15.5",
+			"24.2.6"
+		],
+		"ordre": 282
+	},
+	{
+		"reference": "15.1",
+		"parent_reference": "15",
+		"titre": "NOMBRE D’INTERRUPTIONS DE JEU RÈGLEMENTAIRES",
+		"texte": "Chaque équipe a le droit de demander au maximum deux temps-morts et six remplacements par set.",
+		"renvois": [
+			"6.2",
+			"15.4",
+			"15.5"
+		],
+		"ordre": 283
+	},
+	{
+		"reference": "15.2",
+		"parent_reference": "15",
+		"titre": "SÉQUENCE D’INTERRUPTION DE JEU RÈGLEMENTAIRE",
+		"texte": "",
+		"renvois": [],
+		"ordre": 284
+	},
+	{
+		"reference": "15.2.1",
+		"parent_reference": "15.2",
+		"titre": null,
+		"texte": "Des demandes d'un ou de deux Temps-Morts et d'un remplacement par chaque équipe peuvent se suivre dans la même interruption.",
+		"renvois": [
+			"15.4",
+			"15.5"
+		],
+		"ordre": 285
+	},
+	{
+		"reference": "15.2.2",
+		"parent_reference": "15.2",
+		"titre": null,
+		"texte": "Cependant, une équipe n’est pas autorisée à faire des demandes consécutives pour remplacement pendant la même interruption de jeu. Deux joueurs ou plus peuvent être remplacés simultanément par la même demande.",
+		"renvois": [
+			"15.5",
+			"15.6.1"
+		],
+		"ordre": 286
+	},
+	{
+		"reference": "15.2.3",
+		"parent_reference": "15.2",
+		"titre": null,
+		"texte": "Il doit y avoir un échange de jeu terminé entre 2 demandes de remplacements séparées, pour une même équipe. (Excepté dans le cas d’un remplacement imposé par une blessure ou une expulsion ou disqualification (15.5.2, 15.7, 15.8)).",
+		"renvois": [
+			"6.1.3",
+			"15.5"
+		],
+		"ordre": 287
+	},
+	{
+		"reference": "15.2.4",
+		"parent_reference": "15.2",
+		"titre": null,
+		"texte": "Il n’est pas permis de demander une interruption régulière de jeu après avoir vu une demande rejetée et sanctionnée par un avertissement de retard au cours de la même interruption (c’est-à-dire avant la fin de l’échange de jeu terminé suivant).",
+		"renvois": [
+			"16.1.2"
+		],
+		"ordre": 288
+	},
+	{
+		"reference": "15.3",
+		"parent_reference": "15",
+		"titre": "DEMANDE D'INTERRUPTIONS REGULIÈRES",
+		"texte": "",
+		"renvois": [],
+		"ordre": 289
+	},
+	{
+		"reference": "15.3.1",
+		"parent_reference": "15.3",
+		"titre": null,
+		"texte": "Les interruptions régulières de jeu peuvent être demandées par l’entraîneur, ou en son absence, par l’entraîneur adjoint ou par le capitaine de jeu, et seulement par eux.",
+		"renvois": [
+			"5.1.2.3",
+			"5.2.3.3",
+			"5.3.2",
+			"15"
+		],
+		"ordre": 290
+	},
+	{
+		"reference": "15.3.2",
+		"parent_reference": "15.3",
+		"titre": null,
+		"texte": "Un remplacement avant le début du set est autorisé et enregistré comme un remplacement régulier dans ce set.",
+		"renvois": [
+			"7.3.4"
+		],
+		"ordre": 291
+	},
+	{
+		"reference": "15.4",
+		"parent_reference": "15",
+		"titre": "TEMPS-MORTS",
+		"texte": "",
+		"renvois": [],
+		"ordre": 292
+	},
+	{
+		"reference": "15.4.1",
+		"parent_reference": "15.4",
+		"titre": null,
+		"texte": "Les demandes de temps mort doivent être faites en montrant le signe de la main correspondant, lorsque le ballon est hors du jeu et avant le coup de sifflet pour le service. Tous les arrêts de jeu demandés durent 30 secondes. Pour les compétitions mondiales et officielles de la FIVB, la durée des temps morts peut être modifiée si la FIVB approuve cette demande sur la base d’une requête de l’organisateur. Pour les compétitions mondiales et officielles de la FIVB, il est obligatoire d’utiliser le buzzer puis le signe de la main pour demander un temps mort.",
+		"renvois": [
+			"6.1.3",
+			"8.2",
+			"12.3",
+			"Fig.11 (4)"
+		],
+		"ordre": 293
+	},
+	{
+		"reference": "15.4.2",
+		"parent_reference": "15.4",
+		"titre": null,
+		"texte": "Pendant tous les arrêts de jeu les joueurs en jeu doivent se rendre dans la zone libre près de leur banc.",
+		"renvois": [
+			"Fig.1 (4)"
+		],
+		"ordre": 294
+	},
+	{
+		"reference": "15.5",
+		"parent_reference": "15",
+		"titre": "REMPLACEMENTS",
+		"texte": "",
+		"renvois": [],
+		"ordre": 295
+	},
+	{
+		"reference": "15.5.1",
+		"parent_reference": "15.5",
+		"titre": null,
+		"texte": "Le remplacement est l’acte par lequel un joueur, autre que le libéro ou son/sa remplaçant(e), après avoir été enregistré auprès du marqueur, pénètre sur le terrain pour occuper la position d’un autre joueur qui doit quitter le terrain à ce moment-là. Les remplacements doivent êtres autorisés par l’arbitre.",
+		"renvois": [
+			"19.3.2.1",
+			"Fig.11 (5)"
+		],
+		"ordre": 296
+	},
+	{
+		"reference": "15.5.2",
+		"parent_reference": "15.5",
+		"titre": null,
+		"texte": "Lorsque le remplacement est obligatoire suite à la blessure d’un joueur au jeu il peut être accompagné du geste officiel fait par l’entraîneur (ou par le capitaine au jeu).",
+		"renvois": [
+			"5.1.2.3",
+			"5.2.3.3",
+			"6.1.3",
+			"8.2",
+			"12.3",
+			"Fig.11 (5)"
+		],
+		"ordre": 297
+	},
+	{
+		"reference": "15.6",
+		"parent_reference": "15",
+		"titre": "LIMITATION DES REMPLACEMENTS",
+		"texte": "",
+		"renvois": [],
+		"ordre": 298
+	},
+	{
+		"reference": "15.6.1",
+		"parent_reference": "15.6",
+		"titre": null,
+		"texte": "Un joueur de la formation de départ peut sortir du jeu mais une fois par set et n’y retourner qu’une seule fois par set et uniquement à la place qu’il occupait précédemment dans la formation de départ.",
+		"renvois": [
+			"7.3.1"
+		],
+		"ordre": 299
+	},
+	{
+		"reference": "15.6.2",
+		"parent_reference": "15.6",
+		"titre": null,
+		"texte": "Un joueur remplaçant peut entrer au jeu à la place d’un joueur de la formation de départ mais une fois par set et ne peut être remplacé que par le même joueur de la formation de départ.",
+		"renvois": [
+			"7.3.1"
+		],
+		"ordre": 300
+	},
+	{
+		"reference": "15.7",
+		"parent_reference": "15",
+		"titre": "REMPLACEMENT EXCEPTIONNEL",
+		"texte": "Un joueur (à l’exception du Libéro) qui ne peut pas continuer à jouer en raison d’une blessure/maladie ou d’une expulsion/disqualification doit être remplacé régulièrement. Si cela n’est pas possible, l’équipe a le droit d’effectuer un remplacement EXCEPTIONNEL, au-delà des limites de la règle 15.6. Un remplacement exceptionnel permet à tout joueur qui n’est pas sur le terrain au moment de la blessure, de la maladie, de l’expulsion ou de la disqualification – à l’exception du Libero, du deuxième Libero ou de leur remplaçant habituel – d’entrer en jeu pour remplacer le joueur concerné. Le joueur blessé, malade ou expulsé, remplacé via un remplacement exceptionnel, ne peut pas réintégrer le match. Un remplacement exceptionnel ne peut en aucun cas compter comme un remplacement régulier, mais doit être enregistré sur la feuille de match et être repris dans le total des remplacements du set et du match.",
+		"renvois": [
+			"15.6",
+			"19.4.3",
+			"21.3.2",
+			"21.3.3",
+			"Fig.11 (5)"
+		],
+		"ordre": 301
+	},
+	{
+		"reference": "15.8",
+		"parent_reference": "15",
+		"titre": "REMPLACEMENT SUITE À EXPULSION OU DISQUALIFICATION",
+		"texte": "Un joueur EXPULSÉ ou DISQUALIFIÉ doit être remplacé immédiatement par un remplacement légal. Si cela n’est pas possible, l’équipe a le droit d’effectuer un remplacement exceptionnel. Si cela n’est pas possible, l’équipe est déclarée INCOMPLÈTE.",
+		"renvois": [
+			"6.4.3",
+			"7.3.1",
+			"15.6",
+			"15.7",
+			"21.3.2",
+			"21.3.3",
+			"Fig.11 (5)"
+		],
+		"ordre": 302
+	},
+	{
+		"reference": "15.9",
+		"parent_reference": "15",
+		"titre": "REMPLACEMENT ILLÉGAL",
+		"texte": "",
+		"renvois": [],
+		"ordre": 303
+	},
+	{
+		"reference": "15.9.1",
+		"parent_reference": "15.9",
+		"titre": null,
+		"texte": "Un remplacement est illégal s’il dépasse les limitations prévues à la règle 15.6 (à l’exception des cas prévus à la Règle 15.7), ou s’il concerne un joueur non-enregistré.",
+		"renvois": [],
+		"ordre": 304
+	},
+	{
+		"reference": "15.9.2",
+		"parent_reference": "15.9",
+		"titre": null,
+		"texte": "Lorsqu’une équipe a effectué un remplacement illégal et que le jeu a repris, la procédure suivante est à suivre dans l’ordre:",
+		"renvois": [
+			"8.1",
+			"15.6"
+		],
+		"ordre": 305
+	},
+	{
+		"reference": "15.9.2.1",
+		"parent_reference": "15.9.2",
+		"titre": null,
+		"texte": "l’équipe est pénalisée: l’adversaire gagne un point et le service;",
+		"renvois": [
+			"6.1.3"
+		],
+		"ordre": 306
+	},
+	{
+		"reference": "15.9.2.2",
+		"parent_reference": "15.9.2",
+		"titre": null,
+		"texte": "le remplacement est corrigé;",
+		"renvois": [],
+		"ordre": 307
+	},
+	{
+		"reference": "15.9.2.3",
+		"parent_reference": "15.9.2",
+		"titre": null,
+		"texte": "les points marqués par l’équipe fautive depuis la faute sont annulés, les points de l’équipe adverse sont maintenus.",
+		"renvois": [],
+		"ordre": 308
+	},
+	{
+		"reference": "15.10",
+		"parent_reference": "15",
+		"titre": "PROCÉDURE DE REMPLACEMENT",
+		"texte": "",
+		"renvois": [],
+		"ordre": 309
+	},
+	{
+		"reference": "15.10.1",
+		"parent_reference": "15.10",
+		"titre": null,
+		"texte": "Les remplacements doivent être effectués dans la zone de remplacement.",
+		"renvois": [
+			"1.4.3",
+			"Fig.1b"
+		],
+		"ordre": 310
+	},
+	{
+		"reference": "15.10.2",
+		"parent_reference": "15.10",
+		"titre": null,
+		"texte": "Un remplacement ne durera que le temps nécessaire pour enregistrer le remplacement sur la feuille de match, et permettre l’entrée et la sortie des joueurs.",
+		"renvois": [
+			"15.10",
+			"24.2.6",
+			"25.2.2.3"
+		],
+		"ordre": 311
+	},
+	{
+		"reference": "15.10.3.1",
+		"parent_reference": "15.10.3",
+		"titre": null,
+		"texte": "La demande effective de remplacement commence au moment de l'entrée du ou des joueurs de remplacement dans la zone de remplacement, prêts à jouer, pendant une interruption. L'entraîneur n'a pas besoin de faire un signe de la main de remplacement, sauf si le remplacement a lieu pour blessure ou avant le début du set.",
+		"renvois": [],
+		"ordre": 312
+	},
+	{
+		"reference": "15.10.3.2",
+		"parent_reference": "15.10.3",
+		"titre": null,
+		"texte": "Si le joueur n’est pas prêt au moment de la demande, le remplacement n’est pas accordé et l’équipe est sanctionnée pour un retard de jeu.",
+		"renvois": [
+			"16.2",
+			"Fig.9"
+		],
+		"ordre": 313
+	},
+	{
+		"reference": "15.10.3.3",
+		"parent_reference": "15.10.3",
+		"titre": null,
+		"texte": "La demande de remplacement est reconnue et annoncée par le marqueur ou le 2ème arbitre, respectivement à l’aide du buzzer ou du sifflet. Le 2ème arbitre autorise le remplacement. Pour les compétitions de la FIVB, mondiales et officielles, des plaquettes numérotées sont utilisées pour faciliter le remplacement (sauf lorsque des dispositifs électroniques sont utilisés pour transmettre les données au marqueur).",
+		"renvois": [
+			"24.2.6"
+		],
+		"ordre": 314
+	},
+	{
+		"reference": "15.10.4",
+		"parent_reference": "15.10",
+		"titre": null,
+		"texte": "Si une équipe désire procéder simultanément à plus d’un remplacement, tous les joueurs remplaçants doivent se rendre au même moment dans la zone de remplacement pour être considérés comme une même demande. Dans ce cas, les remplacements doivent être effectués successivement, par paires de joueurs, l’une à la suite de l’autre. Si l’un est illégal, le remplacement légal est autorisé mais l’illégal est refusé et sujet à une sanction de retard de jeu.",
+		"renvois": [
+			"1.4.3",
+			"15.2.2"
+		],
+		"ordre": 315
+	},
+	{
+		"reference": "15.11",
+		"parent_reference": "15",
+		"titre": "DEMANDES NON FONDÉES",
+		"texte": "",
+		"renvois": [],
+		"ordre": 316
+	},
+	{
+		"reference": "15.11.1",
+		"parent_reference": "15.11",
+		"titre": null,
+		"texte": "Il n’est pas fondé de demander une interruption régulière de jeu: 15",
+		"renvois": [],
+		"ordre": 317
+	},
+	{
+		"reference": "15.11.1.1",
+		"parent_reference": "15.11.1",
+		"titre": null,
+		"texte": "pendant un échange de jeu ou au moment ou après le coup de sifflet autorisant le service,",
+		"renvois": [
+			"12.3"
+		],
+		"ordre": 318
+	},
+	{
+		"reference": "15.11.1.2",
+		"parent_reference": "15.11.1",
+		"titre": null,
+		"texte": "par un membre de l’équipe non autorisé,",
+		"renvois": [
+			"5.1.2.3",
+			"5.2.3.3"
+		],
+		"ordre": 319
+	},
+	{
+		"reference": "15.11.1.3",
+		"parent_reference": "15.11.1",
+		"titre": null,
+		"texte": "pour un second remplacement durant la même interruption (càd avant la fin du prochain échange complet) sauf en cas de blessure/maladie du joueur en jeu.",
+		"renvois": [
+			"15.2.2",
+			"15.2.3",
+			"15.8",
+			"16.1",
+			"25.2.2.6"
+		],
+		"ordre": 320
+	},
+	{
+		"reference": "15.11.1.4",
+		"parent_reference": "15.11.1",
+		"titre": null,
+		"texte": "après avoir épuisé le nombre autorisé de temps-morts et de remplacements de joueurs.",
+		"renvois": [
+			"15.1"
+		],
+		"ordre": 321
+	},
+	{
+		"reference": "15.11.2",
+		"parent_reference": "15.11",
+		"titre": null,
+		"texte": "La première demande non-fondée pour une équipe qui n’a pas d’incidence sur le jeu ni n’occasionne de retard sera rejetée, mais doit être enregistrée sur la feuille de match sans autres conséquences.",
+		"renvois": [
+			"16.1",
+			"25.2.2.6"
+		],
+		"ordre": 322
+	},
+	{
+		"reference": "15.11.3",
+		"parent_reference": "15.11",
+		"titre": null,
+		"texte": "Toute nouvelle demande non-fondée durant le match par la même équipe constitue un retard de jeu.",
+		"renvois": [
+			"16.1.4",
+			"Fig.11 (25)"
+		],
+		"ordre": 323
+	},
+	{
+		"reference": "16",
+		"parent_reference": null,
+		"titre": "RETARDS DE JEU",
+		"texte": "",
+		"renvois": [],
+		"ordre": 324
+	},
+	{
+		"reference": "16.1",
+		"parent_reference": "16",
+		"titre": "TYPES DE RETARDS",
+		"texte": "Toute action non fondée d’une équipe qui diffère la reprise du jeu constitue un retard et comprend entre autres:",
+		"renvois": [],
+		"ordre": 325
+	},
+	{
+		"reference": "16.1.1",
+		"parent_reference": "16.1",
+		"titre": null,
+		"texte": "retarder une interruption régulière;",
+		"renvois": [
+			"15.10.2"
+		],
+		"ordre": 326
+	},
+	{
+		"reference": "16.1.2",
+		"parent_reference": "16.1",
+		"titre": null,
+		"texte": "prolonger une interruption de jeu après avoir reçu le signal de reprendre le jeu;",
+		"renvois": [],
+		"ordre": 327
+	},
+	{
+		"reference": "16.1.3",
+		"parent_reference": "16.1",
+		"titre": null,
+		"texte": "demander un remplacement illégal;",
+		"renvois": [
+			"15.9"
+		],
+		"ordre": 328
+	},
+	{
+		"reference": "16.1.4",
+		"parent_reference": "16.1",
+		"titre": null,
+		"texte": "répéter une demande non fondée;",
+		"renvois": [
+			"15.11.3"
+		],
+		"ordre": 329
+	},
+	{
+		"reference": "16.1.5",
+		"parent_reference": "16.1",
+		"titre": null,
+		"texte": "pour un membre de l’équipe, retarder le jeu.",
+		"renvois": [],
+		"ordre": 330
+	},
+	{
+		"reference": "16.2",
+		"parent_reference": "16",
+		"titre": "SANCTIONS POUR RETARD",
+		"texte": "",
+		"renvois": [
+			"Fig.9"
+		],
+		"ordre": 331
+	},
+	{
+		"reference": "16.2.1",
+		"parent_reference": "16.2",
+		"titre": null,
+		"texte": "L'avertissement pour retard et la pénalisation pour retard sont des sanctions d'équipe.",
+		"renvois": [],
+		"ordre": 332
+	},
+	{
+		"reference": "16.2.1.1",
+		"parent_reference": "16.2.1",
+		"titre": null,
+		"texte": "Les sanctions pour retard demeurent en vigueur pour toute la durée du match.",
+		"renvois": [
+			"6.3"
+		],
+		"ordre": 333
+	},
+	{
+		"reference": "16.2.1.2",
+		"parent_reference": "16.2.1",
+		"titre": null,
+		"texte": "Toutes les sanctions pour retard sont enregistrées sur la feuille de match.",
+		"renvois": [
+			"25.2.2.6"
+		],
+		"ordre": 334
+	},
+	{
+		"reference": "16.2.2",
+		"parent_reference": "16.2",
+		"titre": null,
+		"texte": "Le premier retard par un membre d’une équipe dans un match est sanctionné par un \"AVERTISSEMENT POUR RETARD\".",
+		"renvois": [
+			"4.1.1",
+			"Fig.11 (25)"
+		],
+		"ordre": 335
+	},
+	{
+		"reference": "16.2.3",
+		"parent_reference": "16.2",
+		"titre": null,
+		"texte": "Le second retard et les suivants par tout membre de la même équipe dans le même match et pour n'importe quel motif constitue(nt) une faute et est(sont) sanctionné(s) par une \"PENALISATION POUR RETARD\": un point et le service pour l'adversaire.",
+		"renvois": [
+			"6.1.3",
+			"Fig.11 (25)"
+		],
+		"ordre": 336
+	},
+	{
+		"reference": "16.2.4",
+		"parent_reference": "16.2",
+		"titre": null,
+		"texte": "Les sanctions pour retard infligées avant ou entre les sets sont appliquées pour le set suivant.",
+		"renvois": [
+			"18.1"
+		],
+		"ordre": 337
+	},
+	{
+		"reference": "17",
+		"parent_reference": null,
+		"titre": "INTERRUPTIONS DE JEU EXCEPTIONNELLES",
+		"texte": "",
+		"renvois": [],
+		"ordre": 338
+	},
+	{
+		"reference": "17.1",
+		"parent_reference": "17",
+		"titre": "BLESSURE / MALADIE",
+		"texte": "",
+		"renvois": [
+			"8.1"
+		],
+		"ordre": 339
+	},
+	{
+		"reference": "17.1.1",
+		"parent_reference": "17.1",
+		"titre": null,
+		"texte": "Si un accident grave se produit lorsque le ballon est en jeu, l’arbitre doit immédiatement interrompre le jeu et autoriser le personnel médical à entrer sur le terrain. L’échange est ensuite rejoué.",
+		"renvois": [
+			"6.1.3"
+		],
+		"ordre": 340
+	},
+	{
+		"reference": "17.1.2",
+		"parent_reference": "17.1",
+		"titre": null,
+		"texte": "Si un joueur blessé/malade ne peut pas être remplacé régulièrement ou exceptionnellement, 3 minutes de récupération seront accordées au joueur, mais pas plus d’une fois durant le match pour le même joueur. Si le joueur ne se rétablit pas, son équipe est déclarée incomplète.",
+		"renvois": [
+			"15.6",
+			"15.7",
+			"24.2.8",
+			"6.4.3",
+			"7.3.1"
+		],
+		"ordre": 341
+	},
+	{
+		"reference": "17.2",
+		"parent_reference": "17",
+		"titre": "INCIDENT EXTÉRIEUR",
+		"texte": "S’il se produit un incident extérieur durant le match, le jeu doit être interrompu et l’échange est rejoué.",
+		"renvois": [
+			"6.1.3",
+			"Fig.11 (23)"
+		],
+		"ordre": 342
+	},
+	{
+		"reference": "17.3",
+		"parent_reference": "17",
+		"titre": "INTERRUPTIONS PROLONGÉES",
+		"texte": "",
+		"renvois": [],
+		"ordre": 343
+	},
+	{
+		"reference": "17.3.1",
+		"parent_reference": "17.3",
+		"titre": null,
+		"texte": "Lorsque des circonstances imprévues interrompent le match, le 1er arbitre, les organisateurs et le comité de contrôle, s’il y en a un, décident des mesures à prendre pour rétablir les conditions normales.",
+		"renvois": [
+			"23.2.3"
+		],
+		"ordre": 344
+	},
+	{
+		"reference": "17.3.2",
+		"parent_reference": "17.3",
+		"titre": null,
+		"texte": "Dans le cas d’une ou plusieurs interruptions dont la durée totale est inférieure à 4 heures:",
+		"renvois": [
+			"17.3.1"
+		],
+		"ordre": 345
+	},
+	{
+		"reference": "17.3.2.1",
+		"parent_reference": "17.3.2",
+		"titre": null,
+		"texte": "si le jeu est repris sur le même terrain de jeu, le set interrompu reprendra normalement avec les mêmes scores, joueurs et positions. Les résultats des sets précédents resteront acquis;",
+		"renvois": [
+			"1",
+			"7.3"
+		],
+		"ordre": 346
+	},
+	{
+		"reference": "17.3.2.2",
+		"parent_reference": "17.3.2",
+		"titre": null,
+		"texte": "si le match est repris sur un autre terrain de jeu, le set interrompu est annulé et il est rejoué avec les mêmes formations de départ (à l’exception des joueurs expulsés ou disqualifiés) et les sanctions enregistrées seront maintenues. Les résultats des sets joués resteront acquis.",
+		"renvois": [
+			"7.3",
+			"21.4.1",
+			"Fig.9"
+		],
+		"ordre": 347
+	},
+	{
+		"reference": "17.3.3",
+		"parent_reference": "17.3",
+		"titre": null,
+		"texte": "Dans le cas d’une ou plusieurs interruptions dont la durée totale excède 4 heures, le match entier sera rejoué.",
+		"renvois": [],
+		"ordre": 348
+	},
+	{
+		"reference": "18",
+		"parent_reference": null,
+		"titre": "INTERVALLES ET CHANGEMENT DE CAMP",
+		"texte": "",
+		"renvois": [],
+		"ordre": 349
+	},
+	{
+		"reference": "18.1",
+		"parent_reference": "18",
+		"titre": "INTERVALLES",
+		"texte": "Un intervalle est le temps entre les sets. Tous les intervalles durent trois minutes. Durant cette période il est procédé au changement de camp et à l’enregistrement des équipes sur la feuille de match. L’intervalle entre le second et le troisième set peut être allongé jusqu’à 10 minutes par l’organisme compétent, à la demande de l’organisateur de la compétition.",
+		"renvois": [
+			"4.2.4",
+			"7.3.2",
+			"18.2",
+			"25.2.1.2"
+		],
+		"ordre": 350
+	},
+	{
+		"reference": "18.2",
+		"parent_reference": "18",
+		"titre": "CHANGEMENT DE CAMP",
+		"texte": "",
+		"renvois": [
+			"Fig.11 (3)"
+		],
+		"ordre": 351
+	},
+	{
+		"reference": "18.2.1",
+		"parent_reference": "18.2",
+		"titre": null,
+		"texte": "Après chaque set, les équipes changent de camp, à l’exception du set décisif.",
+		"renvois": [
+			"7.1"
+		],
+		"ordre": 352
+	},
+	{
+		"reference": "18.2.2",
+		"parent_reference": "18.2",
+		"titre": null,
+		"texte": "Dans le set décisif, dès que l’équipe qui mène atteint 8 points, les équipes changent de camp sans retard, les positions des joueurs demeurent les mêmes. Si le changement ne se fait pas lorsque que l’équipe qui mène atteint 8 points, il doit s’effectuer dès que l’erreur est signalée. Les points marqués au moment du changement restent acquis.",
+		"renvois": [
+			"6.3.2",
+			"7.4.1",
+			"25.2.2.5"
+		],
+		"ordre": 353
+	},
+	{
+		"reference": "19",
+		"parent_reference": null,
+		"titre": "LE JOUEUR LIBÉRO",
+		"texte": "",
+		"renvois": [],
+		"ordre": 354
+	},
+	{
+		"reference": "19.1",
+		"parent_reference": "19",
+		"titre": "DÉSIGNATION DU LIBÉRO",
+		"texte": "",
+		"renvois": [
+			"5"
+		],
+		"ordre": 355
+	},
+	{
+		"reference": "19.1.1",
+		"parent_reference": "19.1",
+		"titre": null,
+		"texte": "Chaque équipe a le droit de désigner dans la liste des joueurs de la feuille de match jusqu’à deux (2) joueurs spécialisés en défense «Libéros». Pour les compétitions FIVB, Mondiales et Officielles pour Séniors, si une équipe inscrit plus de 12 joueurs sur la feuille de match, DEUX libéros sont obligatoires dans la liste.",
+		"renvois": [
+			"4.1.1"
+		],
+		"ordre": 356
+	},
+	{
+		"reference": "19.1.2",
+		"parent_reference": "19.1",
+		"titre": null,
+		"texte": "Tous les “Libéros” doivent être enregistrés avant le match sur la feuille de match dans les lignes spéciales réservées à cet effet.",
+		"renvois": [
+			"5.2.2",
+			"25.2.1.1",
+			"28.2.1.1"
+		],
+		"ordre": 357
+	},
+	{
+		"reference": "19.1.3",
+		"parent_reference": "19.1",
+		"titre": null,
+		"texte": "Le Libéro sur le terrain est le Libéro actif. S’il y a un autre libéro il/elle sera le second libéro de l’équipe. À tout moment il ne peut se trouver sur le terrain qu’un seul Libéro.",
+		"renvois": [],
+		"ordre": 358
+	},
+	{
+		"reference": "19.2",
+		"parent_reference": "19",
+		"titre": "ÉQUIPEMENT",
+		"texte": "Le(s) Libéro(s) doit(vent) porter un uniforme (ou une chasuble pour le Libéro redésigné) dont la couleur dominante est différente de celle des autres membres de l’équipe. L’uniforme doit clairement contraster avec celui du reste de l’équipe. Les Libéros peuvent avoir des uniformes différents l’un de l’autre et différents du reste de l’équipe. La tenue du Libéro doit être numérotée comme les autres membres de l’équipe. Pour les compétitions FIVB, Mondiales et Officielles le libéro redésigné doit, si possible, porter un jersey de même style et de même couleur que le libéro original, mais il garde son propre numéro.",
+		"renvois": [
+			"4.3"
+		],
+		"ordre": 359
+	},
+	{
+		"reference": "19.3",
+		"parent_reference": "19",
+		"titre": "ACTIONS IMPLIQUANT LE LIBÉRO",
+		"texte": "",
+		"renvois": [],
+		"ordre": 360
+	},
+	{
+		"reference": "19.3.1",
+		"parent_reference": "19.3",
+		"titre": "Les actions de jeu",
+		"texte": "",
+		"renvois": [],
+		"ordre": 361
+	},
+	{
+		"reference": "19.3.1.1",
+		"parent_reference": "19.3.1",
+		"titre": null,
+		"texte": "le Libéro peut remplacer n’importe quel joueur de la ligne arrière;",
+		"renvois": [
+			"7.4.1.2"
+		],
+		"ordre": 362
+	},
+	{
+		"reference": "19.3.1.2",
+		"parent_reference": "19.3.1",
+		"titre": null,
+		"texte": "il n'est autorisé à jouer que comme joueur arrière et n’est pas autorisé à effectuer une frappe d’attaque d’où que ce soit (y compris le terrain de jeu et la zone libre) si, au moment du contact, le ballon est entièrement plus haut que le bord supérieur du filet;",
+		"renvois": [
+			"13.2.2",
+			"13.2.3",
+			"13.3.5"
+		],
+		"ordre": 363
+	},
+	{
+		"reference": "19.3.1.3",
+		"parent_reference": "19.3.1",
+		"titre": null,
+		"texte": "il ne peut ni servir, ni contrer ou tenter de contrer.",
+		"renvois": [
+			"12.4.1",
+			"14.6.2",
+			"14.6.6",
+			"Fig.11 (12)"
+		],
+		"ordre": 364
+	},
+	{
+		"reference": "19.3.1.4",
+		"parent_reference": "19.3.1",
+		"titre": null,
+		"texte": "Un joueur ne peut effectuer une frappe d’attaque quand le ballon est complètement plus haut que le bord supérieur du filet, si le ballon provient d’une touche haute jouée avec les doigts par le Libéro et effectuée dans sa zone avant. Le ballon peut être attaqué librement si le Libéro effectue la même action en dehors de sa zone avant.",
+		"renvois": [
+			"1.4.1",
+			"13.3.6",
+			"23.3.2.3d",
+			"23.3.2.3e",
+			"Fig.1b"
+		],
+		"ordre": 365
+	},
+	{
+		"reference": "19.3.2",
+		"parent_reference": "19.3",
+		"titre": "Changements du Libéro",
+		"texte": "",
+		"renvois": [],
+		"ordre": 366
+	},
+	{
+		"reference": "19.3.2.1",
+		"parent_reference": "19.3.2",
+		"titre": null,
+		"texte": "Les changements impliquant le Libéro ne sont pas comptabilisés comme remplacements. Ils sont illimités, mais il doit y avoir au moins un échange de jeu terminé entre deux changements du Libéro (sauf si une pénalité engendre une rotation amenant le Libéro en position 4, ou si le Libéro actif devient incapable de jouer rendant l’échange de jeu non-terminé).",
+		"renvois": [
+			"6.1.3",
+			"15.5"
+		],
+		"ordre": 367
+	},
+	{
+		"reference": "19.3.2.2",
+		"parent_reference": "19.3.2",
+		"titre": null,
+		"texte": "Le joueur régulier peut reprendre sa place ou être changé pour n’importe lequel des deux Libéros. Le Libéro actif peut être seulement changé par le joueur régulier dont il avait pris la place ou par le second Libéro.",
+		"renvois": [],
+		"ordre": 368
+	},
+	{
+		"reference": "19.3.2.3",
+		"parent_reference": "19.3.2",
+		"titre": null,
+		"texte": "Au début de chaque set, le libéro ne peut pas entrer sur le terrain tant que le 2ème arbitre n’a pas vérifié la position de départ.",
+		"renvois": [
+			"7.3.2",
+			"12.1"
+		],
+		"ordre": 369
+	},
+	{
+		"reference": "19.3.2.4",
+		"parent_reference": "19.3.2",
+		"titre": null,
+		"texte": "Les autres changements doivent avoir seulement lieu quand le ballon est hors-jeu et avant le coup de sifflet de l’arbitre.",
+		"renvois": [
+			"8.2",
+			"12.3"
+		],
+		"ordre": 370
+	},
+	{
+		"reference": "19.3.2.5",
+		"parent_reference": "19.3.2",
+		"titre": null,
+		"texte": "Un changement effectué après le coup de sifflet autorisant le service, mais avant la frappe de service, ne doit pas être refusé; néanmoins, à la fin de l’échange le capitaine en jeu devra être informé que cette procédure n’est pas autorisée et que les récidives seront sujettes à une sanction de retard de jeu.",
+		"renvois": [
+			"12.3",
+			"12.4",
+			"Fig.9"
+		],
+		"ordre": 371
+	},
+	{
+		"reference": "19.3.2.6",
+		"parent_reference": "19.3.2",
+		"titre": null,
+		"texte": "Toute répétition d’un changement tardif entraînera une interruption immédiate du jeu et une sanction d’un retard de jeu sera appliquée. L’équipe qui devra servir sera déterminée par le résultat de la sanction pour retard.",
+		"renvois": [
+			"16.2",
+			"Fig.9"
+		],
+		"ordre": 372
+	},
+	{
+		"reference": "19.3.2.7",
+		"parent_reference": "19.3.2",
+		"titre": null,
+		"texte": "Le Libéro et le joueur changé ne peuvent entrer ou sortir du terrain que par la “Zone de changement du Libéro”.",
+		"renvois": [
+			"1.4.4",
+			"Fig.1b"
+		],
+		"ordre": 373
+	},
+	{
+		"reference": "19.3.2.8",
+		"parent_reference": "19.3.2",
+		"titre": null,
+		"texte": "Tous les changements impliquant les Libéros doivent être enregistrés sur la feuille de Contrôle du Libéro (ou sur la feuille électronique, si celle-ci est utilisée).",
+		"renvois": [
+			"28.2.2.1",
+			"28.2.2.2"
+		],
+		"ordre": 374
+	},
+	{
+		"reference": "19.3.2.9",
+		"parent_reference": "19.3.2",
+		"titre": null,
+		"texte": "Un changement illégal du Libéro peut concerner (entre autres) – pas d’échange de jeu terminé entre des changements du Libéro. – le Libéro est changé par un joueur autre que le second Libéro ou que le joueur régulier l’ayant changé Un changement illégal du Libéro doit être considéré de la même manière qu’un remplacement illégal. C’est-à-dire si le changement illégal du Libéro est constaté avant le début de l’échange suivant, alors il est corrigé par les arbitres et l’équipe est sanctionnée d’un retard de jeu. Si le changement illégal du Libéro est constaté après la frappe de service, les conséquences sont les mêmes qu’un remplacement illégal.",
+		"renvois": [
+			"6.1.3",
+			"15.9",
+			"15.9",
+			"Fig.9",
+			"15.9"
+		],
+		"ordre": 375
+	},
+	{
+		"reference": "19.4",
+		"parent_reference": "19",
+		"titre": "REDÉSIGNATION D'UN NOUVEAU LIBÉRO",
+		"texte": "",
+		"renvois": [],
+		"ordre": 376
+	},
+	{
+		"reference": "19.4.1",
+		"parent_reference": "19.4",
+		"titre": null,
+		"texte": "Le libéro devient incapable de jouer s’il est blessé, malade, expulsé ou disqualifié. Le Libéro peut être déclaré inapte au jeu pour n’importe quelle raison par l’entraîneur ou, en l’absence d’entraîneur, par l’entraîneur adjoint ou par le capitaine du match.",
+		"renvois": [
+			"21.3.2",
+			"21.3.3",
+			"Fig.9",
+			"5.1.2.1",
+			"5.1.2.3",
+			"5.2.1"
+		],
+		"ordre": 377
+	},
+	{
+		"reference": "19.4.2",
+		"parent_reference": "19.4",
+		"titre": "Équipe avec un seul Libéro",
+		"texte": "",
+		"renvois": [],
+		"ordre": 378
+	},
+	{
+		"reference": "19.4.2.1",
+		"parent_reference": "19.4.2",
+		"titre": null,
+		"texte": "Lorsqu’une équipe ne dispose que d’un seul Libéro conformément à la Règle 19.4.1, ou que l’équipe n’en a qu’un seul d’inscrit, et que ce Libéro devient ou est déclaré incapable de jouer, l’entraîneur (l’entraîneur adjoint ou le capitaine de la rencontre si aucun entraîneur n’est présent) peut redésigner comme Libéro pour le reste de la rencontre tout autre joueur (à l’exception du joueur de remplacement) qui n’est pas sur l’aire de jeu au moment de la redésignation.",
+		"renvois": [
+			"5.1.2.3",
+			"19.4",
+			"19.4.1"
+		],
+		"ordre": 379
+	},
+	{
+		"reference": "19.4.2.2",
+		"parent_reference": "19.4.2",
+		"titre": null,
+		"texte": "Si le Libero en fonction devient incapable de jouer, il/elle peut être changé(e) par le joueur de changement régulier ou immédiatement et directement sur le terrain par un Libero redésigné. Toutefois un Libéro qui a été ainsi remplacé dans sa fonction ne peut plus prendre part au jeu pour le reste du match. Si le Libéro n’est pas sur le terrain lorsqu’il est déclaré inapte à jouer, il/ elle peut l’objet d’une redésignation. Un Libéro, déclaré inapte à jouer ne peut pas reprendre part au jeu pour le reste du match.",
+		"renvois": [],
+		"ordre": 380
+	},
+	{
+		"reference": "19.4.2.3",
+		"parent_reference": "19.4.2",
+		"titre": null,
+		"texte": "L’entraîneur, ou l’entraîneur adjoint ou le capitaine du match si aucun entraîneur n’est présent, contacte le deuxième arbitre pour l’informer de la nouvelle désignation.",
+		"renvois": [
+			"5.1.2.1",
+			"5.1.2.3",
+			"5.2.1"
+		],
+		"ordre": 381
+	},
+	{
+		"reference": "19.4.2.4",
+		"parent_reference": "19.4.2",
+		"titre": null,
+		"texte": "Si le Libéro redésigné devient ou est déclaré inapte à jouer, d’autres redésignations sont permises.",
+		"renvois": [
+			"19.4.1"
+		],
+		"ordre": 382
+	},
+	{
+		"reference": "19.4.2.5",
+		"parent_reference": "19.4.2",
+		"titre": null,
+		"texte": "Si l’entraîneur demande au capitaine de l’équipe d’être désigné comme nouveau Libéro, cela sera autorisé.",
+		"renvois": [
+			"5.1.2",
+			"19.4.1"
+		],
+		"ordre": 383
+	},
+	{
+		"reference": "19.4.2.6",
+		"parent_reference": "19.4.2",
+		"titre": null,
+		"texte": "En cas de redésignation d’un Libéro, le numéro du joueur redésigné comme Libéro doit être inscrit dans la case remarque de la feuille de match et sur la feuille de contrôle du Libéro (ou sur la feuille électronique si elle est utilisée).",
+		"renvois": [
+			"27.2.2.7",
+			"28.2.2.1"
+		],
+		"ordre": 384
+	},
+	{
+		"reference": "19.4.3",
+		"parent_reference": "19.4",
+		"titre": "Équipe avec deux Libéros",
+		"texte": "",
+		"renvois": [],
+		"ordre": 385
+	},
+	{
+		"reference": "19.4.3.1",
+		"parent_reference": "19.4.3",
+		"titre": null,
+		"texte": "Quand une équipe a inscrit deux Libéros sur la feuille de match et que l’un d’eux devient inapte à jouer, l’équipe a le droit de jouer avec un seul Libéro. Aucune redésignation ne sera acceptée sauf si le Libéro restant est déclaré incapable de continuer à jouer.",
+		"renvois": [
+			"4.1.1",
+			"19.1.1",
+			"19.4"
+		],
+		"ordre": 386
+	},
+	{
+		"reference": "19.5",
+		"parent_reference": "19",
+		"titre": "RÉSUMÉ",
+		"texte": "Si le Libéro est expulsé ou disqualifié, il/elle peut être immédiatement changé(e) par le deuxième Libéro. Si l’équipe n’a qu’un seul Libéro, elle a alors le droit de procéder à une redésignation.",
+		"renvois": [
+			"19.4",
+			"21.3.2",
+			"21.3.3"
+		],
+		"ordre": 387
+	},
+	{
+		"reference": "20",
+		"parent_reference": null,
+		"titre": "CONDUITE EXIGÉE",
+		"texte": "",
+		"renvois": [],
+		"ordre": 388
+	},
+	{
+		"reference": "20.1",
+		"parent_reference": "20",
+		"titre": "CONDUITE SPORTIVE",
+		"texte": "",
+		"renvois": [],
+		"ordre": 389
+	},
+	{
+		"reference": "20.1.1",
+		"parent_reference": "20.1",
+		"titre": null,
+		"texte": "Les participants doivent connaître les “Règles Officielles de Volleyball” et les respecter.",
+		"renvois": [],
+		"ordre": 390
+	},
+	{
+		"reference": "20.1.2",
+		"parent_reference": "20.1",
+		"titre": null,
+		"texte": "Les participants doivent accepter avec un esprit sportif les décisions des arbitres, sans les discuter. En cas de doute, des éclaircissements peuvent être demandés seulement via le capitaine en jeu.",
+		"renvois": [
+			"5.1.2.1"
+		],
+		"ordre": 391
+	},
+	{
+		"reference": "20.1.3",
+		"parent_reference": "20.1",
+		"titre": null,
+		"texte": "Les participants doivent s’abstenir de toute action ou attitude visant à influencer les décisions des arbitres ou couvrir les fautes commises par leur équipe.",
+		"renvois": [],
+		"ordre": 392
+	},
+	{
+		"reference": "20.2",
+		"parent_reference": "20",
+		"titre": "FAIR-PLAY",
+		"texte": "",
+		"renvois": [],
+		"ordre": 393
+	},
+	{
+		"reference": "20.2.1",
+		"parent_reference": "20.2",
+		"titre": null,
+		"texte": "Les participants doivent se conduire respectueusement et courtoisement dans un esprit de FAIR-PLAY, non seulement à l’égard des arbitres mais aussi à l’égard des autres officiels, de leurs adversaires, de leurs partenaires et des spectateurs.",
+		"renvois": [],
+		"ordre": 394
+	},
+	{
+		"reference": "20.2.2",
+		"parent_reference": "20.2",
+		"titre": null,
+		"texte": "La communication entre les membres de l’équipe pendant le match est autorisée.",
+		"renvois": [
+			"5.2.3.4"
+		],
+		"ordre": 395
+	},
+	{
+		"reference": "21",
+		"parent_reference": null,
+		"titre": "COMPORTEMENT INCORRECT ET SANCTIONS",
+		"texte": "",
+		"renvois": [],
+		"ordre": 396
+	},
+	{
+		"reference": "21.1",
+		"parent_reference": "21",
+		"titre": "COMPORTEMENT INCORRECT MINEUR",
+		"texte": "Les comportements incorrects mineurs ne sont pas sanctionnés. Il appartient au 1er arbitre d’éviter que les équipes s’approchent du niveau de sanction. Ceci se fait en 2 étapes: Etape 1: en donnant un avertissement verbal via le capitaine en jeu Etape 2: en montrant un CARTON JAUNE au membre de l’équipe concerné. Cet avertissement formel ne constitue pas une sanction mais le symbole que le membre de l’équipe (et par extension l’équipe elle-même) a atteint le niveau de sanction pour le match. Ceci est enregistré sur la feuille de match sans autre conséquence immédiate.",
+		"renvois": [
+			"5.1.2",
+			"21.3",
+			"Fig.9",
+			"Fig.11 (6a)"
+		],
+		"ordre": 397
+	},
+	{
+		"reference": "21.2",
+		"parent_reference": "21",
+		"titre": "COMPORTEMENT INCORRECT ENTRAÎNANT DES SANCTIONS",
+		"texte": "Le comportement incorrect d’un membre d’une équipe envers les officiels, les adversaires, les coéquipiers ou le public est classé en trois catégories, suivant la gravité de l’infraction.",
+		"renvois": [
+			"4.1.1"
+		],
+		"ordre": 398
+	},
+	{
+		"reference": "21.2.1",
+		"parent_reference": "21.2",
+		"titre": null,
+		"texte": "Conduite grossière: acte contraire aux bonnes manières ou à la moralité",
+		"renvois": [],
+		"ordre": 399
+	},
+	{
+		"reference": "21.2.2",
+		"parent_reference": "21.2",
+		"titre": null,
+		"texte": "Conduite injurieuse: gestes ou propos insultants ou diffamatoires ou toute action exprimant le mépris.",
+		"renvois": [],
+		"ordre": 400
+	},
+	{
+		"reference": "21.2.3",
+		"parent_reference": "21.2",
+		"titre": null,
+		"texte": "Agression: attaque physique réelle ou comportement agressif ou menaçant.",
+		"renvois": [],
+		"ordre": 401
+	},
+	{
+		"reference": "21.3",
+		"parent_reference": "21",
+		"titre": "ÉCHELLE DE SANCTION",
+		"texte": "Selon le jugement du 1er arbitre et suivant la gravité de la faute, les sanctions à appliquer et à enregistrer sur la feuille de match sont: Pénalisation, Expulsion ou Disqualification.",
+		"renvois": [
+			"Fig.9",
+			"21.2",
+			"25.2.2.6"
+		],
+		"ordre": 402
+	},
+	{
+		"reference": "21.3.1",
+		"parent_reference": "21.3",
+		"titre": "Pénalisation",
+		"texte": "La première conduite grossière dans le match par n’importe quel membre de l’équipe est pénalisée: l’adversaire gagne un point et le service.",
+		"renvois": [
+			"Fig.11 (6b)",
+			"4.1.1",
+			"21.2.1"
+		],
+		"ordre": 403
+	},
+	{
+		"reference": "21.3.2",
+		"parent_reference": "21.3",
+		"titre": "Expulsion",
+		"texte": "",
+		"renvois": [
+			"Fig.11 (7)"
+		],
+		"ordre": 404
+	},
+	{
+		"reference": "21.3.2.1",
+		"parent_reference": "21.3.2",
+		"titre": null,
+		"texte": "Un membre de l’équipe qui est sanctionné par une expulsion doit être remplacé de manière régulière/exceptionnelle et immédiatement s’il est sur le terrain, il ne participera pas au reste du set, et doit se rendre dans le vestiaire de l’équipe jusqu’à la fin du set en cours, sans autres conséquences. Un entraîneur expulsé perd son droit d’intervenir dans le set et doit se rendre dans le vestiaire de l’équipe jusqu’à la fin du set en cours.",
+		"renvois": [
+			"4.1.1",
+			"5.2.1",
+			"5.3.2",
+			"Fig.1a",
+			"Fig.1b",
+			"5.2.3.3"
+		],
+		"ordre": 405
+	},
+	{
+		"reference": "21.3.2.2",
+		"parent_reference": "21.3.2",
+		"titre": null,
+		"texte": "La première conduite injurieuse d’un membre d’une équipe est sanctionnée par une expulsion, sans autre conséquence.",
+		"renvois": [
+			"4.1.1",
+			"21.2.2"
+		],
+		"ordre": 406
+	},
+	{
+		"reference": "21.3.2.3",
+		"parent_reference": "21.3.2",
+		"titre": null,
+		"texte": "La seconde conduite grossière par un même joueur dans le même match est sanctionnée par une expulsion, sans autre conséquence.",
+		"renvois": [
+			"4.1.1",
+			"21.2.1"
+		],
+		"ordre": 407
+	},
+	{
+		"reference": "21.3.3",
+		"parent_reference": "21.3",
+		"titre": "Disqualification",
+		"texte": "",
+		"renvois": [
+			"Fig.11 (8)"
+		],
+		"ordre": 408
+	},
+	{
+		"reference": "21.3.3.1",
+		"parent_reference": "21.3.3",
+		"titre": null,
+		"texte": "Un membre de l’équipe qui est sanctionné par une disqualification doit être remplacé légalement/exceptionnellement et immédiatement s’il est sur le terrain et doit se rendre au vestiaire de l’équipe pour le reste du match sans autres conséquences.",
+		"renvois": [
+			"4.1.1",
+			"Fig.1a"
+		],
+		"ordre": 409
+	},
+	{
+		"reference": "21.3.3.2",
+		"parent_reference": "21.3.3",
+		"titre": null,
+		"texte": "La première attaque physique ou agression menaçante est sanctionnée par une disqualification sans autre conséquence.",
+		"renvois": [
+			"21.2.3"
+		],
+		"ordre": 410
+	},
+	{
+		"reference": "21.3.3.3",
+		"parent_reference": "21.3.3",
+		"titre": null,
+		"texte": "La seconde conduite injurieuse dans le même match par le même membre d’une équipe est sanctionnée par une disqualification, sans autre conséquence.",
+		"renvois": [
+			"4.1.1",
+			"21.2.2"
+		],
+		"ordre": 411
+	},
+	{
+		"reference": "21.3.3.4",
+		"parent_reference": "21.3.3",
+		"titre": null,
+		"texte": "La troisième conduite grossière dans le même match par le même membre d’une équipe est sanctionnée par une disqualification, sans autre conséquence.",
+		"renvois": [
+			"4.1.1",
+			"21.2.1"
+		],
+		"ordre": 412
+	},
+	{
+		"reference": "21.4",
+		"parent_reference": "21",
+		"titre": "APPLICATION DE SANCTIONS POUR COMPORTEMENT INCORRECT",
+		"texte": "",
+		"renvois": [],
+		"ordre": 413
+	},
+	{
+		"reference": "21.4.1",
+		"parent_reference": "21.4",
+		"titre": null,
+		"texte": "Toutes les sanctions pour comportement incorrect sont des sanctions individuelles; elles demeurent en vigueur pour toute la durée du match et sont enregistrées sur la feuille de match.",
+		"renvois": [
+			"21.3",
+			"25.2.2.6"
+		],
+		"ordre": 414
+	},
+	{
+		"reference": "21.4.2",
+		"parent_reference": "21.4",
+		"titre": null,
+		"texte": "La répétition d'un comportement incorrect par le même membre d'une équipe au cours du même match est sanctionnée progressivement (le membre de l’équipe se voit infliger une sanction plus sévère pour chaque infraction successive).",
+		"renvois": [
+			"4.1.1",
+			"21.2",
+			"21.3",
+			"Fig.9"
+		],
+		"ordre": 415
+	},
+	{
+		"reference": "21.4.3",
+		"parent_reference": "21.4",
+		"titre": null,
+		"texte": "L’expulsion ou la disqualification due à une conduite injurieuse ou une agression ne demande pas de sanction préalable.",
+		"renvois": [
+			"21.2",
+			"21.3"
+		],
+		"ordre": 416
+	},
+	{
+		"reference": "21.5",
+		"parent_reference": "21",
+		"titre": "COMPORTEMENT INCORRECT AVANT ET ENTRE LES SETS",
+		"texte": "Tout comportement incorrect avant ou entre les sets est sanctionné selon la Règle 21.3 et les sanctions sont appliquées au set suivant.",
+		"renvois": [
+			"18.1",
+			"21.2",
+			"21.3"
+		],
+		"ordre": 417
+	},
+	{
+		"reference": "21.6",
+		"parent_reference": "21",
+		"titre": null,
+		"texte": "RÉSUMÉ DES COMPORTEMENTS INCORRECTS ET CARTONS UTILISÉS Fig.11 (6a, 6b, 7, 8) Avertissement: pas de sanction – 1ère étape: avertissement verbal 2ème étape: carton jaune Pénalité: sanction – montrer le carton rouge Expulsion: sanction – montrer les cartons jaune + rouge ensemble Disqualification: sanction – montrer les cartons jaune + rouge séparément",
+		"renvois": [
+			"21.1",
+			"21.3.1",
+			"21.3.2",
+			"21.3.3"
+		],
+		"ordre": 418
+	},
+	{
+		"reference": "22",
+		"parent_reference": null,
+		"titre": "CORPS ARBITRAL ET PROCÉDURES",
+		"texte": "",
+		"renvois": [],
+		"ordre": 419
+	},
+	{
+		"reference": "22.1",
+		"parent_reference": "22",
+		"titre": "COMPOSITION",
+		"texte": "Le corps arbitral pour un match est composé des officiels suivants: – le 1er arbitre, 23 – le 2ème arbitre, 24 – l’arbitre du défi, 25 – l’arbitre de réserve, 26 – le marqueur, 27, 28 – quatre (deux) juges de ligne. 29 Leur emplacement est indiqué dans le diagramme 10. Pour les compétitions FIVB, Mondiales et Officielles, un arbitre de défi (si le VCS est utilisé), un arbitre de réserve et un marqueur adjoint sont obligatoires.",
+		"renvois": [
+			"25",
+			"26",
+			"28"
+		],
+		"ordre": 420
+	},
+	{
+		"reference": "22.2",
+		"parent_reference": "22",
+		"titre": "PROCÉDURES",
+		"texte": "",
+		"renvois": [],
+		"ordre": 421
+	},
+	{
+		"reference": "22.2.1",
+		"parent_reference": "22.2",
+		"titre": null,
+		"texte": "Seuls le 1er et le 2ème arbitre peuvent siffler pendant le match:",
+		"renvois": [],
+		"ordre": 422
+	},
+	{
+		"reference": "22.2.1.1",
+		"parent_reference": "22.2.1",
+		"titre": null,
+		"texte": "le 1er arbitre donne le signal du service qui commence l'échange de jeu;",
+		"renvois": [
+			"6.1.3",
+			"12.3",
+			"Fig.11 (1)"
+		],
+		"ordre": 423
+	},
+	{
+		"reference": "22.2.1.2",
+		"parent_reference": "22.2.1",
+		"titre": null,
+		"texte": "le 1er et le 2ème arbitre sifflent la fin de l’échange, à condition qu’ils soient sûrs qu’une faute ait été commise et qu’ils en aient identifié la nature.",
+		"renvois": [],
+		"ordre": 424
+	},
+	{
+		"reference": "22.2.2",
+		"parent_reference": "22.2",
+		"titre": null,
+		"texte": "Ils peuvent siffler pendant un arrêt de jeu pour indiquer qu’ils autorisent ou repoussent la demande d’une équipe.",
+		"renvois": [
+			"5.1.2",
+			"8.2"
+		],
+		"ordre": 425
+	},
+	{
+		"reference": "22.2.3",
+		"parent_reference": "22.2",
+		"titre": null,
+		"texte": "Immédiatement après le coup de sifflet de l’arbitre signalant la fin de l’échange, les arbitres doivent indiquer à l’aide du geste officiel:",
+		"renvois": [
+			"22.2.1.2",
+			"30.1"
+		],
+		"ordre": 426
+	},
+	{
+		"reference": "22.2.3.1",
+		"parent_reference": "22.2.3",
+		"titre": null,
+		"texte": "Si la faute a été sifflée par le 1er arbitre, celui-ci indiquera dans l’ordre: a) l’équipe qui va servir; b) la nature de la faute; c) le joueur fautif (si nécessaire).",
+		"renvois": [
+			"12.2.2",
+			"Fig.11 (2)"
+		],
+		"ordre": 427
+	},
+	{
+		"reference": "22.2.3.2",
+		"parent_reference": "22.2.3",
+		"titre": null,
+		"texte": "Si la faute a été sifflée par le 2ème arbitre, celui-ci indiquera: a) la nature de la faute; b) le joueur fautif (si nécessaire); c) l’équipe qui va servir en suivant le geste du 1er arbitre. Dans ce cas, le 1er arbitre ne doit indiquer ni la nature de la faute ni le joueur fautif, mais seulement l’équipe qui va servir.",
+		"renvois": [
+			"12.2.2",
+			"Fig.11 (2)"
+		],
+		"ordre": 428
+	},
+	{
+		"reference": "22.2.3.3",
+		"parent_reference": "22.2.3",
+		"titre": null,
+		"texte": "Dans le cas d’une attaque fautive d’un joueur arrière ou d’un joueur libéro, les deux arbitres indiquent la faute en respectant les règles 22.2.3.1 et 22.2.3.2.",
+		"renvois": [
+			"12.2.2",
+			"13.3.3",
+			"13.3.5",
+			"19.3.1.2",
+			"23.3.2.3d",
+			"23.3.2.3e",
+			"Fig.11 (21)"
+		],
+		"ordre": 429
+	},
+	{
+		"reference": "22.2.3.4",
+		"parent_reference": "22.2.3",
+		"titre": null,
+		"texte": "Dans le cas d’une double faute, les deux arbitres indiquent dans l’ordre a) la nature de la faute; b) les joueurs fautifs (si nécessaire); l’équipe qui va servir comme indiquée par le 1er arbitre.",
+		"renvois": [
+			"17.3",
+			"Fig.11 (23)",
+			"12.2.2",
+			"Fig.11 (2)"
+		],
+		"ordre": 430
+	},
+	{
+		"reference": "23",
+		"parent_reference": null,
+		"titre": "1ER ARBITRE",
+		"texte": "",
+		"renvois": [],
+		"ordre": 431
+	},
+	{
+		"reference": "23.1",
+		"parent_reference": "23",
+		"titre": "EMPLACEMENT",
+		"texte": "Le 1er arbitre remplit ses fonctions debout sur un podium d’arbitre situé à l’une des extrémités du filet, à l’opposé du marqueur. Sa vue doit se situer approximativement à 50 cm au-dessus du filet.",
+		"renvois": [
+			"Fig.1a",
+			"Fig.1b",
+			"Fig.10"
+		],
+		"ordre": 432
+	},
+	{
+		"reference": "23.2",
+		"parent_reference": "23",
+		"titre": "AUTORITÉ",
+		"texte": "",
+		"renvois": [],
+		"ordre": 433
+	},
+	{
+		"reference": "23.2.1",
+		"parent_reference": "23.2",
+		"titre": null,
+		"texte": "Le 1er arbitre dirige le match du début à la fin. Il a autorité sur tous les membres du corps arbitral et les membres des équipes. Pendant le match, ses décisions sont souveraines. Il est autorisé à annuler les décisions des autres membres du corps arbitral, s’il juge qu’elles sont erronées. Il/Elle peut même remplacer un membre du corps arbitral qui ne remplit pas correctement ses fonctions.",
+		"renvois": [
+			"4.1.1",
+			"6.3"
+		],
+		"ordre": 434
+	},
+	{
+		"reference": "23.2.2",
+		"parent_reference": "23.2",
+		"titre": null,
+		"texte": "Il/elle contrôle également le travail des ramasseurs de ballon et des nettoyeurs rapides.",
+		"renvois": [
+			"3.3"
+		],
+		"ordre": 435
+	},
+	{
+		"reference": "23.2.3",
+		"parent_reference": "23.2",
+		"titre": null,
+		"texte": "Il/Elle a un pouvoir de décision sur toutes les questions du jeu, y compris celles qui ne sont pas prévues par les Règles.",
+		"renvois": [],
+		"ordre": 436
+	},
+	{
+		"reference": "23.2.4",
+		"parent_reference": "23.2",
+		"titre": null,
+		"texte": "Il/Elle ne doit pas autoriser la discussion de ses décisions. Cependant, à la demande du capitaine en jeu, le 1er arbitre donnera des explications sur l’application ou l’interprétation des Règles sur lesquelles il a fondé sa décision. Si le capitaine au jeu n’est pas d’accord avec les explications et choisit de contester une telle décision, il doit immédiatement réserver son droit d’enregistrer cette contestation dès la fin du match. Le 1er arbitre doit autoriser ce droit au capitaine au jeu.",
+		"renvois": [
+			"20.1.2",
+			"5.1.2.1",
+			"5.1.2.1",
+			"5.1.3.2",
+			"25.2.3.2"
+		],
+		"ordre": 437
+	},
+	{
+		"reference": "23.2.5",
+		"parent_reference": "23.2",
+		"titre": null,
+		"texte": "Le 1er arbitre a la responsabilité de décider avant et pendant le match si l’équipement de l’aire de jeu et les conditions permettent ou non de jouer.",
+		"renvois": [
+			"Chapitre 1",
+			"23.3.1.1"
+		],
+		"ordre": 438
+	},
+	{
+		"reference": "23.3",
+		"parent_reference": "23",
+		"titre": "RESPONSABILITÉS",
+		"texte": "",
+		"renvois": [],
+		"ordre": 439
+	},
+	{
+		"reference": "23.3.1",
+		"parent_reference": "23.3",
+		"titre": null,
+		"texte": "Avant le match, le 1er arbitre:",
+		"renvois": [],
+		"ordre": 440
+	},
+	{
+		"reference": "23.3.1.1",
+		"parent_reference": "23.3.1",
+		"titre": null,
+		"texte": "inspecte les conditions de l’aire de jeu, les ballons et les autres équipements;",
+		"renvois": [
+			"Chapitre 1",
+			"23.2.5"
+		],
+		"ordre": 441
+	},
+	{
+		"reference": "23.3.1.2",
+		"parent_reference": "23.3.1",
+		"titre": null,
+		"texte": "effectue le tirage au sort en présence des capitaines d’équipe;",
+		"renvois": [
+			"7.1"
+		],
+		"ordre": 442
+	},
+	{
+		"reference": "23.3.1.3",
+		"parent_reference": "23.3.1",
+		"titre": null,
+		"texte": "contrôle l’échauffement des équipes.",
+		"renvois": [
+			"7.2"
+		],
+		"ordre": 443
+	},
+	{
+		"reference": "23.3.2",
+		"parent_reference": "23.3",
+		"titre": null,
+		"texte": "Pendant le match, il/elle est autorisé(e) à:",
+		"renvois": [],
+		"ordre": 444
+	},
+	{
+		"reference": "23.3.2.1",
+		"parent_reference": "23.3.2",
+		"titre": null,
+		"texte": "donner un avertissement aux équipes;",
+		"renvois": [
+			"21.1"
+		],
+		"ordre": 445
+	},
+	{
+		"reference": "23.3.2.2",
+		"parent_reference": "23.3.2",
+		"titre": null,
+		"texte": "sanctionner les comportements incorrects et les retards de jeu; (6a, 6b, 7, 8, 25)",
+		"renvois": [
+			"16.2",
+			"21.2",
+			"Fig.9",
+			"Fig.11"
+		],
+		"ordre": 446
+	},
+	{
+		"reference": "23.3.2.3",
+		"parent_reference": "23.3.2",
+		"titre": null,
+		"texte": "décider: a) des fautes du serveur et de positions de l’équipe au service, y compris l’écran, Fig.6, Fig.11 (12, 13, 22) b) des fautes de touche du ballon, Fig.11 (16, 17, 18) c) les fautes au-dessus du filet, et le contact fautif du joueur avec le filet, principalement (mais pas exclusivement) du côté de l’attaquant, d) des attaques fautives du libéro ou des joueurs arrières, e) de la frappe d’attaque effective faites par un joueur sur un ballon situé au-dessus du filet venant d’une passe haute effectuée avec les doigts par le libéro dans sa zone avant, f) du franchissement complet par le ballon de l’espace inférieur situé sous le filet, (22) g) du contre effectif d’un joueur arrière ou d’une tentative de contre du libéro. h) le ballon qui traverse le plan du filet, vers le terrain adverse, totalement ou partiellement en dehors de l’espace de passage ou qui touche l’antenne de son côté du terrain de jeu i) le ballon de service ou la 2ème ou 3ème touche qui passe au-dessus ou en dehors de l’antenne de son côté du terrain de jeu.",
+		"renvois": [
+			"7.5",
+			"12.4",
+			"12.5",
+			"12.7.1",
+			"Fig.4",
+			"9.3",
+			"11.3.1",
+			"11.4.1",
+			"11.4.4",
+			"Fig.11 (20)",
+			"13.3.3",
+			"13.3.5",
+			"24.3.2.4",
+			"Fig.8",
+			"Fig.11 (21)",
+			"1.4.1",
+			"13.3.6",
+			"24.3.2.4",
+			"Fig.11 (21)",
+			"8.4.5",
+			"24.3.2.7",
+			"Fig.5a",
+			"Fig.11",
+			"14.6.2",
+			"14.6.6",
+			"Fig.11 (12)",
+			"Fig.11 (15)",
+			"Fig.11 (15)"
+		],
+		"ordre": 447
+	},
+	{
+		"reference": "23.3.3",
+		"parent_reference": "23.3",
+		"titre": null,
+		"texte": "À la fin du match il vérifie et signe la feuille de match.",
+		"renvois": [
+			"24.3.3",
+			"25.2.3.3"
+		],
+		"ordre": 448
+	},
+	{
+		"reference": "24",
+		"parent_reference": null,
+		"titre": "2ÈME ARBITRE",
+		"texte": "",
+		"renvois": [],
+		"ordre": 449
+	},
+	{
+		"reference": "24.1",
+		"parent_reference": "24",
+		"titre": "EMPLACEMENT",
+		"texte": "Le 2ème arbitre remplit ses fonctions debout, hors du terrain de jeu, près du poteau situé du côté opposé et en face du 1er arbitre.",
+		"renvois": [
+			"Fig.1a",
+			"Fig.1b",
+			"Fig.10"
+		],
+		"ordre": 450
+	},
+	{
+		"reference": "24.2",
+		"parent_reference": "24",
+		"titre": "AUTORITÉ",
+		"texte": "",
+		"renvois": [],
+		"ordre": 451
+	},
+	{
+		"reference": "24.2.1",
+		"parent_reference": "24.2",
+		"titre": null,
+		"texte": "Le 2ème arbitre est l’assistant du 1er arbitre, mais a aussi son propre champ de compétence. Si le 1er arbitre devient incapable d’assurer sa tâche, le 2ème arbitre peut le/la remplacer.",
+		"renvois": [
+			"24.3"
+		],
+		"ordre": 452
+	},
+	{
+		"reference": "24.2.2",
+		"parent_reference": "24.2",
+		"titre": null,
+		"texte": "Il/Elle peut aussi, sans siffler, signaler les fautes hors de sa compétence, mais ne doit pas insister auprès du 1er arbitre.",
+		"renvois": [
+			"24.3"
+		],
+		"ordre": 453
+	},
+	{
+		"reference": "24.2.3",
+		"parent_reference": "24.2",
+		"titre": null,
+		"texte": "Il/Elle contrôle le travail du/des marqueur(s).",
+		"renvois": [
+			"25.2",
+			"28.2"
+		],
+		"ordre": 454
+	},
+	{
+		"reference": "24.2.4",
+		"parent_reference": "24.2",
+		"titre": null,
+		"texte": "Il/Elle contrôle les membres des équipes sur le banc d’équipe et rapporte au 1er arbitre tout comportement incorrect.",
+		"renvois": [
+			"4.2.1"
+		],
+		"ordre": 455
+	},
+	{
+		"reference": "24.2.5",
+		"parent_reference": "24.2",
+		"titre": null,
+		"texte": "Il/Elle contrôle les joueurs dans l’aire d’échauffement.",
+		"renvois": [
+			"4.2.3"
+		],
+		"ordre": 456
+	},
+	{
+		"reference": "24.2.6",
+		"parent_reference": "24.2",
+		"titre": null,
+		"texte": "Il/Elle autorise les interruptions régulières, en contrôle la durée et repousse les demandes non fondées.",
+		"renvois": [
+			"15",
+			"15.11",
+			"25.2.2.3"
+		],
+		"ordre": 457
+	},
+	{
+		"reference": "24.2.7",
+		"parent_reference": "24.2",
+		"titre": null,
+		"texte": "Il/Elle contrôle le nombre des temps-morts et des remplacements utilisés par chaque équipe et signale au 1er arbitre et à l’entraîneur concerné le 2ème temps-mort et les 5èmes et 6èmes remplacements de joueurs.",
+		"renvois": [
+			"15.1",
+			"25.2.2.3"
+		],
+		"ordre": 458
+	},
+	{
+		"reference": "24.2.8",
+		"parent_reference": "24.2",
+		"titre": null,
+		"texte": "En cas de blessure d’un joueur, il/elle autorise le remplacement exceptionnel ou accorde un temps de récupération de 3 minutes.",
+		"renvois": [
+			"15.7",
+			"17.1.2"
+		],
+		"ordre": 459
+	},
+	{
+		"reference": "24.2.9",
+		"parent_reference": "24.2",
+		"titre": null,
+		"texte": "Il/Elle vérifie l’état du sol, principalement dans la zone avant. Il vérifie aussi pendant le match que les ballons remplissent toujours les conditions réglementaires.",
+		"renvois": [
+			"1.2.1",
+			"3"
+		],
+		"ordre": 460
+	},
+	{
+		"reference": "24.2.10",
+		"parent_reference": "24.2",
+		"titre": null,
+		"texte": "Pour les compétitions de la FIVB, les compétitions mondiales et les compétitions officielles, le devoir enregistré sous 24.2.5 est effectué par l’arbitre de réserve.",
+		"renvois": [
+			"26.2.6"
+		],
+		"ordre": 461
+	},
+	{
+		"reference": "24.3",
+		"parent_reference": "24",
+		"titre": "RESPONSABILITÉS",
+		"texte": "",
+		"renvois": [],
+		"ordre": 462
+	},
+	{
+		"reference": "24.3.1",
+		"parent_reference": "24.3",
+		"titre": null,
+		"texte": "Au début de chaque set, au changement de camp dans le set décisif et chaque fois que c’est nécessaire, le 2ème arbitre vérifie que les positions effectives des joueurs sur le terrain correspondent à celles inscrites sur les fiches de position.",
+		"renvois": [
+			"5.2.3.1",
+			"7.3.2",
+			"7.3.5",
+			"18.2.2"
+		],
+		"ordre": 463
+	},
+	{
+		"reference": "24.3.2",
+		"parent_reference": "24.3",
+		"titre": null,
+		"texte": "Pendant le match, il/elle décide, siffle et signale:",
+		"renvois": [],
+		"ordre": 464
+	},
+	{
+		"reference": "24.3.2.1",
+		"parent_reference": "24.3.2",
+		"titre": null,
+		"texte": "la pénétration dans le terrain adverse et l’espace sous le filet,",
+		"renvois": [
+			"1.3.3",
+			"11.2",
+			"Fig.5a",
+			"Fig.11 (13)"
+		],
+		"ordre": 465
+	},
+	{
+		"reference": "24.3.2.2",
+		"parent_reference": "24.3.2",
+		"titre": null,
+		"texte": "les fautes de position de l’équipe en réception,",
+		"renvois": [
+			"7.5",
+			"Fig.4",
+			"Fig.11 (13)"
+		],
+		"ordre": 466
+	},
+	{
+		"reference": "24.3.2.3",
+		"parent_reference": "24.3.2",
+		"titre": null,
+		"texte": "le contact fautif d’un joueur avec le filet prioritairement du côté du contre et avec l’antenne située de son côté du terrain,",
+		"renvois": [
+			"11.3.1"
+		],
+		"ordre": 467
+	},
+	{
+		"reference": "24.3.2.4",
+		"parent_reference": "24.3.2",
+		"titre": null,
+		"texte": "le contre effectif effectué par un joueur de la ligne arrière ou une tentative de contre du Libéro, ou une attaque fautive effectuée par un joueur arrière ou par le libéro, (12, 21)",
+		"renvois": [
+			"13.3.3",
+			"14.6.2",
+			"14.6.6",
+			"23.3.2.3d",
+			"23.3.2.3e",
+			"23.3.2.3g",
+			"Fig.8",
+			"Fig.11"
+		],
+		"ordre": 468
+	},
+	{
+		"reference": "24.3.2.5",
+		"parent_reference": "24.3.2",
+		"titre": null,
+		"texte": "le contact du ballon avec un objet extérieur,",
+		"renvois": [
+			"8.4.2",
+			"8.4.3",
+			"Fig.11 (15)"
+		],
+		"ordre": 469
+	},
+	{
+		"reference": "24.3.2.6",
+		"parent_reference": "24.3.2",
+		"titre": null,
+		"texte": "le contact du ballon avec le sol lorsque le 1er arbitre n’est pas en position de voir ce contact,",
+		"renvois": [
+			"8.3"
+		],
+		"ordre": 470
+	},
+	{
+		"reference": "24.3.2.7",
+		"parent_reference": "24.3.2",
+		"titre": null,
+		"texte": "le ballon franchissant le plan du filet, totalement ou partiellement à l’extérieur de l’espace de passage en direction du camp adverse ou son contact avec l’antenne située de son côté du terrain de jeu.",
+		"renvois": [
+			"8.4.3",
+			"8.4.4",
+			"Fig.5a",
+			"Fig.11 (15)"
+		],
+		"ordre": 471
+	},
+	{
+		"reference": "24.3.2.8",
+		"parent_reference": "24.3.2",
+		"titre": null,
+		"texte": "le ballon de service ou la 2ème ou 3ème touche qui passe au-dessus ou en dehors de l’antenne de son côté du terrain de jeu.",
+		"renvois": [
+			"Fig.11 (15)"
+		],
+		"ordre": 472
+	},
+	{
+		"reference": "24.3.3",
+		"parent_reference": "24.3",
+		"titre": null,
+		"texte": "À la fin du match, il vérifie et signe la feuille de match.",
+		"renvois": [
+			"23.3.3",
+			"25.2.3.3"
+		],
+		"ordre": 473
+	},
+	{
+		"reference": "25",
+		"parent_reference": null,
+		"titre": "ARBITRE DU CHALLENGE",
+		"texte": "Pour les compétitions FIVB, mondiales et officielles, si le système de défi vidéo (VCS) est utilisé, un arbitre de défi est obligatoire.",
+		"renvois": [],
+		"ordre": 474
+	},
+	{
+		"reference": "25.1",
+		"parent_reference": "25",
+		"titre": "EMPLACEMENT",
+		"texte": "L’arbitre du défi exerce ses fonctions dans la cabine du défi, à un endroit distinct déterminé par le délégué technique de la FIVB.",
+		"renvois": [],
+		"ordre": 475
+	},
+	{
+		"reference": "25.2",
+		"parent_reference": "25",
+		"titre": "RESPONSABILITÉS",
+		"texte": "",
+		"renvois": [],
+		"ordre": 476
+	},
+	{
+		"reference": "25.2.1",
+		"parent_reference": "25.2",
+		"titre": null,
+		"texte": "Il/elle supervise le processus de contestation et s’assure qu’il se déroule conformément au règlement de contestation en vigueur.",
+		"renvois": [],
+		"ordre": 477
+	},
+	{
+		"reference": "25.2.2",
+		"parent_reference": "25.2",
+		"titre": null,
+		"texte": "L'arbitre du défi doit porter une tenue officielle d'arbitre dans l'exercice de ses fonctions.",
+		"renvois": [],
+		"ordre": 478
+	},
+	{
+		"reference": "25.2.3",
+		"parent_reference": "25.2",
+		"titre": null,
+		"texte": "Après le processus de contestation, il informe le 1er arbitre de la nature de la faute.",
+		"renvois": [],
+		"ordre": 479
+	},
+	{
+		"reference": "25.2.4",
+		"parent_reference": "25.2",
+		"titre": null,
+		"texte": "À la fin du match, il/elle signe la feuille de match.",
+		"renvois": [],
+		"ordre": 480
+	},
+	{
+		"reference": "26",
+		"parent_reference": null,
+		"titre": "ARBITRE DE RÉSERVE",
+		"texte": "Pour les compétitions FIVB, mondiales et officielles, un arbitre de réserve est obligatoire.",
+		"renvois": [],
+		"ordre": 481
+	},
+	{
+		"reference": "26.1",
+		"parent_reference": "26",
+		"titre": "EMPLACEMENT",
+		"texte": "L’arbitre de réserve exerce ses fonctions en se plaçant à un endroit distinct déterminé par le plan du terrain de la FIVB.",
+		"renvois": [],
+		"ordre": 482
+	},
+	{
+		"reference": "26.2",
+		"parent_reference": "26",
+		"titre": "RESPONSABILITÉS",
+		"texte": "L’arbitre de réserve est tenu de:",
+		"renvois": [],
+		"ordre": 483
+	},
+	{
+		"reference": "26.2.1",
+		"parent_reference": "26.2",
+		"titre": null,
+		"texte": "porter un uniforme officiel d’arbitre dans l’exercice de ses fonctions;",
+		"renvois": [],
+		"ordre": 484
+	},
+	{
+		"reference": "26.2.2",
+		"parent_reference": "26.2",
+		"titre": null,
+		"texte": "remplacer le 2ème arbitre en cas d’absence ou d’incapacité à poursuivre son travail ou si le 2ème arbitre est devenu le 1er arbitre;",
+		"renvois": [],
+		"ordre": 485
+	},
+	{
+		"reference": "26.2.3",
+		"parent_reference": "26.2",
+		"titre": null,
+		"texte": "contrôle les plaquettes de remplacement (si elles sont utilisées), avant le match et entre les sets;",
+		"renvois": [],
+		"ordre": 486
+	},
+	{
+		"reference": "26.2.4",
+		"parent_reference": "26.2",
+		"titre": null,
+		"texte": "vérifier le fonctionnement des tablettes de banc avant et entre les sets, s’il y a un problème;",
+		"renvois": [],
+		"ordre": 487
+	},
+	{
+		"reference": "26.2.5",
+		"parent_reference": "26.2",
+		"titre": null,
+		"texte": "aider le 2ème arbitre à maintenir la zone libre libre;",
+		"renvois": [
+			"1.1"
+		],
+		"ordre": 488
+	},
+	{
+		"reference": "26.2.6",
+		"parent_reference": "26.2",
+		"titre": null,
+		"texte": "aider le 2ème arbitre à ordonner au membre de l’équipe expulsé/disqualifié de se rendre au vestiaire de l’équipe;",
+		"renvois": [
+			"21.3.2.1",
+			"21.3.3.1"
+		],
+		"ordre": 489
+	},
+	{
+		"reference": "26.2.7",
+		"parent_reference": "26.2",
+		"titre": null,
+		"texte": "contrôler les joueurs remplaçants dans la zone d’échauffement et sur le banc d’équipe;",
+		"renvois": [
+			"1.4.5",
+			"24.2.5",
+			"24.2.10"
+		],
+		"ordre": 490
+	},
+	{
+		"reference": "26.2.8",
+		"parent_reference": "26.2",
+		"titre": null,
+		"texte": "apporter au 2ème arbitre quatre ballons de match, immédiatement après la présentation des joueurs partants et donner au 2ème arbitre un ballon de match après avoir vérifié la position debout des joueurs;",
+		"renvois": [
+			"24.3.1"
+		],
+		"ordre": 491
+	},
+	{
+		"reference": "26.2.9",
+		"parent_reference": "26.2",
+		"titre": null,
+		"texte": "assister le 2ème arbitre pour guider le travail des essuyeurs de terrain.",
+		"renvois": [
+			"23.2.2"
+		],
+		"ordre": 492
+	},
+	{
+		"reference": "27",
+		"parent_reference": null,
+		"titre": "MARQUEUR",
+		"texte": "",
+		"renvois": [],
+		"ordre": 493
+	},
+	{
+		"reference": "27.1",
+		"parent_reference": "27",
+		"titre": "EMPLACEMENT",
+		"texte": "Le marqueur remplit ses fonctions assis à la table de marque située du côté opposé et en face du 1er arbitre.",
+		"renvois": [
+			"Fig.1a",
+			"Fig.1b",
+			"Fig.10"
+		],
+		"ordre": 494
+	},
+	{
+		"reference": "27.2",
+		"parent_reference": "27",
+		"titre": "RESPONSABILITÉS",
+		"texte": "Il complète la feuille de match conformément aux Règles en coopérant avec le 2ème arbitre. Il utilise un buzzer ou tout autre dispositif sonore pour notifier des irrégularités ou donner des signaux aux arbitres sur la base de ses responsabilités.",
+		"renvois": [],
+		"ordre": 495
+	},
+	{
+		"reference": "27.2.1",
+		"parent_reference": "27.2",
+		"titre": null,
+		"texte": "Avant le match et un set, le marqueur:",
+		"renvois": [],
+		"ordre": 496
+	},
+	{
+		"reference": "27.2.1.1",
+		"parent_reference": "27.2.1",
+		"titre": null,
+		"texte": "inscrit les données du match et des équipes, ainsi que le nom et le numéro du Libéro, selon les procédures en vigueur et recueille les signatures des capitaines et des entraîneurs;",
+		"renvois": [
+			"4.1",
+			"5.1.1",
+			"5.2.2",
+			"7.3.2",
+			"19.1.2",
+			"19.4.2.6"
+		],
+		"ordre": 497
+	},
+	{
+		"reference": "27.2.1.2",
+		"parent_reference": "27.2.1",
+		"titre": null,
+		"texte": "enregistre les formations de départ de chaque équipe à partir des fiches de position (ou vérifie les données encodées électroniquement); S’il/elle ne reçoit pas à temps les fiches de position, il doit en informer immédiatement le 2ème arbitre;",
+		"renvois": [
+			"5.2.3.1",
+			"7.3.2",
+			"5.2.3.1"
+		],
+		"ordre": 498
+	},
+	{
+		"reference": "27.2.2",
+		"parent_reference": "27.2",
+		"titre": null,
+		"texte": "Pendant le match, le marqueur:",
+		"renvois": [],
+		"ordre": 499
+	},
+	{
+		"reference": "27.2.2.1",
+		"parent_reference": "27.2.2",
+		"titre": null,
+		"texte": "enregistre les points marqués;",
+		"renvois": [
+			"6.1"
+		],
+		"ordre": 500
+	},
+	{
+		"reference": "27.2.2.2",
+		"parent_reference": "27.2.2",
+		"titre": null,
+		"texte": "contrôle l’ordre de rotation au service et signale toute erreur immédiatement après la frappe du service;",
+		"renvois": [
+			"12.2"
+		],
+		"ordre": 501
+	},
+	{
+		"reference": "27.2.2.3",
+		"parent_reference": "27.2.2",
+		"titre": null,
+		"texte": "est en charge pour accepter et enregistrer les remplacements de joueur en actionnant le buzzer, il en contrôle le nombre et inscrit les remplacements et les temps-morts en informant le 2ème arbitre;",
+		"renvois": [
+			"15.1",
+			"15.4.1",
+			"15.10.3.3",
+			"24.2.6",
+			"24.2.7"
+		],
+		"ordre": 502
+	},
+	{
+		"reference": "27.2.2.4",
+		"parent_reference": "27.2.2",
+		"titre": null,
+		"texte": "signale aux arbitres une demande d’interruption qui ne serait pas fondée;",
+		"renvois": [
+			"15.11"
+		],
+		"ordre": 503
+	},
+	{
+		"reference": "27.2.2.5",
+		"parent_reference": "27.2.2",
+		"titre": null,
+		"texte": "annonce aux arbitres les fins de set et la marque du 8ème point dans le set décisif;",
+		"renvois": [
+			"6.2",
+			"15.4.1",
+			"18.2.2"
+		],
+		"ordre": 504
+	},
+	{
+		"reference": "27.2.2.6",
+		"parent_reference": "27.2.2",
+		"titre": null,
+		"texte": "enregistre les avertissements pour méconduite, les sanctions et les demandes non-fondées;",
+		"renvois": [
+			"15.11.3",
+			"16.2",
+			"21.3"
+		],
+		"ordre": 505
+	},
+	{
+		"reference": "27.2.2.7",
+		"parent_reference": "27.2.2",
+		"titre": null,
+		"texte": "enregistre tous les autres événements selon les instructions du 2ème arbitre, c’est-à-dire les remplacements exceptionnels, les temps de récupération, les interruptions prolongées, les interférences extérieures, les redésignations, etc;",
+		"renvois": [
+			"15.7",
+			"17.1.2",
+			"17.2",
+			"17.3",
+			"19.4"
+		],
+		"ordre": 506
+	},
+	{
+		"reference": "27.2.2.8",
+		"parent_reference": "27.2.2",
+		"titre": null,
+		"texte": "contrôle l’intervalle entre les sets.",
+		"renvois": [
+			"18.1"
+		],
+		"ordre": 507
+	},
+	{
+		"reference": "27.2.3",
+		"parent_reference": "27.2",
+		"titre": null,
+		"texte": "À la fin du match, le marqueur:",
+		"renvois": [],
+		"ordre": 508
+	},
+	{
+		"reference": "27.2.3.1",
+		"parent_reference": "27.2.3",
+		"titre": null,
+		"texte": "inscrit le résultat final;",
+		"renvois": [
+			"6.3"
+		],
+		"ordre": 509
+	},
+	{
+		"reference": "27.2.3.2",
+		"parent_reference": "27.2.3",
+		"titre": null,
+		"texte": "en cas de réclamation avec l’autorisation préalable du 1er arbitre, écrit ou permet au capitaine d’équipe ou de jeu d’écrire sur la feuille de match une déclaration sur l’incident ayant été contesté;",
+		"renvois": [
+			"5.1.2.1",
+			"5.1.3.2",
+			"23.2.4"
+		],
+		"ordre": 510
+	},
+	{
+		"reference": "27.2.3.3",
+		"parent_reference": "27.2.3",
+		"titre": null,
+		"texte": "après avoir signé lui-même la feuille de match, recueille les signatures des capitaines d’équipe, puis celles des arbitres.",
+		"renvois": [
+			"5.1.3.1",
+			"23.3.3",
+			"24.3.3"
+		],
+		"ordre": 511
+	},
+	{
+		"reference": "28",
+		"parent_reference": null,
+		"titre": "MARQUEUR ADJOINT",
+		"texte": "",
+		"renvois": [],
+		"ordre": 512
+	},
+	{
+		"reference": "28.1",
+		"parent_reference": "28",
+		"titre": "EMPLACEMENT",
+		"texte": "Le marqueur adjoint remplit ses fonctions assis à côté du marqueur à la table de marque. Pour les compétitions FIVB, mondiales et officielles, un marqueur adjoint est obligatoire.",
+		"renvois": [
+			"22.1",
+			"Fig.1a",
+			"Fig.1b",
+			"Fig.10"
+		],
+		"ordre": 513
+	},
+	{
+		"reference": "28.2",
+		"parent_reference": "28",
+		"titre": "RESPONSABILITÉS",
+		"texte": "Il/elle enregistre les changements impliquant le Libéro. Il/elle aide le marqueur dans l’exercice de ses fonctions administratives. Si le marqueur ne peut pas continuer son travail, le marqueur adjoint remplace le marqueur.",
+		"renvois": [
+			"19.3"
+		],
+		"ordre": 514
+	},
+	{
+		"reference": "28.2.1",
+		"parent_reference": "28.2",
+		"titre": null,
+		"texte": "Avant le match et un set, le marqueur adjoint:",
+		"renvois": [],
+		"ordre": 515
+	},
+	{
+		"reference": "28.2.1.1",
+		"parent_reference": "28.2.1",
+		"titre": null,
+		"texte": "prépare la feuille de contrôle du Libéro,",
+		"renvois": [],
+		"ordre": 516
+	},
+	{
+		"reference": "28.2.1.2",
+		"parent_reference": "28.2.1",
+		"titre": null,
+		"texte": "prépare la feuille de réserve du match.",
+		"renvois": [],
+		"ordre": 517
+	},
+	{
+		"reference": "28.2.2",
+		"parent_reference": "28.2",
+		"titre": null,
+		"texte": "Pendant le match, le marqueur adjoint:",
+		"renvois": [],
+		"ordre": 518
+	},
+	{
+		"reference": "28.2.2.1",
+		"parent_reference": "28.2.2",
+		"titre": null,
+		"texte": "enregistre les détails de changement du Libéro;",
+		"renvois": [
+			"19.3.1.1",
+			"19.4"
+		],
+		"ordre": 519
+	},
+	{
+		"reference": "28.2.2.2",
+		"parent_reference": "28.2.2",
+		"titre": null,
+		"texte": "informe les arbitres de toutes les fautes de remplacement du Libéro, en actionnant le buzzer;",
+		"renvois": [
+			"19.3.2"
+		],
+		"ordre": 520
+	},
+	{
+		"reference": "28.2.2.3",
+		"parent_reference": "28.2.2",
+		"titre": null,
+		"texte": "fait fonctionner le tableau d’affichage manuel sur la table du marqueur;",
+		"renvois": [],
+		"ordre": 521
+	},
+	{
+		"reference": "28.2.2.4",
+		"parent_reference": "28.2.2",
+		"titre": null,
+		"texte": "vérifie que les tableaux d’affichage correspondent;",
+		"renvois": [
+			"27.2.2.1"
+		],
+		"ordre": 522
+	},
+	{
+		"reference": "28.2.2.5",
+		"parent_reference": "28.2.2",
+		"titre": null,
+		"texte": "si nécessaire, remet à jour la feuille de réserve du match et la donne au marqueur.",
+		"renvois": [
+			"27.2.1.1"
+		],
+		"ordre": 523
+	},
+	{
+		"reference": "28.2.3",
+		"parent_reference": "28.2",
+		"titre": null,
+		"texte": "À la fin du match le marqueur adjoint:",
+		"renvois": [],
+		"ordre": 524
+	},
+	{
+		"reference": "28.2.3.1",
+		"parent_reference": "28.2.3",
+		"titre": null,
+		"texte": "signe la feuille de contrôle du Libéro et la présente pour vérification;",
+		"renvois": [],
+		"ordre": 525
+	},
+	{
+		"reference": "28.2.3.2",
+		"parent_reference": "28.2.3",
+		"titre": null,
+		"texte": "signe la feuille de match. Pour les compétitions FIVB, Mondiales et Officielles, utilisant une feuille de match électronique, le marqueur adjoint agit avec le marqueur pour annoncer les remplacements, pour renseigner au 2ème arbitre quelle équipe demande une interruption et identifie les changements du libéro.",
+		"renvois": [],
+		"ordre": 526
+	},
+	{
+		"reference": "29",
+		"parent_reference": null,
+		"titre": "JUGES DE LIGNE",
+		"texte": "",
+		"renvois": [],
+		"ordre": 527
+	},
+	{
+		"reference": "29.1",
+		"parent_reference": "29",
+		"titre": "EMPLACEMENT",
+		"texte": "Si seulement deux juges de ligne sont utilisés, ils se tiennent aux coins du terrain les plus proches de la main droite de chaque arbitre, en diagonale à 1 ou 2 m du coin. Chacun d’entre eux contrôle à la fois la ligne de fond et la ligne latérale. Pour les compétitions FIVB, mondiales et officielles, si quatre juges de ligne sont utilisés, ils se tiennent dans la zone libre à 1 à 3 m de chaque coin du terrain, sur le prolongement imaginaire de la ligne qu’ils contrôlent.",
+		"renvois": [
+			"Fig.1a",
+			"Fig.1b",
+			"Fig.10",
+			"Fig.10"
+		],
+		"ordre": 528
+	},
+	{
+		"reference": "29.2",
+		"parent_reference": "29",
+		"titre": "RESPONSABILITÉS",
+		"texte": "",
+		"renvois": [],
+		"ordre": 529
+	},
+	{
+		"reference": "29.2.1",
+		"parent_reference": "29.2",
+		"titre": null,
+		"texte": "Les juges de ligne remplissent leurs fonctions en utilisant un fanion (40 x 40 cm) pour signaler:",
+		"renvois": [
+			"Fig.12"
+		],
+		"ordre": 530
+	},
+	{
+		"reference": "29.2.1.1",
+		"parent_reference": "29.2.1",
+		"titre": null,
+		"texte": "le ballon “dedans” (in) et “dehors” (out) chaque fois que le ballon tombe près de leur(s) ligne(s);",
+		"renvois": [
+			"8.3",
+			"8.4",
+			"Fig.12 (1, 2)"
+		],
+		"ordre": 531
+	},
+	{
+		"reference": "29.2.1.2",
+		"parent_reference": "29.2.1",
+		"titre": null,
+		"texte": "les ballons \"dehors\" touchés par l’équipe recevant le ballon;",
+		"renvois": [
+			"8.4",
+			"Fig.12 (3)"
+		],
+		"ordre": 532
+	},
+	{
+		"reference": "29.2.1.3",
+		"parent_reference": "29.2.1",
+		"titre": null,
+		"texte": "le ballon qui touche l'antenne, le ballon de service et la 2ème ou 3ème touche d'équipe qui franchissent le filet à l’extérieur de l’espace de passage, etc.;",
+		"renvois": [
+			"8.4.3",
+			"8.4.4",
+			"10.1.1",
+			"Fig.5a",
+			"Fig.12 (4)"
+		],
+		"ordre": 533
+	},
+	{
+		"reference": "29.2.1.4",
+		"parent_reference": "29.2.1",
+		"titre": null,
+		"texte": "tout joueur (en dehors du serveur) qui empiéterait sur l'extérieur de son camp au moment de la frappe de service;",
+		"renvois": [
+			"7.4",
+			"12.4.3",
+			"Fig.12 (4)"
+		],
+		"ordre": 534
+	},
+	{
+		"reference": "29.2.1.5",
+		"parent_reference": "29.2.1",
+		"titre": null,
+		"texte": "les fautes de pied du serveur;",
+		"renvois": [
+			"12.4.3"
+		],
+		"ordre": 535
+	},
+	{
+		"reference": "29.2.1.6",
+		"parent_reference": "29.2.1",
+		"titre": null,
+		"texte": "tout contact avec les 80cm supérieurs de l’antenne située de son côté du terrain par tout joueur pendant l’action de jouer le ballon ou interférant sur le jeu;",
+		"renvois": [
+			"11.3.1",
+			"11.4.4",
+			"Fig.3",
+			"Fig.12 (4)"
+		],
+		"ordre": 536
+	},
+	{
+		"reference": "29.2.1.7",
+		"parent_reference": "29.2.1",
+		"titre": null,
+		"texte": "Le ballon passant en dehors de l’espace de passage dans le camp adverse ou touchant l’antenne de son côté.",
+		"renvois": [
+			"10.1.1",
+			"Fig.5a",
+			"Fig.12 (4)"
+		],
+		"ordre": 537
+	},
+	{
+		"reference": "29.2.2",
+		"parent_reference": "29.2",
+		"titre": null,
+		"texte": "À la demande du 1er arbitre, un juge de ligne doit répéter son geste. 30.1 GESTES DES ARBITRES Les arbitres doivent faire le geste officiel pour indiquer les raisons de leur coup de sifflet (nature de la faute sifflée, ou de l’interruption autorisée). Le geste est soutenu pendant un instant et s’il est fait d’une seule main cette main correspond au côté de l’équipe fautive ou de l’équipe qui a fait la demande. 30.2 GESTES DES JUGES DE LIGNE Les juges de ligne doivent indiquer au moyen du signal de drapeau officiel la nature de la faute commise, et le maintenir un moment.",
+		"renvois": [
+			"Fig.11",
+			"Fig.12"
+		],
+		"ordre": 538
+	}
+]
