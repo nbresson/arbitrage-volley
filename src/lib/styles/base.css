@@ -1,0 +1,56 @@
+@import '@fontsource/sofia-sans/400.css';
+@import '@fontsource/sofia-sans/500.css';
+@import '@fontsource/sofia-sans/600.css';
+@import '@fontsource/sofia-sans/700.css';
+@import '@fontsource/sofia-sans-condensed/600.css';
+@import '@fontsource/sofia-sans-condensed/800.css';
+@import './tokens.css';
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	background: var(--sol);
+	color: var(--encre);
+	font-family: var(--police);
+	font-size: 16px;
+	line-height: 1.5;
+}
+
+a {
+	color: var(--bleu);
+	text-underline-offset: 3px;
+}
+
+a:hover {
+	color: var(--bleu-texte);
+}
+
+::selection {
+	background: var(--bleu);
+	color: var(--papier);
+}
+
+:focus-visible {
+	outline: 2px solid var(--bleu);
+	outline-offset: 2px;
+}
+
+.chiffres {
+	font-family: var(--police-chiffres);
+	font-variant-numeric: tabular-nums;
+}
+
+/* Texte réservé aux lecteurs d'écran */
+.vh {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+	white-space: nowrap;
+}

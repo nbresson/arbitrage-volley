@@ -1,0 +1,43 @@
+/* Design tokens — source : DESIGN.md (« Le tableau de marque »).
+   Toute nouvelle valeur est d'abord ajoutée à DESIGN.md ; tests/unit/tokens.test.ts vérifie la concordance. */
+:root {
+	/* Couleurs */
+	--tableau: #1C2430;
+	--volet: #262F3D;
+	--sol: #ECEDEA;
+	--papier: #FFFFFF;
+	--encre: #171B21;
+	--doux: #555D68;
+	--filet: #C9CCC6;
+	--bleu: #2856B8;
+	--bleu-clair: #F1F5FD;
+	--rouge: #D2352B;
+	--rouge-clair: #FCF1F0;
+	--ambre: #9A5B00;
+	--ambre-vif: #E3A43B;
+	--ambre-clair: #FFF6E6;
+	--tableau-survol: #2E3A4B;
+	--tableau-texte: #C5CDD8;
+	--tableau-texte-doux: #AEB7C4;
+	--volet-bord: #3A4556;
+	--bleu-texte: #1D4290;
+	--rouge-texte: #B42A21;
+	--desactive: #DCDED9;
+	--filet-doux: #E3E5E0;
+	--ligne-survol: #F7F7F5;
+	--terrain: #E1E3DE;
+	--zone-surlignee: #D2DDF3;
+
+	/* Typographie */
+	--police: 'Sofia Sans', system-ui, sans-serif;
+	--police-chiffres: 'Sofia Sans Condensed', 'Sofia Sans', system-ui, sans-serif;
+
+	/* Forme */
+	--r-petit: 4px;
+	--r: 6px;
+
+	/* Mouvement */
+	--duree-micro: 150ms;
+	--duree-volet: 240ms;
+	--courbe-volet: cubic-bezier(0.3, 0.7, 0.4, 1);
+}
