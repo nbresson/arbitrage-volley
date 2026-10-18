@@ -1,0 +1,225 @@
+<script lang="ts">
+	import '#lib/components/formulaire.css';
+	import Bandeau from '#lib/components/Bandeau.svelte';
+	import NavFormateur from '#lib/components/NavFormateur.svelte';
+	import { listerQuestions, type LigneQuestion } from '#lib/data/questions.ts';
+
+	let questions = $state<LigneQuestion[]>([]);
+	let etat = $state<'chargement' | 'pret' | 'erreur'>('chargement');
+	let f = $state({ statut: 'brouillon', theme: '', niveau: '', role: '', origine: '', aRelire: false, texte: '' });
+
+	$effect(() => {
+		listerQuestions()
+			.then((q) => ((questions = q), (etat = 'pret')))
+			.catch(() => (etat = 'erreur'));
+	});
+
+	const themes = $derived([...new Set(questions.map((q) => q.theme).filter(Boolean))].sort() as string[]);
+	const niveaux = $derived([...new Set(questions.map((q) => q.niveau).filter(Boolean))].sort() as string[]);
+	const brouillons = $derived(questions.filter((q) => q.statut === 'brouillon').length);
+	const aRelire = $derived(questions.filter((q) => q.a_relire).length);
+	const visibles = $derived(
+		questions.filter(
+			(q) =>
+				(!f.statut || q.statut === f.statut) &&
+				(!f.theme || q.theme === f.theme) &&
+				(!f.niveau || q.niveau === f.niveau) &&
+				(!f.role || q.role_cible === f.role) &&
+				(!f.origine || q.origine === f.origine) &&
+				(!f.aRelire || q.a_relire) &&
+				(!f.texte.trim() || `${q.enonce} ${q.reference_origine ?? ''}`.toLowerCase().includes(f.texte.trim().toLowerCase()))
+		)
+	);
+	const STATUTS: Record<string, string> = { brouillon: 'Brouillon', validee: 'Validée', archivee: 'Archivée' };
+</script>
+
+<Bandeau
+	titre="Arbitrage volley"
+	sousTitre="Espace formateur"
+	compteurs={[
+		{ valeur: brouillons, chiffres: 3, libelle: 'Brouillons à relire' },
+		{ valeur: aRelire, chiffres: 2, libelle: 'À relire (nouvelle édition)' }
+	]}
+	resumeTexte="{brouillons} brouillons à relire · {aRelire} à relire"
+>
+	{#snippet navigation()}<NavFormateur />{/snippet}
+</Bandeau>
+
+<main class="page">
+	<div class="entete">
+		<h1>Questions</h1>
+		<a class="btn" href="/formateur/questions/nouvelle">Nouvelle question</a>
+	</div>
+
+	<form class="filtres" onsubmit={(e) => e.preventDefault()}>
+		<label class="champ">Statut
+			<select bind:value={f.statut}><option value="">Tous</option><option value="brouillon">Brouillons</option><option value="validee">Validées</option><option value="archivee">Archivées</option></select>
+		</label>
+		<label class="champ">Thème
+			<select bind:value={f.theme}><option value="">Tous</option>{#each themes as t (t)}<option>{t}</option>{/each}</select>
+		</label>
+		<label class="champ">Niveau
+			<select bind:value={f.niveau}><option value="">Tous</option>{#each niveaux as n (n)}<option>{n}</option>{/each}</select>
+		</label>
+		<label class="champ">Rôle
+			<select bind:value={f.role}><option value="">Tous</option><option value="arbitre">Arbitre</option><option value="marqueur">Marqueur</option><option value="les_deux">Les deux</option></select>
+		</label>
+		<label class="champ">Origine
+			<select bind:value={f.origine}><option value="">Toutes</option><option value="casebook">Casebook</option><option value="manuelle">Rédigée</option></select>
+		</label>
+		<label class="champ texte">Rechercher
+			<input type="search" bind:value={f.texte} placeholder="mot de l’énoncé ou « Cas 3.35 »" />
+		</label>
+		<label class="case"><input type="checkbox" bind:checked={f.aRelire} /> Seulement « à relire »</label>
+	</form>
+
+	{#if etat === 'chargement'}
+		<p role="status">Chargement…</p>
+	{:else if etat === 'erreur'}
+		<p class="message-erreur" role="alert">Les questions n’ont pas pu être chargées. Vérifiez votre connexion puis rechargez la page.</p>
+	{:else}
+		<p class="compte" role="status">{visibles.length} question{visibles.length > 1 ? 's' : ''}</p>
+		{#if visibles.length}
+			<div class="defile">
+				<table>
+					<caption class="vh">Questions</caption>
+					<thead><tr><th scope="col">Énoncé</th><th scope="col">Thème</th><th scope="col">Niveau</th><th scope="col">Statut</th></tr></thead>
+					<tbody>
+						{#each visibles.slice(0, 200) as q (q.id)}
+							<tr>
+								<th scope="row">
+									<a href="/formateur/questions/{q.id}">{q.enonce.length > 140 ? q.enonce.slice(0, 140) + '…' : q.enonce}</a>
+									<span class="sous">{q.reference_origine ?? 'Rédigée'}{q.usage === 'reserve_examen' ? ' · réserve d’examen' : ''}</span>
+								</th>
+								<td>{q.theme ?? '—'}</td>
+								<td>{q.niveau ?? '—'}</td>
+								<td>
+									<span class="statut {q.statut}">{STATUTS[q.statut]}</span>
+									{#if q.a_relire}<span class="statut relire">À relire</span>{/if}
+								</td>
+							</tr>
+						{/each}
+					</tbody>
+				</table>
+			</div>
+		{:else}
+			<p>Aucune question ne correspond à ces filtres. <button class="lien" onclick={() => (f = { statut: '', theme: '', niveau: '', role: '', origine: '', aRelire: false, texte: '' })}>Effacer les filtres</button></p>
+		{/if}
+	{/if}
+</main>
+
+<style>
+	.page {
+		padding: 28px 40px 48px;
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+	}
+	.entete {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		align-items: center;
+		gap: 12px;
+	}
+	h1 {
+		margin: 0;
+		font-size: 27px;
+		font-weight: 600;
+	}
+	.filtres {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 12px;
+		align-items: flex-end;
+	}
+	.filtres .champ {
+		flex: 0 1 170px;
+	}
+	.filtres .texte {
+		flex: 1 1 240px;
+	}
+	.case {
+		display: flex;
+		gap: 8px;
+		align-items: center;
+		padding-bottom: 12px;
+	}
+	.compte {
+		margin: 0;
+		color: var(--doux);
+	}
+	.defile {
+		overflow-x: auto;
+	}
+	table {
+		width: 100%;
+		min-width: 720px;
+		border-collapse: collapse;
+		background: var(--papier);
+		border: 1px solid var(--filet);
+	}
+	th,
+	td {
+		padding: 12px 16px;
+		text-align: left;
+		border-bottom: 1px solid var(--filet-doux);
+		vertical-align: top;
+	}
+	thead th {
+		font-size: 13px;
+		font-weight: 600;
+		color: var(--doux);
+		border-bottom-color: var(--filet);
+	}
+	tbody th {
+		font-weight: 500;
+	}
+	tbody th a {
+		color: var(--encre);
+	}
+	tr:hover {
+		background: var(--ligne-survol);
+	}
+	.sous {
+		display: block;
+		font-size: 13px;
+		color: var(--doux);
+		margin-top: 4px;
+	}
+	.statut {
+		display: inline-block;
+		font-size: 13px;
+		font-weight: 700;
+		padding: 3px 8px;
+		border-radius: var(--r-petit);
+		margin: 0 4px 4px 0;
+	}
+	.brouillon,
+	.relire {
+		background: var(--ambre-clair);
+		color: var(--ambre);
+	}
+	.validee {
+		background: var(--bleu-clair);
+		color: var(--bleu-texte);
+	}
+	.archivee {
+		background: var(--sol);
+		color: var(--doux);
+	}
+	.lien {
+		font: inherit;
+		background: none;
+		border: 0;
+		padding: 0;
+		color: var(--bleu-texte);
+		text-decoration: underline;
+		cursor: pointer;
+	}
+	@media (max-width: 700px) {
+		.page {
+			padding: 20px;
+		}
+	}
+</style>
