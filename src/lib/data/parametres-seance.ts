@@ -31,7 +31,7 @@ export function parametresParDefaut(profil: Profil, type: TypeSeance): Parametre
 }
 
 /** Préremplissage depuis l'URL : ?mode=…&theme=…&theme=…&regle=…&nb=… */
-export function lireParametres(url: URL, profil: Profil): ParametresSeance {
+export function lireParametres(url: { searchParams: Pick<URLSearchParams, 'get' | 'getAll'> }, profil: Profil): ParametresSeance {
 	const q = url.searchParams;
 	const type: TypeSeance = q.get('mode') === 'examen_entrainement' ? 'examen_entrainement' : 'pedagogique';
 	const p = parametresParDefaut(profil, type);
