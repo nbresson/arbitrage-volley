@@ -3,6 +3,8 @@ import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
+	// Seules les variables PUBLIC_* de .env.local sont exposées au navigateur (import.meta.env).
+	envPrefix: 'PUBLIC_',
 	plugins: [
 		sveltekit({
 			compilerOptions: {
