@@ -5,16 +5,21 @@
 	import Filet from '#lib/components/Filet.svelte';
 	import NavPrincipale from '#lib/components/NavPrincipale.svelte';
 	import Volet from '#lib/components/Volet.svelte';
-	import { terminerSeance, type BilanSeance } from '#lib/data/seances.ts';
+	import { goto } from '$app/navigation';
+	import { infoSeance, terminerSeance, type BilanSeance } from '#lib/data/seances.ts';
 
 	const seanceId = page.params.seance ?? '';
 	let bilan = $state<BilanSeance | null>(null);
 	let erreur = $state(false);
 
 	$effect(() => {
-		// terminer_seance est idempotente : elle renvoie le bilan d'un examen déjà terminé.
-		terminerSeance(seanceId)
-			.then((b) => (bilan = b))
+		// Cette page n'achève jamais un examen : s'il est en cours, retour à l'examen (qui envoie ses réponses en attente).
+		// Pour un examen terminé, terminer_seance est idempotente et renvoie le bilan enregistré.
+		infoSeance(seanceId)
+			.then(async (i) => {
+				if (!i.fin) return goto(`/examen-entrainement/${seanceId}`, { replaceState: true });
+				bilan = await terminerSeance(seanceId);
+			})
 			.catch(() => (erreur = true));
 	});
 

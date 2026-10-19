@@ -11,7 +11,7 @@ export async function chargerProfil(): Promise<Profil | null> {
 	} else {
 		const { data: p } = await supabase
 			.from('profils')
-			.select('id, prenom, nom, role, profil_formation, niveau_id, notice_acceptee_le')
+			.select('id, prenom, nom, role, profil_formation, niveau_id, notice_acceptee_le, actif')
 			.eq('id', data.user.id)
 			.single();
 		session.profil = (p as Profil | null) ?? null;

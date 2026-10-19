@@ -214,3 +214,49 @@ describe('enregistrer_question', () => {
 		expect(error).not.toBeNull();
 	});
 });
+
+describe('corrections de la revue finale', () => {
+	test('examen : une réponse plus ancienne arrivée en retard n’écrase pas la plus récente', async () => {
+		const { data: id } = await creer(c.stagiaireA, { p_type: 'examen_entrainement', p_duree_minutes: 30 });
+		const recent = new Date().toISOString();
+		const ancien = new Date(Date.now() - 60_000).toISOString();
+		await c.stagiaireA.rpc('valider_reponse', { p_seance: id, p_question: qs[0].id, p_proposition: qs[0].props.B, p_repondu_le: recent });
+		await c.stagiaireA.rpc('valider_reponse', { p_seance: id, p_question: qs[0].id, p_proposition: qs[0].props.A, p_repondu_le: ancien });
+		const { data } = await c.stagiaireA.rpc('terminer_seance', { p_seance: id });
+		expect(data.score).toBe(1);
+	});
+
+	test('examen : après la fin du temps (et du délai de renvoi), une réponse antidatée est refusée', async () => {
+		const { data: id } = await creer(c.stagiaireA, { p_type: 'examen_entrainement', p_duree_minutes: 5 });
+		await admin.from('seances').update({ debut: new Date(Date.now() - 60 * 60_000).toISOString() }).eq('id', id);
+		const antidate = new Date(Date.now() - 58 * 60_000).toISOString(); // « dans le temps » selon l'appareil
+		const { error } = await c.stagiaireA.rpc('valider_reponse', { p_seance: id, p_question: qs[0].id, p_proposition: qs[0].props.B, p_repondu_le: antidate });
+		expect(error?.message).toBe('Le temps de l’examen est écoulé.');
+	});
+
+	test('examen : une réponse gardée hors ligne, renvoyée peu après la fin, est acceptée', async () => {
+		const { data: id } = await creer(c.stagiaireA, { p_type: 'examen_entrainement', p_duree_minutes: 5 });
+		await admin.from('seances').update({ debut: new Date(Date.now() - 8 * 60_000).toISOString() }).eq('id', id);
+		const pendant = new Date(Date.now() - 4 * 60_000).toISOString();
+		const { error } = await c.stagiaireA.rpc('valider_reponse', { p_seance: id, p_question: qs[0].id, p_proposition: qs[0].props.B, p_repondu_le: pendant });
+		expect(error).toBeNull();
+	});
+
+	test('les fonctions internes ne sont pas appelables par un stagiaire', async () => {
+		expect((await c.stagiaireA.rpc('sources_question', { p_question: reserve.id })).error).not.toBeNull();
+		expect((await c.stagiaireA.rpc('ma_seance', { p_seance: '00000000-0000-0000-0000-000000000000' })).error?.code).toBe('42501');
+	});
+
+	test('pédagogique : la réponse renvoie la proposition réellement enregistrée', async () => {
+		const { data: id } = await creer();
+		await c.stagiaireA.rpc('valider_reponse', { p_seance: id, p_question: qs[2].id, p_proposition: qs[2].props.A });
+		const { data } = await c.stagiaireA.rpc('valider_reponse', { p_seance: id, p_question: qs[2].id, p_proposition: qs[2].props.B });
+		expect(data).toMatchObject({ proposition_id: qs[2].props.A, correcte: false });
+	});
+
+	test('un formateur ne peut pas désactiver son propre compte', async () => {
+		await c.formateur.from('profils').update({ actif: false }).eq('id', c.ids.formateur);
+		const { data } = await admin.from('profils').select('actif').eq('id', c.ids.formateur).single();
+		expect(data!.actif).toBe(true);
+	});
+});

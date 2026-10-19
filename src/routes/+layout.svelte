@@ -12,7 +12,10 @@
 
 	$effect(() => {
 		chargerProfil();
-		const { data } = supabase.auth.onAuthStateChange(() => chargerProfil());
+		// Ne pas appeler Supabase directement dans ce rappel (blocage possible) : on diffère le chargement.
+		const { data } = supabase.auth.onAuthStateChange(() => {
+			setTimeout(chargerProfil, 0);
+		});
 		return () => data.subscription.unsubscribe();
 	});
 

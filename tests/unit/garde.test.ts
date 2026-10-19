@@ -9,6 +9,7 @@ const profil = (p: Partial<Profil> = {}): Profil => ({
 	profil_formation: 'arbitre',
 	niveau_id: 'n2',
 	notice_acceptee_le: '2026-10-01T10:00:00Z',
+	actif: true,
 	...p
 });
 
@@ -42,5 +43,17 @@ describe('garde', () => {
 
 	test('cas nominal : pas de redirection', () => {
 		expect(garde(profil(), '/entrainement/nouvelle')).toBeNull();
+	});
+});
+
+describe('garde : corrections de la revue', () => {
+	test('un invité arrivant par son lien choisit d’abord son mot de passe, avant la notice', () => {
+		expect(garde(profil({ notice_acceptee_le: null }), '/mot-de-passe')).toBeNull();
+	});
+
+	test('un compte désactivé est dirigé vers la page qui l’en informe', () => {
+		expect(garde(profil({ actif: false }), '/')).toBe('/compte-desactive');
+		expect(garde(profil({ actif: false }), '/compte-desactive')).toBeNull();
+		expect(garde(profil({ actif: true }), '/compte-desactive')).toBe('/');
 	});
 });

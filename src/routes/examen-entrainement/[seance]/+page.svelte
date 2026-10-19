@@ -8,9 +8,9 @@
 	import Filet from '#lib/components/Filet.svelte';
 	import GrilleQuestions from '#lib/components/GrilleQuestions.svelte';
 	import Reponse from '#lib/components/Reponse.svelte';
-	import { infoSeance, questionsDeSeance, signalerQuestion, terminerSeance, validerReponse, type InfoSeance, type QuestionSeanceAvecEtat } from '#lib/data/seances.ts';
+	import { ErreurServeur, infoSeance, questionsDeSeance, signalerQuestion, terminerSeance, validerReponse, type InfoSeance, type QuestionSeanceAvecEtat } from '#lib/data/seances.ts';
 	import { prochaineSansReponse, tempsRestant, texteConfirmation } from '#lib/seance/examen.ts';
-	import { creerFile } from '#lib/seance/file-hors-ligne.ts';
+	import { creerFile, RefusDefinitif } from '#lib/seance/file-hors-ligne.ts';
 	import { SvelteSet } from 'svelte/reactivity';
 
 	const seanceId = page.params.seance ?? '';
@@ -28,6 +28,7 @@
 	let maintenant = $state(new Date());
 	let confirmation = $state(false);
 	let erreurFin = $state('');
+	let refus = $state('');
 	let fini = false;
 
 	$effect(() => {
@@ -78,8 +79,26 @@
 
 	async function envoyerFile() {
 		const bilan = await file.vider(async (r) => {
-			await validerReponse(r.seanceId, r.questionId, r.propositionId, r.reponduLe);
+			try {
+				await validerReponse(r.seanceId, r.questionId, r.propositionId, r.reponduLe);
+			} catch (e) {
+				// Refus du serveur : réessayer ne changerait rien, la réponse est retirée de la file.
+				throw e instanceof ErreurServeur ? new RefusDefinitif(e.message) : e;
+			}
 		});
+		if (bilan.refusees) {
+			refus = `${bilan.refusees} réponse(s) refusée(s) par le serveur : ${bilan.messageRefus} Si l’heure de votre appareil est fausse, corrigez-la.`;
+			// Resynchronise l'affichage avec ce que le serveur a réellement enregistré.
+			const qs = await questionsDeSeance(seanceId).catch(() => null);
+			if (qs) {
+				repondues.clear();
+				qs.forEach((q, k) => q.proposition_choisie && repondues.add(k + 1));
+				for (const r of file.lister()) {
+					const k = qs.findIndex((q) => q.question_id === r.questionId);
+					if (k >= 0) repondues.add(k + 1);
+				}
+			}
+		}
 		if (bilan.envoyees && !bilan.restantes && enregistrement === 'locale') enregistrement = 'enregistree';
 		return bilan;
 	}
@@ -182,6 +201,7 @@
 					{enregistrement === 'enregistree' ? 'Réponse enregistrée' : enregistrement === 'locale' ? 'Réponse gardée sur cet appareil' : ''}
 				</span>
 			</div>
+			{#if refus}<p class="message-erreur" role="alert">{refus}</p>{/if}
 			<p class="aide" class:alerte={temps?.faible} aria-live="polite">
 				{temps?.faible ? 'Plus que 5 minutes. ' : ''}Les corrections ne sont pas affichées pendant l’examen. À la fin du temps, vos réponses enregistrées sont envoyées automatiquement.
 			</p>

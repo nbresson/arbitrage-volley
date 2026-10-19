@@ -84,3 +84,10 @@ describe('séance pédagogique', () => {
 		expect(suivante(choisir(depart(), 'q1-A')).index).toBe(0);
 	});
 });
+
+describe('séance pédagogique : correction de la revue', () => {
+	test('le choix affiché est celui que le serveur a enregistré (la première réponse fait foi)', () => {
+		const e = finValidation(debutValidation(choisir(depart(), 'q1-C')), { ...res(false), proposition_id: 'q1-A' });
+		expect(e.choix).toBe('q1-A');
+	});
+});

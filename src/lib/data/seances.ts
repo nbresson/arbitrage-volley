@@ -5,6 +5,16 @@ import type { ParametresSeance } from './parametres-seance.ts';
 
 export type Option = { id: string; libelle: string };
 
+/** Refus explicite du serveur (code d'erreur PostgreSQL), à distinguer d'une coupure réseau. */
+export class ErreurServeur extends Error {
+	constructor(
+		message: string,
+		readonly code: string
+	) {
+		super(message);
+	}
+}
+
 /** Thèmes et niveaux (listes gérées par les formateurs). */
 export async function referentiel(): Promise<{ themes: Option[]; niveaux: Option[] }> {
 	const [t, n] = await Promise.all([
@@ -73,7 +83,7 @@ export async function validerReponse(seance: string, question: string, propositi
 		p_proposition: proposition,
 		...(reponduLe ? { p_repondu_le: reponduLe } : {})
 	});
-	if (error) throw new Error(error.message);
+	if (error) throw error.code ? new ErreurServeur(error.message, error.code) : new Error(error.message);
 	return data as ResultatValidation | { enregistree: true };
 }
 

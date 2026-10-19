@@ -4,6 +4,7 @@
 	import DialogueConfirmation from '#lib/components/DialogueConfirmation.svelte';
 	import NavFormateur from '#lib/components/NavFormateur.svelte';
 	import { referentiel, type Option } from '#lib/data/seances.ts';
+	import { session } from '#lib/session.svelte.ts';
 	import { changerActivation, creerCompte, listerComptes, type Compte, type NouveauCompte } from '#lib/data/stagiaires.ts';
 
 	let comptes = $state<Compte[]>([]);
@@ -98,7 +99,7 @@
 									<td>{libelleNiveau(c.niveau_id)}</td>
 									<td>{c.actif ? 'Actif' : 'Désactivé'}</td>
 									<td>
-										{#if c.actif}<button class="lien" onclick={() => (aDesactiver = c)}>Désactiver…</button>{:else}<button class="lien" onclick={() => basculer(c)}>Réactiver</button>{/if}
+										{#if c.id === session.profil?.id}<span class="sous">Votre compte</span>{:else if c.actif}<button class="lien" onclick={() => (aDesactiver = c)}>Désactiver…</button>{:else}<button class="lien" onclick={() => basculer(c)}>Réactiver</button>{/if}
 									</td>
 								</tr>
 							{/each}

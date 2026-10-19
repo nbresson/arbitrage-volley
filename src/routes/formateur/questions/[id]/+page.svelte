@@ -11,7 +11,8 @@
 	import { validerFormulaire, type FormulaireQuestion } from '#lib/formateur/validation-question.ts';
 	import { chercher, type Regle } from '#lib/regles/arbre.ts';
 
-	const id = page.params.id === 'nouvelle' ? null : (page.params.id ?? null);
+	// Identifiant courant : null pour une nouvelle question, puis celui renvoyé par le premier enregistrement.
+	let id = $state<string | null>(page.params.id === 'nouvelle' ? null : (page.params.id ?? null));
 	let question = $state<QuestionComplete | null>(null);
 	let f = $state<FormulaireQuestion>(formulaireVide());
 	let liees = $state<RegleLiee[]>([]);
@@ -68,8 +69,12 @@
 		try {
 			const nouvelId = await enregistrerQuestion(id, f, valider);
 			message = valider ? 'Question validée : elle est maintenant proposée aux stagiaires.' : 'Question enregistrée.';
-			if (!id) goto(`/formateur/questions/${nouvelId}`, { replaceState: true });
-			else question = await chargerQuestion(nouvelId);
+			if (!id) {
+				id = nouvelId;
+				goto(`/formateur/questions/${nouvelId}`, { replaceState: true });
+			}
+			question = await chargerQuestion(nouvelId);
+			liees = question.reglesLiees;
 		} catch {
 			erreurEnvoi = 'La question n’a pas pu être enregistrée. Vérifiez votre connexion puis réessayez.';
 		} finally {
@@ -103,7 +108,8 @@
 		<p class="message-erreur" role="alert">La question n’a pas pu être chargée. Vérifiez votre connexion puis rechargez la page.</p>
 	{:else}
 		<div class="colonnes">
-			<form class="carte" onsubmit={(e) => (e.preventDefault(), enregistrer(false))} novalidate>
+			<!-- Entrée dans un champ ne doit rien enregistrer : seuls les boutons explicites agissent. -->
+			<form class="carte" onsubmit={(e) => e.preventDefault()} novalidate>
 				<div class="titre">
 					<h1>{id ? 'Modifier la question' : 'Nouvelle question'}</h1>
 					{#if question}<span class="statut {question.statut}">{STATUTS[question.statut]}</span>{/if}
@@ -185,7 +191,7 @@
 				{#if message}<p class="message-info" role="status">{message}</p>{/if}
 				<div class="actions">
 					<button class="btn" type="button" disabled={envoi} onclick={() => enregistrer(true)}>{question?.statut === 'validee' ? 'Enregistrer et garder validée' : 'Valider la question'}</button>
-					<button class="btn2" type="submit" disabled={envoi}>{question?.statut === 'validee' ? 'Repasser en brouillon' : 'Enregistrer le brouillon'}</button>
+					<button class="btn2" type="button" disabled={envoi} onclick={() => enregistrer(false)}>{question?.statut === 'validee' ? 'Repasser en brouillon' : 'Enregistrer le brouillon'}</button>
 					{#if id && question?.statut !== 'archivee'}<button class="lien danger" type="button" onclick={() => (confirmerArchive = true)}>Archiver…</button>{/if}
 				</div>
 			</form>

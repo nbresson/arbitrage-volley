@@ -25,6 +25,8 @@ export type SourceCitee = {
 /** Réponse de la fonction valider_reponse pour une séance pédagogique. */
 export type ResultatValidation = {
 	correcte: boolean;
+	/** Proposition réellement enregistrée par le serveur (la première réponse fait foi). */
+	proposition_id?: string;
 	bonne_proposition_id: string;
 	explication: string;
 	sources: SourceCitee[];
@@ -60,6 +62,7 @@ export const debutValidation = (e: EtatPedago): EtatPedago =>
 
 export const finValidation = (e: EtatPedago, r: ResultatValidation): EtatPedago => ({
 	...e,
+	choix: r.proposition_id ?? e.choix,
 	resultat: r,
 	envoi: 'repos',
 	acquises: e.acquises + (r.correcte ? 1 : 0),
