@@ -14,7 +14,9 @@
 		"test:integration": "vitest run --project integration",
 		"db:dev": "tsx scripts/db/appliquer.ts --cible dev",
 		"charger:dev": "tsx scripts/import/charger.ts --cible dev",
-		"charger:prod": "tsx scripts/import/charger.ts --cible prod"
+		"charger:prod": "tsx scripts/import/charger.ts --cible prod",
+		"fonctions:dev": "tsx scripts/db/deployer-fonctions.ts --cible dev",
+		"fonctions:prod": "tsx scripts/db/deployer-fonctions.ts --cible prod"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-static": "^4.0.0",
