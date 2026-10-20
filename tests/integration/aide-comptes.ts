@@ -67,3 +67,20 @@ export async function creerQuestion(options: { statut?: string; usage?: string; 
 	await admin.from('bonnes_reponses').insert({ question_id: q.id, proposition_id: parLettre.B });
 	return { id: q.id as string, props: parLettre };
 }
+
+/** Examen officiel en brouillon créé par le formateur connecté (date : dans une heure). */
+export async function creerExamen(formateur: SupabaseClient, options: { duree?: number; seuil?: number } = {}): Promise<string> {
+	const { data, error } = await formateur
+		.from('examens_officiels')
+		.insert({
+			titre: `Examen de test ${unique()}`,
+			date_heure: new Date(Date.now() + 3600_000).toISOString(),
+			lieu: 'Salle de test',
+			duree_minutes: options.duree ?? 30,
+			seuil_reussite: options.seuil ?? 1
+		})
+		.select('id')
+		.single();
+	if (error) throw error;
+	return data.id as string;
+}
