@@ -4,21 +4,22 @@
 
 ## En une phrase
 
-Plateforme web (SvelteKit 3 statique + Supabase) de formation des arbitres de volley-ball d'un comité : règles FIVB et Casebook consultables, QCM en mode pédagogique (correction + règle citée) et examens d'entraînement. **V1 « S'entraîner » codée, testée et relue ; reste la mise en ligne (tâche 18).**
+Plateforme web (SvelteKit 3 statique + Supabase) de formation des arbitres de volley-ball d'un comité : règles FIVB, Casebook et consignes CFA consultables, QCM en mode pédagogique (correction + règle citée), examens d'entraînement, examens officiels en salle. **V1 « S'entraîner » et V2 « Évaluer » codées et testées ; reste la mise en ligne (tâche 18 du plan V1).**
 
 ## État au 2026-10-20
 
 | Élément | État |
 |---|---|
-| Branche de travail | `v1-sentrainer` (20 commits, **non fusionnée** dans `main`) |
-| Plan V1 | [docs/superpowers/plans/2026-10-18-v1-sentrainer.md](docs/superpowers/plans/2026-10-18-v1-sentrainer.md) — tâches 1 à 17 **faites**, tâche 18 **à faire** |
-| Revue finale de la branche | Faite (0 critique) ; 12 points corrigés dans le commit `25a7882` ; 3 mineurs reportés (voir plus bas) |
-| Tests | `npm test` 113/113 · `npm run test:integration` 52/52 · `npm run check` 0 erreur · `npm run build` OK |
-| Base de **dev** (Supabase) | Migrations 1 à 4 appliquées, fonction `creer-compte` déployée, contenu chargé : 539 règles, 208 cas, 204 questions **en brouillon** (aucune validée) |
+| Branches | `v1-sentrainer` (V1) puis `v2-evaluer` (V2, partie de `v1-sentrainer`) — **aucune fusionnée** dans `main` |
+| Plan V1 | [docs/superpowers/plans/2026-10-18-v1-sentrainer.md](docs/superpowers/plans/2026-10-18-v1-sentrainer.md) — tâches 1 à 17 **faites**, tâche 18 (mise en ligne) **à faire** |
+| Plan V2 | [docs/superpowers/plans/2026-10-20-v2-evaluer.md](docs/superpowers/plans/2026-10-20-v2-evaluer.md) — tâches 1 à 9 **faites** (exécution directe, revue finale par sous-agent) |
+| Tests | `npm test` 145/145 · `npm run test:integration` 113/113 · `npm run check` 0 erreur · `npm run build` OK |
+| Vérification manuelle V2 (dev, 2026-10-20) | Création d'examen, composition, inscription, convocation, ouverture et code, mauvais code refusé, coupure réseau simulée, reprise avec le code, résultat « Non réussi » sans correction, clôture, fiche stagiaire, consignes CFA : OK. **Non vérifiés à la main** : l'examen d'entraînement après sa réécriture en composant commun (aucune question d'entraînement validée en dev ; couvert par les tests unitaires) et l'affichage d'une consigne CFA dans la correction d'une question |
+| Base de **dev** (Supabase) | Migrations V1 (4) + V2 (`20261020000001` à `…05`) appliquées, fonction `creer-compte` déployée, contenu chargé : 539 règles, 208 cas, 204 questions **en brouillon** (aucune validée), réserve d'examen vide, aucune édition CFA |
 | Base de **prod** | N'existe pas encore |
 | Site en ligne | Pas encore |
 
-Journal détaillé de l'exécution (décisions « Ruling », fichier ignoré par Git) : `.superpowers/sdd/2026-10-18-v1-sentrainer/progress.md`. S'il a disparu, l'historique Git fait foi.
+Journaux détaillés de l'exécution (décisions « Ruling », ignorés par Git) : `.superpowers/sdd/<plan>/progress.md`. S'ils ont disparu, l'historique Git fait foi.
 
 ## Documents de référence (l'ordre d'autorité)
 
@@ -47,12 +48,13 @@ Publier, pousser vers GitHub ou fusionner dans `main` : **demander l'accord de l
 ### Après la V1
 
 - **Relecture des 204 brouillons** par les formateurs (dans l'application). Points signalés par les agents de rédaction : cas 3.48, 3.53, 5.27, 9.5 ; énoncés recentrés sur un seul scénario : 2.4, 4.34, 5.4, 5.6, 5.7, 5.23. Cas laissés sans question : 1.11, 3.27.1, 3.27.6, 8.1.
-- **Mineurs reportés par la revue** :
+- **Rédaction de la réserve d'examen** par les formateurs : sans elle, aucun examen officiel ne peut être composé (les cas du Casebook, publics, ne conviennent pas).
+- **Mineurs reportés par la revue V1** :
   - bruit de mise en page restant dans quelques textes de règles (21.6, 23.3.2.3) ; ~20 renvois vers des articles 25.2.x.y absents de l'extraction ;
-  - `src/lib/data/regles.ts` charge toutes les règles en une requête (plafond 1000 lignes, 747 aujourd'hui) → paginer avant d'ajouter la CFA ;
   - `scripts/import/charger.ts` ne supprime pas les lignes disparues et n'est pas transactionnel.
-- **Plan V2 « Évaluer »** à écrire (skill `superpowers:writing-plans`) : réserve d'examen (la colonne `questions.usage` existe déjà), examens officiels en salle avec code d'accès et une seule tentative, fiche stagiaire formateur (examens officiels + avancement pédagogique via la fonction `avancement(p_stagiaire)`), consignes CFA.
-- **Décisions ouvertes du comité** (spec § 13) : nom de la plateforme (« Arbitrage volley » provisoire), listes des niveaux (provisoires : Niveau 1/2/3) et des thèmes (rubriques du Casebook), seuil de réussite, consignes CFA (document non fourni), durée de conservation (proposée : 2 ans), banque de QCM existante, détenteurs des comptes techniques. Dans l'interface, les placeholders `[Comité]`, `[adresse de contact du comité]` sont à remplacer.
+  - (réglé en V2 : `src/lib/data/regles.ts` charge désormais les règles par pages de 1000.)
+- **Mineurs reportés par la revue V2** : voir la section « Revue finale V2 » du journal `.superpowers/sdd/2026-10-20-v2-evaluer/progress.md` (recopiée dans le message de fin de session).
+- **Décisions ouvertes du comité** (spec § 13) : nom de la plateforme (« Arbitrage volley » provisoire), listes des niveaux (provisoires : Niveau 1/2/3) et des thèmes (rubriques du Casebook), seuil de réussite (V2 : par examen, 70 % proposé par défaut), consignes CFA (document non fourni ; saisie manuelle possible), durée de conservation (proposée : 2 ans), banque de QCM existante (bonne source pour la réserve d'examen), détenteurs des comptes techniques. Dans l'interface, les placeholders `[Comité]`, `[adresse de contact du comité]` sont à remplacer.
 
 ## Environnement et accès
 
@@ -85,6 +87,9 @@ Publier, pousser vers GitHub ou fusionner dans `main` : **demander l'accord de l
 - **Fonction `creer-compte`** : `envoyer_email: false` renvoie le lien d'invitation au lieu d'envoyer un e-mail (utilisé par les tests ; ne jamais envoyer d'e-mail réel vers des adresses fictives). Supabase renvoie le compte existant quand on invite une adresse connue : la fonction refuse donc l'adresse avant toute création et ne supprime jamais un compte qui a un profil.
 - **Extraction du PDF des règles** : `pdftotext -raw` (pas `-layout`, qui désaligne numéros et textes). Les textes officiels utilisent l'apostrophe typographique `’`.
 - **Horloges** : l'heure de réponse annoncée par le navigateur est tolérée à ±2 min de celle du serveur.
+- **Examens officiels (V2)** : le stagiaire ne lit que la **copie figée** (`examen_questions`, remplie par `ouvrir_examen`) via les fonctions `*_tentative` ; il répond par **lettre**. Le code vit dans `examen_codes` (formateurs seuls). Le score est calculé par `finaliser_tentative` (interne). L'écran d'examen est commun à l'entraînement et à l'officiel : `src/lib/components/PassationExamen.svelte`, branché par une `SourcePassation`.
+- **Vérifier à deux comptes en local** : un onglet sur `http://localhost:5173` et un autre sur `http://127.0.0.1:5173` ont des sessions séparées (lancer `npm run dev -- --host 127.0.0.1`).
+- **Règles citées** : un déclencheur refuse la suppression d'une règle (toutes sources) citée par une question validée.
 
 ## Méthode de travail suivie
 
