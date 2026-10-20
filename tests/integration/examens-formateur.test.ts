@@ -100,6 +100,16 @@ describe('ouvrir un examen', () => {
 		expect(error?.message).toBe('Le seuil dépasse le nombre de questions.');
 	});
 
+	test('une question repassée en brouillon après la composition : ouverture refusée', async () => {
+		q.devenueBrouillon = await creerQuestion({ usage: 'reserve_examen' });
+		const ex = await nouvelExamen();
+		await c.formateur.rpc('composer_examen', { p_examen: ex, p_question_ids: [q.devenueBrouillon.id] });
+		await c.formateur.from('inscriptions').insert({ examen_id: ex, stagiaire_id: c.ids.stagiaireA });
+		await admin.from('questions').update({ statut: 'brouillon' }).eq('id', q.devenueBrouillon.id);
+		const { error } = await c.formateur.rpc('ouvrir_examen', { p_examen: ex });
+		expect(error?.message).toBe('Une question de l’examen n’est plus validée dans la réserve d’examen : retirez-la ou validez-la.');
+	});
+
 	test('renvoie un code de 6 chiffres, le même au second appel', async () => {
 		const { error: e } = await c.formateur.from('inscriptions').insert([
 			{ examen_id: examen, stagiaire_id: c.ids.stagiaireA },

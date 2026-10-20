@@ -14,6 +14,11 @@ export const urlRegle = (r: Pick<Regle, 'edition' | 'reference'>) =>
 
 let cache: Promise<Regle[]> | null = null;
 
+/** À appeler après une modification des règles (consignes CFA) pour relire la base au prochain accès. */
+export function viderCacheRegles() {
+	cache = null;
+}
+
 const PAGE = 1000; // plafond de lignes renvoyées par l'API Supabase en une requête
 
 /** Toutes les règles des éditions actives (environ 750 aujourd'hui), chargées une fois, par pages de 1000. */

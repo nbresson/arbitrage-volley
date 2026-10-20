@@ -15,7 +15,8 @@
 		titre: string;
 		sousTitre: string;
 		urlResultat: string;
-		charger(): Promise<{ debut: string; dureeMinutes: number; fin: string | null; questions: QuestionPassation[] }>;
+		/** `maintenant` : l'heure du serveur, si la source la connaît (examen officiel). */
+		charger(): Promise<{ debut: string; dureeMinutes: number; fin: string | null; maintenant?: string; questions: QuestionPassation[] }>;
 		/** Lève ErreurServeur quand le serveur refuse (réessayer ne changerait rien). */
 		repondre(questionId: string, valeur: string, reponduLe: string): Promise<void>;
 		signaler(questionId: string, signalee: boolean): Promise<void>;
@@ -58,6 +59,16 @@
 	let erreurFin = $state('');
 	let refus = $state('');
 	let fini = false;
+	// Écart entre l'horloge du serveur et celle de l'appareil : le temps qui compte est celui du serveur.
+	let decalage = 0;
+	const heure = () => new Date(Date.now() + decalage);
+
+	/** L'examen est terminé côté serveur (clos par le formateur, ou déjà fini) : départ vers le résultat. */
+	function versResultat() {
+		fini = true;
+		localStorage.removeItem(cleFile);
+		goto(source.urlResultat, { replaceState: true });
+	}
 
 	/** Questions répondues : ce que le serveur a enregistré, plus les réponses encore en attente sur l'appareil. */
 	function marquerRepondues(qs: QuestionPassation[]) {
@@ -73,7 +84,9 @@
 		source
 			.charger()
 			.then((d) => {
-				if (d.fin) return goto(source.urlResultat, { replaceState: true });
+				if (d.fin) return versResultat();
+				if (d.maintenant) decalage = new Date(d.maintenant).getTime() - Date.now();
+				maintenant = heure();
 				info = { debut: d.debut, dureeMinutes: d.dureeMinutes };
 				questions = d.questions;
 				d.questions.forEach((q, k) => {
@@ -91,7 +104,7 @@
 			})
 			.catch(() => (chargement = 'erreur'));
 
-		const tic = setInterval(() => (maintenant = new Date()), 1000);
+		const tic = setInterval(() => (maintenant = heure()), 1000);
 		const enLigneOn = () => ((enLigne = true), envoyerFile());
 		const horsLigne = () => (enLigne = false);
 		addEventListener('online', enLigneOn);
@@ -123,10 +136,12 @@
 			}
 		});
 		if (bilan.refusees) {
-			refus = `${bilan.refusees} réponse(s) refusée(s) par le serveur : ${bilan.messageRefus} Si l’heure de votre appareil est fausse, corrigez-la.`;
+			const horloge = /temps/i.test(bilan.messageRefus ?? '') ? ' Si l’heure de votre appareil est fausse, corrigez-la.' : '';
+			refus = `${bilan.refusees} réponse(s) refusée(s) par le serveur : ${bilan.messageRefus}${horloge}`;
 			// Resynchronise l'affichage avec ce que le serveur a réellement enregistré.
 			const d = await source.charger().catch(() => null);
-			if (d) marquerRepondues(d.questions);
+			if (d?.fin) versResultat();
+			else if (d) marquerRepondues(d.questions);
 		}
 		if (bilan.envoyees && !bilan.restantes && enregistrement === 'locale') enregistrement = 'enregistree';
 		return bilan;
@@ -134,7 +149,7 @@
 
 	async function valider() {
 		if (!question || !choix[question.questionId]) return;
-		file.ajouter({ seanceId: cleFile, questionId: question.questionId, propositionId: choix[question.questionId], reponduLe: new Date().toISOString() });
+		file.ajouter({ seanceId: cleFile, questionId: question.questionId, propositionId: choix[question.questionId], reponduLe: heure().toISOString() });
 		repondues.add(courant);
 		enregistrement = 'en_cours';
 		const bilan = await envoyerFile();

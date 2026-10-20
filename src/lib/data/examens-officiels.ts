@@ -16,7 +16,8 @@ export type Convocation = {
 	terminee: boolean;
 };
 
-export type InfoTentative = { id: string; examen_id: string; titre: string; debut: string; fin: string | null; duree_minutes: number; nb_questions: number };
+/** `maintenant` : l'heure du serveur au moment de la lecture. */
+export type InfoTentative = { id: string; examen_id: string; titre: string; debut: string; fin: string | null; duree_minutes: number; nb_questions: number; maintenant: string };
 
 export type BilanTentative = { score: number; total: number; seuil: number; reussi: boolean; par_theme: { theme: string; justes: number; total: number }[] };
 
@@ -59,12 +60,15 @@ export function sourceTentative(id: string, titreExamen = ''): SourcePassation {
 		urlResultat: `/tentative/${id}/resultat`,
 		async charger() {
 			const info = await infoTentative(id);
-			if (info.fin) return { debut: info.debut, dureeMinutes: info.duree_minutes, fin: info.fin, questions: [] };
+			const base = { debut: info.debut, dureeMinutes: info.duree_minutes, maintenant: info.maintenant };
+			if (info.fin) return { ...base, fin: info.fin, questions: [] };
+			// Temps écoulé selon le serveur : il refuse les questions ; l'écran envoie les réponses en attente et termine.
+			const finServeur = new Date(info.debut).getTime() + info.duree_minutes * 60_000 + 2 * 60_000;
+			if (new Date(info.maintenant).getTime() > finServeur) return { ...base, fin: null, questions: [] };
 			const { data, error } = await supabase.rpc('questions_de_tentative', { p_tentative: id });
 			if (error) throw erreur(error);
 			return {
-				debut: info.debut,
-				dureeMinutes: info.duree_minutes,
+				...base,
 				fin: null,
 				questions: ((data ?? []) as LigneQuestion[]).map((q) => ({
 					questionId: q.question_id,

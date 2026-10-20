@@ -13,9 +13,9 @@ Plateforme web (SvelteKit 3 statique + Supabase) de formation des arbitres de vo
 | Branches | `v1-sentrainer` (V1) puis `v2-evaluer` (V2, partie de `v1-sentrainer`) — **aucune fusionnée** dans `main` |
 | Plan V1 | [docs/superpowers/plans/2026-10-18-v1-sentrainer.md](docs/superpowers/plans/2026-10-18-v1-sentrainer.md) — tâches 1 à 17 **faites**, tâche 18 (mise en ligne) **à faire** |
 | Plan V2 | [docs/superpowers/plans/2026-10-20-v2-evaluer.md](docs/superpowers/plans/2026-10-20-v2-evaluer.md) — tâches 1 à 9 **faites** (exécution directe, revue finale par sous-agent) |
-| Tests | `npm test` 145/145 · `npm run test:integration` 113/113 · `npm run check` 0 erreur · `npm run build` OK |
+| Tests | `npm test` 151/151 · `npm run test:integration` 116/116 · `npm run check` 0 erreur · `npm run build` OK |
 | Vérification manuelle V2 (dev, 2026-10-20) | Création d'examen, composition, inscription, convocation, ouverture et code, mauvais code refusé, coupure réseau simulée, reprise avec le code, résultat « Non réussi » sans correction, clôture, fiche stagiaire, consignes CFA : OK. **Non vérifiés à la main** : l'examen d'entraînement après sa réécriture en composant commun (aucune question d'entraînement validée en dev ; couvert par les tests unitaires) et l'affichage d'une consigne CFA dans la correction d'une question |
-| Base de **dev** (Supabase) | Migrations V1 (4) + V2 (`20261020000001` à `…05`) appliquées, fonction `creer-compte` déployée, contenu chargé : 539 règles, 208 cas, 204 questions **en brouillon** (aucune validée), réserve d'examen vide, aucune édition CFA |
+| Base de **dev** (Supabase) | Migrations V1 (4) + V2 (`20261020000001` à `…06`) appliquées, fonction `creer-compte` déployée, contenu chargé : 539 règles, 208 cas, 204 questions **en brouillon** (aucune validée), réserve d'examen vide, aucune édition CFA |
 | Base de **prod** | N'existe pas encore |
 | Site en ligne | Pas encore |
 
@@ -53,7 +53,19 @@ Publier, pousser vers GitHub ou fusionner dans `main` : **demander l'accord de l
   - bruit de mise en page restant dans quelques textes de règles (21.6, 23.3.2.3) ; ~20 renvois vers des articles 25.2.x.y absents de l'extraction ;
   - `scripts/import/charger.ts` ne supprime pas les lignes disparues et n'est pas transactionnel.
   - (réglé en V2 : `src/lib/data/regles.ts` charge désormais les règles par pages de 1000.)
-- **Mineurs reportés par la revue V2** : voir la section « Revue finale V2 » du journal `.superpowers/sdd/2026-10-20-v2-evaluer/progress.md` (recopiée dans le message de fin de session).
+- **Mineurs reportés par la revue V2** (aucun critique ; les 4 importants et la lecture des questions après la fin du temps sont corrigés dans la migration `20261020000006` et le composant d'examen) :
+  - le sous-titre de l'écran de passation affiche « Sans correction » au lieu du titre de l'examen (`src/routes/tentative/[tentative]/+page.svelte`) ;
+  - course rare `commencer_tentative` / `clore_examen` : verrouiller l'examen (`for share`) dans `commencer_tentative` ;
+  - aucune limite de codes faux (force brute possible par un inscrit hors de la salle ; le formateur le verrait « en cours ») ;
+  - seuil : la proposition 70 % ne s'applique jamais (seuil exigé à la création) ; rappeler « seuil / nombre de questions » dans la confirmation d'ouverture ; des modifications non enregistrées des informations sont ignorées à l'ouverture ;
+  - `enregistrerExamen` annonce « enregistré » si l'examen a été ouvert entre-temps (0 ligne modifiée) ;
+  - `examens-formateur.ts` traduit toute erreur 23503 en « déjà commencé » (à limiter à `desinscrire`) ;
+  - `activer_edition` marque « à relire » les questions liées à toute édition inactive de la source (pas seulement celle qu'on remplace), et l'aperçu du nombre peut différer ;
+  - la bascule réserve → entraînement n'est bloquée que dans `enregistrer_question` (un formateur peut la contourner par l'API) ;
+  - écran du code : « non inscrit » et « clos » partagent un message ; un examen en brouillon montre le formulaire du code ;
+  - `signaler_tentative(…, null)` lève une erreur brute ; pages examen et fiche non réactives à un changement d'identifiant dans l'URL ;
+  - tests absents : rôle `anon` sur les fonctions V2, compte désactivé sur les fonctions `*_tentative` ;
+  - **à trancher avec le comité** : la fenêtre de 15 min de renvoi hors ligne repose sur l'heure annoncée par l'appareil ; un stagiaire qui utilise l'API peut antidater des réponses pendant ce délai (il ne peut plus lire les questions après la fin du temps).
 - **Décisions ouvertes du comité** (spec § 13) : nom de la plateforme (« Arbitrage volley » provisoire), listes des niveaux (provisoires : Niveau 1/2/3) et des thèmes (rubriques du Casebook), seuil de réussite (V2 : par examen, 70 % proposé par défaut), consignes CFA (document non fourni ; saisie manuelle possible), durée de conservation (proposée : 2 ans), banque de QCM existante (bonne source pour la réserve d'examen), détenteurs des comptes techniques. Dans l'interface, les placeholders `[Comité]`, `[adresse de contact du comité]` sont à remplacer.
 
 ## Environnement et accès

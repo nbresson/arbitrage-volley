@@ -139,6 +139,25 @@ describe('répondre', () => {
 	});
 });
 
+describe('heure du serveur', () => {
+	test('info_tentative donne l’heure du serveur', async () => {
+		const { data } = await c.stagiaireA.rpc('info_tentative', { p_tentative: tentativeA });
+		expect(Math.abs(new Date(data[0].maintenant).getTime() - Date.now())).toBeLessThan(60_000);
+	});
+
+	test('après la fin du temps, les questions ne sont plus lisibles', async () => {
+		// Un stagiaire inscrit dont la tentative a commencé il y a 40 minutes (durée : 30).
+		await admin.from('inscriptions').insert({ examen_id: examen, stagiaire_id: autres.ids.stagiaireB });
+		const { data: autre } = await admin
+			.from('tentatives')
+			.insert({ examen_id: examen, stagiaire_id: autres.ids.stagiaireB, debut: new Date(Date.now() - 40 * 60_000).toISOString() })
+			.select('id')
+			.single();
+		const { error } = await autres.stagiaireB.rpc('questions_de_tentative', { p_tentative: autre!.id });
+		expect(error?.message).toBe('Le temps de l’examen est écoulé.');
+	});
+});
+
 describe('terminer', () => {
 	test('bilan calculé sur la copie figée, sans correction', async () => {
 		const { data, error } = await c.stagiaireA.rpc('terminer_tentative', { p_tentative: tentativeA });

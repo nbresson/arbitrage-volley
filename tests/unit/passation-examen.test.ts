@@ -1,0 +1,85 @@
+// Écran commun d'examen : comportements que la revue finale V2 a relevés (accès à la base simulé par la source).
+import { fireEvent, render, waitFor } from '@testing-library/svelte';
+import { beforeEach, expect, test, vi } from 'vitest';
+import type { SourcePassation } from '../../src/lib/components/PassationExamen.svelte';
+import { ErreurServeur } from '../../src/lib/data/seances';
+
+const h = vi.hoisted(() => ({ goto: vi.fn() }));
+vi.mock('$app/navigation', () => ({ goto: h.goto }));
+
+import PassationExamen from '../../src/lib/components/PassationExamen.svelte';
+
+const question = {
+	questionId: 'q1',
+	theme: 'Service',
+	enonce: 'Le serveur frappe le ballon 9 secondes après le coup de sifflet.',
+	propositions: (['A', 'B', 'C', 'D'] as const).map((l) => ({ valeur: l, lettre: l, texte: `Proposition ${l}` })),
+	choisie: null,
+	signalee: false
+};
+
+const source = (s: Partial<SourcePassation>): SourcePassation => ({
+	cleFile: 'tentative-t1',
+	titre: 'Examen officiel',
+	sousTitre: 'Examen',
+	urlResultat: '/tentative/t1/resultat',
+	charger: async () => ({ debut: new Date().toISOString(), dureeMinutes: 10, fin: null, questions: [question] }),
+	repondre: async () => {},
+	signaler: async () => {},
+	terminer: async () => {},
+	...s
+});
+
+beforeEach(() => {
+	vi.clearAllMocks();
+	localStorage.clear();
+});
+
+test('examen clos par le formateur pendant la passation : départ vers le résultat, file vidée', async () => {
+	let appels = 0;
+	const ecran = render(PassationExamen, {
+		source: source({
+			charger: async () => ({ debut: new Date().toISOString(), dureeMinutes: 10, fin: appels++ ? new Date().toISOString() : null, questions: appels > 1 ? [] : [question] }),
+			repondre: async () => {
+				throw new ErreurServeur('Cet examen est clos.', 'P0001');
+			}
+		})
+	});
+	await fireEvent.click(await ecran.findByLabelText(/Proposition B/));
+	await fireEvent.click(ecran.getByRole('button', { name: 'Valider et continuer' }));
+	await waitFor(() => expect(h.goto).toHaveBeenCalledWith('/tentative/t1/resultat', { replaceState: true }));
+	expect(localStorage.getItem('tentative-t1')).toBeNull();
+});
+
+test('un refus qui ne tient pas au temps ne parle pas de l’horloge de l’appareil', async () => {
+	const ecran = render(PassationExamen, {
+		source: source({
+			repondre: async () => {
+				throw new ErreurServeur('Proposition invalide.', '42501');
+			}
+		})
+	});
+	await fireEvent.click(await ecran.findByLabelText(/Proposition B/));
+	await fireEvent.click(ecran.getByRole('button', { name: 'Valider et continuer' }));
+	const alerte = await ecran.findByText(/refusée/);
+	expect(alerte.textContent).toContain('Proposition invalide.');
+	expect(alerte.textContent).not.toMatch(/heure de votre appareil/);
+});
+
+test('heure du serveur : chronomètre et heure de réponse corrigés du décalage de l’appareil', async () => {
+	const repondre = vi.fn(async () => {});
+	const avance = 9 * 60_000; // l'appareil retarde de 9 minutes sur le serveur
+	const ecran = render(PassationExamen, {
+		source: source({
+			charger: async () => ({ debut: new Date(Date.now() + avance).toISOString(), dureeMinutes: 10, fin: null, maintenant: new Date(Date.now() + avance + 9 * 60_000).toISOString(), questions: [question] }),
+			repondre
+		})
+	});
+	// Début selon le serveur, 9 minutes écoulées selon le serveur : il reste moins d'une minute.
+	expect(await ecran.findByRole('group', { name: /, 0 minutes \d+ restantes/ })).toBeInTheDocument();
+	await fireEvent.click(ecran.getByLabelText(/Proposition B/));
+	await fireEvent.click(ecran.getByRole('button', { name: 'Valider et continuer' }));
+	await waitFor(() => expect(repondre).toHaveBeenCalled());
+	const reponduLe = new Date((repondre.mock.calls[0] as unknown as [string, string, string])[2]).getTime();
+	expect(Math.abs(reponduLe - (Date.now() + avance + 9 * 60_000))).toBeLessThan(5_000);
+});

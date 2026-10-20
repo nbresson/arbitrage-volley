@@ -1,6 +1,7 @@
 // Consignes CFA : éditions et consignes saisies par les formateurs (tables editions et regles, source « cfa »).
 import type { FormulaireConsigne } from '#lib/formateur/validation-consigne.ts';
 import { supabase } from '#lib/supabase.ts';
+import { viderCacheRegles } from './regles.ts';
 
 export type EditionCfa = { id: string; libelle: string; active: boolean; consignes: number };
 export type Consigne = { id: string; reference: string; titre: string | null; texte: string; citee: boolean };
@@ -22,7 +23,9 @@ export async function creerEditionCfa(libelle: string): Promise<string> {
 
 /** Renvoie le nombre de questions validées passées « à relire ». */
 export async function activerEdition(id: string): Promise<number> {
-	return verifier(await supabase.rpc('activer_edition', { p_edition: id })) as number;
+	const n = verifier(await supabase.rpc('activer_edition', { p_edition: id })) as number;
+	viderCacheRegles();
+	return n;
 }
 
 /** Nombre de questions validées liées à une consigne d'une édition CFA active (elles passeront « à relire »). */
@@ -42,8 +45,10 @@ export async function enregistrerConsigne(editionId: string, f: FormulaireConsig
 	const ligne = { edition_id: editionId, reference: f.reference.trim(), titre: f.titre.trim() || null, texte: f.texte.trim(), parent_reference: null };
 	if (id) verifier(await supabase.from('regles').update(ligne).eq('id', id));
 	else verifier(await supabase.from('regles').insert({ ...ligne, ordre }));
+	viderCacheRegles();
 }
 
 export async function supprimerConsigne(id: string) {
 	verifier(await supabase.from('regles').delete().eq('id', id));
+	viderCacheRegles();
 }
