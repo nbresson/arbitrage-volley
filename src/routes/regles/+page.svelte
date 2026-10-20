@@ -7,7 +7,7 @@
 
 	let regles = $state<Regle[]>([]);
 	let etat = $state<'chargement' | 'pret' | 'erreur'>('chargement');
-	let source = $state<'fivb_regles' | 'casebook'>('fivb_regles');
+	let source = $state<'fivb_regles' | 'casebook' | 'cfa'>('fivb_regles');
 	let requete = $state('');
 
 	$effect(() => {
@@ -16,6 +16,8 @@
 			.catch(() => (etat = 'erreur'));
 	});
 
+	// L'onglet CFA n'apparaît que lorsqu'une consigne d'une édition active existe.
+	const avecCfa = $derived(regles.some((r) => r.source === 'cfa'));
 	const deLaSource = $derived(regles.filter((r) => r.source === source));
 	const resultats = $derived(requete.trim() ? chercher(deLaSource, requete) : []);
 	const arbre = $derived(construireArbre(deLaSource));
@@ -45,6 +47,7 @@
 		<div role="tablist" aria-label="Source" class="onglets">
 			<button role="tab" aria-selected={source === 'fivb_regles'} onclick={() => (source = 'fivb_regles')}>Règles officielles FIVB</button>
 			<button role="tab" aria-selected={source === 'casebook'} onclick={() => (source = 'casebook')}>Casebook FIVB</button>
+			{#if avecCfa}<button role="tab" aria-selected={source === 'cfa'} onclick={() => (source = 'cfa')}>Consignes CFA</button>{/if}
 		</div>
 		<label class="champ recherche">
 			Chercher un numéro ou des mots

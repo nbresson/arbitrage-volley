@@ -14,18 +14,27 @@ export const urlRegle = (r: Pick<Regle, 'edition' | 'reference'>) =>
 
 let cache: Promise<Regle[]> | null = null;
 
-/** Toutes les règles des éditions actives (quelques centaines de lignes : chargées une fois). */
+const PAGE = 1000; // plafond de lignes renvoyées par l'API Supabase en une requête
+
+/** Toutes les règles des éditions actives (environ 750 aujourd'hui), chargées une fois, par pages de 1000. */
 export function toutesLesRegles(): Promise<Regle[]> {
 	cache ??= (async () => {
-		const { data, error } = await supabase
-			.from('regles')
-			.select('id, reference, parent_reference, titre, texte, texte_original, renvois, video_url, editions!inner(libelle, source, active)')
-			.eq('editions.active', true);
-		if (error) {
-			cache = null;
-			throw error;
+		const data: any[] = [];
+		for (let debut = 0; ; debut += PAGE) {
+			const { data: page, error } = await supabase
+				.from('regles')
+				.select('id, reference, parent_reference, titre, texte, texte_original, renvois, video_url, editions!inner(libelle, source, active)')
+				.eq('editions.active', true)
+				.order('id')
+				.range(debut, debut + PAGE - 1);
+			if (error) {
+				cache = null;
+				throw error;
+			}
+			data.push(...(page ?? []));
+			if ((page ?? []).length < PAGE) break;
 		}
-		return (data ?? []).map((l: any) => ({
+		return data.map((l: any) => ({
 			id: l.id,
 			reference: l.reference,
 			parent_reference: l.parent_reference,

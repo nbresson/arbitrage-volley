@@ -4,7 +4,7 @@
 		{ href: '/formateur/stagiaires', libelle: 'Stagiaires', actif: page.url.pathname.startsWith('/formateur/stagiaires') },
 		{ href: '/formateur/examens', libelle: 'Examens officiels', actif: page.url.pathname.startsWith('/formateur/examens') },
 		{ href: '/formateur/questions', libelle: 'Questions', actif: page.url.pathname.startsWith('/formateur/questions') },
-		{ href: '/regles', libelle: 'Règles', actif: false },
+		{ href: '/formateur/regles', libelle: 'Règles', actif: page.url.pathname.startsWith('/formateur/regles') },
 		{ href: '/', libelle: 'Espace stagiaire', actif: false }
 	]);
 </script>
