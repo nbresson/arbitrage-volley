@@ -5,18 +5,25 @@
 	import NavPrincipale from '#lib/components/NavPrincipale.svelte';
 	import { lignesThemes, totaux, type Avancement } from '#lib/data/avancement.ts';
 	import { lireConsultations, slug } from '#lib/data/regles.ts';
+	import { mesConvocations, type Convocation } from '#lib/data/examens-officiels.ts';
 	import { avancement, seanceAReprendre } from '#lib/data/seances.ts';
+	import { dateHeure, etatConvocation } from '#lib/examen-officiel/convocation.ts';
 	import { seDeconnecter, session } from '#lib/session.svelte.ts';
 
 	let av = $state<Avancement[]>([]);
 	let reprise = $state<Awaited<ReturnType<typeof seanceAReprendre>>>(null);
 	let etat = $state<'chargement' | 'pret' | 'erreur'>('chargement');
+	let convocations = $state<Convocation[]>([]);
 	const consultees = lireConsultations();
 
 	$effect(() => {
 		Promise.all([avancement(), seanceAReprendre()])
 			.then(([a, r]) => ((av = a), (reprise = r), (etat = 'pret')))
 			.catch(() => (etat = 'erreur'));
+		// En cas d'échec, le bloc reste à « Aucun examen officiel prévu » : l'accueil reste utilisable.
+		mesConvocations()
+			.then((c) => (convocations = c))
+			.catch(() => {});
 	});
 
 	const lignes = $derived(lignesThemes(av));
@@ -94,11 +101,39 @@
 	</section>
 	<Filet />
 	<aside class="cote">
-		<div class="carte">
-			<h2>Aucun examen officiel prévu</h2>
-			<p class="aide">Votre formateur vous inscrira ; la convocation apparaîtra ici. En attendant, entraînez-vous dans les conditions de l’examen.</p>
-			<a class="btn2" href="/entrainement/nouvelle?mode=examen_entrainement">Passer un examen d’entraînement</a>
-		</div>
+		{#each convocations as c (c.examen_id)}
+			{@const e = etatConvocation(c)}
+			<div class="convocation">
+				<div class="tete">
+					<h2>Examen officiel</h2>
+					<span>{e === 'termine' ? 'Examen passé' : 'Vous êtes inscrit'}</span>
+				</div>
+				<dl>
+					<dt>Examen</dt><dd>{c.titre}</dd>
+					<dt>Date</dt><dd>{dateHeure(c.date_heure)}</dd>
+					{#if c.lieu}<dt>Lieu</dt><dd>{c.lieu}</dd>{/if}
+					<dt>Contenu</dt><dd>{c.nb_questions} questions · {c.duree_minutes} minutes</dd>
+					{#if c.formateur}<dt>Formateur</dt><dd>{c.formateur}</dd>{/if}
+				</dl>
+				<div class="pied">
+					{#if e === 'a_venir'}
+						<a class="btn2" href="/entrainement/nouvelle?mode=examen_entrainement">S’entraîner en conditions d’examen</a>
+					{:else if e === 'ouvert'}
+						<a class="btn" href="/examen-officiel/{c.examen_id}">Commencer l’examen</a>
+					{:else if e === 'en_cours'}
+						<a class="btn" href="/examen-officiel/{c.examen_id}">Reprendre l’examen</a>
+					{:else}
+						<a class="btn2" href="/tentative/{c.tentative_id}/resultat">Voir mon résultat</a>
+					{/if}
+				</div>
+			</div>
+		{:else}
+			<div class="carte">
+				<h2>Aucun examen officiel prévu</h2>
+				<p class="aide">Votre formateur vous inscrira ; la convocation apparaîtra ici. En attendant, entraînez-vous dans les conditions de l’examen.</p>
+				<a class="btn2" href="/entrainement/nouvelle?mode=examen_entrainement">Passer un examen d’entraînement</a>
+			</div>
+		{/each}
 		<div>
 			<h2>Règles consultées récemment</h2>
 			{#if consultees.length}
@@ -238,6 +273,49 @@
 		font-family: var(--police-chiffres);
 		font-weight: 800;
 		font-size: 22px;
+	}
+	.convocation {
+		border: 1px solid var(--filet);
+		border-radius: var(--r);
+		overflow: hidden;
+	}
+	.convocation .tete {
+		background: var(--tableau);
+		color: var(--papier);
+		padding: 14px 18px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 12px;
+	}
+	.cote .convocation .tete h2 {
+		margin: 0;
+		font-family: var(--police-chiffres);
+		font-weight: 800;
+		font-size: 22px;
+	}
+	.convocation .tete span {
+		font-size: 13px;
+		font-weight: 600;
+		color: var(--tableau-texte);
+	}
+	.convocation dl {
+		margin: 0;
+		padding: 16px 18px;
+		display: grid;
+		grid-template-columns: 110px minmax(0, 1fr);
+		gap: 10px 12px;
+		font-size: 15px;
+	}
+	.convocation dt {
+		color: var(--doux);
+	}
+	.convocation dd {
+		margin: 0;
+		font-weight: 600;
+	}
+	.convocation .pied {
+		padding: 0 18px 18px;
 	}
 	.consultees {
 		list-style: none;
