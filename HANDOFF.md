@@ -10,7 +10,7 @@ Plateforme web (SvelteKit 3 statique + Supabase) de formation des arbitres de vo
 
 | Élément | État |
 |---|---|
-| Branches | `v1-sentrainer` (V1) puis `v2-evaluer` (V2, partie de `v1-sentrainer`) — **aucune fusionnée** dans `main` |
+| Branche de travail | `v1-sentrainer` (V1 + V2, la branche `v2-evaluer` y a été fusionnée le 2026-10-20) — **non fusionnée** dans `main` |
 | Plan V1 | [docs/superpowers/plans/2026-10-18-v1-sentrainer.md](docs/superpowers/plans/2026-10-18-v1-sentrainer.md) — tâches 1 à 17 **faites**, tâche 18 (mise en ligne) **à faire** |
 | Plan V2 | [docs/superpowers/plans/2026-10-20-v2-evaluer.md](docs/superpowers/plans/2026-10-20-v2-evaluer.md) — tâches 1 à 9 **faites** (exécution directe, revue finale par sous-agent) |
 | Tests | `npm test` 151/151 · `npm run test:integration` 116/116 · `npm run check` 0 erreur · `npm run build` OK |
