@@ -94,7 +94,7 @@
 						<tbody>
 							{#each comptes as c (c.id)}
 								<tr class:inactif={!c.actif}>
-									<th scope="row">{c.prenom} {c.nom}<span class="sous">{c.email ?? ''}</span></th>
+									<th scope="row">{#if c.role === 'stagiaire'}<a class="nom" href="/formateur/stagiaires/{c.id}">{c.prenom} {c.nom}</a>{:else}{c.prenom} {c.nom}{/if}<span class="sous">{c.email ?? ''}</span></th>
 									<td>{c.role === 'formateur' ? 'Formateur' : c.profil_formation === 'marqueur' ? 'Marqueur stagiaire' : 'Arbitre stagiaire'}</td>
 									<td>{libelleNiveau(c.niveau_id)}</td>
 									<td>{c.actif ? 'Actif' : 'Désactivé'}</td>
@@ -254,6 +254,10 @@
 		font-weight: 400;
 		font-size: 13px;
 		color: var(--doux);
+	}
+	.nom {
+		color: var(--encre);
+		font-weight: 600;
 	}
 	.inactif {
 		color: var(--doux);

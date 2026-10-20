@@ -40,6 +40,12 @@ describe('examens officiels : formateur', () => {
 		await admin.from('examens_officiels').delete().eq('id', autre);
 	});
 
+	test('lit les tentatives avec leur examen (fiche stagiaire)', async () => {
+		const { data, error } = await c.formateur.from('tentatives').select('id, examens_officiels!inner(titre)').eq('stagiaire_id', c.ids.stagiaireA);
+		expect(error).toBeNull();
+		expect(data).toHaveLength(1);
+	});
+
 	test('lit les codes d’accès', async () => {
 		const { data } = await c.formateur.from('examen_codes').select('code').eq('examen_id', examen);
 		expect(data).toEqual([{ code: '123456' }]);

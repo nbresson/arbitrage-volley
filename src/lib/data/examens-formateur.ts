@@ -111,3 +111,37 @@ export async function cloreExamen(id: string) {
 export async function resultatsExamen(id: string): Promise<ResultatStagiaire[]> {
 	return (verifier(await supabase.rpc('resultats_examen', { p_examen: id })) as ResultatStagiaire[]) ?? [];
 }
+
+// Fiche stagiaire ---------------------------------------------------------------------
+
+export type DetailTentative = {
+	examen_id: string;
+	titre: string;
+	date_heure: string;
+	score: number;
+	total: number;
+	seuil: number;
+	reussi: boolean;
+	questions: { ordre: number; enonce: string; lettre: string | null; bonne_lettre: string; juste: boolean }[];
+	regles: { reference: string; edition: string; titre: string | null; erreurs: number }[];
+};
+
+export type ExamenPasse = { tentative_id: string; titre: string; date_heure: string; score: number; total: number; reussi: boolean };
+
+/** Examens officiels terminés d'un stagiaire, les plus récents en premier. Jamais ses examens d'entraînement. */
+export async function examensDuStagiaire(stagiaireId: string): Promise<ExamenPasse[]> {
+	const lignes = verifier(
+		await supabase
+			.from('tentatives')
+			.select('id, score, total, reussi, fin, examens_officiels!inner(titre, date_heure)')
+			.eq('stagiaire_id', stagiaireId)
+			.not('fin', 'is', null)
+	) as any[];
+	return (lignes ?? [])
+		.map((t) => ({ tentative_id: t.id, titre: t.examens_officiels.titre, date_heure: t.examens_officiels.date_heure, score: t.score, total: t.total, reussi: t.reussi }))
+		.sort((a, b) => b.date_heure.localeCompare(a.date_heure));
+}
+
+export async function detailTentative(tentativeId: string): Promise<DetailTentative> {
+	return verifier(await supabase.rpc('detail_tentative', { p_tentative: tentativeId })) as DetailTentative;
+}
