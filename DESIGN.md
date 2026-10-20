@@ -68,6 +68,7 @@ Nuances dérivées (ajoutées après la revue UX, pour supprimer les valeurs hor
 - **Réponse** : grille [lettre 44px | texte | état], fond papier, bordure filet de 1,5px. États : neutre ; choisie (bordure 2px `--encre`, pastille pleine anthracite) *(supposé)* ; juste (bordure 2px bleue, pastille bleue, fond bleu clair, libellé « Bonne réponse ») ; fausse (bordure 2px rouge, pastille rouge, libellé « Votre réponse ») ; écartée après correction (texte `--doux`). Le libellé écrit accompagne toujours la couleur.
 - **Boutons** : principal = fond `--tableau`, texte blanc, 700, padding 14 × 26 ; secondaire = bordure 1,5px `--tableau`, fond transparent *(supposé)* ; dans le bandeau, l'onglet actif est un fond blanc avec un texte `--tableau`.
 - **Étiquette** : fond papier, bordure filet de 1px, 13px 600, rayon 4.
+- **Badge de réussite** (examen officiel) : le mot « Réussi » ou « Non réussi » est toujours écrit, précédé d'une coche ou d'une croix. Grand (bandeau du résultat) : 18px 700, padding 8 × 14, rayon 4, texte blanc sur `--bleu` (réussi) ou `--rouge` (non réussi), accompagné de « Seuil de réussite : 21 / 30 ». Petit (tableaux) : 13px 700, padding 4 × 9, `--bleu-texte` sur `--bleu-clair` ou `--rouge-texte` sur `--rouge-clair`.
 - **Module de sources** : bordure filet, onglets (Règles FIVB / Casebook / Consignes CFA), l'onglet actif est souligné par 3px de bleu ; numéro de règle en condensée 800 à 20px, servant de lien.
 - **Focus clavier** : contour de 2px `--bleu`, décalé de 2px *(supposé)*.
 
