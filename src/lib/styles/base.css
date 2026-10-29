@@ -130,3 +130,33 @@ table {
 	height: 10px;
 	background: repeating-linear-gradient(90deg, var(--tableau) 0 10px, var(--papier) 10px 14px);
 }
+
+/* Transitions de page : un fondu de 150 ms. */
+::view-transition-old(root),
+::view-transition-new(root) {
+	animation-duration: var(--duree-micro);
+}
+
+/* Coup de sifflet : une onde courte autour du bouton qui apparaît après une validation. */
+.siffle {
+	animation: coup-de-sifflet 420ms ease-out;
+}
+
+@keyframes coup-de-sifflet {
+	from {
+		box-shadow: 0 0 0 0 rgb(28 36 48 / 0.45);
+	}
+	to {
+		box-shadow: 0 0 0 14px rgb(28 36 48 / 0);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.siffle {
+		animation: none;
+	}
+	::view-transition-old(root),
+	::view-transition-new(root) {
+		animation: none;
+	}
+}

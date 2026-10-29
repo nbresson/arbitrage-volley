@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Chargement from '#lib/components/Chargement.svelte';
 	import '#lib/components/formulaire.css';
 	import CartonsSanction from '#lib/components/CartonsSanction.svelte';
 	import { page } from '$app/state';
@@ -39,7 +40,7 @@
 	<nav class="fil" aria-label="Fil d’Ariane"><a href="/regles">Règles</a> › {regle?.edition ?? ''} › {reference}</nav>
 
 	{#if etat === 'chargement'}
-		<p role="status">Chargement…</p>
+		<Chargement />
 	{:else if etat === 'erreur'}
 		<p class="message-erreur" role="alert">La règle n’a pas pu être chargée. Vérifiez votre connexion puis rechargez la page.</p>
 	{:else if !regle}

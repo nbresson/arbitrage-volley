@@ -158,7 +158,7 @@
 			</fieldset>
 			<div class="actions">
 				{#if etat.resultat}
-					<button class="btn" onclick={continuer}>
+					<button class="btn siffle" onclick={continuer}>
 						{etat.index < etat.questions.length - 1 ? 'Question suivante' : 'Voir le bilan'}
 					</button>
 				{:else}

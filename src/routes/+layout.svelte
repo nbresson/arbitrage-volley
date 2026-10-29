@@ -1,9 +1,10 @@
 <script lang="ts">
 	import favicon from '#lib/assets/favicon.svg';
 	import '#lib/styles/base.css';
-	import { goto } from '$app/navigation';
+	import { goto, onNavigate } from '$app/navigation';
 	import { page } from '$app/state';
 	import { garde } from '#lib/auth.ts';
+	import Chargement from '#lib/components/Chargement.svelte';
 	import { chargerProfil, session } from '#lib/session.svelte.ts';
 	import { supabase } from '#lib/supabase.ts';
 	import type { LayoutProps } from './$types';
@@ -17,6 +18,17 @@
 			setTimeout(chargerProfil, 0);
 		});
 		return () => data.subscription.unsubscribe();
+	});
+
+	// Fondu court entre les pages (API View Transitions), sauf si l'on réduit les animations.
+	onNavigate((navigation) => {
+		if (!document.startViewTransition || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+		return new Promise((resolve) => {
+			document.startViewTransition(async () => {
+				resolve();
+				await navigation.complete;
+			});
+		});
 	});
 
 	// Redirige selon la session et le rôle (voir garde() dans #lib/auth).
@@ -37,12 +49,12 @@
 {#if autorise}
 	{@render children()}
 {:else}
-	<p class="chargement" role="status">Chargement…</p>
+	<div class="chargement"><Chargement lignes={4} /></div>
 {/if}
 
 <style>
 	.chargement {
 		padding: 40px;
-		color: var(--doux);
+		max-width: 960px;
 	}
 </style>

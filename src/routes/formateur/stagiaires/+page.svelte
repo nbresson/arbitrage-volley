@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Chargement from '#lib/components/Chargement.svelte';
 	import '#lib/components/formulaire.css';
 	import Bandeau from '#lib/components/Bandeau.svelte';
 	import DialogueConfirmation from '#lib/components/DialogueConfirmation.svelte';
@@ -81,7 +82,7 @@
 	<div class="colonnes">
 		<section class="liste">
 			{#if etat === 'chargement'}
-				<p role="status">Chargement…</p>
+				<Chargement />
 			{:else if etat === 'erreur'}
 				<p class="message-erreur" role="alert">Les comptes n’ont pas pu être chargés. Vérifiez votre connexion puis rechargez la page.</p>
 			{:else if !comptes.length}

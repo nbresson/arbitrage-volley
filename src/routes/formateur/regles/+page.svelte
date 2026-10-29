@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Chargement from '#lib/components/Chargement.svelte';
 	// Consignes CFA (spec § 9.3, écran 12) : les formateurs les saisissent une par une, édition par édition.
 	// Une seule édition CFA est active ; activer la suivante marque « à relire » les questions liées à l'ancienne.
 	import '#lib/components/formulaire.css';
@@ -146,7 +147,7 @@
 	<p class="aide">Les règles FIVB et le Casebook sont importés par script. Les consignes de la Commission Française d’Arbitrage se saisissent ici, puis se lient aux questions comme les autres règles.</p>
 
 	{#if etat === 'chargement'}
-		<p role="status">Chargement…</p>
+		<Chargement />
 	{:else if etat === 'erreur'}
 		<p class="message-erreur" role="alert">Les consignes n’ont pas pu être chargées. Vérifiez votre connexion puis rechargez la page.</p>
 	{:else}

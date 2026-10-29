@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Chargement from '#lib/components/Chargement.svelte';
 	import '#lib/components/formulaire.css';
 	import Bandeau from '#lib/components/Bandeau.svelte';
 	import Filet from '#lib/components/Filet.svelte';
@@ -85,7 +86,7 @@
 
 		<h2>S’entraîner par thème</h2>
 		{#if etat === 'chargement'}
-			<p role="status">Chargement…</p>
+			<Chargement />
 		{:else if !lignes.length && etat === 'pret'}
 			<p class="aide">Aucune question n’est encore disponible : vos formateurs sont en train de les valider.</p>
 		{:else}

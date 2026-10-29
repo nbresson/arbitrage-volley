@@ -14,7 +14,7 @@
 <div class="compteur">
 	<div class="volets" aria-hidden="true">
 		{#each digits as d, i (i)}
-			<Volet chiffre={d} />
+			<Volet chiffre={d} delai={i * 60} />
 		{/each}
 	</div>
 	<span class="libelle" aria-hidden="true">

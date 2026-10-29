@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Chargement from '#lib/components/Chargement.svelte';
 	import '#lib/components/formulaire.css';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
@@ -104,7 +105,7 @@
 	<FilAriane etapes={[{ libelle: 'Espace formateur', href: '/formateur/questions' }, { libelle: 'Questions', href: '/formateur/questions' }, { libelle: id ? 'Modifier' : 'Nouvelle question' }]} />
 
 	{#if etat === 'chargement'}
-		<p role="status">Chargement…</p>
+		<Chargement />
 	{:else if etat === 'erreur'}
 		<p class="message-erreur" role="alert">La question n’a pas pu être chargée. Vérifiez votre connexion puis rechargez la page.</p>
 	{:else}

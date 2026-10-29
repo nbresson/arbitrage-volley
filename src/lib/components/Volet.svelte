@@ -1,7 +1,11 @@
 <script lang="ts">
 	// Un volet de tableau de marque : un chiffre, une ligne de pli, une rotation quand il change.
-	let { chiffre, total = false, taille = 'normal' }: { chiffre: string; total?: boolean; taille?: 'normal' | 'grand' } =
-		$props();
+	let {
+		chiffre,
+		total = false,
+		taille = 'normal',
+		delai = 0
+	}: { chiffre: string; total?: boolean; taille?: 'normal' | 'grand'; delai?: number } = $props();
 
 	let tourne = $state(false);
 	let precedent: string | undefined;
@@ -21,7 +25,13 @@
 	});
 </script>
 
-<span class="volet" class:tourne class:total class:grand={taille === 'grand'} onanimationend={() => (tourne = false)}
+<span
+	class="volet"
+	class:tourne
+	class:total
+	class:grand={taille === 'grand'}
+	style:animation-delay={delai ? `${delai}ms` : undefined}
+	onanimationend={() => (tourne = false)}
 	>{chiffre}</span
 >
 

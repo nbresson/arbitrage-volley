@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Chargement from '#lib/components/Chargement.svelte';
 	// Saisie du code d'accès affiché en salle par le formateur. Sert aussi à reprendre une tentative interrompue.
 	import '#lib/components/formulaire.css';
 	import { goto } from '$app/navigation';
@@ -50,7 +51,7 @@
 
 <main class="page">
 	{#if chargement === 'en_cours'}
-		<p role="status">Chargement…</p>
+		<Chargement />
 	{:else if chargement === 'erreur'}
 		<p class="message-erreur" role="alert">L’examen n’a pas pu être chargé. Vérifiez votre connexion puis rechargez la page.</p>
 	{:else if chargement === 'introuvable' || !convocation}

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Chargement from '#lib/components/Chargement.svelte';
 	import '#lib/components/formulaire.css';
 	import Bandeau from '#lib/components/Bandeau.svelte';
 	import NavFormateur from '#lib/components/NavFormateur.svelte';
@@ -27,7 +28,7 @@
 	</div>
 	<p class="aide">Un examen se passe en salle : vous l’ouvrez le jour J, les stagiaires inscrits saisissent le code affiché, et chacun n’a qu’une tentative.</p>
 	{#if etat === 'chargement'}
-		<p role="status">Chargement…</p>
+		<Chargement />
 	{:else if etat === 'erreur'}
 		<p class="message-erreur" role="alert">Les examens n’ont pas pu être chargés. Vérifiez votre connexion puis rechargez la page.</p>
 	{:else if !examens.length}

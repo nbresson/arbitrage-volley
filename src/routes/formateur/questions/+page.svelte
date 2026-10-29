@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Chargement from '#lib/components/Chargement.svelte';
 	import '#lib/components/formulaire.css';
 	import Bandeau from '#lib/components/Bandeau.svelte';
 	import Icone from '#lib/components/Icone.svelte';
@@ -79,7 +80,7 @@
 	</form>
 
 	{#if etat === 'chargement'}
-		<p role="status">Chargement…</p>
+		<Chargement />
 	{:else if etat === 'erreur'}
 		<p class="message-erreur" role="alert">Les questions n’ont pas pu être chargées. Vérifiez votre connexion puis rechargez la page.</p>
 	{:else}

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Chargement from '#lib/components/Chargement.svelte';
 	// Un examen officiel, dans l'ordre du travail du formateur : informations, questions, inscrits, salle, résultats.
 	// Informations et questions ne sont modifiables qu'en brouillon (la base le garantit aussi).
 	import '#lib/components/formulaire.css';
@@ -201,7 +202,7 @@
 	</div>
 
 	{#if etat === 'chargement'}
-		<p role="status">Chargement…</p>
+		<Chargement />
 	{:else if etat === 'erreur'}
 		<p class="message-erreur" role="alert">L’examen n’a pas pu être chargé. Vérifiez votre connexion puis rechargez la page.</p>
 	{:else}

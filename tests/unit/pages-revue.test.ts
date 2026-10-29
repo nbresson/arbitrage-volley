@@ -14,7 +14,7 @@ const h = vi.hoisted(() => ({
 }));
 
 vi.mock('$app/state', () => ({ page: { get params() { return h.params; }, url: new URL('http://x/') } }));
-vi.mock('$app/navigation', () => ({ goto: h.goto }));
+vi.mock('$app/navigation', () => ({ goto: h.goto, onNavigate: vi.fn() }));
 vi.mock('#lib/supabase.ts', () => ({
 	supabase: {
 		auth: {
