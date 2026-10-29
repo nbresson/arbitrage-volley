@@ -20,6 +20,7 @@
 	{#snippet navigation()}<NavPrincipale />{/snippet}
 </Bandeau>
 
+<div class="bande-filet" aria-hidden="true"></div>
 <div class="score">
 	<div class="volets" role="img" aria-label="Score : {bilan.score} sur {bilan.total}">
 		{#each chiffres(bilan.score) as c, i (i)}<Volet chiffre={c} taille="grand" />{/each}

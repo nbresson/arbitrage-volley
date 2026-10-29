@@ -6,7 +6,7 @@
 
 <Bandeau titre="Arbitrage volley" sousTitre="Formation des arbitres · [Comité]" />
 
-<main class="page">
+<main class="page fond-filet">
 	<div class="carte" role="alert">
 		<h1>Compte désactivé</h1>
 		<p>Votre accès à la plateforme a été désactivé par un formateur. Vos résultats sont conservés.</p>

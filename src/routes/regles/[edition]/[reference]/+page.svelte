@@ -44,7 +44,7 @@
 	{:else if !regle}
 		<p>Cette règle n’existe pas dans les éditions en vigueur. <a href="/regles">Retour aux règles</a></p>
 	{:else}
-		<article class="fiche">
+		<article class="fiche papier-reglement">
 			<h1><span class="ref plaque">{regle.reference}</span> {regle.titre ?? ''}</h1>
 			<p class="edition">{regle.edition}</p>
 			{#if regle.texte}<div class="texte">{regle.texte}</div>{/if}
@@ -107,7 +107,7 @@
 		color: var(--doux);
 	}
 	.fiche {
-		background: var(--papier);
+		background-color: var(--papier);
 		border: 1px solid var(--filet);
 		border-radius: var(--r);
 		padding: 28px 32px;

@@ -22,7 +22,7 @@
 
 <Bandeau titre="Arbitrage volley" sousTitre="Formation des arbitres · [Comité]" />
 
-<main class="page">
+<main class="page fond-filet">
 	<article class="carte">
 		<h1>Vos données sur la plateforme</h1>
 		<p>

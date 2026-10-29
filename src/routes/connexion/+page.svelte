@@ -26,7 +26,7 @@
 
 <Bandeau titre="Arbitrage volley" sousTitre="Formation des arbitres · [Comité]" />
 
-<main class="page">
+<main class="page fond-filet">
 	<form class="carte" onsubmit={seConnecter} novalidate>
 		<h1>Se connecter</h1>
 		<label class="champ">

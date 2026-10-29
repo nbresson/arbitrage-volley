@@ -44,7 +44,7 @@
 
 <Bandeau titre="Arbitrage volley" sousTitre="Formation des arbitres · [Comité]" />
 
-<main class="page">
+<main class="page fond-filet">
 	{#if modeChoix}
 		<form class="carte" onsubmit={choisir} novalidate>
 			<h1>Choisir votre mot de passe</h1>

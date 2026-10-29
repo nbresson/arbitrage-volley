@@ -120,6 +120,7 @@
 		{#each convocations as c (c.examen_id)}
 			{@const e = etatConvocation(c)}
 			<div class="convocation">
+				<div class="bande-filet" aria-hidden="true"></div>
 				<div class="tete">
 					<h2>Examen officiel</h2>
 					<span>{e === 'termine' ? 'Examen passé' : 'Vous êtes inscrit'}</span>

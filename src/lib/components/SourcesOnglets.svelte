@@ -26,7 +26,7 @@
 				<button role="tab" aria-selected={actif === o.id} onclick={() => (choisi = o.id)}>{o.libelle}</button>
 			{/each}
 		</div>
-		<div role="tabpanel" class="contenu">
+		<div role="tabpanel" class="contenu papier-reglement">
 			{#each visibles as s (s.edition + s.reference)}
 				<div class="source">
 					<a href={urlRegle(s)} class="ref plaque">{s.reference}</a>

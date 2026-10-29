@@ -14,7 +14,11 @@
 
 body {
 	margin: 0;
-	background: var(--sol);
+	/* Sol de salle : des lattes à peine visibles sous l'éclairage. */
+	background-color: var(--sol);
+	background-image:
+		repeating-linear-gradient(90deg, rgb(28 36 48 / 0.025) 0 1px, transparent 1px 120px),
+		repeating-linear-gradient(0deg, rgb(255 255 255 / 0.3) 0 2px, transparent 2px 14px);
 	color: var(--encre);
 	font-family: var(--police);
 	font-size: 16px;
@@ -104,4 +108,25 @@ table {
 	.titre-page {
 		font-size: 32px;
 	}
+}
+
+/* Maille du filet : fond des pages d'accès (connexion, mot de passe, notice). */
+.fond-filet {
+	background-image:
+		repeating-linear-gradient(45deg, rgb(28 36 48 / 0.07) 0 1px, transparent 1px 16px),
+		repeating-linear-gradient(-45deg, rgb(28 36 48 / 0.07) 0 1px, transparent 1px 16px);
+	min-height: calc(100vh - 140px);
+	box-sizing: border-box;
+}
+
+/* Grain de papier : signale un texte officiel (règles, casebook, consignes). */
+.papier-reglement {
+	background-image: radial-gradient(rgb(28 36 48 / 0.05) 1px, transparent 1px);
+	background-size: 5px 5px;
+}
+
+/* Bande « filet » horizontale : la signature du site, en tête des convocations et des résultats. */
+.bande-filet {
+	height: 10px;
+	background: repeating-linear-gradient(90deg, var(--tableau) 0 10px, var(--papier) 10px 14px);
 }
