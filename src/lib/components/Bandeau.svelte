@@ -34,32 +34,33 @@
 
 <svelte:window onclick={fermerSiDehors} />
 
-<header class="bandeau">
+<header class="bandeau" class:avec-compteurs={compteurs.length > 0} class:avec-compte={!!profil}>
 	<div class="marque">
 		{titre}<span>{sousTitre}</span>
 	</div>
 	{#if compteurs.length}
-		<div class="compteurs" role="group" aria-label={resumeTexte}>
+		<!-- Les volets sont visuels ; le résumé écrit est lu par les lecteurs d'écran (et affiché sur mobile). -->
+		<div class="compteurs" aria-hidden="true">
 			{#each compteurs as c (c.libelle)}
 				<Compteur {...c} />
 			{/each}
 		</div>
-		<span class="resume">{resumeTexte}</span>
+		<p class="resume" role="status">{resumeTexte}</p>
 	{/if}
 	<div class="droite">
 		{#if navigation}<nav class="nav" aria-label="Navigation principale">{@render navigation()}</nav>{/if}
 		{#if action}{@render action()}{/if}
-		{#if profil}
-			<details class="compte" bind:this={menu}>
-				<summary aria-label="Mon compte">{initiales}</summary>
-				<div class="menu">
-					<p class="nom">{profil.prenom} {profil.nom}</p>
-					<p class="role">{profil.role === 'formateur' ? 'Formateur' : 'Stagiaire'} · {profil.profil_formation}</p>
-					<button type="button" onclick={seDeconnecter}><Icone nom="sortie" taille={18} />Se déconnecter</button>
-				</div>
-			</details>
-		{/if}
 	</div>
+	{#if profil}
+		<details class="compte" bind:this={menu}>
+			<summary aria-label="Mon compte">{initiales}</summary>
+			<div class="menu">
+				<p class="nom">{profil.prenom} {profil.nom}</p>
+				<p class="role">{profil.role === 'formateur' ? 'Formateur' : 'Stagiaire'} · {profil.profil_formation}</p>
+				<button type="button" onclick={seDeconnecter}><Icone nom="sortie" taille={18} />Se déconnecter</button>
+			</div>
+		</details>
+	{/if}
 </header>
 
 <style>
@@ -75,7 +76,7 @@
 		border-bottom: 6px solid var(--papier);
 	}
 	/* Les lignes du terrain en filigrane : contour, lignes des 3 m et ligne centrale (pointillée). */
-	.bandeau::before {
+	.bandeau.avec-compteurs::before {
 		content: '';
 		position: absolute;
 		top: 12px;
@@ -116,7 +117,13 @@
 		gap: 24px;
 	}
 	.resume {
-		display: none;
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		margin: 0;
+		overflow: hidden;
+		clip-path: inset(50%);
+		white-space: nowrap;
 		font-size: 15px;
 		font-weight: 600;
 	}
@@ -154,7 +161,7 @@
 	}
 	.compte {
 		position: relative;
-		margin-left: 8px;
+		margin-left: -24px;
 	}
 	.compte summary {
 		list-style: none;
@@ -238,7 +245,22 @@
 			display: none;
 		}
 		.resume {
-			display: block;
+			position: static;
+			width: auto;
+			height: auto;
+			overflow: visible;
+			clip-path: none;
+			white-space: normal;
+		}
+		/* Le rond du compte reste en haut à droite au lieu de tomber seul sur une ligne. */
+		.avec-compte {
+			padding-right: 76px;
+		}
+		.compte {
+			position: absolute;
+			top: 16px;
+			right: 20px;
+			margin: 0;
 		}
 	}
 </style>

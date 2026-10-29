@@ -119,12 +119,12 @@
 							<tr>
 								<th scope="row"><span class="theme"><span class="picto"><Icone nom={iconeTheme(l.theme)} /></span><span>{l.theme}<span class="sous">{l.total} questions</span></span></span></th>
 								{#if l.commence}
-									<td class="chiffres bleu">{l.acquises}</td>
-									<td class="chiffres rouge">{l.aRevoir}</td>
-									<td><ProgressionVolets acquises={l.acquises} aRevoir={l.aRevoir} total={l.total} /></td>
+									<td class="chiffres bleu" data-libelle="Acquises">{l.acquises}</td>
+									<td class="chiffres rouge" data-libelle="À revoir">{l.aRevoir}</td>
+									<td class="progression"><ProgressionVolets acquises={l.acquises} aRevoir={l.aRevoir} total={l.total} /></td>
 									<td class="action"><a class="btn2" href="/entrainement/nouvelle?theme={l.themeId}" aria-label="S’entraîner : {l.theme}">S’entraîner</a></td>
 								{:else}
-									<td colspan="3" class="aide">Pas encore commencé</td>
+									<td colspan="3" class="aide pas-commence">Pas encore commencé</td>
 									<td class="action"><a class="btn2" href="/entrainement/nouvelle?theme={l.themeId}" aria-label="Commencer : {l.theme}">Commencer</a></td>
 								{/if}
 							</tr>
@@ -135,7 +135,7 @@
 		{/if}
 	</section>
 	<Filet />
-	<aside class="cote">
+	<aside class="cote" class:convoque={convocations.length > 0}>
 		{#each convocations as c (c.examen_id)}
 			{@const e = etatConvocation(c)}
 			<div class="convocation">
@@ -472,6 +472,80 @@
 		.principal,
 		.cote {
 			padding: 24px 20px;
+		}
+		/* La convocation passe avant tout le reste quand il y en a une. */
+		.cote.convoque {
+			order: -1;
+		}
+		.jeu > :global(.filet) {
+			display: none;
+		}
+		/* Chaque thème devient une carte : nom, compteurs, volets, bouton pleine largeur. */
+		.defile {
+			overflow: visible;
+		}
+		table,
+		tbody,
+		tr,
+		th,
+		td {
+			display: block;
+		}
+		table {
+			min-width: 0;
+			border: 0;
+			background: none;
+		}
+		thead {
+			display: none;
+		}
+		tbody {
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+		}
+		tbody tr {
+			display: grid;
+			grid-template-columns: auto auto 1fr;
+			align-items: center;
+			gap: 10px 16px;
+			padding: 14px 16px;
+			background: var(--papier);
+			border: 1px solid var(--filet);
+			border-radius: var(--r);
+		}
+		th,
+		td {
+			padding: 0;
+			border: 0;
+		}
+		tbody th {
+			grid-column: 1 / -1;
+			padding-left: 0;
+		}
+		td.chiffres {
+			width: auto;
+			font-size: 18px;
+		}
+		td[data-libelle]::before {
+			content: attr(data-libelle) ' ';
+			font-family: var(--police);
+			font-size: 13px;
+			font-weight: 600;
+			color: var(--doux);
+		}
+		td.progression,
+		td.pas-commence,
+		td.action {
+			grid-column: 1 / -1;
+		}
+		td.action {
+			text-align: left;
+		}
+		td.action :global(.btn2) {
+			display: block;
+			width: 100%;
+			text-align: center;
 		}
 	}
 </style>

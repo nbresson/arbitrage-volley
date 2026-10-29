@@ -257,4 +257,38 @@
 		border-top: 1px solid var(--filet);
 		padding-top: 16px;
 	}
+	/* Sur téléphone, chaque thème tient sur une carte : nom et score, puis les marques sur toute la largeur. */
+	@media (max-width: 600px) {
+		.score,
+		.themes {
+			padding-left: 20px;
+			padding-right: 20px;
+		}
+		.defile {
+			overflow: visible;
+		}
+		table {
+			min-width: 0;
+		}
+		thead th:last-child {
+			display: none;
+		}
+		tbody tr {
+			display: grid;
+			grid-template-columns: 1fr auto;
+			column-gap: 12px;
+			border-bottom: 1px solid var(--filet-doux);
+			padding: 12px 16px;
+		}
+		tbody th,
+		tbody td {
+			display: block;
+			padding: 0;
+			border: 0;
+		}
+		tbody td:last-child {
+			grid-column: 1 / -1;
+			padding-top: 8px;
+		}
+	}
 </style>
