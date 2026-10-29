@@ -241,6 +241,8 @@
 		}
 	}
 	@media (max-width: 600px) {
+		/* Sans volets visibles, les lignes du terrain se liraient comme des cases vides. */
+		.bandeau.avec-compteurs::before,
 		.compteurs {
 			display: none;
 		}

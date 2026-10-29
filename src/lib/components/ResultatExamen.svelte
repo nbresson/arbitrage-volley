@@ -259,6 +259,9 @@
 	}
 	/* Sur téléphone, chaque thème tient sur une carte : nom et score, puis les marques sur toute la largeur. */
 	@media (max-width: 600px) {
+		.score::before {
+			display: none;
+		}
 		.score,
 		.themes {
 			padding-left: 20px;
