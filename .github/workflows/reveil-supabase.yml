@@ -17,7 +17,9 @@ jobs:
           URL: ${{ secrets.SUPABASE_PROD_URL }}
           CLE: ${{ secrets.SUPABASE_PROD_ANON_KEY }}
         run: |
-          code=$(curl -s -o /dev/null -w '%{http_code}' "$URL/rest/v1/regles?select=id&limit=1" \
+          # Le rôle anon n'a aucun droit : PostgreSQL répond « permission refusée » (42501),
+          # ce qui suffit à compter comme une activité. Toute autre réponse fait échouer la tâche.
+          reponse=$(curl -s "$URL/rest/v1/regles?select=id&limit=1" \
             -H "apikey: $CLE" -H "Authorization: Bearer $CLE")
-          echo "Réponse : HTTP $code"
-          test "$code" = 200
+          echo "Réponse : $reponse"
+          echo "$reponse" | grep -q '"42501"'
