@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Icone from '#lib/components/Icone.svelte';
 	import EtatVide from '#lib/components/EtatVide.svelte';
 	import Chargement from '#lib/components/Chargement.svelte';
 	import '#lib/components/formulaire.css';
@@ -8,6 +9,7 @@
 	import { dateHeure } from '#lib/examen-officiel/convocation.ts';
 	import { LIBELLE_STATUT } from '#lib/formateur/validation-examen.ts';
 
+	const ICONES_STATUT = { brouillon: 'crayon', ouvert: 'chrono', clos: 'coche' } as const;
 	let examens = $state<LigneExamen[]>([]);
 	let etat = $state<'chargement' | 'pret' | 'erreur'>('chargement');
 
@@ -47,7 +49,7 @@
 							<th scope="row"><a href="/formateur/examens/{e.id}">{e.titre}</a>{#if e.lieu}<span class="sous">{e.lieu}</span>{/if}</th>
 							<td>{dateHeure(e.date_heure)}</td>
 							<td class="chiffres">{e.inscrits}</td>
-							<td><span class="statut {e.statut}">{LIBELLE_STATUT[e.statut]}</span></td>
+							<td><span class="statut {e.statut}"><Icone nom={ICONES_STATUT[e.statut]} taille={15} />{LIBELLE_STATUT[e.statut]}</span></td>
 						</tr>
 					{/each}
 				</tbody>
@@ -113,6 +115,9 @@
 		font-size: 20px;
 	}
 	.statut {
+		display: inline-flex;
+		align-items: center;
+		gap: 5px;
 		font-size: 13px;
 		font-weight: 700;
 		padding: 4px 9px;

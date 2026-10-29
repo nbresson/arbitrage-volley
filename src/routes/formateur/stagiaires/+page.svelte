@@ -99,17 +99,17 @@
 				<div class="defile">
 					<table>
 						<caption class="vh">Comptes</caption>
-						<thead><tr><th scope="col">Nom</th><th scope="col">Rôle</th><th scope="col">Niveau</th><th scope="col">5 dernières séances</th><th scope="col">État</th><th scope="col"><span class="vh">Action</span></th></tr></thead>
+						<thead><tr><th scope="col">Nom</th><th scope="col">Rôle</th><th scope="col">Niveau</th><th scope="col">Réussite <span class="sous-entete">5 dernières séances pédagogiques</span></th><th scope="col">État</th><th scope="col"><span class="vh">Action</span></th></tr></thead>
 						<tbody>
 							{#each comptes as c (c.id)}
 								<tr class:inactif={!c.actif}>
 									<th scope="row">{#if c.role === 'stagiaire'}<a class="nom" href="/formateur/stagiaires/{c.id}">{c.prenom} {c.nom}</a>{:else}{c.prenom} {c.nom}{/if}<span class="sous">{c.email ?? ''}</span></th>
 									<td>{c.role === 'formateur' ? 'Formateur' : c.profil_formation === 'marqueur' ? 'Marqueur stagiaire' : 'Arbitre stagiaire'}</td>
-									<td>{libelleNiveau(c.niveau_id)}</td>
+									<td>{c.role === 'stagiaire' ? libelleNiveau(c.niveau_id) : '—'}</td>
 									<td>{#if c.role === 'stagiaire'}<Courbe valeurs={courbes.get(c.id) ?? []} />{/if}</td>
 									<td>{c.actif ? 'Actif' : 'Désactivé'}</td>
 									<td>
-										{#if c.id === session.profil?.id}<span class="sous">Votre compte</span>{:else if c.actif}<button class="lien" onclick={() => (aDesactiver = c)}>Désactiver…</button>{:else}<button class="lien" onclick={() => basculer(c)}>Réactiver</button>{/if}
+										{#if c.id === session.profil?.id}<span class="sous">Votre compte</span>{:else if c.actif}<button class="lien discret" onclick={() => (aDesactiver = c)}>Désactiver…</button>{:else}<button class="lien" onclick={() => basculer(c)}>Réactiver</button>{/if}
 									</td>
 								</tr>
 							{/each}
@@ -275,6 +275,20 @@
 		color: var(--bleu-texte);
 		text-decoration: underline;
 		cursor: pointer;
+	}
+	/* Action rare et lourde : présente, mais pas la plus visible de la ligne. */
+	.lien.discret {
+		font-size: 14px;
+		color: var(--doux);
+		text-decoration-color: var(--filet);
+	}
+	.lien.discret:hover {
+		color: var(--encre);
+	}
+	.sous-entete {
+		display: block;
+		font-weight: 400;
+		font-size: 12px;
 	}
 	@media (max-width: 700px) {
 		.page {

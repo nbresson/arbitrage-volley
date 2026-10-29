@@ -7,7 +7,7 @@
 	import FilAriane from '#lib/components/FilAriane.svelte';
 	import DialogueConfirmation from '#lib/components/DialogueConfirmation.svelte';
 	import NavFormateur from '#lib/components/NavFormateur.svelte';
-	import { archiverQuestion, chargerQuestion, enregistrerQuestion, formulaireVide, type QuestionComplete, type RegleLiee } from '#lib/data/questions.ts';
+	import { archiverQuestion, chargerQuestion, enregistrerQuestion, formulaireVide, listerQuestions, type QuestionComplete, type RegleLiee } from '#lib/data/questions.ts';
 	import { toutesLesRegles } from '#lib/data/regles.ts';
 	import { referentiel, type Option } from '#lib/data/seances.ts';
 	import { validerFormulaire, type FormulaireQuestion } from '#lib/formateur/validation-question.ts';
@@ -28,6 +28,8 @@
 	let erreurEnvoi = $state('');
 	let envoi = $state(false);
 	let confirmerArchive = $state(false);
+	// Après la validation d'un brouillon : le brouillon suivant à relire, pour enchaîner sans repasser par la liste.
+	let brouillonSuivant = $state<string | null>(null);
 
 	$effect(() => {
 		Promise.all([id ? chargerQuestion(id) : Promise.resolve(null), referentiel(), toutesLesRegles()])
@@ -68,6 +70,7 @@
 			return;
 		}
 		envoi = true;
+		const etaitBrouillon = !question || question.statut === 'brouillon';
 		try {
 			const nouvelId = await enregistrerQuestion(id, f, valider);
 			message = valider ? 'Question validée : elle est maintenant proposée aux stagiaires.' : 'Question enregistrée.';
@@ -77,6 +80,9 @@
 			}
 			question = await chargerQuestion(nouvelId);
 			liees = question.reglesLiees;
+			if (valider && etaitBrouillon) {
+				brouillonSuivant = (await listerQuestions().catch(() => [])).find((q) => q.statut === 'brouillon' && q.id !== nouvelId)?.id ?? null;
+			}
 		} catch {
 			erreurEnvoi = 'La question n’a pas pu être enregistrée. Vérifiez votre connexion puis réessayez.';
 		} finally {
@@ -191,6 +197,8 @@
 
 				{#if erreurEnvoi}<p class="message-erreur" role="alert">{erreurEnvoi}</p>{/if}
 				{#if message}<p class="message-info" role="status">{message}</p>{/if}
+				<!-- Rechargement complet : la page d'édition lit son identifiant au démarrage. -->
+				{#if brouillonSuivant}<a class="btn2" href="/formateur/questions/{brouillonSuivant}" data-sveltekit-reload>Relire le brouillon suivant</a>{/if}
 				<div class="actions">
 					<button class="btn" type="button" disabled={envoi} onclick={() => enregistrer(true)}>{question?.statut === 'validee' ? 'Enregistrer et garder validée' : 'Valider la question'}</button>
 					<button class="btn2" type="button" disabled={envoi} onclick={() => enregistrer(false)}>{question?.statut === 'validee' ? 'Repasser en brouillon' : 'Enregistrer le brouillon'}</button>
