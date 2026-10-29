@@ -22,6 +22,7 @@
 
 <div class="bande-filet" aria-hidden="true"></div>
 <div class="score">
+	<p class="etiquette-score">{officiel ? 'Score final' : 'Score de l’examen blanc'}</p>
 	<div class="volets" role="img" aria-label="Score : {bilan.score} sur {bilan.total}">
 		{#each chiffres(bilan.score) as c, i (i)}<Volet chiffre={c} taille="grand" />{/each}
 		<span class="sur">/</span>
@@ -92,12 +93,35 @@
 </div>
 
 <style>
+	/* Le score affiché comme la fin d'un set : un panneau du tableau de marque. */
 	.score {
+		position: relative;
 		display: flex;
 		flex-wrap: wrap;
 		align-items: center;
-		gap: 16px 32px;
-		padding: 24px 40px 0;
+		gap: 16px 40px;
+		padding: 28px 40px 32px;
+		background: var(--tableau);
+		color: var(--papier);
+	}
+	.score::before {
+		content: '';
+		position: absolute;
+		inset: 14px 40px;
+		border: 2px solid rgb(255 255 255 / 0.04);
+		pointer-events: none;
+	}
+	.score > * {
+		position: relative;
+	}
+	.etiquette-score {
+		flex-basis: 100%;
+		margin: 0;
+		font-family: var(--police-chiffres);
+		font-weight: 600;
+		font-size: 15px;
+		letter-spacing: 0.05em;
+		color: var(--tableau-texte-doux);
 	}
 	.volets {
 		display: flex;
@@ -108,7 +132,7 @@
 		font-family: var(--police-chiffres);
 		font-weight: 800;
 		font-size: 44px;
-		color: var(--doux);
+		color: var(--tableau-texte-doux);
 		padding: 0 10px;
 	}
 	.reussite {
@@ -119,12 +143,12 @@
 	}
 	.reussite span:last-child {
 		font-size: 14px;
-		color: var(--doux);
+		color: var(--tableau-texte);
 	}
 	.jeu {
 		display: flex;
 		flex-wrap: wrap;
-		margin-top: 24px;
+		padding-top: 24px;
 	}
 	.themes {
 		flex: 999 1 560px;

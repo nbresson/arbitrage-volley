@@ -1,3 +1,4 @@
+import type { SeanceReponses } from '#lib/formateur/courbes.ts';
 import { supabase } from '#lib/supabase.ts';
 
 export type Compte = {
@@ -20,6 +21,18 @@ export type NouveauCompte = {
 	niveau_id: string;
 	mineur_parents_informes: boolean;
 };
+
+/** Séances pédagogiques récentes de tous les stagiaires, avec la justesse de chaque réponse (courbes de réussite). */
+export async function seancesRecentes(): Promise<SeanceReponses[]> {
+	const { data, error } = await supabase
+		.from('seances')
+		.select('stagiaire_id, debut, reponses(correcte)')
+		.eq('type', 'pedagogique')
+		.order('debut', { ascending: false })
+		.limit(1000);
+	if (error) throw new Error(error.message);
+	return (data ?? []) as SeanceReponses[];
+}
 
 export async function listerComptes(): Promise<Compte[]> {
 	const { data, error } = await supabase

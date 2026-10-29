@@ -1,4 +1,6 @@
 <script lang="ts">
+	import Icone from '#lib/components/Icone.svelte';
+	import { iconeTheme } from '#lib/domain/icone-theme.ts';
 	import '#lib/components/formulaire.css';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
@@ -74,7 +76,7 @@
 			<legend>Thèmes <span class="aide">(aucun coché = tous les thèmes)</span></legend>
 			<div class="themes">
 				{#each themes as t (t.id)}
-					<label class="case"><input type="checkbox" checked={p.themeIds.includes(t.id)} onchange={() => basculerTheme(t.id)} /> {t.libelle}</label>
+					<label class="case"><input type="checkbox" checked={p.themeIds.includes(t.id)} onchange={() => basculerTheme(t.id)} /> <Icone nom={iconeTheme(t.libelle)} taille={18} />{t.libelle}</label>
 				{/each}
 			</div>
 		</fieldset>

@@ -93,6 +93,14 @@ Des matières tirées de la salle, très discrètes (2 à 7 % d'opacité), jamai
 - **Menu du compte** : rond de 44px aux initiales dans le bandeau ; il ouvre une carte papier avec le nom, le rôle et « Se déconnecter ».
 - **Écusson de niveau** : sur l'accueil, le niveau du stagiaire dans un écusson anthracite.
 - **Fil d'Ariane** (espace formateur) : étapes en `--doux` séparées par « › », la page courante en `--encre`.
+- **Pictogrammes de thème** : chaque thème reçoit une icône d'après son libellé (filet, service, rotation, carton, maillot…), le ballon à défaut. Fond `--sol`, jamais de couleur d'état.
+- **Tuiles d'accueil** : trois grandes tuiles (séance ou reprise en anthracite, examen blanc, règles sur grain de papier) avec pastille d'icône, titre condensé 800 à 26px, phrase et flèche ; elles montent de 2px au survol.
+- **Progression en volets** : 10 petits volets par thème (bleu = acquises, rouge = à revoir, `--filet-doux` = reste), avec la ligne de pli ; une seule réponse donne toujours au moins un volet.
+- **Convocation en billet** : bande filet en tête, titre condensé, ligne de découpe pointillée à encoches, puis date, lieu, durée et formateur précédés de leur icône.
+- **Score final** : le résultat d'examen s'affiche sur un panneau `--tableau` sous la bande filet (étiquette « Score final », grands volets, badge et seuil).
+- **Extrait de règlement** (`.extrait-reglement`) : texte d'une règle entre guillemets français, bordé à gauche d'un filet pointillé de 4px.
+- **État vide** (`EtatVide`) : ballon posé au pied du filet, titre condensé 800, phrase utile et, si possible, l'action à faire ; cadre pointillé.
+- **Courbe de réussite** (liste des stagiaires) : mini-courbe anthracite des 5 dernières séances pédagogiques et taux de la dernière ; décrite en toutes lettres pour les lecteurs d'écran.
 - **Focus clavier** : contour de 2px `--bleu`, décalé de 2px *(supposé)*.
 
 ## Voix

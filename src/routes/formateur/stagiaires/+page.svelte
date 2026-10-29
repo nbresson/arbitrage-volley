@@ -3,14 +3,17 @@
 	import Chargement from '#lib/components/Chargement.svelte';
 	import '#lib/components/formulaire.css';
 	import Bandeau from '#lib/components/Bandeau.svelte';
+	import Courbe from '#lib/components/Courbe.svelte';
 	import DialogueConfirmation from '#lib/components/DialogueConfirmation.svelte';
+	import { courbesReussite } from '#lib/formateur/courbes.ts';
 	import NavFormateur from '#lib/components/NavFormateur.svelte';
 	import { referentiel, type Option } from '#lib/data/seances.ts';
 	import { session } from '#lib/session.svelte.ts';
-	import { changerActivation, creerCompte, listerComptes, type Compte, type NouveauCompte } from '#lib/data/stagiaires.ts';
+	import { changerActivation, creerCompte, listerComptes, seancesRecentes, type Compte, type NouveauCompte } from '#lib/data/stagiaires.ts';
 
 	let comptes = $state<Compte[]>([]);
 	let niveaux = $state<Option[]>([]);
+	let courbes = $state(new Map<string, number[]>());
 	let etat = $state<'chargement' | 'pret' | 'erreur'>('chargement');
 	const vide = (): NouveauCompte & { majeur: '' | 'majeur' | 'mineur' } => ({
 		email: '',
@@ -35,6 +38,10 @@
 			.catch(() => (etat = 'erreur'));
 	$effect(() => {
 		charger();
+		// Les courbes sont un plus : en cas d'échec, la liste reste utilisable sans elles.
+		seancesRecentes()
+			.then((s) => (courbes = courbesReussite(s)))
+			.catch(() => {});
 	});
 
 	const libelleNiveau = (id: string | null) => niveaux.find((x) => x.id === id)?.libelle ?? '—';
@@ -92,13 +99,14 @@
 				<div class="defile">
 					<table>
 						<caption class="vh">Comptes</caption>
-						<thead><tr><th scope="col">Nom</th><th scope="col">Rôle</th><th scope="col">Niveau</th><th scope="col">État</th><th scope="col"><span class="vh">Action</span></th></tr></thead>
+						<thead><tr><th scope="col">Nom</th><th scope="col">Rôle</th><th scope="col">Niveau</th><th scope="col">5 dernières séances</th><th scope="col">État</th><th scope="col"><span class="vh">Action</span></th></tr></thead>
 						<tbody>
 							{#each comptes as c (c.id)}
 								<tr class:inactif={!c.actif}>
 									<th scope="row">{#if c.role === 'stagiaire'}<a class="nom" href="/formateur/stagiaires/{c.id}">{c.prenom} {c.nom}</a>{:else}{c.prenom} {c.nom}{/if}<span class="sous">{c.email ?? ''}</span></th>
 									<td>{c.role === 'formateur' ? 'Formateur' : c.profil_formation === 'marqueur' ? 'Marqueur stagiaire' : 'Arbitre stagiaire'}</td>
 									<td>{libelleNiveau(c.niveau_id)}</td>
+									<td>{#if c.role === 'stagiaire'}<Courbe valeurs={courbes.get(c.id) ?? []} />{/if}</td>
 									<td>{c.actif ? 'Actif' : 'Désactivé'}</td>
 									<td>
 										{#if c.id === session.profil?.id}<span class="sous">Votre compte</span>{:else if c.actif}<button class="lien" onclick={() => (aDesactiver = c)}>Désactiver…</button>{:else}<button class="lien" onclick={() => basculer(c)}>Réactiver</button>{/if}
