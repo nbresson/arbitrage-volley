@@ -1,6 +1,7 @@
 <script lang="ts">
 	import '#lib/components/formulaire.css';
 	import Bandeau from '#lib/components/Bandeau.svelte';
+	import Icone from '#lib/components/Icone.svelte';
 	import NavFormateur from '#lib/components/NavFormateur.svelte';
 	import { listerQuestions, type LigneQuestion } from '#lib/data/questions.ts';
 
@@ -30,7 +31,11 @@
 				(!f.texte.trim() || `${q.enonce} ${q.reference_origine ?? ''}`.toLowerCase().includes(f.texte.trim().toLowerCase()))
 		)
 	);
-	const STATUTS: Record<string, string> = { brouillon: 'Brouillon', validee: 'Validée', archivee: 'Archivée' };
+	const STATUTS = {
+		brouillon: { libelle: 'Brouillon', icone: 'crayon' },
+		validee: { libelle: 'Validée', icone: 'coche' },
+		archivee: { libelle: 'Archivée', icone: 'archive' }
+	} as const;
 </script>
 
 <Bandeau
@@ -89,12 +94,12 @@
 							<tr>
 								<th scope="row">
 									<a href="/formateur/questions/{q.id}">{q.enonce.length > 140 ? q.enonce.slice(0, 140) + '…' : q.enonce}</a>
-									<span class="sous">{q.reference_origine ?? 'Rédigée'}{q.usage === 'reserve_examen' ? ' · réserve d’examen' : ''}</span>
+									<span class="sous">{q.reference_origine ?? 'Rédigée'}{#if q.usage === 'reserve_examen'}<span class="reserve"><Icone nom="cadenas" taille={14} />réserve d’examen</span>{/if}</span>
 								</th>
 								<td>{q.theme ?? '—'}</td>
 								<td>{q.niveau ?? '—'}</td>
 								<td>
-									<span class="statut {q.statut}">{STATUTS[q.statut]}</span>
+									<span class="statut {q.statut}"><Icone nom={STATUTS[q.statut].icone} taille={15} />{STATUTS[q.statut].libelle}</span>
 									{#if q.a_relire}<span class="statut relire">À relire</span>{/if}
 								</td>
 							</tr>
@@ -182,8 +187,16 @@
 		color: var(--doux);
 		margin-top: 4px;
 	}
+	.reserve {
+		display: inline-flex;
+		align-items: center;
+		gap: 4px;
+		margin-left: 8px;
+	}
 	.statut {
-		display: inline-block;
+		display: inline-flex;
+		align-items: center;
+		gap: 5px;
 		font-size: 13px;
 		font-weight: 700;
 		padding: 3px 8px;

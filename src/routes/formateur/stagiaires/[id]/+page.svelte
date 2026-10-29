@@ -5,6 +5,7 @@
 	import { page } from '$app/state';
 	import BadgeReussite from '#lib/components/BadgeReussite.svelte';
 	import Bandeau from '#lib/components/Bandeau.svelte';
+	import FilAriane from '#lib/components/FilAriane.svelte';
 	import Filet from '#lib/components/Filet.svelte';
 	import NavFormateur from '#lib/components/NavFormateur.svelte';
 	import { lignesThemes, type Avancement } from '#lib/data/avancement.ts';
@@ -97,7 +98,7 @@
 {:else}
 	<div class="entete">
 		<div class="qui">
-			<div class="fil"><a href="/formateur/stagiaires">Stagiaires</a> › {compte.prenom} {compte.nom}</div>
+			<FilAriane etapes={[{ libelle: 'Espace formateur', href: '/formateur/questions' }, { libelle: 'Stagiaires', href: '/formateur/stagiaires' }, { libelle: `${compte.prenom} ${compte.nom}` }]} />
 			<h1 class="titre-page"><span class="surtitre">Fiche stagiaire</span>{compte.prenom} {compte.nom}</h1>
 			<div class="sous">{formation}{niveau ? ` · ${niveau}` : ''}{compte.actif ? '' : ' · compte désactivé'}</div>
 		</div>
@@ -228,11 +229,6 @@
 	}
 	.qui {
 		flex: 1 1 360px;
-	}
-	.fil {
-		font-size: 14px;
-		color: var(--doux);
-		margin-bottom: 6px;
 	}
 	h2 {
 		margin: 0;

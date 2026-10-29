@@ -3,6 +3,7 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
 	import Bandeau from '#lib/components/Bandeau.svelte';
+	import FilAriane from '#lib/components/FilAriane.svelte';
 	import DialogueConfirmation from '#lib/components/DialogueConfirmation.svelte';
 	import NavFormateur from '#lib/components/NavFormateur.svelte';
 	import { archiverQuestion, chargerQuestion, enregistrerQuestion, formulaireVide, type QuestionComplete, type RegleLiee } from '#lib/data/questions.ts';
@@ -100,7 +101,7 @@
 </Bandeau>
 
 <main class="page">
-	<nav class="fil" aria-label="Fil d’Ariane"><a href="/formateur/questions">Questions</a> › {id ? 'Modifier' : 'Nouvelle question'}</nav>
+	<FilAriane etapes={[{ libelle: 'Espace formateur', href: '/formateur/questions' }, { libelle: 'Questions', href: '/formateur/questions' }, { libelle: id ? 'Modifier' : 'Nouvelle question' }]} />
 
 	{#if etat === 'chargement'}
 		<p role="status">Chargement…</p>
@@ -226,10 +227,6 @@
 		display: flex;
 		flex-direction: column;
 		gap: 16px;
-	}
-	.fil {
-		font-size: 14px;
-		color: var(--doux);
 	}
 	.colonnes {
 		display: flex;

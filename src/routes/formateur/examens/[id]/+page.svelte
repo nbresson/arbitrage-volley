@@ -6,6 +6,7 @@
 	import { page } from '$app/state';
 	import BadgeReussite from '#lib/components/BadgeReussite.svelte';
 	import Bandeau from '#lib/components/Bandeau.svelte';
+	import FilAriane from '#lib/components/FilAriane.svelte';
 	import DialogueConfirmation from '#lib/components/DialogueConfirmation.svelte';
 	import NavFormateur from '#lib/components/NavFormateur.svelte';
 	import Volet from '#lib/components/Volet.svelte';
@@ -193,7 +194,7 @@
 </Bandeau>
 
 <main class="page">
-	<div class="fil"><a href="/formateur/examens">Examens officiels</a> › {id ? (examen?.titre ?? '') : 'Nouvel examen'}</div>
+	<FilAriane etapes={[{ libelle: 'Espace formateur', href: '/formateur/questions' }, { libelle: 'Examens officiels', href: '/formateur/examens' }, { libelle: id ? (examen?.titre ?? '') : 'Nouvel examen' }]} />
 	<div class="tete">
 		<h1 class="titre-page"><span class="surtitre">Examen officiel</span>{id ? (examen?.titre ?? 'Examen') : 'Nouvel examen'}</h1>
 		{#if examen}<span class="statut {examen.statut}">{LIBELLE_STATUT[examen.statut]}</span>{/if}
@@ -379,10 +380,6 @@
 		flex-direction: column;
 		gap: 20px;
 		max-width: 1100px;
-	}
-	.fil {
-		font-size: 14px;
-		color: var(--doux);
 	}
 	.tete {
 		display: flex;

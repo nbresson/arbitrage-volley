@@ -1,5 +1,6 @@
 <script lang="ts">
 	import '#lib/components/formulaire.css';
+	import CartonsSanction from '#lib/components/CartonsSanction.svelte';
 	import { page } from '$app/state';
 	import Bandeau from '#lib/components/Bandeau.svelte';
 	import NavPrincipale from '#lib/components/NavPrincipale.svelte';
@@ -47,7 +48,7 @@
 		<article class="fiche papier-reglement">
 			<h1><span class="ref plaque">{regle.reference}</span> {regle.titre ?? ''}</h1>
 			<p class="edition">{regle.edition}</p>
-			{#if regle.texte}<div class="texte">{regle.texte}</div>{/if}
+			{#if regle.texte}<div class="texte">{regle.texte}</div><CartonsSanction texte={regle.texte} />{/if}
 
 			{#if regle.source === 'casebook'}
 				<p class="mention">
