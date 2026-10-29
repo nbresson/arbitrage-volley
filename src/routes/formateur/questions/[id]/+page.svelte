@@ -111,7 +111,7 @@
 			<!-- Entrée dans un champ ne doit rien enregistrer : seuls les boutons explicites agissent. -->
 			<form class="carte" onsubmit={(e) => e.preventDefault()} novalidate>
 				<div class="titre">
-					<h1>{id ? 'Modifier la question' : 'Nouvelle question'}</h1>
+					<h1 class="titre-page"><span class="surtitre">Banque de questions</span>{id ? 'Modifier la question' : 'Nouvelle question'}</h1>
 					{#if question}<span class="statut {question.statut}">{STATUTS[question.statut]}</span>{/if}
 					{#if question?.a_relire}<span class="statut brouillon">À relire : une règle liée a changé d’édition</span>{/if}
 				</div>
@@ -167,7 +167,7 @@
 						<ul class="liees">
 							{#each liees as l (l.id)}
 								<li>
-									<span class="ref">{l.reference}</span> <span class="aide">{l.edition}</span>
+									<span class="ref plaque">{l.reference}</span> <span class="aide">{l.edition}</span>
 									{#if l.principale}<span class="statut validee">Principale</span>{:else}<button type="button" class="lien" onclick={() => rendrePrincipale(l.id)}>Rendre principale</button>{/if}
 									<button type="button" class="lien" onclick={() => delier(l.id)} aria-label="Retirer {l.reference}">Retirer</button>
 								</li>
@@ -180,7 +180,7 @@
 					{#if suggestions.length}
 						<ul class="suggestions">
 							{#each suggestions as r (r.id)}
-								<li><button type="button" class="lien" onclick={() => lier(r)}><span class="ref">{r.reference}</span> {r.titre ?? r.texte.slice(0, 70)}</button></li>
+								<li><button type="button" class="lien" onclick={() => lier(r)}><span class="ref plaque">{r.reference}</span> {r.titre ?? r.texte.slice(0, 70)}</button></li>
 							{/each}
 						</ul>
 					{/if}
@@ -261,10 +261,6 @@
 		gap: 10px;
 		align-items: center;
 	}
-	h1 {
-		margin: 0;
-		font-size: 24px;
-	}
 	h2 {
 		margin: 0;
 		font-size: 17px;
@@ -343,11 +339,6 @@
 		border: 1px solid var(--filet);
 		border-radius: var(--r);
 		padding: 8px 12px;
-	}
-	.ref {
-		font-family: var(--police-chiffres);
-		font-weight: 800;
-		color: var(--encre);
 	}
 	.statut {
 		font-size: 13px;

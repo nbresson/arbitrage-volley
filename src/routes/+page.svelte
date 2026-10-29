@@ -6,7 +6,7 @@
 	import { lignesThemes, totaux, type Avancement } from '#lib/data/avancement.ts';
 	import { lireConsultations, slug } from '#lib/data/regles.ts';
 	import { mesConvocations, type Convocation } from '#lib/data/examens-officiels.ts';
-	import { avancement, seanceAReprendre } from '#lib/data/seances.ts';
+	import { avancement, referentiel, seanceAReprendre } from '#lib/data/seances.ts';
 	import { dateHeure, etatConvocation } from '#lib/examen-officiel/convocation.ts';
 	import { session } from '#lib/session.svelte.ts';
 
@@ -14,6 +14,7 @@
 	let reprise = $state<Awaited<ReturnType<typeof seanceAReprendre>>>(null);
 	let etat = $state<'chargement' | 'pret' | 'erreur'>('chargement');
 	let convocations = $state<Convocation[]>([]);
+	let niveau = $state('');
 	const consultees = lireConsultations();
 
 	$effect(() => {
@@ -21,6 +22,9 @@
 			.then(([a, r]) => ((av = a), (reprise = r), (etat = 'pret')))
 			.catch(() => (etat = 'erreur'));
 		// En cas d'échec, le bloc reste à « Aucun examen officiel prévu » : l'accueil reste utilisable.
+		referentiel()
+			.then((r) => (niveau = r.niveaux.find((n) => n.id === session.profil?.niveau_id)?.libelle ?? ''))
+			.catch(() => {});
 		mesConvocations()
 			.then((c) => (convocations = c))
 			.catch(() => {});
@@ -30,11 +34,13 @@
 	const t = $derived(totaux(av));
 	const role = $derived(session.profil?.profil_formation === 'marqueur' ? 'marqueur' : 'arbitre');
 	const pourcent = (n: number, total: number) => `${Math.round((n / total) * 100)}%`;
+	const jour = new Intl.DateTimeFormat('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' }).format(new Date());
+	const aujourdhui = jour.charAt(0).toUpperCase() + jour.slice(1);
 </script>
 
 <Bandeau
 	titre="Arbitrage volley"
-	sousTitre="Bonjour {session.profil?.prenom ?? ''} · {role} stagiaire"
+	sousTitre="Formation des arbitres · espace stagiaire"
 	compteurs={[
 		{ valeur: t.travaillees, chiffres: 3, libelle: 'Questions travaillées' },
 		{ valeur: t.acquises, chiffres: 3, libelle: 'Acquises', couleur: 'bleu' },
@@ -51,16 +57,26 @@
 			<p class="message-erreur" role="alert">Votre avancement n’a pas pu être chargé. Vérifiez votre connexion puis rechargez la page.</p>
 		{/if}
 
+		<div class="accueil">
+			<h1 class="titre-page"><span class="surtitre">{aujourdhui} · {role} stagiaire</span>Bonjour {session.profil?.prenom ?? ''}</h1>
+			{#if niveau}
+				<div class="niveau">
+					<svg width="30" height="34" viewBox="0 0 34 38" aria-hidden="true"><path d="M17 2 31 7v11c0 9-6 15-14 18C9 33 3 27 3 18V7z" fill="var(--tableau)" /><path d="M11 18l4 4 8-8" fill="none" stroke="var(--papier)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" /></svg>
+					<span><span class="petit">Niveau</span>{niveau}</span>
+				</div>
+			{/if}
+		</div>
+
 		<div class="carte reprise">
 			{#if reprise}
 				<div class="texte">
-					<h1>Reprendre : {reprise.theme}</h1>
+					<h2>Reprendre : {reprise.theme}</h2>
 					<p>Mode pédagogique · question {reprise.index} sur {reprise.total} · {reprise.acquises} acquises, {reprise.aRevoir} à revoir</p>
 				</div>
 				<a class="btn" href="/entrainement/{reprise.id}">Reprendre la séance</a>
 			{:else}
 				<div class="texte">
-					<h1>Commencer une séance</h1>
+					<h2>Commencer une séance</h2>
 					<p>Choisissez des thèmes et répondez aux questions : chaque réponse est corrigée avec la règle qui la fonde.</p>
 				</div>
 				<a class="btn" href="/entrainement/nouvelle">Commencer une séance</a>
@@ -139,7 +155,7 @@
 			{#if consultees.length}
 				<ul class="consultees">
 					{#each consultees as c (c.reference)}
-						<li><a class="ref" href="/regles/{slug(c.edition)}/{encodeURIComponent(c.reference)}">{c.reference}</a> <span class="aide">{c.resume}</span></li>
+						<li><a class="ref plaque" href="/regles/{slug(c.edition)}/{encodeURIComponent(c.reference)}">{c.reference}</a> <span class="aide">{c.resume}</span></li>
 					{/each}
 				</ul>
 			{:else}
@@ -181,7 +197,33 @@
 	.reprise .texte {
 		flex: 1 1 320px;
 	}
-	h1,
+	.accueil {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: flex-end;
+		justify-content: space-between;
+		gap: 16px;
+	}
+	.niveau {
+		display: inline-flex;
+		align-items: center;
+		gap: 10px;
+		padding: 8px 14px 8px 10px;
+		background: var(--papier);
+		border: 1px solid var(--filet);
+		border-radius: var(--r);
+		font-weight: 700;
+	}
+	.niveau > span {
+		display: flex;
+		flex-direction: column;
+		line-height: 1.2;
+	}
+	.petit {
+		font-size: 13px;
+		font-weight: 400;
+		color: var(--doux);
+	}
 	h2 {
 		margin: 0;
 		font-size: 22px;
@@ -325,10 +367,7 @@
 		gap: 10px;
 	}
 	.ref {
-		font-family: var(--police-chiffres);
-		font-weight: 800;
 		font-size: 18px;
-		color: var(--encre);
 	}
 	@media (max-width: 700px) {
 		.principal,

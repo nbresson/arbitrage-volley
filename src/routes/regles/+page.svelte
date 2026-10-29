@@ -42,7 +42,7 @@
 </Bandeau>
 
 <main class="page">
-	<h1>Règles</h1>
+	<h1 class="titre-page"><span class="surtitre">Règlement FIVB · Casebook · Consignes CFA</span>Règles</h1>
 	<div class="outils">
 		<div role="tablist" aria-label="Source" class="onglets">
 			<button role="tab" aria-selected={source === 'fivb_regles'} onclick={() => (source = 'fivb_regles')}>Règles officielles FIVB</button>
@@ -85,11 +85,6 @@
 		display: flex;
 		flex-direction: column;
 		gap: 18px;
-	}
-	h1 {
-		margin: 0;
-		font-size: 27px;
-		font-weight: 600;
 	}
 	.outils {
 		display: flex;

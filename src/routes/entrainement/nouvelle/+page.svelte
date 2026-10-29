@@ -56,7 +56,7 @@
 </Bandeau>
 
 <main class="page">
-	<h1>Nouvelle séance</h1>
+	<h1 class="titre-page"><span class="surtitre">S’entraîner</span>Nouvelle séance</h1>
 	<form class="carte" onsubmit={lancer} novalidate>
 		<fieldset>
 			<legend>Mode</legend>
@@ -125,11 +125,6 @@
 		display: flex;
 		flex-direction: column;
 		gap: 18px;
-	}
-	h1 {
-		margin: 0;
-		font-size: 27px;
-		font-weight: 600;
 	}
 	.carte {
 		background: var(--papier);

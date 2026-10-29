@@ -98,7 +98,7 @@
 	<div class="entete">
 		<div class="qui">
 			<div class="fil"><a href="/formateur/stagiaires">Stagiaires</a> › {compte.prenom} {compte.nom}</div>
-			<h1>{compte.prenom} {compte.nom}</h1>
+			<h1 class="titre-page"><span class="surtitre">Fiche stagiaire</span>{compte.prenom} {compte.nom}</h1>
 			<div class="sous">{formation}{niveau ? ` · ${niveau}` : ''}{compte.actif ? '' : ' · compte désactivé'}</div>
 		</div>
 		<button class="btn" onclick={ouvrirInscription}>Inscrire à un examen officiel</button>
@@ -173,7 +173,7 @@
 					<div class="regles">
 						<h3>Règles à retravailler</h3>
 						{#each detail.regles as r (r.edition + r.reference)}
-							<div><a class="ref" href={urlRegle(r)}>{r.reference}</a> <span class="doux">{r.titre ? `${r.titre} · ` : ''}{libelleErreurs(r.erreurs)}</span></div>
+							<div><a class="ref plaque" href={urlRegle(r)}>{r.reference}</a> <span class="doux">{r.titre ? `${r.titre} · ` : ''}{libelleErreurs(r.erreurs)}</span></div>
 						{:else}
 							<p class="doux">Aucune : toutes les réponses sont justes.</p>
 						{/each}
@@ -233,11 +233,6 @@
 		font-size: 14px;
 		color: var(--doux);
 		margin-bottom: 6px;
-	}
-	h1 {
-		margin: 0;
-		font-size: 27px;
-		font-weight: 600;
 	}
 	h2 {
 		margin: 0;
@@ -456,11 +451,7 @@
 		line-height: 1.5;
 	}
 	.ref {
-		font-family: var(--police-chiffres);
-		font-weight: 800;
 		font-size: 18px;
-		color: var(--encre);
-		text-underline-offset: 4px;
 	}
 	.entrainement {
 		padding: 32px 40px 48px;

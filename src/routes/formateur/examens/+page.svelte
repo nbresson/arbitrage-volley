@@ -22,7 +22,7 @@
 
 <main class="page">
 	<div class="tete">
-		<h1>Examens officiels</h1>
+		<h1 class="titre-page"><span class="surtitre">Espace formateur</span>Examens officiels</h1>
 		<a class="btn" href="/formateur/examens/nouveau">Créer un examen</a>
 	</div>
 	<p class="aide">Un examen se passe en salle : vous l’ouvrez le jour J, les stagiaires inscrits saisissent le code affiché, et chacun n’a qu’une tentative.</p>
@@ -65,11 +65,6 @@
 		gap: 16px;
 		justify-content: space-between;
 		align-items: center;
-	}
-	h1 {
-		margin: 0;
-		font-size: 27px;
-		font-weight: 600;
 	}
 	.aide {
 		margin: 0;

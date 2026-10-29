@@ -47,7 +47,7 @@
 
 <main class="page">
 	<div class="entete">
-		<h1>Questions</h1>
+		<h1 class="titre-page"><span class="surtitre">Espace formateur</span>Questions</h1>
 		<a class="btn" href="/formateur/questions/nouvelle">Nouvelle question</a>
 	</div>
 
@@ -121,11 +121,6 @@
 		justify-content: space-between;
 		align-items: center;
 		gap: 12px;
-	}
-	h1 {
-		margin: 0;
-		font-size: 27px;
-		font-weight: 600;
 	}
 	.filtres {
 		display: flex;

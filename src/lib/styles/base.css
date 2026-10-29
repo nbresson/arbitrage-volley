@@ -54,3 +54,54 @@ a:hover {
 	clip: rect(0 0 0 0);
 	white-space: nowrap;
 }
+
+/* Titre de page : le lettrage du tableau de marque. */
+.titre-page {
+	margin: 0;
+	font-family: var(--police-chiffres);
+	font-weight: 800;
+	font-size: 40px;
+	line-height: 1.05;
+}
+
+/* Surtitre : une ligne courte au-dessus d'un titre (dans le h1, pour ne pas changer la mise en page). */
+.surtitre {
+	display: block;
+	margin: 0 0 6px;
+	font-family: var(--police-chiffres);
+	font-weight: 600;
+	font-size: 15px;
+	line-height: 1.2;
+	letter-spacing: 0.05em;
+	color: var(--doux);
+}
+
+/* Numéro de règle en plaque, comme un dossard. */
+.plaque {
+	display: inline-block;
+	padding: 1px 8px;
+	border-radius: var(--r-petit);
+	background: var(--tableau);
+	color: var(--papier);
+	font-family: var(--police-chiffres);
+	font-weight: 800;
+	font-variant-numeric: tabular-nums;
+	line-height: 1.35;
+	text-decoration: none;
+}
+
+a.plaque:hover {
+	background: var(--tableau-survol);
+	color: var(--papier);
+}
+
+/* Chiffres alignés en colonnes dans tous les tableaux. */
+table {
+	font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 700px) {
+	.titre-page {
+		font-size: 32px;
+	}
+}

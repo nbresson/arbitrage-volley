@@ -29,7 +29,7 @@
 		<div role="tabpanel" class="contenu">
 			{#each visibles as s (s.edition + s.reference)}
 				<div class="source">
-					<a href={urlRegle(s)} class="ref">{s.reference}</a>
+					<a href={urlRegle(s)} class="ref plaque">{s.reference}</a>
 					<div class="ou">{s.edition}</div>
 					<p>{s.texte}</p>
 					{#if s.source === 'casebook'}
@@ -77,10 +77,7 @@
 		line-height: 1.6;
 	}
 	.ref {
-		font-family: var(--police-chiffres);
-		font-weight: 800;
 		font-size: 20px;
-		color: var(--encre);
 	}
 	.ou {
 		font-size: 13px;

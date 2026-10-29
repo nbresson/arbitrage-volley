@@ -140,7 +140,7 @@
 
 <main class="page">
 	<div class="tete">
-		<h1>Consignes CFA</h1>
+		<h1 class="titre-page"><span class="surtitre">Espace formateur</span>Consignes CFA</h1>
 		<a href="/regles">Consulter toutes les règles</a>
 	</div>
 	<p class="aide">Les règles FIVB et le Casebook sont importés par script. Les consignes de la Commission Française d’Arbitrage se saisissent ici, puis se lient aux questions comme les autres règles.</p>
@@ -184,7 +184,7 @@
 						<ul class="consignes">
 							{#each liste as c (c.id)}
 								<li>
-									<span class="ref">{c.reference}</span>
+									<span class="ref plaque">{c.reference}</span>
 									<span class="corps">{c.titre ?? c.texte.slice(0, 120)}{#if c.citee}<span class="sous">Citée par au moins une question</span>{/if}</span>
 									<span class="outils">
 										<button class="lien" onclick={() => modifier(c)}>Modifier</button>
@@ -250,11 +250,6 @@
 		justify-content: space-between;
 		align-items: baseline;
 		gap: 12px;
-	}
-	h1 {
-		margin: 0;
-		font-size: 27px;
-		font-weight: 600;
 	}
 	h2 {
 		margin: 0;
@@ -353,8 +348,6 @@
 		border-bottom: 0;
 	}
 	.ref {
-		font-family: var(--police-chiffres);
-		font-weight: 800;
 		font-size: 18px;
 		min-width: 5em;
 	}

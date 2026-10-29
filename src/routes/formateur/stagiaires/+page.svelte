@@ -77,7 +77,7 @@
 </Bandeau>
 
 <main class="page">
-	<h1>Stagiaires et formateurs</h1>
+	<h1 class="titre-page"><span class="surtitre">Espace formateur</span>Stagiaires et formateurs</h1>
 	<div class="colonnes">
 		<section class="liste">
 			{#if etat === 'chargement'}
@@ -159,11 +159,6 @@
 		display: flex;
 		flex-direction: column;
 		gap: 16px;
-	}
-	h1 {
-		margin: 0;
-		font-size: 27px;
-		font-weight: 600;
 	}
 	h2 {
 		margin: 0;

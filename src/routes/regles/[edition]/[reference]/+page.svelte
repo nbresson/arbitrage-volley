@@ -45,7 +45,7 @@
 		<p>Cette règle n’existe pas dans les éditions en vigueur. <a href="/regles">Retour aux règles</a></p>
 	{:else}
 		<article class="fiche">
-			<h1><span class="ref">{regle.reference}</span> {regle.titre ?? ''}</h1>
+			<h1><span class="ref plaque">{regle.reference}</span> {regle.titre ?? ''}</h1>
 			<p class="edition">{regle.edition}</p>
 			{#if regle.texte}<div class="texte">{regle.texte}</div>{/if}
 
@@ -70,7 +70,7 @@
 					<h2>Voir aussi</h2>
 					<ul class="renvois">
 						{#each renvois as r (r.ref)}
-							<li>{#if r.cible}<a href={urlRegle(r.cible)} class="ref">{r.ref}</a>{:else}<span class="ref">{r.ref}</span>{/if}</li>
+							<li>{#if r.cible}<a href={urlRegle(r.cible)} class="ref plaque">{r.ref}</a>{:else}<span class="ref plaque">{r.ref}</span>{/if}</li>
 						{/each}
 					</ul>
 				</section>
@@ -79,10 +79,10 @@
 			{#if parent || enfants.length}
 				<section>
 					<h2>Dans le règlement</h2>
-					{#if parent}<p>Article parent : <a href={urlRegle(parent)} class="ref">{parent.reference}</a> {parent.titre ?? ''}</p>{/if}
+					{#if parent}<p>Article parent : <a href={urlRegle(parent)} class="ref plaque">{parent.reference}</a> {parent.titre ?? ''}</p>{/if}
 					{#if enfants.length}
 						<ul class="renvois">
-							{#each enfants as e (e.id)}<li><a href={urlRegle(e)} class="ref">{e.reference}</a></li>{/each}
+							{#each enfants as e (e.id)}<li><a href={urlRegle(e)} class="ref plaque">{e.reference}</a></li>{/each}
 						</ul>
 					{/if}
 				</section>
@@ -123,11 +123,6 @@
 	h2 {
 		margin: 0 0 8px;
 		font-size: 16px;
-	}
-	.ref {
-		font-family: var(--police-chiffres);
-		font-weight: 800;
-		color: var(--encre);
 	}
 	h1 .ref {
 		font-size: 30px;

@@ -195,7 +195,7 @@
 <main class="page">
 	<div class="fil"><a href="/formateur/examens">Examens officiels</a> › {id ? (examen?.titre ?? '') : 'Nouvel examen'}</div>
 	<div class="tete">
-		<h1>{id ? (examen?.titre ?? 'Examen') : 'Nouvel examen'}</h1>
+		<h1 class="titre-page"><span class="surtitre">Examen officiel</span>{id ? (examen?.titre ?? 'Examen') : 'Nouvel examen'}</h1>
 		{#if examen}<span class="statut {examen.statut}">{LIBELLE_STATUT[examen.statut]}</span>{/if}
 	</div>
 
@@ -389,11 +389,6 @@
 		flex-wrap: wrap;
 		align-items: center;
 		gap: 12px 16px;
-	}
-	h1 {
-		margin: 0;
-		font-size: 27px;
-		font-weight: 600;
 	}
 	h2 {
 		margin: 0;
