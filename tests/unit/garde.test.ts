@@ -29,6 +29,10 @@ describe('garde', () => {
 		expect(garde(profil({ notice_acceptee_le: null }), '/notice')).toBeNull();
 	});
 
+	test('notice acceptée : la page de la notice renvoie à l’accueil', () => {
+		expect(garde(profil(), '/notice')).toBe('/');
+	});
+
 	test('un stagiaire ne va pas dans l’espace formateur', () => {
 		expect(garde(profil(), '/formateur/questions')).toBe('/');
 	});

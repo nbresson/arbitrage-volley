@@ -24,6 +24,7 @@ export function garde(profil: Profil | null, chemin: string): string | null {
 	// Arrivée par le lien d'invitation : choisir son mot de passe avant tout le reste.
 	if (chemin === '/mot-de-passe') return null;
 	if (!profil.notice_acceptee_le) return chemin === '/notice' ? null : '/notice';
+	if (chemin === '/notice') return '/';
 	if (chemin.startsWith('/formateur') && profil.role !== 'formateur') return '/';
 	return null;
 }
