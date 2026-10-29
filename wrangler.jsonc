@@ -1,0 +1,11 @@
+// Hébergement Cloudflare : site statique (dossier build), sans code serveur.
+// Toutes les adresses inconnues renvoient index.html, que l'application SvelteKit route elle-même.
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "arbitrage-volley",
+	"compatibility_date": "2026-10-01",
+	"assets": {
+		"directory": "./build",
+		"not_found_handling": "single-page-application"
+	}
+}
