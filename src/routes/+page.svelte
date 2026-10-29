@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { pluriel } from '#lib/domain/texte.ts';
 	import Chargement from '#lib/components/Chargement.svelte';
 	import '#lib/components/formulaire.css';
 	import Bandeau from '#lib/components/Bandeau.svelte';
@@ -50,7 +51,7 @@
 		{ valeur: t.acquises, chiffres: 3, libelle: 'Acquises', couleur: 'bleu' },
 		{ valeur: t.aRevoir, chiffres: 3, libelle: 'À revoir', couleur: 'rouge' }
 	]}
-	resumeTexte="{t.travaillees} travaillées · {t.acquises} acquises · {t.aRevoir} à revoir"
+	resumeTexte="{pluriel(t.travaillees, 'travaillée')} · {pluriel(t.acquises, 'acquise')} · {t.aRevoir} à revoir"
 >
 	{#snippet navigation()}<NavPrincipale />{/snippet}
 </Bandeau>
@@ -76,7 +77,7 @@
 				<a class="tuile sombre" href="/entrainement/{reprise.id}">
 					<span class="pastille"><Icone nom="sifflet" taille={26} /></span>
 					<span class="nom">Reprendre : {reprise.theme}</span>
-					<span class="desc">Question {reprise.index} sur {reprise.total} · {reprise.acquises} acquises, {reprise.aRevoir} à revoir</span>
+					<span class="desc">Question {reprise.index} sur {reprise.total} · {pluriel(reprise.acquises, 'acquise')}, {reprise.aRevoir} à revoir</span>
 					<span class="suite">Reprendre la séance <Icone nom="fleche" taille={18} /></span>
 				</a>
 			{:else}
@@ -141,14 +142,14 @@
 				<div class="bande-filet" aria-hidden="true"></div>
 				<div class="tete">
 					<h2>Examen officiel</h2>
-					<span>{e === 'termine' ? 'Examen passé' : 'Vous êtes inscrit'}</span>
+					<span>{e === 'termine' ? 'Examen passé' : e === 'a_venir' ? 'Vous êtes inscrit · à venir' : 'Vous êtes inscrit'}</span>
 				</div>
 				<p class="titre-examen">{c.titre}</p>
 				<div class="perforation" aria-hidden="true"></div>
 				<dl>
 					<dt><Icone nom="calendrier" taille={18} />Date</dt><dd>{dateHeure(c.date_heure)}</dd>
 					{#if c.lieu}<dt><Icone nom="lieu" taille={18} />Lieu</dt><dd>{c.lieu}</dd>{/if}
-					<dt><Icone nom="chrono" taille={18} />Durée</dt><dd>{c.duree_minutes} min · {c.nb_questions} questions</dd>
+					<dt><Icone nom="chrono" taille={18} />Durée</dt><dd>{c.duree_minutes} min · {c.nb_questions ? pluriel(c.nb_questions, 'question') : 'contenu en préparation'}</dd>
 					{#if c.formateur}<dt><Icone nom="stagiaires" taille={18} />Formateur</dt><dd>{c.formateur}</dd>{/if}
 				</dl>
 				<div class="pied">

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { pluriel } from '#lib/domain/texte.ts';
 	import EtatVide from '#lib/components/EtatVide.svelte';
 	import Chargement from '#lib/components/Chargement.svelte';
 	import '#lib/components/formulaire.css';
@@ -19,6 +20,8 @@
 
 	const themes = $derived([...new Set(questions.map((q) => q.theme).filter(Boolean))].sort() as string[]);
 	const niveaux = $derived([...new Set(questions.map((q) => q.niveau).filter(Boolean))].sort() as string[]);
+	// Au-delà de 200 lignes, la liste s'allonge à la demande (le compte dit toujours combien sont affichées).
+	let limite = $state(200);
 	const brouillons = $derived(questions.filter((q) => q.statut === 'brouillon').length);
 	const aRelire = $derived(questions.filter((q) => q.a_relire).length);
 	const visibles = $derived(
@@ -85,14 +88,14 @@
 	{:else if etat === 'erreur'}
 		<p class="message-erreur" role="alert">Les questions n’ont pas pu être chargées. Vérifiez votre connexion puis rechargez la page.</p>
 	{:else}
-		<p class="compte" role="status">{visibles.length} question{visibles.length > 1 ? 's' : ''}</p>
+		<p class="compte" role="status">{visibles.length > limite ? `${limite} affichées sur ${visibles.length} questions` : pluriel(visibles.length, 'question')}</p>
 		{#if visibles.length}
 			<div class="defile">
 				<table>
 					<caption class="vh">Questions</caption>
 					<thead><tr><th scope="col">Énoncé</th><th scope="col">Thème</th><th scope="col">Niveau</th><th scope="col">Statut</th></tr></thead>
 					<tbody>
-						{#each visibles.slice(0, 200) as q (q.id)}
+						{#each visibles.slice(0, limite) as q (q.id)}
 							<tr>
 								<th scope="row">
 									<a href="/formateur/questions/{q.id}">{q.enonce.length > 140 ? q.enonce.slice(0, 140) + '…' : q.enonce}</a>
@@ -109,6 +112,9 @@
 					</tbody>
 				</table>
 			</div>
+			{#if visibles.length > limite}
+				<button class="btn2 plus" onclick={() => (limite += 200)}>Afficher {Math.min(200, visibles.length - limite)} de plus</button>
+			{/if}
 		{:else}
 			<EtatVide titre="Aucune question ne correspond" texte="Élargissez les filtres pour retrouver d’autres questions.">
 				{#snippet action()}<button class="btn2" onclick={() => (f = { statut: '', theme: '', niveau: '', role: '', origine: '', aRelire: false, texte: '' })}>Effacer les filtres</button>{/snippet}

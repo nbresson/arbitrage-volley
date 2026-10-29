@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { pluriel } from '#lib/domain/texte.ts';
 	import '#lib/components/formulaire.css';
 	import { page } from '$app/state';
 	import Bandeau from '#lib/components/Bandeau.svelte';
@@ -95,7 +96,7 @@
 			: []
 	);
 	const resume = $derived(
-		etat ? `Question ${etat.index + 1}/${etat.questions.length} · ${etat.acquises} acquises · ${etat.aRevoir} à revoir` : ''
+		etat ? `Question ${etat.index + 1}/${etat.questions.length} · ${pluriel(etat.acquises, 'acquise')} · ${etat.aRevoir} à revoir` : ''
 	);
 </script>
 

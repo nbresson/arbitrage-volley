@@ -12,7 +12,10 @@
 
 	let { bilan, officiel, sousTitre }: { bilan: Bilan; officiel: null | { seuil: number; reussi: boolean }; sousTitre: string } = $props();
 
-	const faibles = $derived(bilan.par_theme.filter((t) => t.total > 0 && t.justes / t.total < 5 / 6));
+	// Un thème est « à revoir » sous 5 bonnes réponses sur 6. Ses bonnes réponses restent bleues : seule la faiblesse est écrite.
+	const faible = (t: { justes: number; total: number }) => t.total > 0 && t.justes / t.total < 5 / 6;
+	const faibles = $derived(bilan.par_theme.filter(faible));
+	const pourcentage = $derived(bilan.total ? Math.round((bilan.score / bilan.total) * 100) : 0);
 	const chiffres = (n: number) => String(n).padStart(2, '0').split('');
 </script>
 
@@ -28,6 +31,7 @@
 		<span class="sur">/</span>
 		{#each chiffres(bilan.total) as c, i (i)}<Volet chiffre={c} taille="grand" total />{/each}
 	</div>
+	<p class="pourcentage">{pourcentage} % de bonnes réponses</p>
 	{#if officiel}
 		<div class="reussite">
 			<BadgeReussite reussi={officiel.reussi} />
@@ -51,11 +55,11 @@
 					{#each bilan.par_theme as t (t.theme_id ?? t.theme)}
 						<tr>
 							<th scope="row">{t.theme}</th>
-							<td class="chiffres" class:faible={t.justes / t.total < 5 / 6}>{t.justes} / {t.total}</td>
+							<td class="chiffres">{t.justes} / {t.total}{#if faible(t)}<span class="a-revoir">À revoir</span>{/if}</td>
 							<td>
 								<span class="marques" aria-hidden="true">
 									{#each Array.from({ length: t.total }, (_, i) => i < t.justes) as juste, i (i)}
-										<span class:juste class:faible={juste && t.justes / t.total < 5 / 6}></span>
+										<span class:juste class:fausse={!juste}></span>
 									{/each}
 								</span>
 							</td>
@@ -194,10 +198,20 @@
 	td.chiffres {
 		font-weight: 800;
 		font-size: 20px;
-		color: var(--bleu-texte);
+		white-space: nowrap;
 	}
-	td.chiffres.faible {
+	.a-revoir {
+		margin-left: 10px;
+		font-family: var(--police);
+		font-size: 13px;
+		font-weight: 700;
 		color: var(--rouge-texte);
+	}
+	.pourcentage {
+		margin: 0;
+		font-size: 17px;
+		font-weight: 600;
+		color: var(--tableau-texte);
 	}
 	.marques {
 		display: flex;
@@ -212,8 +226,9 @@
 	.marques span.juste {
 		background: var(--bleu);
 	}
-	.marques span.juste.faible {
-		background: var(--rouge);
+	.marques span.fausse {
+		background: var(--rouge-clair);
+		border: 1px solid var(--rouge);
 	}
 	.suite {
 		flex: 1 1 420px;
