@@ -1,3 +1,4 @@
+import { titreLisible } from '#lib/domain/texte.ts';
 import type { Regle } from '#lib/regles/arbre.ts';
 import { supabase } from '#lib/supabase.ts';
 
@@ -61,7 +62,7 @@ const CLE_VUES = 'regles-consultees';
 export function memoriserConsultation(r: Pick<Regle, 'edition' | 'reference' | 'titre' | 'texte'>) {
 	try {
 		const vues = lireConsultations().filter((v) => v.reference !== r.reference);
-		const resume = r.titre ?? r.texte.slice(0, 60);
+		const resume = titreLisible(r.titre) || r.texte.slice(0, 60);
 		vues.unshift({ edition: r.edition, reference: r.reference, resume });
 		localStorage.setItem(CLE_VUES, JSON.stringify(vues.slice(0, 3)));
 	} catch {

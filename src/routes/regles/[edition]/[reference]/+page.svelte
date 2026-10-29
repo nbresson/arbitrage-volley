@@ -6,7 +6,8 @@
 	import Bandeau from '#lib/components/Bandeau.svelte';
 	import NavPrincipale from '#lib/components/NavPrincipale.svelte';
 	import { memoriserConsultation, slug, toutesLesRegles, urlRegle } from '#lib/data/regles.ts';
-	import type { Regle } from '#lib/regles/arbre.ts';
+	import { comparerReferences, type Regle } from '#lib/regles/arbre.ts';
+	import { titreLisible } from '#lib/domain/texte.ts';
 
 	let regles = $state<Regle[]>([]);
 	let etat = $state<'chargement' | 'pret' | 'erreur'>('chargement');
@@ -29,7 +30,9 @@
 	});
 
 	const parent = $derived(regle?.parent_reference ? edition.find((r) => r.reference === regle.parent_reference) : undefined);
-	const enfants = $derived(regle ? edition.filter((r) => r.parent_reference === regle.reference) : []);
+	const enfants = $derived(
+		regle ? edition.filter((r) => r.parent_reference === regle.reference).sort((a, b) => comparerReferences(a.reference, b.reference)) : []
+	);
 </script>
 
 <Bandeau titre="Arbitrage volley" sousTitre="Règles et interprétations">
@@ -47,7 +50,7 @@
 		<p>Cette règle n’existe pas dans les éditions en vigueur. <a href="/regles">Retour aux règles</a></p>
 	{:else}
 		<article class="fiche papier-reglement">
-			<h1><span class="ref plaque">{regle.reference}</span> {regle.titre ?? ''}</h1>
+			<h1><span class="ref plaque">{regle.reference}</span> {titreLisible(regle.titre)}</h1>
 			<p class="edition">{regle.edition}</p>
 			{#if regle.texte}<blockquote class="texte extrait-reglement">« {regle.texte.trim()} »</blockquote><CartonsSanction texte={regle.texte} />{/if}
 
@@ -72,7 +75,7 @@
 					<h2>Voir aussi</h2>
 					<ul class="renvois">
 						{#each renvois as r (r.ref)}
-							<li>{#if r.cible}<a href={urlRegle(r.cible)} class="ref plaque">{r.ref}</a>{:else}<span class="ref plaque">{r.ref}</span>{/if}</li>
+							<li>{#if r.cible}<a href={urlRegle(r.cible)} class="ref plaque">{r.ref}</a> <span class="intitule">{titreLisible(r.cible.titre) || r.cible.texte.slice(0, 60)}</span>{:else}<span class="ref plaque">{r.ref}</span>{/if}</li>
 						{/each}
 					</ul>
 				</section>
@@ -81,10 +84,10 @@
 			{#if parent || enfants.length}
 				<section>
 					<h2>Dans le règlement</h2>
-					{#if parent}<p>Article parent : <a href={urlRegle(parent)} class="ref plaque">{parent.reference}</a> {parent.titre ?? ''}</p>{/if}
+					{#if parent}<p>Article parent : <a href={urlRegle(parent)} class="ref plaque">{parent.reference}</a> {titreLisible(parent.titre)}</p>{/if}
 					{#if enfants.length}
 						<ul class="renvois">
-							{#each enfants as e (e.id)}<li><a href={urlRegle(e)} class="ref plaque">{e.reference}</a></li>{/each}
+							{#each enfants as e (e.id)}<li><a href={urlRegle(e)} class="ref plaque">{e.reference}</a> <span class="intitule">{titreLisible(e.titre) || e.texte.slice(0, 60)}</span></li>{/each}
 						</ul>
 					{/if}
 				</section>
@@ -153,13 +156,17 @@
 		border-radius: var(--r);
 		padding: 10px 12px;
 	}
+	/* Un renvoi par ligne : le numéro en plaque, puis son intitulé, pour savoir où mène le lien. */
 	.renvois {
 		list-style: none;
 		margin: 0;
 		padding: 0;
 		display: flex;
-		flex-wrap: wrap;
-		gap: 8px 16px;
+		flex-direction: column;
+		gap: 8px;
+	}
+	.intitule {
+		color: var(--doux);
 	}
 	.btn {
 		align-self: flex-start;

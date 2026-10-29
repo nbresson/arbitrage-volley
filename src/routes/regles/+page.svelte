@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { titreLisible } from '#lib/domain/texte.ts';
 	import EtatVide from '#lib/components/EtatVide.svelte';
 	import '#lib/components/formulaire.css';
 	import Bandeau from '#lib/components/Bandeau.svelte';
@@ -27,14 +28,14 @@
 {#snippet noeud(n: NoeudRegle)}
 	{#if n.enfants.length}
 		<details>
-			<summary><a href={urlRegle(n.regle)} class="ref">{n.regle.reference}</a> {n.regle.titre ?? ''}</summary>
+			<summary><a href={urlRegle(n.regle)} class="ref">{n.regle.reference}</a> {titreLisible(n.regle.titre)}</summary>
 			<ul>
 				{#each n.enfants as e (e.regle.id)}<li>{@render noeud(e)}</li>{/each}
 			</ul>
 		</details>
 	{:else}
 		<a href={urlRegle(n.regle)} class="ref">{n.regle.reference}</a>
-		<span class="apercu">{n.regle.titre ?? n.regle.texte.slice(0, 90)}</span>
+		<span class="apercu">{titreLisible(n.regle.titre) || n.regle.texte.slice(0, 90)}</span>
 	{/if}
 {/snippet}
 
@@ -43,7 +44,7 @@
 </Bandeau>
 
 <main class="page">
-	<h1 class="titre-page"><span class="surtitre">Règlement FIVB · Casebook · Consignes CFA</span>Règles</h1>
+	<h1 class="titre-page"><span class="surtitre">Règlement FIVB · Casebook{avecCfa ? ' · Consignes CFA' : ''}</span>Règles</h1>
 	<div class="outils">
 		<div role="tablist" aria-label="Source" class="onglets">
 			<button role="tab" aria-selected={source === 'fivb_regles'} onclick={() => (source = 'fivb_regles')}>Règles officielles FIVB</button>
@@ -65,7 +66,7 @@
 		{#if resultats.length}
 			<ul class="liste">
 				{#each resultats.slice(0, 100) as r (r.id)}
-					<li><a href={urlRegle(r)} class="ref">{r.reference}</a> <span class="apercu">{r.titre ?? r.texte.slice(0, 140)}</span></li>
+					<li><a href={urlRegle(r)} class="ref">{r.reference}</a> <span class="apercu">{titreLisible(r.titre) || r.texte.slice(0, 140)}</span></li>
 				{/each}
 			</ul>
 		{:else}

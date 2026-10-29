@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { pluriel } from '#lib/domain/texte.ts';
+	import { pluriel, titreLisible } from '#lib/domain/texte.ts';
 	import Chargement from '#lib/components/Chargement.svelte';
 	import '#lib/components/formulaire.css';
 	import Bandeau from '#lib/components/Bandeau.svelte';
@@ -67,7 +67,7 @@
 			{#if niveau}
 				<div class="niveau">
 					<svg width="30" height="34" viewBox="0 0 34 38" aria-hidden="true"><path d="M17 2 31 7v11c0 9-6 15-14 18C9 33 3 27 3 18V7z" fill="var(--tableau)" /><path d="M11 18l4 4 8-8" fill="none" stroke="var(--papier)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" /></svg>
-					<span><span class="petit">Niveau</span>{niveau}</span>
+					<span><span class="petit">Niveau de formation</span>{niveau}</span>
 				</div>
 			{/if}
 		</div>
@@ -174,7 +174,7 @@
 			{#if consultees.length}
 				<ul class="consultees">
 					{#each consultees as c (c.reference)}
-						<li><a class="ref plaque" href="/regles/{slug(c.edition)}/{encodeURIComponent(c.reference)}">{c.reference}</a> <span class="aide">{c.resume}</span></li>
+						<li><a class="ref plaque" href="/regles/{slug(c.edition)}/{encodeURIComponent(c.reference)}">{c.reference}</a> <span class="aide">{titreLisible(c.resume)}</span></li>
 					{/each}
 				</ul>
 			{:else}
