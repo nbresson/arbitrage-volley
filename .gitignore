@@ -24,3 +24,6 @@ vite.config.ts.timestamp-*
 
 .env.local
 .superpowers/
+
+# Réglages personnels de Claude Code
+.claude/settings.local.json
