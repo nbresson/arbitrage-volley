@@ -51,7 +51,8 @@
 		cursor: pointer;
 		transition: border-color var(--duree-micro) ease-out;
 	}
-	.r:hover {
+	/* Le survol ne remplace jamais la bordure d'un état corrigé. */
+	.r.neutre:not(.sel):hover {
 		border-color: var(--doux);
 	}
 	.r:has(input:focus-visible) {
@@ -115,8 +116,5 @@
 	.ecartee {
 		color: var(--doux);
 		cursor: default;
-	}
-	.ecartee:hover {
-		border-color: var(--filet);
 	}
 </style>

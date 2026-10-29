@@ -1,7 +1,9 @@
 <script lang="ts">
 	import { pluriel } from '#lib/domain/texte.ts';
 	import '#lib/components/formulaire.css';
+	import { tick } from 'svelte';
 	import { page } from '$app/state';
+	import { actionTouche } from '#lib/seance/raccourcis.ts';
 	import Bandeau from '#lib/components/Bandeau.svelte';
 	import Etiquette from '#lib/components/Etiquette.svelte';
 	import Filet from '#lib/components/Filet.svelte';
@@ -28,6 +30,9 @@
 	let bilan = $state<BilanSeance | null>(null);
 	let aRevoir = $state<{ question: string; source: SourceCitee | undefined }[]>([]);
 	let panneau = $state<HTMLElement>();
+	let boutonSuivante = $state<HTMLButtonElement>();
+	// Verdict annoncé aux lecteurs d'écran (la correction complète reste lisible dans le panneau).
+	let annonce = $state('');
 
 	$effect(() => {
 		questionsDeSeance(seanceId)
@@ -65,8 +70,12 @@
 			const r = (await validerReponse(seanceId, question.question_id, etat.choix!)) as ResultatValidation;
 			etat = finValidation(etat, r);
 			if (!r.correcte) aRevoir.push({ question: question.enonce, source: r.sources.find((s) => s.principale) ?? r.sources[0] });
-			// Sur écran étroit, la décision est sous la question : on y amène le focus.
+			const juste = question.propositions.find((p) => p.id === r.bonne_proposition_id);
+			annonce = r.correcte ? 'Bonne réponse.' : `Réponse fausse. La bonne réponse est ${juste?.lettre ?? ''} : ${juste?.texte ?? ''}.`;
+			// Sur écran étroit, la décision est sous la question : on y amène le focus. Sinon, sur « Question suivante ».
+			await tick();
 			if (window.innerWidth < 1000) panneau?.focus();
+			else boutonSuivante?.focus();
 		} catch {
 			etat = echecValidation(etat);
 		}
@@ -82,8 +91,27 @@
 
 	function continuer() {
 		if (!etat) return;
+		annonce = '';
 		etat = suivante(etat);
 		if (etat.terminee) terminer();
+	}
+
+	function clavier(e: KeyboardEvent) {
+		if (!etat || !question || etat.terminee || e.ctrlKey || e.metaKey || e.altKey) return;
+		const cible = e.target as HTMLElement;
+		if (cible.closest('textarea, select, input:not([type="radio"])')) return;
+		// Entrée sur un bouton ou un lien garde son comportement normal.
+		if (e.key === 'Enter' && cible.closest('button, a')) return;
+		const action = actionTouche(e.key, {
+			nbPropositions: question.propositions.length,
+			corrigee: !!etat.resultat,
+			choix: !!etat.choix
+		});
+		if (!action) return;
+		e.preventDefault();
+		if (action.type === 'choisir') etat = choisir(etat, question.propositions[action.index].id);
+		else if (action.type === 'valider') valider();
+		else continuer();
 	}
 
 	const compteurs = $derived(
@@ -99,6 +127,8 @@
 		etat ? `Question ${etat.index + 1}/${etat.questions.length} · ${pluriel(etat.acquises, 'acquise')} · ${etat.aRevoir} à revoir` : ''
 	);
 </script>
+
+<svelte:window onkeydown={clavier} />
 
 <Bandeau titre="Arbitrage volley" sousTitre="Mode pédagogique" {compteurs} resumeTexte={resume}>
 	{#snippet navigation()}<NavPrincipale />{/snippet}
@@ -159,7 +189,7 @@
 			</fieldset>
 			<div class="actions">
 				{#if etat.resultat}
-					<button class="btn siffle" onclick={continuer}>
+					<button class="btn siffle" bind:this={boutonSuivante} onclick={continuer}>
 						{etat.index < etat.questions.length - 1 ? 'Question suivante' : 'Voir le bilan'}
 					</button>
 				{:else}
@@ -173,10 +203,12 @@
 					{/if}
 				{/if}
 			</div>
+			<p class="raccourcis">Au clavier : <kbd>A</kbd> à <kbd>D</kbd> pour choisir, <kbd>Entrée</kbd> pour valider, <kbd>S</kbd> pour la question suivante.</p>
+			<p class="vh" role="status">{annonce}</p>
 		</section>
 		<Filet />
-		<aside class="decision" bind:this={panneau} tabindex="-1" aria-live="polite" aria-label="Décision">
-			<PanneauDecision resultat={etat.resultat} decision={bonne?.texte ?? ''} />
+		<aside class="decision" bind:this={panneau} tabindex="-1" aria-label="Décision">
+			<PanneauDecision resultat={etat.resultat} decision={bonne?.texte ?? ''} lettre={bonne?.lettre ?? ''} />
 		</aside>
 	</div>
 {/if}
@@ -185,10 +217,13 @@
 	.etat {
 		margin: 40px;
 	}
+	/* Sur grand écran, la page reste groupée : la décision se lit à côté des réponses. */
 	.jeu {
 		display: flex;
 		flex-wrap: wrap;
 		min-height: calc(100vh - 140px);
+		max-width: 1360px;
+		margin: 0 auto;
 	}
 	.situation {
 		flex: 999 1 560px;
@@ -235,6 +270,28 @@
 	.aide {
 		font-size: 14px;
 		color: var(--doux);
+	}
+	.raccourcis {
+		margin: 0;
+		font-size: 13px;
+		color: var(--doux);
+	}
+	kbd {
+		font-family: var(--police-chiffres);
+		font-weight: 600;
+		font-size: 12px;
+		padding: 1px 6px;
+		border: 1px solid var(--filet);
+		border-bottom-width: 2px;
+		border-radius: var(--r-petit);
+		background: var(--papier);
+		color: var(--encre);
+	}
+	/* Pas de clavier physique sur les écrans tactiles : on n'affiche pas l'aide. */
+	@media (hover: none) {
+		.raccourcis {
+			display: none;
+		}
 	}
 	.decision {
 		flex: 1 1 420px;

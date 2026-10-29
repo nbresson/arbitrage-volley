@@ -2,11 +2,11 @@
 	import type { ResultatValidation } from '#lib/seance/pedagogique.ts';
 	import SourcesOnglets from './SourcesOnglets.svelte';
 
-	let { resultat, decision }: { resultat: ResultatValidation | null; decision: string } = $props();
+	let { resultat, decision, lettre = '' }: { resultat: ResultatValidation | null; decision: string; lettre?: string } = $props();
 </script>
 
 {#if resultat}
-	<h2 class="titre">{decision}</h2>
+	<h2 class="titre"><span class="surtitre">Bonne réponse{lettre ? ` : ${lettre}` : ''}</span>{decision}</h2>
 	<p class="verdict" class:juste={resultat.correcte}>
 		{resultat.correcte ? 'Vous avez donné la bonne réponse.' : 'Votre réponse n’était pas la bonne.'}
 	</p>
