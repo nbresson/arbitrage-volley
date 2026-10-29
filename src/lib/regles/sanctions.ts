@@ -10,7 +10,7 @@ const mot = (racine: string, suite = '') => new RegExp(`(?<!\\p{L})${racine}s?(?
 
 const SANCTIONS: (Sanction & { motif: RegExp })[] = [
 	{ id: 'avertissement', libelle: 'Avertissement', cartons: ['jaune'], motif: mot('avertissement', '(?!\\s+(verbal|verbaux|oral|oraux))') },
-	{ id: 'penalite', libelle: 'Pénalité', cartons: ['rouge'], motif: mot('pénalité') },
+	{ id: 'penalite', libelle: 'Pénalité', cartons: ['rouge'], motif: mot('(pénalité|pénalisation)') },
 	{ id: 'expulsion', libelle: 'Expulsion', cartons: ['jaune-rouge'], motif: mot('expulsion') },
 	{ id: 'disqualification', libelle: 'Disqualification', cartons: ['jaune', 'rouge'], motif: mot('disqualification') }
 ];

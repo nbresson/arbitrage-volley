@@ -65,7 +65,6 @@
 <style>
 	.bandeau {
 		position: relative;
-		overflow: hidden;
 		background: var(--tableau);
 		color: var(--papier);
 		display: flex;
@@ -84,10 +83,10 @@
 		left: 50%;
 		width: min(620px, 64%);
 		transform: translateX(-50%);
-		border: 2px solid rgb(255 255 255 / 0.06);
+		border: 2px solid rgb(255 255 255 / 0.04);
 		background:
-			linear-gradient(rgb(255 255 255 / 0.09) 50%, transparent 0) center / 2px 12px repeat-y,
-			linear-gradient(90deg, transparent calc(33.3% - 1px), rgb(255 255 255 / 0.06) 0 calc(33.3% + 1px), transparent 0 calc(66.6% - 1px), rgb(255 255 255 / 0.06) 0 calc(66.6% + 1px), transparent 0);
+			linear-gradient(rgb(255 255 255 / 0.07) 50%, transparent 0) center / 2px 12px repeat-y,
+			linear-gradient(90deg, transparent calc(33.3% - 1px), rgb(255 255 255 / 0.04) 0 calc(33.3% + 1px), transparent 0 calc(66.6% - 1px), rgb(255 255 255 / 0.04) 0 calc(66.6% + 1px), transparent 0);
 		pointer-events: none;
 	}
 	.bandeau > * {

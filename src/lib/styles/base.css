@@ -18,7 +18,7 @@ body {
 	background-color: var(--sol);
 	background-image:
 		repeating-linear-gradient(90deg, rgb(28 36 48 / 0.025) 0 1px, transparent 1px 120px),
-		repeating-linear-gradient(0deg, rgb(255 255 255 / 0.3) 0 2px, transparent 2px 14px);
+		repeating-linear-gradient(0deg, rgb(255 255 255 / 0.16) 0 2px, transparent 2px 14px);
 	color: var(--encre);
 	font-family: var(--police);
 	font-size: 16px;
@@ -117,6 +117,7 @@ table {
 		repeating-linear-gradient(-45deg, rgb(28 36 48 / 0.07) 0 1px, transparent 1px 16px);
 	min-height: calc(100vh - 140px);
 	box-sizing: border-box;
+	align-items: flex-start;
 }
 
 /* Grain de papier : signale un texte officiel (règles, casebook, consignes). */

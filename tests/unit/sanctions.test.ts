@@ -25,4 +25,5 @@ test('l’avertissement verbal ou oral n’a pas de carton', () => {
 test('pluriels et majuscules', () => {
 	expect(sanctionsCitees('Les PÉNALITÉS et les expulsions').map((s) => s.id)).toEqual(['penalite', 'expulsion']);
 	expect(sanctionsCitees('Aucune sanction ici.')).toEqual([]);
+	expect(sanctionsCitees('Pénalisation, Expulsion ou Disqualification.').map((s) => s.id)).toEqual(['penalite', 'expulsion', 'disqualification']);
 });
