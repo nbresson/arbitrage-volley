@@ -8,7 +8,7 @@
 	import { mesConvocations, type Convocation } from '#lib/data/examens-officiels.ts';
 	import { avancement, seanceAReprendre } from '#lib/data/seances.ts';
 	import { dateHeure, etatConvocation } from '#lib/examen-officiel/convocation.ts';
-	import { seDeconnecter, session } from '#lib/session.svelte.ts';
+	import { session } from '#lib/session.svelte.ts';
 
 	let av = $state<Avancement[]>([]);
 	let reprise = $state<Awaited<ReturnType<typeof seanceAReprendre>>>(null);
@@ -146,7 +146,6 @@
 				<p class="aide">Les règles que vous ouvrez apparaîtront ici. <a href="/regles">Parcourir les règles</a></p>
 			{/if}
 		</div>
-		<button class="lien" onclick={seDeconnecter}>Se déconnecter</button>
 	</aside>
 </div>
 
@@ -330,16 +329,6 @@
 		font-weight: 800;
 		font-size: 18px;
 		color: var(--encre);
-	}
-	.lien {
-		align-self: flex-start;
-		font: inherit;
-		background: none;
-		border: 0;
-		padding: 0;
-		color: var(--bleu-texte);
-		text-decoration: underline;
-		cursor: pointer;
 	}
 	@media (max-width: 700px) {
 		.principal,
