@@ -32,7 +32,7 @@
 				<div class="source">
 					<a href={urlRegle(s)} class="ref plaque">{s.reference}</a>
 					<div class="ou">{s.edition}</div>
-					<p>{s.texte}</p>
+					<blockquote class="extrait-reglement">« {s.texte.trim()} »</blockquote>
 					<div class="sanctions"><CartonsSanction texte={s.texte} /></div>
 					{#if s.source === 'casebook'}
 						<p class="mention">Traduction française non officielle : le texte anglais du Casebook fait foi.</p>

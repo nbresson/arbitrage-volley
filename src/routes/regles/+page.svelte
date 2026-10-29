@@ -1,4 +1,5 @@
 <script lang="ts">
+	import EtatVide from '#lib/components/EtatVide.svelte';
 	import '#lib/components/formulaire.css';
 	import Bandeau from '#lib/components/Bandeau.svelte';
 	import NavPrincipale from '#lib/components/NavPrincipale.svelte';
@@ -68,7 +69,7 @@
 				{/each}
 			</ul>
 		{:else}
-			<p>Aucune règle ne correspond. Essayez un numéro (« 12.4 ») ou d’autres mots.</p>
+			<EtatVide titre="Aucune règle ne correspond" texte="Essayez un numéro (« 12.4 ») ou d’autres mots." />
 		{/if}
 	{:else}
 		<ul class="liste">

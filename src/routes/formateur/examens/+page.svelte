@@ -1,4 +1,5 @@
 <script lang="ts">
+	import EtatVide from '#lib/components/EtatVide.svelte';
 	import Chargement from '#lib/components/Chargement.svelte';
 	import '#lib/components/formulaire.css';
 	import Bandeau from '#lib/components/Bandeau.svelte';
@@ -32,7 +33,9 @@
 	{:else if etat === 'erreur'}
 		<p class="message-erreur" role="alert">Les examens n’ont pas pu être chargés. Vérifiez votre connexion puis rechargez la page.</p>
 	{:else if !examens.length}
-		<p>Aucun examen pour l’instant. Créez le premier, puis choisissez ses questions dans la réserve d’examen.</p>
+		<EtatVide titre="Aucun examen pour l’instant" texte="Créez le premier, puis choisissez ses questions dans la réserve d’examen.">
+			{#snippet action()}<a class="btn" href="/formateur/examens/nouveau">Créer un examen</a>{/snippet}
+		</EtatVide>
 	{:else}
 		<div class="defile">
 			<table>

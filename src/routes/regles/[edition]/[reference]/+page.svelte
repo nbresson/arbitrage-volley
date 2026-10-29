@@ -49,7 +49,7 @@
 		<article class="fiche papier-reglement">
 			<h1><span class="ref plaque">{regle.reference}</span> {regle.titre ?? ''}</h1>
 			<p class="edition">{regle.edition}</p>
-			{#if regle.texte}<div class="texte">{regle.texte}</div><CartonsSanction texte={regle.texte} />{/if}
+			{#if regle.texte}<blockquote class="texte extrait-reglement">« {regle.texte.trim()} »</blockquote><CartonsSanction texte={regle.texte} />{/if}
 
 			{#if regle.source === 'casebook'}
 				<p class="mention">

@@ -2,7 +2,11 @@
 	import Chargement from '#lib/components/Chargement.svelte';
 	import '#lib/components/formulaire.css';
 	import Bandeau from '#lib/components/Bandeau.svelte';
+	import EtatVide from '#lib/components/EtatVide.svelte';
 	import Filet from '#lib/components/Filet.svelte';
+	import Icone from '#lib/components/Icone.svelte';
+	import ProgressionVolets from '#lib/components/ProgressionVolets.svelte';
+	import { iconeTheme } from '#lib/domain/icone-theme.ts';
 	import NavPrincipale from '#lib/components/NavPrincipale.svelte';
 	import { lignesThemes, totaux, type Avancement } from '#lib/data/avancement.ts';
 	import { lireConsultations, slug } from '#lib/data/regles.ts';
@@ -34,7 +38,6 @@
 	const lignes = $derived(lignesThemes(av));
 	const t = $derived(totaux(av));
 	const role = $derived(session.profil?.profil_formation === 'marqueur' ? 'marqueur' : 'arbitre');
-	const pourcent = (n: number, total: number) => `${Math.round((n / total) * 100)}%`;
 	const jour = new Intl.DateTimeFormat('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' }).format(new Date());
 	const aujourdhui = jour.charAt(0).toUpperCase() + jour.slice(1);
 </script>
@@ -68,27 +71,41 @@
 			{/if}
 		</div>
 
-		<div class="carte reprise">
+		<nav class="tuiles" aria-label="Commencer">
 			{#if reprise}
-				<div class="texte">
-					<h2>Reprendre : {reprise.theme}</h2>
-					<p>Mode pédagogique · question {reprise.index} sur {reprise.total} · {reprise.acquises} acquises, {reprise.aRevoir} à revoir</p>
-				</div>
-				<a class="btn" href="/entrainement/{reprise.id}">Reprendre la séance</a>
+				<a class="tuile sombre" href="/entrainement/{reprise.id}">
+					<span class="pastille"><Icone nom="sifflet" taille={26} /></span>
+					<span class="nom">Reprendre : {reprise.theme}</span>
+					<span class="desc">Question {reprise.index} sur {reprise.total} · {reprise.acquises} acquises, {reprise.aRevoir} à revoir</span>
+					<span class="suite">Reprendre la séance <Icone nom="fleche" taille={18} /></span>
+				</a>
 			{:else}
-				<div class="texte">
-					<h2>Commencer une séance</h2>
-					<p>Choisissez des thèmes et répondez aux questions : chaque réponse est corrigée avec la règle qui la fonde.</p>
-				</div>
-				<a class="btn" href="/entrainement/nouvelle">Commencer une séance</a>
+				<a class="tuile sombre" href="/entrainement/nouvelle">
+					<span class="pastille"><Icone nom="sifflet" taille={26} /></span>
+					<span class="nom">Séance d’entraînement</span>
+					<span class="desc">Choisissez des thèmes : chaque réponse est corrigée avec la règle qui la fonde.</span>
+					<span class="suite">Commencer une séance <Icone nom="fleche" taille={18} /></span>
+				</a>
 			{/if}
-		</div>
+			<a class="tuile" href="/entrainement/nouvelle?mode=examen_entrainement">
+				<span class="pastille"><Icone nom="chrono" taille={26} /></span>
+				<span class="nom">Examen blanc</span>
+				<span class="desc">Questions chronométrées, correction à la fin, comme le jour de l’examen.</span>
+				<span class="suite">Lancer un examen blanc <Icone nom="fleche" taille={18} /></span>
+			</a>
+			<a class="tuile papier-reglement" href="/regles">
+				<span class="pastille"><Icone nom="regles" taille={26} /></span>
+				<span class="nom">Règles officielles</span>
+				<span class="desc">Le règlement FIVB, le Casebook et les consignes CFA, avec recherche.</span>
+				<span class="suite">Consulter les règles <Icone nom="fleche" taille={18} /></span>
+			</a>
+		</nav>
 
 		<h2>S’entraîner par thème</h2>
 		{#if etat === 'chargement'}
 			<Chargement />
 		{:else if !lignes.length && etat === 'pret'}
-			<p class="aide">Aucune question n’est encore disponible : vos formateurs sont en train de les valider.</p>
+			<EtatVide titre="Aucune question pour l’instant" texte="Vos formateurs sont en train de valider les questions. Revenez bientôt : elles apparaîtront ici, thème par thème." />
 		{:else}
 			<div class="defile">
 				<table>
@@ -99,11 +116,11 @@
 					<tbody>
 						{#each lignes as l (l.themeId)}
 							<tr>
-								<th scope="row">{l.theme}<span class="sous">{l.total} questions</span></th>
+								<th scope="row"><span class="theme"><span class="picto"><Icone nom={iconeTheme(l.theme)} /></span><span>{l.theme}<span class="sous">{l.total} questions</span></span></span></th>
 								{#if l.commence}
 									<td class="chiffres bleu">{l.acquises}</td>
 									<td class="chiffres rouge">{l.aRevoir}</td>
-									<td><span class="barre" aria-hidden="true"><span class="b" style="width: {pourcent(l.acquises, l.total)}"></span><span class="r" style="width: {pourcent(l.aRevoir, l.total)}"></span></span></td>
+									<td><ProgressionVolets acquises={l.acquises} aRevoir={l.aRevoir} total={l.total} /></td>
 									<td class="action"><a class="btn2" href="/entrainement/nouvelle?theme={l.themeId}" aria-label="S’entraîner : {l.theme}">S’entraîner</a></td>
 								{:else}
 									<td colspan="3" class="aide">Pas encore commencé</td>
@@ -126,12 +143,13 @@
 					<h2>Examen officiel</h2>
 					<span>{e === 'termine' ? 'Examen passé' : 'Vous êtes inscrit'}</span>
 				</div>
+				<p class="titre-examen">{c.titre}</p>
+				<div class="perforation" aria-hidden="true"></div>
 				<dl>
-					<dt>Examen</dt><dd>{c.titre}</dd>
-					<dt>Date</dt><dd>{dateHeure(c.date_heure)}</dd>
-					{#if c.lieu}<dt>Lieu</dt><dd>{c.lieu}</dd>{/if}
-					<dt>Contenu</dt><dd>{c.nb_questions} questions · {c.duree_minutes} minutes</dd>
-					{#if c.formateur}<dt>Formateur</dt><dd>{c.formateur}</dd>{/if}
+					<dt><Icone nom="calendrier" taille={18} />Date</dt><dd>{dateHeure(c.date_heure)}</dd>
+					{#if c.lieu}<dt><Icone nom="lieu" taille={18} />Lieu</dt><dd>{c.lieu}</dd>{/if}
+					<dt><Icone nom="chrono" taille={18} />Durée</dt><dd>{c.duree_minutes} min · {c.nb_questions} questions</dd>
+					{#if c.formateur}<dt><Icone nom="stagiaires" taille={18} />Formateur</dt><dd>{c.formateur}</dd>{/if}
 				</dl>
 				<div class="pied">
 					{#if e === 'a_venir'}
@@ -146,11 +164,9 @@
 				</div>
 			</div>
 		{:else}
-			<div class="carte">
-				<h2>Aucun examen officiel prévu</h2>
-				<p class="aide">Votre formateur vous inscrira ; la convocation apparaîtra ici. En attendant, entraînez-vous dans les conditions de l’examen.</p>
-				<a class="btn2" href="/entrainement/nouvelle?mode=examen_entrainement">Passer un examen d’entraînement</a>
-			</div>
+			<EtatVide titre="Aucun examen officiel prévu" texte="Votre formateur vous inscrira ; la convocation apparaîtra ici. En attendant, entraînez-vous dans les conditions de l’examen.">
+				{#snippet action()}<a class="btn2" href="/entrainement/nouvelle?mode=examen_entrainement">Passer un examen d’entraînement</a>{/snippet}
+			</EtatVide>
 		{/each}
 		<div>
 			<h2>Règles consultées récemment</h2>
@@ -181,23 +197,89 @@
 		flex-direction: column;
 		gap: 18px;
 	}
-	.carte {
-		background: var(--papier);
-		border: 1px solid var(--filet);
-		border-radius: var(--r);
-		padding: 22px 24px;
+	.tuiles {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+		gap: 16px;
+	}
+	.tuile {
 		display: flex;
 		flex-direction: column;
 		gap: 10px;
+		min-height: 190px;
+		padding: 20px 22px;
+		background-color: var(--papier);
+		border: 1px solid var(--filet);
+		border-radius: var(--r);
+		color: var(--encre);
+		text-decoration: none;
+		transition: border-color var(--duree-micro) ease-out, transform var(--duree-micro) ease-out;
 	}
-	.reprise {
-		flex-direction: row;
-		flex-wrap: wrap;
+	.tuile:hover {
+		border-color: var(--tableau);
+		transform: translateY(-2px);
+	}
+	.tuile .pastille {
+		width: 46px;
+		height: 46px;
+		border-radius: var(--r);
+		background: var(--tableau);
+		color: var(--papier);
+		display: grid;
+		place-items: center;
+	}
+	.tuile .nom {
+		font-family: var(--police-chiffres);
+		font-weight: 800;
+		font-size: 26px;
+		line-height: 1.05;
+	}
+	.tuile .desc {
+		font-size: 15px;
+		line-height: 1.45;
+		color: var(--doux);
+	}
+	.tuile .suite {
+		margin-top: auto;
+		display: inline-flex;
 		align-items: center;
-		gap: 16px 24px;
+		gap: 6px;
+		font-weight: 700;
 	}
-	.reprise .texte {
-		flex: 1 1 320px;
+	.tuile.sombre {
+		background-color: var(--tableau);
+		border-color: var(--tableau);
+		color: var(--papier);
+	}
+	.tuile.sombre:hover {
+		background-color: var(--tableau-survol);
+	}
+	.tuile.sombre .pastille {
+		background: var(--papier);
+		color: var(--tableau);
+	}
+	.tuile.sombre .desc {
+		color: var(--tableau-texte);
+	}
+	.theme {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+	}
+	.picto {
+		flex: none;
+		width: 36px;
+		height: 36px;
+		border-radius: var(--r);
+		background: var(--sol);
+		color: var(--tableau);
+		display: grid;
+		place-items: center;
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.tuile:hover {
+			transform: none;
+		}
 	}
 	.accueil {
 		display: flex;
@@ -230,10 +312,6 @@
 		margin: 0;
 		font-size: 22px;
 		font-weight: 700;
-	}
-	.reprise p {
-		margin: 6px 0 0;
-		color: var(--doux);
 	}
 	.aide {
 		color: var(--doux);
@@ -281,19 +359,6 @@
 	.rouge {
 		color: var(--rouge-texte);
 	}
-	.barre {
-		display: flex;
-		height: 10px;
-		border-radius: 2px;
-		overflow: hidden;
-		background: var(--filet-doux);
-	}
-	.barre .b {
-		background: var(--bleu);
-	}
-	.barre .r {
-		background: var(--rouge);
-	}
 	.action {
 		text-align: right;
 		padding-right: 20px;
@@ -311,11 +376,6 @@
 	.cote h2 {
 		font-size: 18px;
 		margin-bottom: 8px;
-	}
-	.cote .carte h2 {
-		font-family: var(--police-chiffres);
-		font-weight: 800;
-		font-size: 22px;
 	}
 	.convocation {
 		border: 1px solid var(--filet);
@@ -351,7 +411,43 @@
 		font-size: 15px;
 	}
 	.convocation dt {
+		display: flex;
+		align-items: center;
+		gap: 6px;
 		color: var(--doux);
+	}
+	.titre-examen {
+		margin: 0;
+		padding: 16px 18px 14px;
+		font-family: var(--police-chiffres);
+		font-weight: 800;
+		font-size: 24px;
+		line-height: 1.1;
+	}
+	/* Ligne de découpe d'un billet : pointillés et deux encoches. */
+	.perforation {
+		position: relative;
+		margin: 0 14px;
+		border-top: 2px dashed var(--filet);
+	}
+	.perforation::before,
+	.perforation::after {
+		content: '';
+		position: absolute;
+		top: -9px;
+		width: 16px;
+		height: 16px;
+		border-radius: 50%;
+		background: var(--papier);
+		border: 1px solid var(--filet);
+	}
+	.perforation::before {
+		left: -23px;
+		clip-path: inset(0 0 0 50%);
+	}
+	.perforation::after {
+		right: -23px;
+		clip-path: inset(0 50% 0 0);
 	}
 	.convocation dd {
 		margin: 0;

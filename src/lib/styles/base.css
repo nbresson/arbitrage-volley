@@ -161,3 +161,21 @@ table {
 		animation: none;
 	}
 }
+
+/* Extrait de règlement : une citation entre guillemets français, bordée du filet pointillé. */
+.extrait-reglement {
+	position: relative;
+	margin: 0;
+	padding: 2px 0 2px 20px;
+	white-space: pre-line;
+}
+
+.extrait-reglement::before {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	width: 4px;
+	background: repeating-linear-gradient(180deg, var(--tableau) 0 8px, transparent 8px 12px);
+}

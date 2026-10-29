@@ -1,4 +1,5 @@
 <script lang="ts">
+	import EtatVide from '#lib/components/EtatVide.svelte';
 	import Chargement from '#lib/components/Chargement.svelte';
 	import '#lib/components/formulaire.css';
 	import Bandeau from '#lib/components/Bandeau.svelte';
@@ -109,7 +110,9 @@
 				</table>
 			</div>
 		{:else}
-			<p>Aucune question ne correspond à ces filtres. <button class="lien" onclick={() => (f = { statut: '', theme: '', niveau: '', role: '', origine: '', aRelire: false, texte: '' })}>Effacer les filtres</button></p>
+			<EtatVide titre="Aucune question ne correspond" texte="Élargissez les filtres pour retrouver d’autres questions.">
+				{#snippet action()}<button class="btn2" onclick={() => (f = { statut: '', theme: '', niveau: '', role: '', origine: '', aRelire: false, texte: '' })}>Effacer les filtres</button>{/snippet}
+			</EtatVide>
 		{/if}
 	{/if}
 </main>

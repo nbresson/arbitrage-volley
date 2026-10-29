@@ -1,4 +1,5 @@
 <script lang="ts">
+	import EtatVide from '#lib/components/EtatVide.svelte';
 	import Chargement from '#lib/components/Chargement.svelte';
 	// Consignes CFA (spec § 9.3, écran 12) : les formateurs les saisissent une par une, édition par édition.
 	// Une seule édition CFA est active ; activer la suivante marque « à relire » les questions liées à l'ancienne.
@@ -175,10 +176,7 @@
 
 			<section class="contenu">
 				{#if !edition}
-					<div class="carte">
-						<h2>Aucune consigne CFA saisie</h2>
-						<p class="aide">Le document de la CFA n’a pas encore été fourni : vous pouvez saisir les consignes une par une. Commencez par créer une édition.</p>
-					</div>
+					<EtatVide titre="Aucune consigne CFA saisie" texte="Le document de la CFA n’a pas encore été fourni : vous pouvez saisir les consignes une par une. Commencez par créer une édition." />
 				{:else}
 					<h2>{edition.libelle} <span class="sous">{edition.active ? 'Édition active : visible des stagiaires' : 'Édition inactive : invisible des stagiaires tant qu’elle n’est pas activée'}</span></h2>
 					{#if liste.length}

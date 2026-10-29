@@ -19,7 +19,21 @@
 		lieu: ['M12 21s7-6 7-12a7 7 0 0 0-14 0c0 6 7 12 7 12z', 'M12 6.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5z'],
 		fleche: ['M5 12h14M13 6l6 6-6 6'],
 		retour: ['M19 12H5M11 6l-6 6 6 6'],
-		sortie: ['M10 4H5v16h5', 'M14 8l4 4-4 4M18 12H9']
+		sortie: ['M10 4H5v16h5', 'M14 8l4 4-4 4M18 12H9'],
+		// Pictogrammes de thème
+		service: ['M7 21a3 3 0 1 0 0-6 3 3 0 0 0 0 6z', 'M9 15c2-5 5-8 10-10', 'M15 4h4v4'],
+		rotation: ['M4 12a8 8 0 0 1 14-5.3L20 9', 'M20 4v5h-5', 'M20 12a8 8 0 0 1-14 5.3L4 15', 'M4 20v-5h5'],
+		remplacement: ['M5 8h12l-3-3M19 16H7l3 3'],
+		'temps-mort': ['M5 5h14', 'M12 5v15'],
+		carton: ['M8 3.5l9-1.5 2 13-9 1.5z', 'M4 21h10'],
+		maillot: ['M8 3 4 6l2 4 2-1v12h8V9l2 1 2-4-4-3', 'M8 3c1 2 2.5 3 4 3s3-1 4-3'],
+		ecran: ['M3 5h18v11H3z', 'M8 20h8M12 16v4'],
+		blessure: ['M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z', 'M12 8v8M8 12h8'],
+		capitaine: ['M5 5h14v14H5z', 'M15 9.5a3.5 3.5 0 1 0 0 5'],
+		entraineur: ['M7 4h10v17H7z', 'M10 4V2.5h4V4', 'M10 10l2 2 3-3M10 16h4'],
+		contre: ['M7 21V9a1.5 1.5 0 0 1 3 0v4', 'M10 12V6.5a1.5 1.5 0 0 1 3 0V12', 'M13 12V8a1.5 1.5 0 0 1 3 0v6c0 4-2 7-6 7H7'],
+		attaque: ['M18 3a3 3 0 1 0 0 6 3 3 0 0 0 0-6z','M4 20l9-9', 'M13 11l-2-5M13 11l5 2'],
+		interdit: ['M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z', 'M5.6 5.6l12.8 12.8']
 	} as const;
 
 	export type NomIcone = keyof typeof TRACES;
