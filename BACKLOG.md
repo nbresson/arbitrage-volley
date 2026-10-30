@@ -16,6 +16,41 @@ Points à trancher avant de coder :
 - **Revoir une séance ou un examen.** Afficher la correction dans l'ordre que le stagiaire a vu.
 - **Raccourcis clavier** (touches 1 à 4 / A à D) : ils suivent l'ordre affiché.
 
+### Idées fonctionnelles (proposées le 2026-10-30, à reprendre plus tard)
+
+Classées par utilité. Toutes respectent les contraintes de PRODUCT.md : pas d'IA en fonctionnement, coût minimal, simple à entretenir par des bénévoles.
+
+**Très utiles**
+1. **Révisions espacées** : une question ratée revient à J+1, J+3, J+7 ; l'accueil propose « Vos révisions du jour ». Sert directement « comprendre plutôt que mémoriser ».
+2. **Neutraliser une question après un examen officiel** : retirée du calcul, scores recalculés pour tous. Équité de l'examen.
+3. **Exercices de feuille de match pour les marqueurs** : un déroulé de match (remplacements, temps morts, libéro, sanctions), le stagiaire indique ce qu'il inscrit.
+4. **Questions à revoir au changement d'édition FIVB** : liste des questions liées aux articles modifiés, à revoir avant republication (existe déjà pour le CFA).
+5. **Devoirs pour une promotion** : série ou thème imposé avec échéance ; le formateur voit qui l'a fait et avec quel score.
+6. **Parcours guidé par niveau** : thèmes dans un ordre conseillé, jauge de maîtrise par thème.
+7. **Tableau promotion × thèmes** en couleurs : repérer un thème mal compris par toute une promotion.
+8. **Composition automatique d'un examen** : répartition fixée (par thème, par niveau), tirage par la plateforme.
+9. **Notifications dans le site, sans e-mail** : examen à passer, nouveau devoir, résultat disponible. Contourne le blocage des e-mails.
+
+**Utiles**
+10. **Analyse des mauvaises réponses** : quelle proposition fausse attire le plus, par question (vérifier ce que les statistiques par question montrent déjà).
+11. **Modèles d'examen réutilisables** d'une session à l'autre, questions renouvelées.
+12. **Temps majoré pour un stagiaire** (tiers-temps, aménagement), réglé individuellement.
+13. **« Ce qui a changé »** dans les règles FIVB par rapport à l'édition précédente, et dans les consignes CFA de la saison.
+14. **Exercices de rotation sur un terrain dessiné** : placer les joueurs, repérer la faute de position.
+15. **Gestes officiels de l'arbitre en images** : nommer un geste, ou choisir le geste d'une situation.
+16. **Sauvegarde complète de la banque en un fichier** (questions, règles liées, glossaire) : protège le travail des bénévoles.
+17. **Gestion automatique des données personnelles** : suppression des comptes inactifs depuis 2 ans, téléchargement de ses données par le stagiaire.
+18. **Attestation de réussite** imprimable ou en PDF (date, score, nom du comité).
+19. **Relecture par un deuxième formateur** avant validation, avec commentaires internes sur la question.
+
+**Bonus**
+20. **Quiz en direct en salle** : question projetée, réponses sur téléphone, résultats en direct.
+21. **Question à un formateur** depuis une règle ou une correction, réponse dans le site.
+22. **Nouveaux types de questions** : vrai ou faux, plusieurs bonnes réponses, étapes dans l'ordre (à valider selon le format de l'examen réel).
+23. **Compte à rebours jusqu'à l'examen** avec rythme conseillé.
+24. **Question du jour** commune à la promotion, avec le taux de réussite de la veille.
+25. **Notes personnelles sur une règle**, privées, à côté des marque-pages.
+
 ## À surveiller sur le site en ligne
 
 - **Premier vrai examen officiel** : vérifier côté formateur qu'aucun stagiaire n'a de réponse manquante sur sa dernière question (correction de la réponse cochée à la fin du temps). Prévenir les stagiaires de ne pas fermer la page tant que l'écran demande d'attendre l'envoi.
