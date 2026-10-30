@@ -38,6 +38,10 @@
 	);
 	const pas = $derived(points.length > 1 ? (L - G - D) / (points.length - 1) : L - G - D);
 	const recents = $derived([...(examens ?? [])].reverse());
+	// Sur téléphone (sans survol), le dernier examen est montré d'emblée.
+	$effect(() => {
+		if (points.length && survol === null && typeof matchMedia === 'function' && matchMedia('(max-width: 600px)').matches) survol = points.length - 1;
+	});
 </script>
 
 <svelte:head><title>{'Mes examens blancs'} · Arbitrage volley</title></svelte:head>
@@ -83,6 +87,7 @@
 							class="cible"
 							role="presentation"
 							onmouseenter={() => (survol = i)}
+							onpointerdown={() => (survol = i)}
 							onmouseleave={() => (survol = null)}
 						/>
 					{/each}

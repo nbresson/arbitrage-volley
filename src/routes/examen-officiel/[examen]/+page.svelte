@@ -35,11 +35,20 @@
 
 	const etat = $derived(convocation ? etatConvocation(convocation) : null);
 
-	// En attendant que le formateur ouvre l'examen, la page se met à jour toute seule.
+	// En attendant que le formateur ouvre l'examen, la page se met à jour toute seule (toutes les 5 s),
+	// et aussitôt que le code est complet.
 	$effect(() => {
 		if (etat !== 'a_venir') return;
-		const t = setInterval(() => lire().catch(() => {}), 15_000);
+		const t = setInterval(() => lire().catch(() => {}), 5_000);
 		return () => clearInterval(t);
+	});
+	let codeVerifie = '';
+	$effect(() => {
+		const c = normaliserCode(code);
+		if (etat === 'a_venir' && c.length === 6 && c !== codeVerifie) {
+			codeVerifie = c;
+			lire().catch(() => {});
+		}
 	});
 
 	async function tester() {
@@ -95,7 +104,8 @@
 						<p class="grand">L’examen commence quand votre formateur donne le code.</p>
 						<p>{dateHeure(convocation.date_heure)}{convocation.lieu ? ` · ${convocation.lieu}` : ''}</p>
 						{#if etat === 'a_venir'}
-							<p class="aide" role="status">Votre formateur n’a pas encore ouvert l’examen. Cette page se met à jour toute seule.</p>
+							<p class="aide" role="status">Votre formateur n’a pas encore ouvert l’examen. Vous pouvez déjà saisir le code : la page se met à jour toute seule.</p>
+							<button type="button" class="btn2 verifier" onclick={() => lire().catch(() => {})}>Vérifier maintenant</button>
 						{/if}
 					</div>
 				{/if}
@@ -111,7 +121,7 @@
 
 				<form onsubmit={commencer}>
 					<p class="libelle" id="libelle-code">Code d’accès donné par votre formateur</p>
-					<CodeSixCases bind:valeur={code} libelle="Code d’accès donné par votre formateur" idDescription="rappel" desactive={etat === 'a_venir'} />
+					<CodeSixCases bind:valeur={code} libelle="Code d’accès donné par votre formateur" idDescription="rappel" />
 					{#if erreur}<p class="message-erreur" role="alert">{erreur}</p>{/if}
 					<button class="btn" type="submit" disabled={!complet || envoi || etat === 'a_venir'}>{reprise ? 'Reprendre l’examen' : 'Commencer l’examen'}</button>
 				</form>

@@ -37,14 +37,14 @@ const blanc = { seanceId: 's1', temps: '31 min sur 45', comparaison: '+3 points 
 
 test('examen blanc : verdict en toutes lettres, temps utilisé, comparaison', () => {
 	const { getByText } = render(ResultatExamen, { bilan, officiel: null, sousTitre: 'Résultat', blanc });
-	expect(getByText('Vous auriez réussi l’examen officiel (seuil 21 / 30).')).toBeInTheDocument();
+	expect(getByText('Au seuil provisoire de 70 % (21 / 30), cet examen serait réussi.')).toBeInTheDocument();
 	expect(getByText('Temps utilisé : 31 min sur 45')).toBeInTheDocument();
 	expect(getByText('+3 points par rapport à votre dernier examen blanc.')).toBeInTheDocument();
 });
 
 test('examen officiel : pas de verdict « vous auriez réussi »', () => {
 	const { queryByText } = render(ResultatExamen, { bilan, officiel: { seuil: 20, reussi: true }, sousTitre: 'Résultat' });
-	expect(queryByText(/Vous auriez réussi/)).toBeNull();
+	expect(queryByText(/seuil provisoire/)).toBeNull();
 });
 
 test('revoir l’examen avec la correction, ou le refaire dans un nouvel ordre', async () => {

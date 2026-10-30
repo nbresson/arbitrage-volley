@@ -6,9 +6,10 @@ export const SEUIL_BLANC = 0.7;
 
 export function verdictBlanc(score: number, total: number): { reussi: boolean; seuil: number; texte: string } {
 	const seuil = Math.ceil(Math.round(total * SEUIL_BLANC * 1000) / 1000);
-	const rappel = `(seuil ${seuil} / ${total})`;
-	if (score >= seuil) return { reussi: true, seuil, texte: `Vous auriez réussi l’examen officiel ${rappel}.` };
-	return { reussi: false, seuil, texte: `Il manque ${pluriel(seuil - score, 'point')} pour réussir l’examen officiel ${rappel}.` };
+	// Le seuil officiel est fixé par chaque formateur : le verdict dit bien qu'il s'agit du seuil provisoire.
+	const rappel = `seuil provisoire de 70 % (${seuil} / ${total})`;
+	if (score >= seuil) return { reussi: true, seuil, texte: `Au ${rappel}, cet examen serait réussi.` };
+	return { reussi: false, seuil, texte: `Il manque ${pluriel(seuil - score, 'point')} pour atteindre le ${rappel}.` };
 }
 
 type Score = { score: number; total: number };

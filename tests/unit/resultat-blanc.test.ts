@@ -7,15 +7,15 @@ describe('verdictBlanc (seuil provisoire de 70 %)', () => {
 	});
 
 	test('21 sur 30 : réussi', () => {
-		expect(verdictBlanc(21, 30)).toEqual({ reussi: true, seuil: 21, texte: 'Vous auriez réussi l’examen officiel (seuil 21 / 30).' });
+		expect(verdictBlanc(21, 30)).toEqual({ reussi: true, seuil: 21, texte: 'Au seuil provisoire de 70 % (21 / 30), cet examen serait réussi.' });
 	});
 
 	test('19 sur 30 : il manque 2 points', () => {
-		expect(verdictBlanc(19, 30)).toEqual({ reussi: false, seuil: 21, texte: 'Il manque 2 points pour réussir l’examen officiel (seuil 21 / 30).' });
+		expect(verdictBlanc(19, 30)).toEqual({ reussi: false, seuil: 21, texte: 'Il manque 2 points pour atteindre le seuil provisoire de 70 % (21 / 30).' });
 	});
 
 	test('accord au singulier', () => {
-		expect(verdictBlanc(20, 30).texte).toBe('Il manque 1 point pour réussir l’examen officiel (seuil 21 / 30).');
+		expect(verdictBlanc(20, 30).texte).toBe('Il manque 1 point pour atteindre le seuil provisoire de 70 % (21 / 30).');
 	});
 
 	test('seuil arrondi au supérieur sur un petit examen', () => {

@@ -1,5 +1,5 @@
 // Historique des examens blancs : courbe des scores et tableau daté.
-import { render } from '@testing-library/svelte';
+import { fireEvent, render } from '@testing-library/svelte';
 import { beforeEach, expect, test, vi } from 'vitest';
 
 const h = vi.hoisted(() => ({ liste: [] as unknown[] }));
@@ -34,4 +34,16 @@ test('une ligne par examen, du plus récent au plus ancien, avec date, score, te
 	expect(lignes[1].textContent).toContain('Non réussi');
 	expect(lignes[0].querySelector('a')?.getAttribute('href')).toBe('/examen-entrainement/b/resultat');
 	expect(ecran.getByRole('img', { name: /Scores des 2 examens blancs : 60 %, 80 %/ })).toBeInTheDocument();
+});
+
+test('au toucher, la bulle du point s’affiche', async () => {
+	h.liste = [
+		{ id: 'a', debut: '2026-10-01T10:00:00Z', fin: '2026-10-01T10:40:00Z', duree_minutes: 45, score: 18, total: 30 },
+		{ id: 'b', debut: '2026-10-05T10:00:00Z', fin: '2026-10-05T10:31:00Z', duree_minutes: 45, score: 24, total: 30 }
+	];
+	const ecran = render(Page);
+	await ecran.findByRole('table');
+	const cibles = ecran.container.querySelectorAll('rect.cible');
+	await fireEvent.pointerDown(cibles[0]);
+	expect(ecran.container.querySelector('.bulle')?.textContent).toContain('18 / 30');
 });

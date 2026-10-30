@@ -85,13 +85,28 @@ describe('salle d’attente', () => {
 		expect(ecran.getByRole('link', { name: 'Imprimer la convocation' }).getAttribute('href')).toBe('/convocation/e1');
 	});
 
-	test('examen pas encore ouvert : code et bouton désactivés, message d’attente', async () => {
+	test('examen pas encore ouvert : code saisissable, bouton désactivé, « Vérifier maintenant » relit la convocation', async () => {
 		h.params = { examen: 'e1' };
 		h.mesConvocations.mockResolvedValue([{ ...convocation, statut: 'brouillon' }]);
 		const ecran = render(SaisieCode);
 		expect(await ecran.findByText(/pas encore ouvert l’examen/)).toBeInTheDocument();
-		expect(ecran.getByLabelText('Chiffre 1 sur 6')).toBeDisabled();
+		expect(ecran.getByLabelText('Chiffre 1 sur 6')).toBeEnabled();
 		expect(ecran.getByRole('button', { name: 'Commencer l’examen' })).toBeDisabled();
+		const appels = h.mesConvocations.mock.calls.length;
+		await fireEvent.click(ecran.getByRole('button', { name: 'Vérifier maintenant' }));
+		await waitFor(() => expect(h.mesConvocations.mock.calls.length).toBe(appels + 1));
+	});
+
+	test('code complet sur un examen à venir : la convocation est relue aussitôt', async () => {
+		h.params = { examen: 'e1' };
+		h.mesConvocations.mockResolvedValue([{ ...convocation, statut: 'brouillon' }]);
+		const ecran = render(SaisieCode);
+		const premiere = await ecran.findByLabelText('Chiffre 1 sur 6');
+		const appels = h.mesConvocations.mock.calls.length;
+		h.mesConvocations.mockResolvedValue([convocation]);
+		await fireEvent.input(premiere, { target: { value: '123456' } });
+		await waitFor(() => expect(h.mesConvocations.mock.calls.length).toBeGreaterThan(appels));
+		expect(await ecran.findByRole('button', { name: 'Commencer l’examen' })).toBeEnabled();
 	});
 });
 
