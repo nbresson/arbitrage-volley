@@ -20,6 +20,8 @@
 	}
 </script>
 
+<svelte:head><title>{'Vos données'} · Arbitrage volley</title></svelte:head>
+
 <Bandeau titre="Arbitrage volley" sousTitre="Formation des arbitres · [Comité]" />
 
 <main class="page fond-filet">

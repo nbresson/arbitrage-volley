@@ -15,13 +15,13 @@ const bilan = {
 	]
 };
 
-test('un thème à 8/10 garde ses 8 bonnes réponses en bleu, et sa faiblesse est écrite', () => {
+test('un thème à 8/10 garde ses 8 bonnes réponses en bleu, et ses erreurs sont écrites sans alarme', () => {
 	const { container, getAllByText } = render(ResultatExamen, { bilan, officiel: null, sousTitre: 'Résultat' });
 	const lignes = container.querySelectorAll('tbody tr');
 	const service = lignes[0];
 	expect(service.querySelectorAll('.marques .juste')).toHaveLength(8);
 	expect(service.querySelectorAll('.marques .faible')).toHaveLength(0);
-	expect(getAllByText('À revoir')).toHaveLength(1);
+	expect(getAllByText('2 erreurs')).toHaveLength(1);
 });
 
 test('le score de l’examen blanc est aussi donné en pourcentage', () => {

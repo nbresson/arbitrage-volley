@@ -81,6 +81,8 @@
 	}
 </script>
 
+<svelte:head><title>{'Stagiaires'} · Arbitrage volley</title></svelte:head>
+
 <Bandeau titre="Arbitrage volley" sousTitre="Espace formateur">
 	{#snippet navigation()}<NavFormateur />{/snippet}
 </Bandeau>

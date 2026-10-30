@@ -43,6 +43,8 @@
 	const aujourdhui = jour.charAt(0).toUpperCase() + jour.slice(1);
 </script>
 
+<svelte:head><title>{'Accueil'} · Arbitrage volley</title></svelte:head>
+
 <Bandeau
 	titre="Arbitrage volley"
 	sousTitre="Formation des arbitres · espace stagiaire"
@@ -91,7 +93,7 @@
 			<a class="tuile" href="/entrainement/nouvelle?mode=examen_entrainement">
 				<span class="pastille"><Icone nom="chrono" taille={26} /></span>
 				<span class="nom">Examen blanc</span>
-				<span class="desc">Questions chronométrées, correction à la fin, comme le jour de l’examen.</span>
+				<span class="desc">Questions chronométrées, score à la fin sans correction, comme le jour de l’examen.</span>
 				<span class="suite">Lancer un examen blanc <Icone nom="fleche" taille={18} /></span>
 			</a>
 			<a class="tuile papier-reglement" href="/regles">
@@ -142,7 +144,7 @@
 				<div class="bande-filet" aria-hidden="true"></div>
 				<div class="tete">
 					<h2>Examen officiel</h2>
-					<span>{e === 'termine' ? 'Examen passé' : e === 'a_venir' ? 'Vous êtes inscrit · à venir' : 'Vous êtes inscrit'}</span>
+					<span>{e === 'termine' ? 'Examen passé' : e === 'a_venir' ? 'Inscription confirmée · à venir' : 'Inscription confirmée'}</span>
 				</div>
 				<p class="titre-examen">{c.titre}</p>
 				<div class="perforation" aria-hidden="true"></div>
@@ -154,7 +156,7 @@
 				</dl>
 				<div class="pied">
 					{#if e === 'a_venir'}
-						<a class="btn2" href="/entrainement/nouvelle?mode=examen_entrainement">S’entraîner en conditions d’examen</a>
+						<a class="btn2" href="/entrainement/nouvelle?mode=examen_entrainement">Passer un examen blanc</a>
 					{:else if e === 'ouvert'}
 						<a class="btn" href="/examen-officiel/{c.examen_id}">Commencer l’examen</a>
 					{:else if e === 'en_cours'}
@@ -166,7 +168,7 @@
 			</div>
 		{:else}
 			<EtatVide titre="Aucun examen officiel prévu" texte="Votre formateur vous inscrira ; la convocation apparaîtra ici. En attendant, entraînez-vous dans les conditions de l’examen.">
-				{#snippet action()}<a class="btn2" href="/entrainement/nouvelle?mode=examen_entrainement">Passer un examen d’entraînement</a>{/snippet}
+				{#snippet action()}<a class="btn2" href="/entrainement/nouvelle?mode=examen_entrainement">Passer un examen blanc</a>{/snippet}
 			</EtatVide>
 		{/each}
 		<div>

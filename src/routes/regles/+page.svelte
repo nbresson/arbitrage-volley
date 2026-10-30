@@ -25,6 +25,8 @@
 	const arbre = $derived(construireArbre(deLaSource));
 </script>
 
+<svelte:head><title>{'Règles'} · Arbitrage volley</title></svelte:head>
+
 {#snippet noeud(n: NoeudRegle)}
 	{#if n.enfants.length}
 		<details>

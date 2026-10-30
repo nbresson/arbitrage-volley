@@ -43,6 +43,8 @@
 	} as const;
 </script>
 
+<svelte:head><title>{'Questions'} · Arbitrage volley</title></svelte:head>
+
 <Bandeau
 	titre="Arbitrage volley"
 	sousTitre="Espace formateur"

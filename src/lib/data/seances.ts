@@ -100,6 +100,13 @@ export async function terminerSeance(id: string): Promise<BilanSeance> {
 	return data as BilanSeance;
 }
 
+/** « Revoir mes erreurs » : nouvelle séance pédagogique faite des questions ratées de cette séance. */
+export async function revoirErreurs(seance: string): Promise<string> {
+	const { data, error } = await supabase.rpc('revoir_erreurs', { p_seance: seance });
+	if (error) throw new Error(error.message);
+	return data as string;
+}
+
 export async function avancement(stagiaire?: string): Promise<Avancement[]> {
 	const { data, error } = await supabase.rpc('avancement', stagiaire ? { p_stagiaire: stagiaire } : {});
 	if (error) throw new Error(error.message);

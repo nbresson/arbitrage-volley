@@ -86,6 +86,8 @@
 	const formation = $derived(compte?.profil_formation === 'marqueur' ? 'Marqueur stagiaire' : 'Arbitre stagiaire');
 </script>
 
+<svelte:head><title>{compte ? `${compte.prenom} ${compte.nom} · Fiche stagiaire` : 'Fiche stagiaire'} · Arbitrage volley</title></svelte:head>
+
 <Bandeau titre="Arbitrage volley" sousTitre="Espace formateur">
 	{#snippet navigation()}<NavFormateur />{/snippet}
 </Bandeau>

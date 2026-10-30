@@ -103,6 +103,8 @@
 	const STATUTS: Record<string, string> = { brouillon: 'Brouillon', validee: 'Validée', archivee: 'Archivée' };
 </script>
 
+<svelte:head><title>{id ? 'Modifier la question' : 'Nouvelle question'} · Arbitrage volley</title></svelte:head>
+
 <Bandeau titre="Arbitrage volley" sousTitre="Espace formateur">
 	{#snippet navigation()}<NavFormateur />{/snippet}
 </Bandeau>

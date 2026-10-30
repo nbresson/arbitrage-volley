@@ -190,6 +190,8 @@
 	const termines = $derived(resultats.filter((r) => r.etat === 'termine').length);
 </script>
 
+<svelte:head><title>{id ? (examen?.titre ?? 'Examen') : 'Nouvel examen'} · Arbitrage volley</title></svelte:head>
+
 <Bandeau titre="Arbitrage volley" sousTitre="Espace formateur">
 	{#snippet navigation()}<NavFormateur />{/snippet}
 </Bandeau>

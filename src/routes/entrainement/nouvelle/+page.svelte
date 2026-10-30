@@ -17,6 +17,11 @@
 	let niveaux = $state<Option[]>([]);
 	let erreur = $state('');
 	let envoi = $state(false);
+	// Arrivée depuis un thème de l'accueil : un résumé suffit, les réglages détaillés s'ouvrent sur demande.
+	let detail = $state(!page.url.searchParams.has('theme'));
+	const nomsThemes = $derived(themes.filter((t) => p.themeIds.includes(t.id)).map((t) => t.libelle));
+	const nomNiveau = $derived(niveaux.find((n) => n.id === p.niveauId)?.libelle ?? 'tous les niveaux');
+	const nomRole = $derived(p.role === 'arbitre' ? 'arbitre' : p.role === 'marqueur' ? 'marqueur' : 'arbitre et marqueur');
 
 	$effect(() => {
 		referentiel()
@@ -53,6 +58,8 @@
 	}
 </script>
 
+<svelte:head><title>{'Nouvelle séance'} · Arbitrage volley</title></svelte:head>
+
 <Bandeau titre="Arbitrage volley" sousTitre="Nouvelle séance">
 	{#snippet navigation()}<NavPrincipale />{/snippet}
 </Bandeau>
@@ -65,13 +72,19 @@
 			<label class="choix"><input type="radio" name="mode" checked={p.type === 'pedagogique'} onchange={() => changerMode('pedagogique')} />
 				<span><b>Mode pédagogique</b> — correction, explication et règle après chaque réponse.</span></label>
 			<label class="choix"><input type="radio" name="mode" checked={p.type === 'examen_entrainement'} onchange={() => changerMode('examen_entrainement')} />
-				<span><b>Examen d’entraînement</b> — conditions réelles, chronométré, score à la fin sans correction.</span></label>
+				<span><b>Examen blanc</b> — conditions réelles, chronométré, score à la fin sans correction.</span></label>
 		</fieldset>
 
 		{#if p.regleId}
 			<p class="message-info">Séance limitée aux questions liées à la règle choisie. <button type="button" class="lien" onclick={() => (p.regleId = null)}>Retirer ce filtre</button></p>
 		{/if}
 
+		{#if !detail}
+			<div class="resume">
+				<p><b>{nomsThemes.join(', ') || 'Tous les thèmes'}</b> · {nomNiveau} · {nomRole} · jusqu’à {p.nb} questions{p.type === 'examen_entrainement' ? ` · ${p.dureeMinutes} min` : ''}</p>
+				<button type="button" class="btn2" onclick={() => (detail = true)}>Modifier les réglages</button>
+			</div>
+		{:else}
 		<fieldset>
 			<legend>Thèmes <span class="aide">(aucun coché = tous les thèmes)</span></legend>
 			<div class="themes">
@@ -98,8 +111,9 @@
 				</select>
 			</label>
 			<label class="champ">
-				Nombre de questions
-				<input type="number" min="5" max="50" bind:value={p.nb} />
+				Nombre de questions (au plus)
+				<input type="number" min="5" max="50" bind:value={p.nb} aria-describedby="aide-nb" />
+				<span class="aide" id="aide-nb">Si moins de questions correspondent, la séance les prend toutes.</span>
 			</label>
 			{#if p.type === 'examen_entrainement'}
 				<label class="champ">
@@ -108,6 +122,7 @@
 				</label>
 			{/if}
 		</div>
+		{/if}
 
 		{#if erreur}
 			<div class="message-erreur" role="alert">
@@ -120,6 +135,20 @@
 </main>
 
 <style>
+	.resume {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: 12px 20px;
+		padding: 14px 16px;
+		border: 1px solid var(--filet);
+		border-radius: var(--r);
+		background: var(--ligne-survol);
+	}
+	.resume p {
+		margin: 0;
+	}
 	.page {
 		max-width: 880px;
 		margin: 0 auto;

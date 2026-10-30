@@ -8,7 +8,7 @@
 
 	const source: SourcePassation = {
 		cleFile: `examen-${seanceId}`,
-		titre: 'Examen d’entraînement',
+		titre: 'Examen blanc',
 		sousTitre: 'Sans correction avant la fin',
 		urlResultat: `/examen-entrainement/${seanceId}/resultat`,
 		async charger() {
@@ -36,5 +36,7 @@
 		}
 	};
 </script>
+
+<svelte:head><title>{'Examen blanc'} · Arbitrage volley</title></svelte:head>
 
 <PassationExamen {source} />

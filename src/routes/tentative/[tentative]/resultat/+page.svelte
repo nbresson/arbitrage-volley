@@ -21,6 +21,8 @@
 	});
 </script>
 
+<svelte:head><title>{'Résultat de l’examen officiel'} · Arbitrage volley</title></svelte:head>
+
 {#if erreur}
 	<p class="etat message-erreur" role="alert">Le résultat n’a pas pu être chargé. Vérifiez votre connexion puis rechargez la page.</p>
 {:else if !bilan}

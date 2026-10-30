@@ -43,7 +43,6 @@
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
-	<title>Arbitrage volley</title>
 </svelte:head>
 
 {#if autorise}

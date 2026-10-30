@@ -42,6 +42,8 @@
 	}
 </script>
 
+<svelte:head><title>{'Mot de passe'} · Arbitrage volley</title></svelte:head>
+
 <Bandeau titre="Arbitrage volley" sousTitre="Formation des arbitres · [Comité]" />
 
 <main class="page fond-filet">

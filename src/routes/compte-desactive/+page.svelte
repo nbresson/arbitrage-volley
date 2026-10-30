@@ -4,6 +4,8 @@
 	import { seDeconnecter } from '#lib/session.svelte.ts';
 </script>
 
+<svelte:head><title>{'Compte désactivé'} · Arbitrage volley</title></svelte:head>
+
 <Bandeau titre="Arbitrage volley" sousTitre="Formation des arbitres · [Comité]" />
 
 <main class="page fond-filet">

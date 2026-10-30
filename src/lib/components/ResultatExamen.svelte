@@ -7,6 +7,7 @@
 	import Filet from '#lib/components/Filet.svelte';
 	import NavPrincipale from '#lib/components/NavPrincipale.svelte';
 	import Volet from '#lib/components/Volet.svelte';
+	import { pluriel } from '#lib/domain/texte.ts';
 
 	type Bilan = { score: number; total: number; par_theme: { theme_id?: string; theme: string; justes: number; total: number }[] };
 
@@ -55,7 +56,7 @@
 					{#each bilan.par_theme as t (t.theme_id ?? t.theme)}
 						<tr>
 							<th scope="row">{t.theme}</th>
-							<td class="chiffres">{t.justes} / {t.total}{#if faible(t)}<span class="a-revoir">À revoir</span>{/if}</td>
+							<td class="chiffres">{t.justes} / {t.total}{#if t.justes < t.total}<span class="erreurs">{pluriel(t.total - t.justes, 'erreur')}</span>{/if}</td>
 							<td>
 								<span class="marques" aria-hidden="true">
 									{#each Array.from({ length: t.total }, (_, i) => i < t.justes) as juste, i (i)}
@@ -200,12 +201,12 @@
 		font-size: 20px;
 		white-space: nowrap;
 	}
-	.a-revoir {
+	.erreurs {
 		margin-left: 10px;
 		font-family: var(--police);
 		font-size: 13px;
-		font-weight: 700;
-		color: var(--rouge-texte);
+		font-weight: 600;
+		color: var(--doux);
 	}
 	.pourcentage {
 		margin: 0;

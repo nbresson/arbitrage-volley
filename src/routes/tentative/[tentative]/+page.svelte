@@ -7,4 +7,6 @@
 	const source = sourceTentative(page.params.tentative ?? '');
 </script>
 
+<svelte:head><title>{'Examen officiel'} · Arbitrage volley</title></svelte:head>
+
 <PassationExamen {source} />

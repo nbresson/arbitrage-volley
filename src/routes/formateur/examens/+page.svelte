@@ -20,6 +20,8 @@
 	});
 </script>
 
+<svelte:head><title>{'Examens officiels'} · Arbitrage volley</title></svelte:head>
+
 <Bandeau titre="Arbitrage volley" sousTitre="Espace formateur">
 	{#snippet navigation()}<NavFormateur />{/snippet}
 </Bandeau>

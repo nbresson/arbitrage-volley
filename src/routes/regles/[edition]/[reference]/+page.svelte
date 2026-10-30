@@ -35,6 +35,8 @@
 	);
 </script>
 
+<svelte:head><title>{`Règle ${reference}${regle?.titre ? ` · ${titreLisible(regle.titre)}` : ''}`} · Arbitrage volley</title></svelte:head>
+
 <Bandeau titre="Arbitrage volley" sousTitre="Règles et interprétations">
 	{#snippet navigation()}<NavPrincipale />{/snippet}
 </Bandeau>

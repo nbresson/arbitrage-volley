@@ -20,12 +20,14 @@
 	});
 </script>
 
+<svelte:head><title>{'Résultat de l’examen blanc'} · Arbitrage volley</title></svelte:head>
+
 {#if erreur}
 	<p class="etat message-erreur" role="alert">Le résultat n’a pas pu être chargé. Vérifiez votre connexion puis rechargez la page.</p>
 {:else if !bilan}
 	<p class="etat" role="status">Calcul du résultat…</p>
 {:else}
-	<ResultatExamen {bilan} officiel={null} sousTitre="Résultat de l’examen d’entraînement" />
+	<ResultatExamen {bilan} officiel={null} sousTitre="Résultat de l’examen blanc" />
 {/if}
 
 <style>

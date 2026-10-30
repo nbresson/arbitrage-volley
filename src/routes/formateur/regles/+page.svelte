@@ -136,6 +136,8 @@
 	const edition = $derived(editions.find((e) => e.id === choisie) ?? null);
 </script>
 
+<svelte:head><title>{'Consignes CFA'} · Arbitrage volley</title></svelte:head>
+
 <Bandeau titre="Arbitrage volley" sousTitre="Espace formateur">
 	{#snippet navigation()}<NavFormateur />{/snippet}
 </Bandeau>

@@ -45,6 +45,8 @@
 	}
 </script>
 
+<svelte:head><title>{'Examen officiel'} · Arbitrage volley</title></svelte:head>
+
 <Bandeau titre="Arbitrage volley" sousTitre="Examen officiel">
 	{#snippet navigation()}<NavPrincipale />{/snippet}
 </Bandeau>
