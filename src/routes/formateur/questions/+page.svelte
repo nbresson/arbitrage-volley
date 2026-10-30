@@ -7,12 +7,15 @@
 	import Bandeau from '#lib/components/Bandeau.svelte';
 	import Icone from '#lib/components/Icone.svelte';
 	import NavFormateur from '#lib/components/NavFormateur.svelte';
-	import { listerQuestions, type LigneQuestion } from '#lib/data/questions.ts';
+	import { listerQuestions, tauxQuestions, type LigneQuestion } from '#lib/data/questions.ts';
+	import { fileRelecture, statsParTheme, trierBanque } from '#lib/formateur/banque.ts';
 	import { signalementsNonTraites } from '#lib/data/signalements.ts';
 
 	let questions = $state<LigneQuestion[]>([]);
 	let etat = $state<'chargement' | 'pret' | 'erreur'>('chargement');
 	let signales = $state(new Map<string, number>());
+	let taux = $state(new Map<string, { reponses: number; justes: number }>());
+	let tri = $state<'modification' | 'theme' | 'reussite'>('modification');
 	let f = $state({ statut: 'brouillon', theme: '', niveau: '', role: '', origine: '', aRelire: false, texte: '' });
 
 	$effect(() => {
@@ -21,6 +24,9 @@
 			.catch(() => (etat = 'erreur'));
 		signalementsNonTraites()
 			.then((s) => (signales = s))
+			.catch(() => {});
+		tauxQuestions()
+			.then((t) => (taux = t))
 			.catch(() => {});
 	});
 
@@ -42,6 +48,13 @@
 				(!f.texte.trim() || `${q.enonce} ${q.reference_origine ?? ''}`.toLowerCase().includes(f.texte.trim().toLowerCase()))
 		)
 	);
+	const trieees = $derived(trierBanque(visibles, tri, taux));
+	const file = $derived(fileRelecture(questions));
+	const stats = $derived(statsParTheme(questions));
+	const reussite = (id: string) => {
+		const t = taux.get(id);
+		return t?.reponses ? `${Math.round((t.justes / t.reponses) * 100)} %` : '—';
+	};
 	const STATUTS = {
 		brouillon: { libelle: 'Brouillon', icone: 'crayon' },
 		validee: { libelle: 'Validée', icone: 'coche' },
@@ -66,8 +79,33 @@
 <main class="page">
 	<div class="entete">
 		<h1 class="titre-page"><span class="surtitre">Espace formateur</span>Questions</h1>
-		<a class="btn" href="/formateur/questions/nouvelle">Nouvelle question</a>
+		<div class="actions-entete">
+			{#if file.length}
+				<!-- Rechargement complet : la page d'édition lit son identifiant au démarrage. -->
+				<a class="btn" href="/formateur/questions/{file[0]}?relecture" data-sveltekit-reload>Relire les brouillons ({file.length})</a>
+				<a class="btn2" href="/formateur/questions/nouvelle">Nouvelle question</a>
+			{:else}
+				<a class="btn" href="/formateur/questions/nouvelle">Nouvelle question</a>
+			{/if}
+		</div>
 	</div>
+
+	{#if stats.length}
+		<details class="stats">
+			<summary>Questions par thème</summary>
+			<div class="defile">
+				<table>
+					<caption class="vh">Nombre de questions par thème et par statut</caption>
+					<thead><tr><th scope="col">Thème</th><th scope="col">Validées (entraînement)</th><th scope="col">Réserve d’examen</th><th scope="col">Brouillons</th><th scope="col">Archivées</th></tr></thead>
+					<tbody>
+						{#each stats as t (t.theme)}
+							<tr><th scope="row">{t.theme}</th><td class="chiffres">{t.validees}</td><td class="chiffres">{t.reserve}</td><td class="chiffres">{t.brouillons}</td><td class="chiffres">{t.archivees}</td></tr>
+						{/each}
+					</tbody>
+				</table>
+			</div>
+		</details>
+	{/if}
 
 	<form class="filtres" onsubmit={(e) => e.preventDefault()}>
 		<label class="champ">Statut
@@ -88,6 +126,9 @@
 		<label class="champ texte">Rechercher
 			<input type="search" bind:value={f.texte} placeholder="mot de l’énoncé ou « Cas 3.35 »" />
 		</label>
+		<label class="champ">Trier par
+			<select bind:value={tri}><option value="modification">Dernière modification</option><option value="theme">Thème</option><option value="reussite">Réussite des stagiaires (les plus ratées d’abord)</option></select>
+		</label>
 		<label class="case"><input type="checkbox" bind:checked={f.aRelire} /> Seulement « à relire »</label>
 	</form>
 
@@ -101,9 +142,9 @@
 			<div class="defile">
 				<table>
 					<caption class="vh">Questions</caption>
-					<thead><tr><th scope="col">Énoncé</th><th scope="col">Thème</th><th scope="col">Niveau</th><th scope="col">Statut</th></tr></thead>
+					<thead><tr><th scope="col">Énoncé</th><th scope="col">Thème</th><th scope="col">Niveau</th><th scope="col">Réussite</th><th scope="col">Statut</th></tr></thead>
 					<tbody>
-						{#each visibles.slice(0, limite) as q (q.id)}
+						{#each trieees.slice(0, limite) as q (q.id)}
 							<tr>
 								<th scope="row">
 									<a href="/formateur/questions/{q.id}">{q.enonce.length > 140 ? q.enonce.slice(0, 140) + '…' : q.enonce}</a>
@@ -111,6 +152,7 @@
 								</th>
 								<td>{q.theme ?? '—'}</td>
 								<td>{q.niveau ?? '—'}</td>
+								<td class="chiffres">{reussite(q.id)}</td>
 								<td>
 									<span class="statut {q.statut}"><Icone nom={STATUTS[q.statut].icone} taille={15} />{STATUTS[q.statut].libelle}</span>
 									{#if q.a_relire}<span class="statut relire">À relire</span>{/if}
@@ -135,6 +177,24 @@
 <RetourHaut />
 
 <style>
+	td.chiffres {
+		font-variant-numeric: tabular-nums;
+		font-weight: 700;
+		white-space: nowrap;
+	}
+	.actions-entete {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px;
+		align-items: center;
+	}
+	.stats summary {
+		cursor: pointer;
+		font-weight: 700;
+		min-height: 44px;
+		display: flex;
+		align-items: center;
+	}
 	.page {
 		padding: 28px 40px 48px;
 		display: flex;

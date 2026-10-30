@@ -75,7 +75,7 @@ describe('édition d’une question', () => {
 		await fireEvent.input(await e.findByLabelText('Énoncé'), { target: { value: 'Énoncé' } });
 		for (const l of ['A', 'B', 'C', 'D']) await fireEvent.input(e.getByLabelText(`Proposition ${l}`), { target: { value: `P${l}` } });
 		await fireEvent.click(e.getByLabelText(/Bonne réponse :\s*B/));
-		await fireEvent.input(e.getByLabelText(/^Explication/), { target: { value: 'Parce que' } });
+		await fireEvent.input(e.getByLabelText(/^Explication/), { target: { value: 'Parce que la règle 19.3.1.4 le prévoit expressément.' } });
 		await fireEvent.change(e.getByLabelText('Thème'), { target: { value: 't1' } });
 		await fireEvent.change(e.getByLabelText('Niveau'), { target: { value: 'n1' } });
 		await fireEvent.input(e.getByLabelText('Ajouter une règle'), { target: { value: '19.3' } });
@@ -121,5 +121,27 @@ describe('layout', () => {
 		render(Layout, { props: { children: (() => {}) as never } });
 		await waitFor(() => expect(h.rappelAuth).not.toBeNull());
 		expect(h.rappelAuth!('SIGNED_IN')).toBeUndefined();
+	});
+});
+
+describe('éditeur : vérificateur de qualité', () => {
+	test('une explication trop courte est signalée ; « Valider quand même » enregistre', async () => {
+		h.params = { id: 'nouvelle' };
+		h.enregistrerQuestion.mockResolvedValue('q-78');
+		h.chargerQuestion.mockResolvedValue({ ...questionChargee('q-78'), statut: 'validee' });
+		const e = render(EditionQuestion);
+		await fireEvent.input(await e.findByLabelText('Énoncé'), { target: { value: 'Énoncé' } });
+		for (const l of ['A', 'B', 'C', 'D']) await fireEvent.input(e.getByLabelText(`Proposition ${l}`), { target: { value: `Proposition ${l}${l}` } });
+		await fireEvent.click(e.getByLabelText(/Bonne réponse :\s*B/));
+		await fireEvent.input(e.getByLabelText(/^Explication/), { target: { value: 'Parce que' } });
+		await fireEvent.change(e.getByLabelText('Thème'), { target: { value: 't1' } });
+		await fireEvent.change(e.getByLabelText('Niveau'), { target: { value: 'n1' } });
+		await fireEvent.input(e.getByLabelText('Ajouter une règle'), { target: { value: '19.3' } });
+		await fireEvent.click(await e.findByRole('button', { name: /19.3.1.4/ }));
+		await fireEvent.click(e.getByRole('button', { name: 'Valider la question' }));
+		expect(await e.findByText('Explication très courte : citez la règle et dites pourquoi.')).toBeInTheDocument();
+		expect(h.enregistrerQuestion).not.toHaveBeenCalled();
+		await fireEvent.click(e.getByRole('button', { name: 'Valider quand même' }));
+		await waitFor(() => expect(h.enregistrerQuestion).toHaveBeenCalledTimes(1));
 	});
 });

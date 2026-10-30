@@ -7,7 +7,20 @@
 	import FilAriane from '#lib/components/FilAriane.svelte';
 	import DialogueConfirmation from '#lib/components/DialogueConfirmation.svelte';
 	import NavFormateur from '#lib/components/NavFormateur.svelte';
-	import { archiverQuestion, chargerQuestion, enregistrerQuestion, formulaireVide, listerQuestions, type QuestionComplete, type RegleLiee } from '#lib/data/questions.ts';
+	import Reponse from '#lib/components/Reponse.svelte';
+	import {
+		archiverQuestion,
+		chargerQuestion,
+		enregistrerQuestion,
+		formulaireVide,
+		historiqueQuestion,
+		listerQuestions,
+		type LigneQuestion,
+		type Modification,
+		type QuestionComplete,
+		type RegleLiee
+	} from '#lib/data/questions.ts';
+	import { avertissementsQualite, doublons, fileRelecture, positionRelecture } from '#lib/formateur/banque.ts';
 	import { toutesLesRegles } from '#lib/data/regles.ts';
 	import { signalementsDeQuestion, traiterSignalement, type Signalement } from '#lib/data/signalements.ts';
 	import { referentiel, type Option } from '#lib/data/seances.ts';
@@ -32,6 +45,60 @@
 	// Après la validation d'un brouillon : le brouillon suivant à relire, pour enchaîner sans repasser par la liste.
 	let brouillonSuivant = $state<string | null>(null);
 	let signalements = $state<Signalement[]>([]);
+	// File de relecture (« Relire les brouillons ») : rang du brouillon et suivant.
+	const relecture = page.url.searchParams.has('relecture');
+	const depuis = page.url.searchParams.get('depuis');
+	let toutes = $state<LigneQuestion[]>([]);
+	let historique = $state<Modification[]>([]);
+	let avertissements = $state<string[]>([]);
+	let apercu = $state(false);
+	let choixApercu = $state<string | null>(null);
+	// Sauvegarde automatique sur l'appareil, proposée au retour si elle diffère de la version enregistrée.
+	const cleSauvegarde = () => `edition-question-${id ?? 'nouvelle'}`;
+	let sauvegarde = $state<{ quand: string; f: FormulaireQuestion; liees: RegleLiee[] } | null>(null);
+	let sauvegardeActive = $state(false);
+
+	const file = $derived(fileRelecture(toutes));
+	const position = $derived(id ? positionRelecture(file, id) : null);
+	const prochains = $derived(file.filter((x) => x !== id));
+	const doublonsTrouves = $derived(f.enonce.trim().length > 20 ? doublons(f.enonce, toutes, id) : []);
+
+	function lireSauvegarde() {
+		try {
+			const brut = localStorage.getItem(cleSauvegarde());
+			const x = brut ? JSON.parse(brut) : null;
+			if (x && JSON.stringify(x.f) !== JSON.stringify(f)) sauvegarde = x;
+		} catch {
+			/* stockage indisponible */
+		}
+		sauvegardeActive = true;
+	}
+	function reprendreSauvegarde() {
+		if (!sauvegarde) return;
+		f = sauvegarde.f;
+		liees = sauvegarde.liees;
+		sauvegarde = null;
+	}
+	function ecarterSauvegarde() {
+		sauvegarde = null;
+		try {
+			localStorage.removeItem(cleSauvegarde());
+		} catch {
+			/* rien */
+		}
+	}
+	$effect(() => {
+		const instantane = JSON.stringify({ quand: new Date().toISOString(), f, liees });
+		if (!sauvegardeActive || sauvegarde) return;
+		const t = setTimeout(() => {
+			try {
+				localStorage.setItem(cleSauvegarde(), instantane);
+			} catch {
+				/* stockage indisponible */
+			}
+		}, 800);
+		return () => clearTimeout(t);
+	});
 
 	async function traiter(s: Signalement) {
 		try {
@@ -43,17 +110,25 @@
 	}
 
 	$effect(() => {
-		Promise.all([id ? chargerQuestion(id) : Promise.resolve(null), referentiel(), toutesLesRegles()])
+		Promise.all([id ? chargerQuestion(id) : depuis ? chargerQuestion(depuis) : Promise.resolve(null), referentiel(), toutesLesRegles()])
 			.then(([q, r, rg]) => {
-				question = q;
+				if (id) question = q;
 				if (q) (f = q.formulaire), (liees = q.reglesLiees);
-				if (q) signalementsDeQuestion(q.id).then((s) => (signalements = s)).catch(() => {});
+				if (!id && q) message = 'Copie d’une question existante : modifiez-la, puis enregistrez-la comme nouvelle question.';
+				if (id && q) {
+					signalementsDeQuestion(q.id).then((s) => (signalements = s)).catch(() => {});
+					historiqueQuestion(q.id).then((h) => (historique = h)).catch(() => {});
+				}
 				themes = r.themes;
 				niveaux = r.niveaux;
 				regles = rg;
 				etat = 'pret';
+				lireSauvegarde();
 			})
 			.catch(() => (etat = 'erreur'));
+		listerQuestions()
+			.then((l) => (toutes = l))
+			.catch(() => {});
 	});
 
 	const suggestions = $derived(rechercheRegle.trim() ? chercher(regles, rechercheRegle).filter((r) => !liees.some((l) => l.id === r.id)).slice(0, 8) : []);
@@ -78,7 +153,7 @@
 		versFormulaire();
 	}
 
-	async function enregistrer(valider: boolean) {
+	async function enregistrer(valider: boolean, malgreAvertissements = false) {
 		message = '';
 		erreurEnvoi = '';
 		erreurs = validerFormulaire(f);
@@ -86,7 +161,11 @@
 			erreurEnvoi = 'Le formulaire contient des erreurs : corrigez les champs signalés.';
 			return;
 		}
+		// Vérificateur de qualité, au moment de la validation d'un brouillon : des points à relire, qui n'empêchent pas de valider.
+		avertissements = valider && !malgreAvertissements && question?.statut !== 'validee' ? avertissementsQualite(f) : [];
+		if (avertissements.length) return;
 		envoi = true;
+		const cleAvant = cleSauvegarde();
 		const etaitBrouillon = !question || question.statut === 'brouillon';
 		try {
 			const nouvelId = await enregistrerQuestion(id, f, valider);
@@ -97,8 +176,16 @@
 			}
 			question = await chargerQuestion(nouvelId);
 			liees = question.reglesLiees;
+			ecarterSauvegarde();
+			try {
+				localStorage.removeItem(cleAvant);
+			} catch {
+				/* rien */
+			}
+			historiqueQuestion(nouvelId).then((h) => (historique = h)).catch(() => {});
 			if (valider && etaitBrouillon) {
-				brouillonSuivant = (await listerQuestions().catch(() => [])).find((q) => q.statut === 'brouillon' && q.id !== nouvelId)?.id ?? null;
+				brouillonSuivant = position?.suivant ?? prochains[0] ?? null;
+				toutes = toutes.map((x) => (x.id === nouvelId ? { ...x, statut: 'validee' } : x));
 			}
 		} catch {
 			erreurEnvoi = 'La question n’a pas pu être enregistrée. Vérifiez votre connexion puis réessayez.';
@@ -118,7 +205,19 @@
 		}
 	}
 	const STATUTS: Record<string, string> = { brouillon: 'Brouillon', validee: 'Validée', archivee: 'Archivée' };
+	const etatApercu = (lettre: string) => (!choixApercu ? 'neutre' : lettre === f.bonne ? 'ok' : lettre === choixApercu ? 'ko' : 'ecartee');
+	const quand = (iso: string) => new Intl.DateTimeFormat('fr-FR', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(iso));
+
+	// Ctrl+Entrée (ou Cmd+Entrée) : valider la question.
+	function raccourci(e: KeyboardEvent) {
+		if ((e.ctrlKey || e.metaKey) && e.key === 'Enter' && etat === 'pret' && !envoi) {
+			e.preventDefault();
+			enregistrer(true);
+		}
+	}
 </script>
+
+<svelte:window onkeydown={raccourci} />
 
 <svelte:head><title>{id ? 'Modifier la question' : 'Nouvelle question'} · Arbitrage volley</title></svelte:head>
 
@@ -134,6 +233,19 @@
 	{:else if etat === 'erreur'}
 		<p class="message-erreur" role="alert">La question n’a pas pu être chargée. Vérifiez votre connexion puis rechargez la page.</p>
 	{:else}
+		{#if relecture && position}
+			<div class="relecture" role="status">
+				<span><b>Relecture des brouillons :</b> {position.rang} / {position.total}</span>
+				{#if position.suivant}<a href="/formateur/questions/{position.suivant}?relecture" data-sveltekit-reload>Passer ce brouillon</a>{/if}
+			</div>
+		{/if}
+		{#if sauvegarde}
+			<div class="sauvegarde" role="status">
+				<span>Une version non enregistrée du {quand(sauvegarde.quand)} existe sur cet appareil.</span>
+				<button type="button" class="btn2" onclick={reprendreSauvegarde}>La reprendre</button>
+				<button type="button" class="lien" onclick={ecarterSauvegarde}>L’écarter</button>
+			</div>
+		{/if}
 		<div class="colonnes">
 			<!-- Entrée dans un champ ne doit rien enregistrer : seuls les boutons explicites agissent. -->
 			<form class="carte" onsubmit={(e) => e.preventDefault()} novalidate>
@@ -159,9 +271,19 @@
 				{/if}
 
 				<label class="champ">Énoncé
-					<textarea rows="4" bind:value={f.enonce} aria-invalid={!!erreurs.enonce}></textarea>
+					<textarea rows="5" bind:value={f.enonce} aria-invalid={!!erreurs.enonce}></textarea>
 					{#if erreurs.enonce}<span class="erreur">{erreurs.enonce}</span>{/if}
 				</label>
+				{#if doublonsTrouves.length}
+					<div class="doublons" role="status">
+						<b>Énoncé très proche d’une question existante :</b>
+						<ul>
+							{#each doublonsTrouves as d (d.id)}
+								<li><a href="/formateur/questions/{d.id}" data-sveltekit-reload target="_blank" rel="noopener">{d.enonce.length > 110 ? `${d.enonce.slice(0, 110)}…` : d.enonce}</a> <span class="aide">({Math.round(d.score * 100)} % de mots communs, {STATUTS[d.statut].toLowerCase()})</span></li>
+							{/each}
+						</ul>
+					</div>
+				{/if}
 
 				<fieldset>
 					<legend>Propositions et bonne réponse</legend>
@@ -180,7 +302,7 @@
 				</fieldset>
 
 				<label class="champ">Explication (affichée après la réponse en mode pédagogique)
-					<textarea rows="4" bind:value={f.explication}></textarea>
+					<textarea rows="6" bind:value={f.explication}></textarea>
 					{#if erreurs.explication}<span class="erreur">{erreurs.explication}</span>{/if}
 				</label>
 
@@ -233,6 +355,16 @@
 					{#if erreurs.regles}<span class="erreur">{erreurs.regles}</span>{/if}
 				</fieldset>
 
+				{#if avertissements.length}
+					<div class="qualite" role="alert">
+						<b>Avant de valider, relisez :</b>
+						<ul>{#each avertissements as a (a)}<li>{a}</li>{/each}</ul>
+						<div class="actions">
+							<button type="button" class="btn2" onclick={() => (avertissements = [])}>Corriger</button>
+							<button type="button" class="lien" onclick={() => enregistrer(true, true)}>Valider quand même</button>
+						</div>
+					</div>
+				{/if}
 				{#if erreurEnvoi}<p class="message-erreur" role="alert">{erreurEnvoi}</p>{/if}
 				{#if message}<p class="message-info" role="status">{message}</p>{/if}
 				<!-- Rechargement complet : la page d'édition lit son identifiant au démarrage. -->
@@ -240,9 +372,48 @@
 				<div class="actions">
 					<button class="btn" type="button" disabled={envoi} onclick={() => enregistrer(true)}>{question?.statut === 'validee' ? 'Enregistrer et garder validée' : 'Valider la question'}</button>
 					<button class="btn2" type="button" disabled={envoi} onclick={() => enregistrer(false)}>{question?.statut === 'validee' ? 'Repasser en brouillon' : 'Enregistrer le brouillon'}</button>
+					<button class="btn2" type="button" aria-pressed={apercu} onclick={() => ((apercu = !apercu), (choixApercu = null))}>Aperçu stagiaire</button>
+					{#if id}<a class="lien" href="/formateur/questions/nouvelle?depuis={id}" data-sveltekit-reload>Dupliquer</a>{/if}
 					{#if id && question?.statut !== 'archivee'}<button class="lien danger" type="button" onclick={() => (confirmerArchive = true)}>Archiver…</button>{/if}
 				</div>
+				<p class="aide">Raccourci : Ctrl + Entrée pour valider. Vos modifications sont gardées sur cet appareil jusqu’à l’enregistrement.</p>
 			</form>
+
+			{#if apercu}
+				<aside class="carte apercu" aria-label="Aperçu côté stagiaire">
+					<h2>Aperçu côté stagiaire</h2>
+					<p class="aide">La question telle qu’elle s’affiche en séance pédagogique. Cliquez une réponse pour voir la correction.</p>
+					<p class="enonce-apercu">{f.enonce || 'Énoncé à rédiger'}</p>
+					<fieldset>
+						<legend class="vh">Propositions</legend>
+						{#each f.propositions as p (p.lettre)}
+							<Reponse nom="apercu" valeur={p.lettre} lettre={p.lettre} texte={p.texte || '…'} etat={etatApercu(p.lettre)} choisie={choixApercu === p.lettre} desactivee={!!choixApercu} onchoisir={(v) => (choixApercu = v)} />
+						{/each}
+					</fieldset>
+					{#if choixApercu}
+						<div class="correction">
+							<p class="verdict">{choixApercu === f.bonne ? 'Bonne réponse' : 'Ce n’est pas la bonne réponse'}</p>
+							{#if choixApercu !== f.bonne && f.propositions.find((p) => p.lettre === choixApercu)?.explication}
+								<p>{f.propositions.find((p) => p.lettre === choixApercu)?.explication}</p>
+							{/if}
+							<p>{f.explication || 'Explication à rédiger.'}</p>
+							{#if liees.length}<p class="aide">Règle : {liees.find((l) => l.principale)?.reference ?? liees[0].reference}</p>{/if}
+							<button type="button" class="lien" onclick={() => (choixApercu = null)}>Recommencer l’aperçu</button>
+						</div>
+					{/if}
+				</aside>
+			{/if}
+
+			{#if historique.length}
+				<aside class="carte historique">
+					<h2>Historique des modifications</h2>
+					<ol>
+						{#each historique as h, i (i)}
+							<li><span class="quand">{quand(h.quand)}</span> · {h.auteur ?? 'Import'} : {h.resume}</li>
+						{/each}
+					</ol>
+				</aside>
+			{/if}
 
 			{#if question?.origine}
 				<aside class="carte origine">
@@ -269,6 +440,74 @@
 />
 
 <style>
+	.relecture,
+	.sauvegarde {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 10px 18px;
+		padding: 12px 16px;
+		border-radius: var(--r);
+		border: 1px solid var(--filet);
+		background: var(--papier);
+	}
+	.sauvegarde {
+		background: var(--ambre-clair);
+		color: var(--ambre);
+		border-color: var(--ambre-vif);
+	}
+	.doublons,
+	.qualite {
+		border: 1px solid var(--ambre-vif);
+		background: var(--ambre-clair);
+		color: var(--ambre);
+		border-radius: var(--r);
+		padding: 12px 16px;
+	}
+	.doublons ul,
+	.qualite ul {
+		margin: 6px 0 0;
+		padding-left: 20px;
+	}
+	.qualite .actions {
+		margin-top: 10px;
+	}
+	.apercu,
+	.historique {
+		flex: 1 1 340px;
+		max-width: 560px;
+		gap: 12px;
+	}
+	.enonce-apercu {
+		margin: 0;
+		font-size: 20px;
+		font-weight: 600;
+		line-height: 1.38;
+	}
+	.correction {
+		border-top: 1px solid var(--filet);
+		padding-top: 12px;
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+	}
+	.correction p {
+		margin: 0;
+	}
+	.verdict {
+		font-weight: 700;
+	}
+	.historique ol {
+		margin: 0;
+		padding-left: 18px;
+		display: flex;
+		flex-direction: column;
+		gap: 6px;
+		font-size: 14px;
+	}
+	.quand {
+		color: var(--doux);
+	}
 	.page {
 		padding: 24px 40px 48px;
 		display: flex;
@@ -346,6 +585,8 @@
 		padding: 10px 12px;
 		border: 1.5px solid var(--filet);
 		border-radius: var(--r);
+		background: var(--papier);
+		color: var(--encre);
 	}
 	.ligne {
 		display: flex;

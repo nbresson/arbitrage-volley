@@ -15,7 +15,7 @@ Préférences personnelles (objectif, tri, taille du texte, thème…) : d'abord
 | E | Règles et recherche | 41–50 | **fait** (migration `20261031000002_regles_enrichies`) ; 47 et 49 : mécanisme en place (page formateur « Glossaire et figures »), images et définitions à fournir ; 55 fil d’Ariane côté stagiaire fait au passage |
 | F | Navigation et compte | 51–60 | **fait** (sans migration) ; thème sombre complet (jetons `--sur-fonce` et `--trait`, DESIGN.md › Thème sombre) ; 58 : soulignement en `--bleu` (pas de turquoise dans le système) ; 83 « Contraste élevé » fait au passage |
 | G | Formateur : stagiaires et examens | 61–70 | **fait** sauf 69 (migration `20261031000003_formateur_suivi`) ; **69 « Rappel la veille » non fait : dépend du réglage des e-mails** |
-| H | Formateur : questions et contenu | 71–80 | à faire |
+| H | Formateur : questions et contenu | 71–80 | **fait** (migration `20261031000004_questions_suivi`) ; 79 : import par copier-coller ou fichier texte avec découpage assisté (pas de lecture directe des PDF et Word) |
 | I | Accessibilité et téléphone | 81–90 | à faire |
 | J | Retours, états et performance | 91–100 | à faire |
 

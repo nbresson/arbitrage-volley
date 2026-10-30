@@ -19,6 +19,7 @@
 		type EditionCfa
 	} from '#lib/data/consignes.ts';
 	import { validerConsigne, type FormulaireConsigne } from '#lib/formateur/validation-consigne.ts';
+	import { decouperConsignes, type ConsigneDecoupee } from '#lib/formateur/decoupage-cfa.ts';
 
 	let editions = $state<EditionCfa[]>([]);
 	let etat = $state<'chargement' | 'pret' | 'erreur'>('chargement');
@@ -121,6 +122,48 @@
 		}
 	}
 
+	// Import assisté : texte collé (ou fichier texte), découpé en consignes, relu, puis ajouté.
+	let texteImport = $state('');
+	let prefixe = $state('CFA ');
+	let decoupees = $state<(ConsigneDecoupee & { garder: boolean; erreur?: string })[]>([]);
+	let messageImport = $state('');
+	let importEnCours = $state(false);
+
+	async function lireFichier(e: Event) {
+		const fichier = (e.currentTarget as HTMLInputElement).files?.[0];
+		if (fichier) texteImport = await fichier.text();
+	}
+
+	function decouper() {
+		messageImport = '';
+		const existantes = liste.map((c) => c.reference);
+		decoupees = decouperConsignes(texteImport).map((c) => {
+			const ref = `${prefixe}${c.reference}`.trim();
+			const erreur = existantes.includes(ref) ? 'Référence déjà présente dans cette édition.' : !c.texte.trim() ? 'Texte vide.' : undefined;
+			return { ...c, reference: ref, garder: !erreur, erreur };
+		});
+		if (!decoupees.length) messageImport = 'Aucun numéro trouvé en début de ligne (1., 1.2, Consigne 3…). Vérifiez le texte collé.';
+	}
+
+	async function importer() {
+		if (!choisie) return;
+		importEnCours = true;
+		let n = 0;
+		for (const c of decoupees.filter((x) => x.garder)) {
+			try {
+				await enregistrerConsigne(choisie, { reference: c.reference, titre: c.titre, texte: c.texte }, null, liste.length + n + 1);
+				n++;
+			} catch {
+				c.erreur = 'Non enregistrée : réessayez.';
+			}
+		}
+		importEnCours = false;
+		decoupees = decoupees.filter((x) => x.erreur && x.garder);
+		messageImport = `${n} consigne${n > 1 ? 's' : ''} ajoutée${n > 1 ? 's' : ''}.`;
+		if (!decoupees.length) texteImport = '';
+		await charger();
+	}
+
 	async function supprimer() {
 		if (!aSupprimer) return;
 		try {
@@ -210,6 +253,32 @@
 							{#if enEdition}<button class="lien" type="button" onclick={annulerEdition}>Annuler</button>{/if}
 						</div>
 					</form>
+
+					<details class="carte import">
+						<summary>Importer un document de consignes</summary>
+						<p class="aide">Copiez le texte du document (PDF ou Word) et collez-le ci-dessous, ou choisissez un fichier texte. Chaque numéro en début de ligne (« 1. », « 1.2 », « Consigne 3 ») commence une consigne. Vous relisez le découpage avant l’ajout.</p>
+						<label class="champ">Texte du document<textarea rows="8" bind:value={texteImport}></textarea></label>
+						<div class="ligne-import">
+							<label class="champ">Ou un fichier texte<input type="file" accept=".txt,.md,text/plain" onchange={lireFichier} /></label>
+							<label class="champ">Préfixe des références<input bind:value={prefixe} autocomplete="off" /></label>
+						</div>
+						<button type="button" class="btn2" onclick={decouper} disabled={!texteImport.trim()}>Découper en consignes</button>
+						{#if decoupees.length}
+							<ul class="decoupees">
+								{#each decoupees as c, i (i)}
+									<li>
+										<label class="case"><input type="checkbox" bind:checked={c.garder} disabled={!!c.erreur && !c.garder} /> <span class="ref plaque">{c.reference}</span> <b>{c.titre}</b></label>
+										<p>{c.texte.length > 220 ? `${c.texte.slice(0, 220)}…` : c.texte}</p>
+										{#if c.erreur}<p class="erreur">{c.erreur}</p>{/if}
+									</li>
+								{/each}
+							</ul>
+							<button type="button" class="btn" onclick={importer} disabled={importEnCours || !decoupees.some((x) => x.garder)}>
+								{importEnCours ? 'Ajout en cours…' : `Ajouter ${decoupees.filter((x) => x.garder).length} consigne(s) à « ${edition.libelle} »`}
+							</button>
+						{/if}
+						{#if messageImport}<p class="message-info" role="status">{messageImport}</p>{/if}
+					</details>
 				{/if}
 			</section>
 		</div>
@@ -240,6 +309,42 @@
 />
 
 <style>
+	.import summary {
+		cursor: pointer;
+		font-weight: 700;
+		min-height: 32px;
+	}
+	.import[open] {
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+	}
+	.ligne-import {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 12px;
+	}
+	.ligne-import .champ {
+		flex: 1 1 220px;
+	}
+	.decoupees {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		max-height: 420px;
+		overflow: auto;
+		border: 1px solid var(--filet-doux);
+		border-radius: var(--r);
+	}
+	.decoupees li {
+		padding: 10px 12px;
+		border-bottom: 1px solid var(--filet-doux);
+	}
+	.decoupees p {
+		margin: 4px 0 0;
+		font-size: 14px;
+		color: var(--doux);
+	}
 	.page {
 		padding: 28px 40px 48px;
 		display: flex;

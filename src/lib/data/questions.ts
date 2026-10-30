@@ -128,3 +128,24 @@ export async function archiverQuestion(id: string) {
 	const { error } = await supabase.from('questions').update({ statut: 'archivee' }).eq('id', id);
 	if (error) throw new Error(error.message);
 }
+
+/** Taux de réussite de chaque question en mode pédagogique (formateurs). */
+export async function tauxQuestions(): Promise<Map<string, { reponses: number; justes: number }>> {
+	const { data, error } = await supabase.rpc('taux_questions');
+	if (error) throw new Error(error.message);
+	return new Map(((data ?? []) as { question_id: string; reponses: number; justes: number }[]).map((l) => [l.question_id, { reponses: l.reponses, justes: l.justes }]));
+}
+
+export type Modification = { quand: string; resume: string; auteur: string | null };
+
+/** Historique des modifications d'une question, les plus récentes d'abord. */
+export async function historiqueQuestion(id: string): Promise<Modification[]> {
+	const { data, error } = await supabase
+		.from('questions_historique')
+		.select('quand, resume, profils(prenom, nom)')
+		.eq('question_id', id)
+		.order('id', { ascending: false })
+		.limit(50);
+	if (error) throw new Error(error.message);
+	return (data ?? []).map((l: any) => ({ quand: l.quand, resume: l.resume, auteur: l.profils ? `${l.profils.prenom} ${l.profils.nom}` : null }));
+}
