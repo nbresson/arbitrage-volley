@@ -409,7 +409,8 @@
 	.score-fin {
 		background: var(--tableau);
 		color: var(--papier);
-		padding: 28px 40px 32px;
+		/* Même colonne que le contenu dessous (860 px centrés). */
+		padding: 28px max(20px, calc((100% - 860px) / 2 + 20px)) 32px;
 		display: flex;
 		flex-wrap: wrap;
 		align-items: center;
