@@ -388,7 +388,7 @@
 						<p>{erreurEnvoi}</p>
 						{#if champsEnErreur.length}
 							<ul class="liste-erreurs">
-								{#each champsEnErreur as [k, libelle] (k)}<li><a href="#champ-{k}">{libelle}</a> : {erreurs[k]}</li>{/each}
+								{#each champsEnErreur as [k, libelle] (k)}<li><a href="#champ-{k === 'bonne' ? 'propositions' : k}">{libelle}</a> : {erreurs[k]}</li>{/each}
 							</ul>
 						{/if}
 					</div>

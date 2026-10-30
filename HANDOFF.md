@@ -1,6 +1,6 @@
 # HANDOFF — reprise des développements
 
-À lire en premier par toute nouvelle session Claude Code. Mis à jour le 2026-10-31.
+À lire en premier par toute nouvelle session Claude Code. Mis à jour le 2026-10-30 (revue UX en 62 propositions, branche `revue-ux`, pas encore en ligne).
 
 ## En une phrase
 
@@ -19,6 +19,14 @@ Plateforme web (SvelteKit 3 statique + Supabase) de formation des arbitres de vo
 | Audits design (skill impeccable) | 1er : 27/40, 1 P0. 2e (après corrections) : 26/40, 0 P0 — la note varie selon la profondeur de la revue ; tous les points du 1er audit sont confirmés corrigés. Rapports : `.impeccable/critique/` (non versionné) |
 
 ## Ce qui reste à faire
+
+### 00. Revue UX en 62 propositions : faite sur la branche `revue-ux`, **à mettre en ligne**
+
+Planche : https://claude.ai/artifact/6BpwwHPc6GgzVZmZuRKk9p. Spec : [docs/superpowers/specs/2026-10-30-revue-ux-62-propositions.md](docs/superpowers/specs/2026-10-30-revue-ux-62-propositions.md). Plan et suivi : [docs/superpowers/plans/2026-10-30-revue-ux-62.md](docs/superpowers/plans/2026-10-30-revue-ux-62.md) (un commit par tâche, 21 tâches).
+
+- Tests sur la branche : `npm test` 400/400 · `npm run test:integration` 162/162 · `npm run check` 0 erreur · `npm run build` OK. Vérifié à l'écran sur la base de test (accueil avec examen ouvert à 800 px, recherche « Cas 3.35 », ouverture d'un examen après changement du seuil, liste d'erreurs de l'éditeur de questions).
+- **3 migrations à appliquer en prod** (déjà sur la base de test) : `20261101000001_seance_a_revoir`, `20261101000002_erreurs_de_seance`, `20261101000003_dernieres_seances`. Puis avancer `main` sur `revue-ux` et pousser.
+- **À fournir** : le nom du comité et l'adresse de contact. Ils sont dans `src/lib/config.ts` (`NOM_COMITE`, `CONTACT_EMAIL`), pour l'instant des textes entre crochets visibles sur la connexion, l'aide, la notice et les pages d'erreur.
 
 ### 0. Les 100 améliorations UI/UX : faites et en ligne
 

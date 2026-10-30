@@ -98,7 +98,7 @@
 		<label class="champ recherche">
 			Chercher un numéro ou des mots
 			<input id="recherche-regles" type="search" bind:value={requete} placeholder="ex. 19.3.1.4, Cas 3.35, libéro passe" aria-describedby="aide-recherche" />
-			<span class="aide" id="aide-recherche">Les résultats s’affichent dès deux lettres.<span class="clavier"> Raccourci : touche « / ».</span></span>
+			<span class="aide" id="aide-recherche">Les résultats s’affichent dès deux lettres.{' '}<span class="clavier">Raccourci : touche « / ».</span></span>
 		</label>
 	</div>
 

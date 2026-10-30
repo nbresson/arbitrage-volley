@@ -78,6 +78,15 @@ test('erreurs de validation : liste de liens vers les champs, focus sur le premi
 	await waitFor(() => expect(document.activeElement).toBe(theme));
 });
 
+test('chaque lien d’erreur mène à un champ existant', async () => {
+	h.charger.mockImplementation(async (id: string) => ({ ...chargee(id, 'brouillon', null), formulaire: { ...chargee(id).formulaire, bonne: null, themeId: null } }));
+	const e = render(Edition);
+	await e.findByLabelText('Énoncé');
+	await fireEvent.click(e.getByRole('button', { name: 'Valider la question' }));
+	const lien = await e.findByRole('link', { name: 'Bonne réponse' });
+	expect(document.querySelector(lien.getAttribute('href')!)).not.toBeNull();
+});
+
 test('après validation en relecture, « Relire le brouillon suivant » est le bouton principal et garde ?relecture', async () => {
 	h.url = new URL('http://x/formateur/questions/q1?relecture');
 	const e = render(Edition);
