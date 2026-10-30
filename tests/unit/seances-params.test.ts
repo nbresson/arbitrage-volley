@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
 import type { Profil } from '../../src/lib/auth';
-import { lireParametres, parametresParDefaut } from '../../src/lib/data/parametres-seance';
+import { EXAMEN_PAR_THEME, lireParametres, parametresParDefaut } from '../../src/lib/data/parametres-seance';
 
 const profil: Profil = {
 	id: 'u1',
@@ -57,5 +57,19 @@ describe('lireParametres', () => {
 
 	test('un mode inconnu retombe sur pédagogique', () => {
 		expect(lireParametres(new URL('http://x/?mode=n-importe'), profil).type).toBe('pedagogique');
+	});
+});
+
+describe('examen blanc par thème', () => {
+	test('?format=theme : examen de 10 questions en 15 minutes sur un seul thème', () => {
+		const p = lireParametres(new URL('http://x/?format=theme&theme=t1&theme=t2'), profil);
+		expect(p).toMatchObject({ type: 'examen_entrainement', themeIds: ['t1'], nb: 10, dureeMinutes: 15 });
+		expect(EXAMEN_PAR_THEME).toEqual({ nb: 10, dureeMinutes: 15 });
+	});
+
+	test('?duree= règle la durée d’un examen, bornée entre 5 et 120 minutes', () => {
+		expect(lireParametres(new URL('http://x/?mode=examen_entrainement&duree=20'), profil).dureeMinutes).toBe(20);
+		expect(lireParametres(new URL('http://x/?mode=examen_entrainement&duree=500'), profil).dureeMinutes).toBe(120);
+		expect(lireParametres(new URL('http://x/?duree=20'), profil).dureeMinutes).toBeNull();
 	});
 });

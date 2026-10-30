@@ -6,7 +6,7 @@ const apres = (min: number, s = 0) => new Date(debut.getTime() + (min * 60 + s) 
 
 describe('tempsRestant', () => {
 	test('18 min 42 s restantes', () => {
-		expect(tempsRestant(debut, 45, apres(26, 18))).toEqual({ minutes: 18, secondes: 42, faible: false, ecoule: false });
+		expect(tempsRestant(debut, 45, apres(26, 18))).toEqual({ minutes: 18, secondes: 42, faible: false, ecoule: false, alerte: null });
 	});
 
 	test('sous 5 minutes : temps faible', () => {
@@ -14,16 +14,24 @@ describe('tempsRestant', () => {
 	});
 
 	test('à la fin : écoulé, jamais négatif', () => {
-		expect(tempsRestant(debut, 45, apres(45))).toEqual({ minutes: 0, secondes: 0, faible: true, ecoule: true });
-		expect(tempsRestant(debut, 45, apres(50))).toEqual({ minutes: 0, secondes: 0, faible: true, ecoule: true });
+		expect(tempsRestant(debut, 45, apres(45))).toEqual({ minutes: 0, secondes: 0, faible: true, ecoule: true, alerte: null });
+		expect(tempsRestant(debut, 45, apres(50))).toEqual({ minutes: 0, secondes: 0, faible: true, ecoule: true, alerte: null });
+	});
+
+	test('alertes : à 5 minutes de la fin, puis à 1 minute', () => {
+		expect(tempsRestant(debut, 45, apres(39, 59)).alerte).toBeNull();
+		expect(tempsRestant(debut, 45, apres(40)).alerte).toBe('Plus que 5 minutes.');
+		expect(tempsRestant(debut, 45, apres(43, 59)).alerte).toBe('Plus que 5 minutes.');
+		expect(tempsRestant(debut, 45, apres(44)).alerte).toBe('Plus qu’une minute.');
+		expect(tempsRestant(debut, 45, apres(44, 59)).alerte).toBe('Plus qu’une minute.');
 	});
 });
 
 describe('texteConfirmation', () => {
 	test('questions sans réponse', () => {
 		expect(texteConfirmation(19, 2)).toEqual({
-			titre: 'Terminer l’examen maintenant ?',
-			texte: '19 questions sans réponse et 2 signalées à vérifier. Une fois terminé, vous ne pourrez plus modifier vos réponses.'
+			titre: '19 questions sans réponse. Terminer quand même ?',
+			texte: '2 signalées à vérifier. Une fois terminé, vous ne pourrez plus modifier vos réponses.'
 		});
 	});
 
@@ -37,10 +45,11 @@ describe('texteConfirmation', () => {
 		);
 	});
 
-	test('accord au singulier', () => {
-		expect(texteConfirmation(1, 0).texte).toBe(
-			'1 question sans réponse et 0 signalée à vérifier. Une fois terminé, vous ne pourrez plus modifier vos réponses.'
-		);
+	test('accord au singulier, et rien sur les signalements quand il n’y en a pas', () => {
+		expect(texteConfirmation(1, 0)).toEqual({
+			titre: '1 question sans réponse. Terminer quand même ?',
+			texte: 'Une fois terminé, vous ne pourrez plus modifier vos réponses.'
+		});
 	});
 });
 

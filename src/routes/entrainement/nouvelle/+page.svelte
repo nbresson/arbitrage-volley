@@ -6,7 +6,7 @@
 	import { page } from '$app/state';
 	import Bandeau from '#lib/components/Bandeau.svelte';
 	import NavPrincipale from '#lib/components/NavPrincipale.svelte';
-	import { borner, lireParametres, parametresParDefaut, type ParametresSeance } from '#lib/data/parametres-seance.ts';
+	import { borner, EXAMEN_PAR_THEME, lireParametres, parametresParDefaut, type ParametresSeance } from '#lib/data/parametres-seance.ts';
 	import { creerSeance, referentiel, urlSeance, type Option } from '#lib/data/seances.ts';
 	import { session } from '#lib/session.svelte.ts';
 
@@ -17,6 +17,9 @@
 	let niveaux = $state<Option[]>([]);
 	let erreur = $state('');
 	let envoi = $state(false);
+	// Examen blanc : complet (plusieurs thèmes possibles) ou par thème (dix questions chronométrées sur un seul thème).
+	let format = $state<'complet' | 'theme'>(page.url.searchParams.get('format') === 'theme' ? 'theme' : 'complet');
+	const parTheme = $derived(p.type === 'examen_entrainement' && format === 'theme');
 	// Arrivée depuis un thème de l'accueil : un résumé suffit, les réglages détaillés s'ouvrent sur demande.
 	let detail = $state(!page.url.searchParams.has('theme'));
 	const nomsThemes = $derived(themes.filter((t) => p.themeIds.includes(t.id)).map((t) => t.libelle));
@@ -30,8 +33,14 @@
 	});
 
 	function changerMode(type: ParametresSeance['type']) {
-		const d = parametresParDefaut(session.profil!, type);
+		const d = type === 'examen_entrainement' && format === 'theme' ? EXAMEN_PAR_THEME : parametresParDefaut(session.profil!, type);
 		p = { ...p, type, nb: d.nb, dureeMinutes: d.dureeMinutes };
+	}
+
+	function changerFormat(f: 'complet' | 'theme') {
+		format = f;
+		const d = f === 'theme' ? EXAMEN_PAR_THEME : parametresParDefaut(session.profil!, 'examen_entrainement');
+		p = { ...p, nb: d.nb, dureeMinutes: d.dureeMinutes, themeIds: f === 'theme' ? p.themeIds.slice(0, 1) : p.themeIds };
 	}
 
 	function basculerTheme(id: string) {
@@ -41,6 +50,11 @@
 	async function lancer(e?: SubmitEvent) {
 		e?.preventDefault();
 		erreur = '';
+		if (parTheme && p.themeIds.length !== 1) {
+			erreur = 'Choisissez le thème de l’examen.';
+			detail = true;
+			return;
+		}
 		envoi = true;
 		try {
 			const id = await creerSeance({ ...p, nb: borner(p.nb, 5, 50) });
@@ -75,6 +89,16 @@
 				<span><b>Examen blanc</b> — conditions réelles, chronométré, score à la fin sans correction.</span></label>
 		</fieldset>
 
+		{#if p.type === 'examen_entrainement'}
+			<fieldset>
+				<legend>Format de l’examen</legend>
+				<label class="choix"><input type="radio" name="format" checked={format === 'complet'} onchange={() => changerFormat('complet')} />
+					<span><b>Examen complet</b> — {parametresParDefaut(session.profil!, 'examen_entrainement').nb} questions en {parametresParDefaut(session.profil!, 'examen_entrainement').dureeMinutes} minutes, comme le jour de l’examen.</span></label>
+				<label class="choix"><input type="radio" name="format" checked={format === 'theme'} onchange={() => changerFormat('theme')} />
+					<span><b>Examen par thème</b> — {EXAMEN_PAR_THEME.nb} questions en {EXAMEN_PAR_THEME.dureeMinutes} minutes sur un seul thème.</span></label>
+			</fieldset>
+		{/if}
+
 		{#if p.regleId}
 			<p class="message-info">Séance limitée aux questions liées à la règle choisie. <button type="button" class="lien" onclick={() => (p.regleId = null)}>Retirer ce filtre</button></p>
 		{/if}
@@ -86,10 +110,18 @@
 			</div>
 		{:else}
 		<fieldset>
-			<legend>Thèmes <span class="aide">(aucun coché = tous les thèmes)</span></legend>
+			{#if parTheme}
+				<legend>Thème de l’examen</legend>
+			{:else}
+				<legend>Thèmes <span class="aide">(aucun coché = tous les thèmes)</span></legend>
+			{/if}
 			<div class="themes">
 				{#each themes as t (t.id)}
-					<label class="case"><input type="checkbox" checked={p.themeIds.includes(t.id)} onchange={() => basculerTheme(t.id)} /> <Icone nom={iconeTheme(t.libelle)} taille={18} />{t.libelle}</label>
+					{#if parTheme}
+						<label class="case"><input type="radio" name="theme-examen" checked={p.themeIds[0] === t.id} onchange={() => (p.themeIds = [t.id])} /> <Icone nom={iconeTheme(t.libelle)} taille={18} />{t.libelle}</label>
+					{:else}
+						<label class="case"><input type="checkbox" checked={p.themeIds.includes(t.id)} onchange={() => basculerTheme(t.id)} /> <Icone nom={iconeTheme(t.libelle)} taille={18} />{t.libelle}</label>
+					{/if}
 				{/each}
 			</div>
 		</fieldset>

@@ -185,6 +185,7 @@
 					</button>
 					{#if revision === 'erreur'}<span class="message-erreur" role="alert">La séance n’a pas pu être créée. Réessayez.</span>{/if}
 				{/if}
+				<a class="btn2 express" href="/examens-blancs"><Icone nom="chrono" taille={18} />Mes examens blancs</a>
 				{#if etat === 'pret'}
 					<div class="semaine" aria-label="Cette semaine">
 						<span class="barre-objectif" aria-hidden="true"><span class="b" style="width: {Math.min(100, (semaine / objectif) * 100)}%"></span></span>

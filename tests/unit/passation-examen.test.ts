@@ -83,3 +83,15 @@ test('heure du serveur : chronomètre et heure de réponse corrigés du décalag
 	const reponduLe = new Date((repondre.mock.calls[0] as unknown as [string, string, string])[2]).getTime();
 	expect(Math.abs(reponduLe - (Date.now() + avance + 9 * 60_000))).toBeLessThan(5_000);
 });
+
+test('alerte de temps : bandeau à 5 minutes de la fin, absent avant', async () => {
+	const ecran = render(PassationExamen, {
+		source: source({ charger: async () => ({ debut: new Date(Date.now() - 7 * 60_000).toISOString(), dureeMinutes: 10, fin: null, questions: [question] }) })
+	});
+	await ecran.findByLabelText(/Proposition B/);
+	expect(ecran.getByText(/Plus que 5 minutes\./).getAttribute('role')).toBe('status');
+	ecran.unmount();
+	const tot = render(PassationExamen, { source: source({}) });
+	await tot.findByLabelText(/Proposition B/);
+	expect(tot.queryByText(/Plus que 5 minutes/)).toBeNull();
+});

@@ -107,6 +107,31 @@ export async function revoirErreurs(seance: string): Promise<string> {
 	return data as string;
 }
 
+/**
+ * Rejoue un examen blanc terminé : avec la correction (séance pédagogique, même ordre)
+ * ou comme nouvel examen (mêmes questions, nouvel ordre, même durée). Renvoie la nouvelle séance.
+ */
+export async function rejouerExamen(seance: string, avecCorrection: boolean): Promise<string> {
+	const { data, error } = await supabase.rpc('rejouer_examen', { p_seance: seance, p_avec_correction: avecCorrection });
+	if (error) throw new Error(error.message);
+	return data as string;
+}
+
+export type ExamenBlanc = { id: string; debut: string; fin: string | null; duree_minutes: number | null; score: number; total: number };
+
+/** Mes examens blancs terminés, du plus ancien au plus récent (historique et comparaison). */
+export async function mesExamensBlancs(): Promise<ExamenBlanc[]> {
+	const { data, error } = await supabase
+		.from('seances')
+		.select('id, debut, fin, duree_minutes, resultat')
+		.eq('type', 'examen_entrainement')
+		.not('resultat', 'is', null)
+		.order('debut', { ascending: true })
+		.limit(500);
+	if (error) throw new Error(error.message);
+	return (data ?? []).map(({ resultat, ...s }) => ({ ...s, score: resultat.score, total: resultat.total }));
+}
+
 export async function avancement(stagiaire?: string, role: 'arbitre' | 'marqueur' | null = null): Promise<Avancement[]> {
 	const { data, error } = await supabase.rpc('avancement', { ...(stagiaire ? { p_stagiaire: stagiaire } : {}), ...(role ? { p_role: role } : {}) });
 	if (error) throw new Error(error.message);
@@ -152,5 +177,5 @@ export async function seanceAReprendre(): Promise<{ id: string; theme: string; i
 	};
 }
 
-export const urlSeance =(type: ParametresSeance['type'], id: string) =>
+export const urlSeance = (type: ParametresSeance['type'], id: string) =>
 	type === 'pedagogique' ? `/entrainement/${id}` : `/examen-entrainement/${id}`;

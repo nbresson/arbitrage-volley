@@ -10,7 +10,7 @@
 			href: '/entrainement/nouvelle',
 			libelle: "S'entraîner",
 			icone: 'sifflet',
-			actif: page.url.pathname.startsWith('/entrainement') || page.url.pathname.startsWith('/examen-entrainement')
+			actif: page.url.pathname.startsWith('/entrainement') || page.url.pathname.startsWith('/examen-entrainement') || page.url.pathname.startsWith('/examens-blancs')
 		},
 		...(session.profil?.role === 'formateur'
 			? [{ href: '/formateur/questions', libelle: 'Espace formateur', icone: 'stagiaires' as const, actif: page.url.pathname.startsWith('/formateur') }]

@@ -6,7 +6,9 @@ export function tempsRestant(debut: Date, dureeMinutes: number, maintenant: Date
 		minutes: Math.floor(reste / 60),
 		secondes: reste % 60,
 		faible: reste < 5 * 60,
-		ecoule: reste === 0
+		ecoule: reste === 0,
+		/** Bandeau ambre : à 5 minutes de la fin, puis à 1 minute. */
+		alerte: reste === 0 || reste > 5 * 60 ? null : reste <= 60 ? 'Plus qu’une minute.' : 'Plus que 5 minutes.'
 	};
 }
 
@@ -15,10 +17,8 @@ const IRREVERSIBLE = 'Une fois terminé, vous ne pourrez plus modifier vos répo
 
 export function texteConfirmation(sansReponse: number, signalees: number): { titre: string; texte: string } {
 	if (sansReponse > 0) {
-		return {
-			titre: 'Terminer l’examen maintenant ?',
-			texte: `${pluriel(sansReponse, 'question')} sans réponse et ${pluriel(signalees, 'signalée')} à vérifier. ${IRREVERSIBLE}`
-		};
+		const aVerifier = signalees ? `${pluriel(signalees, 'signalée')} à vérifier. ` : '';
+		return { titre: `${pluriel(sansReponse, 'question')} sans réponse. Terminer quand même ?`, texte: `${aVerifier}${IRREVERSIBLE}` };
 	}
 	const dont = signalees ? `, dont ${pluriel(signalees, 'signalée')} à vérifier` : '';
 	return { titre: 'Terminer et voir votre score ?', texte: `Toutes les questions ont une réponse${dont}. ${IRREVERSIBLE}` };

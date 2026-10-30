@@ -208,6 +208,9 @@
 	<div class="droite"><button class="fin" onclick={() => (confirmation = true)}>Terminer l’examen</button></div>
 </header>
 
+<!-- Région annoncée présente dès le départ : son texte ne change qu'à 5 minutes puis à 1 minute de la fin. -->
+<div class="alerte-temps" class:visible={!!temps?.alerte} role="status">{temps?.alerte ? `${temps.alerte} Vos réponses enregistrées seront envoyées automatiquement à la fin du temps.` : ''}</div>
+
 {#if !enLigne}
 	<div class="hors-ligne" role="status">Hors ligne : vos réponses restent sur cet appareil et seront envoyées dès le retour de la connexion.</div>
 {/if}
@@ -246,8 +249,8 @@
 				</span>
 			</div>
 			{#if refus}<p class="message-erreur" role="alert">{refus}</p>{/if}
-			<p class="aide" class:alerte={temps?.faible} aria-live="polite">
-				{temps?.faible ? 'Plus que 5 minutes. ' : ''}Les corrections ne sont pas affichées pendant l’examen. À la fin du temps, vos réponses enregistrées sont envoyées automatiquement.
+			<p class="aide">
+				Les corrections ne sont pas affichées pendant l’examen. À la fin du temps, vos réponses enregistrées sont envoyées automatiquement.
 			</p>
 		</section>
 		<Filet />
@@ -341,6 +344,17 @@
 		padding: 12px 40px;
 		font-weight: 600;
 	}
+	.alerte-temps:not(.visible) {
+		padding: 0 !important;
+		border: 0;
+	}
+	.alerte-temps {
+		background: var(--ambre-clair);
+		color: var(--ambre);
+		border-bottom: 1px solid var(--ambre-vif);
+		padding: 12px 40px;
+		font-weight: 700;
+	}
 	.etat {
 		margin: 40px;
 	}
@@ -386,10 +400,6 @@
 		color: var(--doux);
 		margin: 0;
 	}
-	.alerte {
-		color: var(--ambre);
-		font-weight: 700;
-	}
 	.btn2.on {
 		border-color: var(--ambre);
 		color: var(--ambre);
@@ -430,6 +440,10 @@
 		}
 		.bandeau {
 			padding: 16px 20px;
+		}
+		.alerte-temps,
+		.hors-ligne {
+			padding: 12px 20px;
 		}
 	}
 </style>

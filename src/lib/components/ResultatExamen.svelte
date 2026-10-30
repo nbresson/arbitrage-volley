@@ -1,17 +1,47 @@
 <script lang="ts">
 	// Résultat d'un examen, sans correction : score, score par thème, et pour un examen officiel le badge et le seuil.
 	// Entraînement (officiel = null) : liens pour revoir les thèmes faibles en mode pédagogique.
+	// Examen blanc (blanc fourni) : verdict au seuil provisoire, temps utilisé, comparaison, rejouer, impression.
 	import '#lib/components/formulaire.css';
+	import { goto } from '$app/navigation';
 	import BadgeReussite from '#lib/components/BadgeReussite.svelte';
 	import Bandeau from '#lib/components/Bandeau.svelte';
 	import Filet from '#lib/components/Filet.svelte';
 	import NavPrincipale from '#lib/components/NavPrincipale.svelte';
 	import Volet from '#lib/components/Volet.svelte';
+	import { rejouerExamen, urlSeance } from '#lib/data/seances.ts';
 	import { pluriel } from '#lib/domain/texte.ts';
+	import { verdictBlanc } from '#lib/seance/resultat-blanc.ts';
+	import { session } from '#lib/session.svelte.ts';
 
 	type Bilan = { score: number; total: number; par_theme: { theme_id?: string; theme: string; justes: number; total: number }[] };
 
-	let { bilan, officiel, sousTitre }: { bilan: Bilan; officiel: null | { seuil: number; reussi: boolean }; sousTitre: string } = $props();
+	type Blanc = { seanceId: string; temps: string | null; comparaison: string | null; date: string | null };
+
+	let {
+		bilan,
+		officiel,
+		sousTitre,
+		blanc = null
+	}: { bilan: Bilan; officiel: null | { seuil: number; reussi: boolean }; sousTitre: string; blanc?: Blanc | null } = $props();
+
+	const verdict = $derived(blanc && !officiel ? verdictBlanc(bilan.score, bilan.total) : null);
+	let rejeu = $state<'' | 'correction' | 'refaire'>('');
+	let erreurRejeu = $state('');
+
+	async function rejouer(avecCorrection: boolean) {
+		if (!blanc) return;
+		rejeu = avecCorrection ? 'correction' : 'refaire';
+		erreurRejeu = '';
+		try {
+			const id = await rejouerExamen(blanc.seanceId, avecCorrection);
+			goto(urlSeance(avecCorrection ? 'pedagogique' : 'examen_entrainement', id));
+		} catch (e) {
+			erreurRejeu = e instanceof Error && /disponible/.test(e.message) ? e.message : 'La séance n’a pas pu être créée. Vérifiez votre connexion puis réessayez.';
+			rejeu = '';
+		}
+	}
+	const jour = (iso: string) => new Intl.DateTimeFormat('fr-FR', { dateStyle: 'long', timeStyle: 'short' }).format(new Date(iso));
 
 	// Un thème est « à revoir » sous 5 bonnes réponses sur 6. Ses bonnes réponses restent bleues : seule la faiblesse est écrite.
 	const faible = (t: { justes: number; total: number }) => t.total > 0 && t.justes / t.total < 5 / 6;
@@ -25,6 +55,9 @@
 </Bandeau>
 
 <div class="bande-filet" aria-hidden="true"></div>
+{#if blanc}
+	<p class="impression">Examen blanc{session.profil ? ` de ${session.profil.prenom} ${session.profil.nom}` : ''}{blanc.date ? `, ${jour(blanc.date)}` : ''}</p>
+{/if}
 <div class="score">
 	<p class="etiquette-score">{officiel ? 'Score final' : 'Score de l’examen blanc'}</p>
 	<div class="volets" role="img" aria-label="Score : {bilan.score} sur {bilan.total}">
@@ -33,6 +66,18 @@
 		{#each chiffres(bilan.total) as c, i (i)}<Volet chiffre={c} taille="grand" total />{/each}
 	</div>
 	<p class="pourcentage">{pourcentage} % de bonnes réponses</p>
+	{#if verdict && blanc}
+		<ul class="reperes">
+			<li class="verdict" class:reussi={verdict.reussi}>
+				{#if verdict.reussi}
+					<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12l5 5L20 6" /></svg>
+				{/if}
+				<span>{verdict.texte}</span>
+			</li>
+			{#if blanc.temps}<li>Temps utilisé : {blanc.temps}</li>{/if}
+			{#if blanc.comparaison}<li>{blanc.comparaison}</li>{/if}
+		</ul>
+	{/if}
 	{#if officiel}
 		<div class="reussite">
 			<BadgeReussite reussi={officiel.reussi} />
@@ -88,8 +133,21 @@
 			{:else}
 				<p>Tous les thèmes sont à 5 bonnes réponses sur 6 ou plus.</p>
 			{/if}
+			{#if blanc}
+				<div class="rejouer">
+					<button type="button" class="btn" disabled={!!rejeu} onclick={() => rejouer(true)}>{rejeu === 'correction' ? 'Préparation…' : 'Revoir l’examen avec la correction'}</button>
+					<p class="aide">Les mêmes questions, dans le même ordre, corrigées une à une avec la règle qui les fonde.</p>
+					<button type="button" class="btn2" disabled={!!rejeu} onclick={() => rejouer(false)}>{rejeu === 'refaire' ? 'Préparation…' : 'Refaire le même examen'}</button>
+					<p class="aide">Les mêmes questions dans un nouvel ordre, chronométrées : pour mesurer un vrai progrès.</p>
+					{#if erreurRejeu}<p class="message-erreur" role="alert">{erreurRejeu}</p>{/if}
+				</div>
+			{/if}
 			<div class="actions">
-				<a class="btn" href="/entrainement/nouvelle?mode=examen_entrainement">Recommencer un examen</a>
+				<a class={blanc ? 'btn2' : 'btn'} href="/entrainement/nouvelle?mode=examen_entrainement">Nouvel examen blanc</a>
+				{#if blanc}
+					<a href="/examens-blancs">Historique de mes examens blancs</a>
+					<button type="button" class="lien" onclick={() => window.print()}>Imprimer ou enregistrer en PDF</button>
+				{/if}
 				<a href="/">Retour à l’accueil</a>
 			</div>
 			<p class="aide">Ce résultat d’entraînement reste privé. Seuls les examens officiels sont visibles par vos formateurs.</p>
@@ -257,6 +315,74 @@
 		align-items: center;
 		border-top: 1px solid var(--filet);
 		padding-top: 16px;
+	}
+	.reperes {
+		flex-basis: 100%;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		display: flex;
+		flex-direction: column;
+		gap: 6px;
+		color: var(--tableau-texte);
+		font-size: 15px;
+	}
+	.verdict {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		font-size: 17px;
+		font-weight: 700;
+		color: var(--papier);
+	}
+	.rejouer {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 6px;
+		border-top: 1px solid var(--filet);
+		padding-top: 16px;
+	}
+	.rejouer .btn2 {
+		margin-top: 10px;
+	}
+	.lien {
+		font: inherit;
+		background: none;
+		border: 0;
+		padding: 0;
+		color: var(--bleu-texte);
+		text-decoration: underline;
+		cursor: pointer;
+	}
+	.impression {
+		display: none;
+	}
+	/* Export : la page s'imprime (ou s'enregistre en PDF) sans navigation ni boutons, en noir sur blanc. */
+	@media print {
+		:global(.bandeau),
+		.bande-filet,
+		.suite {
+			display: none !important;
+		}
+		.impression {
+			display: block;
+			margin: 0 0 12px;
+			font-weight: 700;
+			font-size: 18px;
+		}
+		/* Le panneau du score garde ses couleurs : sans son fond, les chiffres blancs disparaîtraient. */
+		.score,
+		.marques span {
+			-webkit-print-color-adjust: exact;
+			print-color-adjust: exact;
+		}
+		.themes {
+			padding: 16px 0 0;
+		}
+		.defile {
+			overflow: visible;
+		}
 	}
 	/* Sur téléphone, chaque thème tient sur une carte : nom et score, puis les marques sur toute la largeur. */
 	@media (max-width: 600px) {

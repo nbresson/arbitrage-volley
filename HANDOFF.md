@@ -1,21 +1,21 @@
 # HANDOFF — reprise des développements
 
-À lire en premier par toute nouvelle session Claude Code. Mis à jour le 2026-10-30 (soir).
+À lire en premier par toute nouvelle session Claude Code. Mis à jour le 2026-10-30 (nuit).
 
 ## En une phrase
 
-Plateforme web (SvelteKit 3 statique + Supabase) de formation des arbitres de volley-ball d'un comité : règles FIVB, Casebook et consignes CFA consultables, QCM en mode pédagogique (correction + règle citée), examens blancs, examens officiels en salle. **V1 « S'entraîner » et V2 « Évaluer » sont en ligne**, avec deux passes de design (planche de 35 propositions, puis deux audits impeccable). **Chantier en cours : les 100 améliorations UI/UX, lots A et B faits sur la branche `ameliorations-100` (non fusionnée, non en ligne). Reste aussi, avant d'inviter des stagiaires : l'envoi des e-mails.**
+Plateforme web (SvelteKit 3 statique + Supabase) de formation des arbitres de volley-ball d'un comité : règles FIVB, Casebook et consignes CFA consultables, QCM en mode pédagogique (correction + règle citée), examens blancs, examens officiels en salle. **V1 « S'entraîner » et V2 « Évaluer » sont en ligne**, avec deux passes de design (planche de 35 propositions, puis deux audits impeccable). **Chantier en cours : les 100 améliorations UI/UX, lots A, B et C faits sur la branche `ameliorations-100` (non fusionnée, non en ligne). Reste aussi, avant d'inviter des stagiaires : l'envoi des e-mails.**
 
 ## État au 2026-10-30
 
 | Élément | État |
 |---|---|
 | Site en ligne | https://arbitrage-volley.nkobrs21.workers.dev — **Cloudflare Workers** (pas Pages), site statique décrit par `wrangler.jsonc` |
-| Dépôt | https://github.com/nbresson/arbitrage-volley (privé). Branche publiée : `main` (Cloudflare compile à chaque envoi). Branches fusionnées : `v1-sentrainer`, `design-*`, `corrections-audit`, `audit-2`. **Branche en cours : `ameliorations-100`** (2 commits : lots A et B), à fusionner avec l'accord de l'utilisateur |
-| Base de **prod** (Supabase, Paris eu-west-3) | 11 migrations appliquées (jusqu'à `20261030000001_revoir_erreurs`). **Pas encore appliquées en prod** : `20261030000002_avancement_role` et `20261030000003_seance_enrichie` (lots A et B) — à appliquer **avant** de mettre la branche en ligne. fonction `creer-compte` déployée, contenu chargé (539 règles, 208 cas, 204 questions **en brouillon**). Auth : Site URL et Redirect URLs = l'adresse du site. Un compte formateur : Nicolas Bresson (nkobrs21@gmail.com) |
-| Base de **dev / test** (Supabase, Londres) | 13 migrations (les deux du chantier en plus). Sert aux tests d'intégration et aux vérifications visuelles (données temporaires créées puis supprimées) |
+| Dépôt | https://github.com/nbresson/arbitrage-volley (privé). Branche publiée : `main` (Cloudflare compile à chaque envoi). Branches fusionnées : `v1-sentrainer`, `design-*`, `corrections-audit`, `audit-2`. **Branche en cours : `ameliorations-100`** (3 commits : lots A, B et C), à fusionner avec l'accord de l'utilisateur |
+| Base de **prod** (Supabase, Paris eu-west-3) | 11 migrations appliquées (jusqu'à `20261030000001_revoir_erreurs`). **Pas encore appliquées en prod** : `20261030000002_avancement_role`, `20261030000003_seance_enrichie` et `20261030000004_rejouer_examen` (lots A, B et C) — à appliquer **avant** de mettre la branche en ligne. fonction `creer-compte` déployée, contenu chargé (539 règles, 208 cas, 204 questions **en brouillon**). Auth : Site URL et Redirect URLs = l'adresse du site. Un compte formateur : Nicolas Bresson (nkobrs21@gmail.com) |
+| Base de **dev / test** (Supabase, Londres) | 14 migrations (les trois du chantier en plus). Sert aux tests d'intégration et aux vérifications visuelles (données temporaires créées puis supprimées) |
 | Réveil de la base | `.github/workflows/reveil-supabase.yml`, tous les 3 jours ; secrets GitHub `SUPABASE_PROD_URL` et `SUPABASE_PROD_ANON_KEY`. Le rôle anon n'a aucun droit : la réponse attendue est « permission refusée » (42501), ce qui suffit à compter comme activité |
-| Tests (branche `ameliorations-100`) | `npm test` 190/190 · `npm run test:integration` 122/122 sur `main` + 14 nouveaux (`seance-enrichie`, `seances` rôle) · `npm run check` 0 erreur · `npm run build` OK |
+| Tests (branche `ameliorations-100`) | `npm test` 214/214 · `npm run test:integration` 137/137 · `npm run check` 0 erreur · `npm run build` OK |
 | Audits design (skill impeccable) | 1er : 27/40, 1 P0. 2e (après corrections) : 26/40, 0 P0 — la note varie selon la profondeur de la revue ; tous les points du 1er audit sont confirmés corrigés. Rapports : `.impeccable/critique/` (non versionné) |
 
 ## Ce qui reste à faire
@@ -26,8 +26,9 @@ Plan et suivi : [docs/superpowers/plans/2026-10-30-100-ameliorations.md](docs/su
 
 - **Lot A « Accueil » (1–10) : fait.** Reprise précise, objectif de la semaine et régularité (`src/lib/domain/accueil.ts`), tri et filtre arbitre/marqueur des thèmes (`avancement(p_role)`), compte à rebours et fichier agenda `.ics` de la convocation, historique des règles (5 puis tout), carte « Nouveautés » (questions validées depuis la dernière visite), parcours de bienvenue, séance express de 5 questions. Préférences locales dans `src/lib/preferences.ts` (`localStorage`).
 - **Lot B « Séance pédagogique » (11–20) : fait.** Barre de progression, « Je ne sais pas » (`JE_NE_SAIS_PAS`, `valider_reponse` avec proposition nulle), questions marquées (`questions_marquees`, `seance_marquees()`, bouton « Mes questions marquées » sur l'accueil), minuteur 30 s facultatif, explication par mauvaise proposition (`propositions.explication`) et passage surligné (`question_regles.passage`) — **le mécanisme est en place, le contenu reste à saisir par les formateurs dans l'éditeur**, signalement d'un problème (`signalements_question`, lu et traité dans l'éditeur, badge dans la liste), vidéo intégrée, transitions, message de reprise.
-- **Prochain lot : C « Examen blanc et résultats » (21–30)**, puis D à J.
-- Avant la mise en ligne de la branche : appliquer les deux migrations en prod (`npx tsx scripts/db/appliquer.ts --cible prod`), fusionner dans `main`, pousser, vérifier la publication.
+- **Lot C « Examen blanc et résultats » (21–30) : fait.** Bandeau ambre à 5 min puis 1 min (`tempsRestant().alerte`, aussi en examen officiel : écran commun), confirmation « N questions sans réponse. Terminer quand même ? », verdict au seuil **provisoire de 70 %** (`SEUIL_BLANC` dans `src/lib/seance/resultat-blanc.ts`, à confirmer par le comité), temps utilisé, comparaison avec l'examen blanc précédent, page `/examens-blancs` (courbe + tableau, lien depuis l'accueil et le résultat), « Revoir l'examen avec la correction » et « Refaire le même examen » (`rejouer_examen(p_seance, p_avec_correction)`, refusé tant que l'examen n'est pas terminé), format « Examen par thème » (10 questions, 15 min, `?format=theme`), export par impression / PDF du navigateur.
+- **Prochain lot : D « Examen officiel » (31–40)**, puis E à J.
+- Avant la mise en ligne de la branche : appliquer les trois migrations en prod (`npx tsx scripts/db/appliquer.ts --cible prod`), fusionner dans `main`, pousser, vérifier la publication.
 
 ### 1. Envoi des e-mails (bloquant pour inviter des stagiaires)
 

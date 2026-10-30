@@ -17,6 +17,9 @@ const DEFAUTS: Record<TypeSeance, { nb: number; dureeMinutes: number | null }> =
 	examen_entrainement: { nb: 30, dureeMinutes: 45 }
 };
 
+/** Examen blanc par thème : dix questions chronométrées sur un seul thème. */
+export const EXAMEN_PAR_THEME = { nb: 10, dureeMinutes: 15 } as const;
+
 export const borner = (n: number, min: number, max: number) => Math.min(max, Math.max(min, n));
 
 export function parametresParDefaut(profil: Profil, type: TypeSeance): ParametresSeance {
@@ -30,10 +33,11 @@ export function parametresParDefaut(profil: Profil, type: TypeSeance): Parametre
 	};
 }
 
-/** Préremplissage depuis l'URL : ?mode=…&theme=…&theme=…&regle=…&nb=…&role=… */
+/** Préremplissage depuis l'URL : ?mode=…&theme=…&theme=…&regle=…&nb=…&role=…&duree=… ; ?format=theme : examen par thème. */
 export function lireParametres(url: { searchParams: Pick<URLSearchParams, 'get' | 'getAll'> }, profil: Profil): ParametresSeance {
 	const q = url.searchParams;
-	const type: TypeSeance = q.get('mode') === 'examen_entrainement' ? 'examen_entrainement' : 'pedagogique';
+	const parTheme = q.get('format') === 'theme';
+	const type: TypeSeance = parTheme || q.get('mode') === 'examen_entrainement' ? 'examen_entrainement' : 'pedagogique';
 	const p = parametresParDefaut(profil, type);
 	p.themeIds = q.getAll('theme');
 	p.regleId = q.get('regle');
@@ -43,5 +47,8 @@ export function lireParametres(url: { searchParams: Pick<URLSearchParams, 'get' 
 	else if (role === 'tous') p.role = null;
 	const nb = Number.parseInt(q.get('nb') ?? '', 10);
 	if (Number.isFinite(nb)) p.nb = borner(nb, 5, 50);
+	const duree = Number.parseInt(q.get('duree') ?? '', 10);
+	if (type === 'examen_entrainement' && Number.isFinite(duree)) p.dureeMinutes = borner(duree, 5, 120);
+	if (parTheme) Object.assign(p, EXAMEN_PAR_THEME, { themeIds: p.themeIds.slice(0, 1) });
 	return p;
 }
