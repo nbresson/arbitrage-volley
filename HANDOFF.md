@@ -20,13 +20,15 @@ Plateforme web (SvelteKit 3 statique + Supabase) de formation des arbitres de vo
 
 ## Ce qui reste à faire
 
-### 00. Revue UX en 62 propositions : faite sur la branche `revue-ux`, **à mettre en ligne**
+Liste des choses à faire, à surveiller et des petits défauts connus : **[BACKLOG.md](BACKLOG.md)** (à tenir à jour).
+
+### 00. Revue UX en 62 propositions : faite et en ligne (2026-10-30)
 
 Planche : https://claude.ai/artifact/6BpwwHPc6GgzVZmZuRKk9p. Spec : [docs/superpowers/specs/2026-10-30-revue-ux-62-propositions.md](docs/superpowers/specs/2026-10-30-revue-ux-62-propositions.md). Plan et suivi : [docs/superpowers/plans/2026-10-30-revue-ux-62.md](docs/superpowers/plans/2026-10-30-revue-ux-62.md) (un commit par tâche, 21 tâches).
 
 - Tests sur la branche : `npm test` 409/409 · `npm run test:integration` 162/162 · `npm run check` 0 erreur · `npm run build` OK. Vérifié à l'écran sur la base de test (accueil avec examen ouvert à 800 px, recherche « Cas 3.35 », ouverture d'un examen après changement du seuil, liste d'erreurs de l'éditeur de questions).
-- **3 migrations à appliquer en prod** (déjà sur la base de test) : `20261101000001_seance_a_revoir`, `20261101000002_erreurs_de_seance`, `20261101000003_dernieres_seances`. Puis avancer `main` sur `revue-ux` et pousser.
-- Relecture finale (relecteur indépendant) : 1 point critique et 4 importants corrigés (réponse cochée à la fin du temps refusée par le serveur, dialogue resté ouvert sur « Temps écoulé », grille bloquée par le réseau, import CFA et doublons, erreur d'inscription restée affichée). **Mineurs reportés** : focus et annonce de l'écran « Temps écoulé » ; relance sans fin si la clôture échoue pour une autre raison que le réseau ; `beforeNavigate` à la fermeture de l'onglet ; « Retirer » non bloqué pendant l'enregistrement de la composition ; filtre d'onglet de recherche non gardé dans l'adresse ; nombre « à revoir » qui ignore le rôle filtré ; page « Nouvelle séance » si le référentiel échoue, et élargissement « Tous les thèmes » en examen par thème ; « Annuler » de la page mot de passe en mode invitation ; `aria-controls` de la bulle du glossaire.
+- **Mise en ligne faite le 2026-10-30** : 3 migrations appliquées en prod (`20261101000001_seance_a_revoir`, `20261101000002_erreurs_de_seance`, `20261101000003_dernieres_seances`), `main` avancée sur `revue-ux`, publication vérifiée (85 fichiers JS parcourus). Essayée sur la prod par l'utilisateur avec un vrai compte : aucun problème.
+- Relecture finale (relecteur indépendant) : 1 point critique et 4 importants corrigés (réponse cochée à la fin du temps refusée par le serveur, dialogue resté ouvert sur « Temps écoulé », grille bloquée par le réseau, import CFA et doublons, erreur d'inscription restée affichée). **Mineurs reportés** (repris dans [BACKLOG.md](BACKLOG.md)) : focus et annonce de l'écran « Temps écoulé » ; relance sans fin si la clôture échoue pour une autre raison que le réseau ; `beforeNavigate` à la fermeture de l'onglet ; « Retirer » non bloqué pendant l'enregistrement de la composition ; filtre d'onglet de recherche non gardé dans l'adresse ; nombre « à revoir » qui ignore le rôle filtré ; page « Nouvelle séance » si le référentiel échoue, et élargissement « Tous les thèmes » en examen par thème ; « Annuler » de la page mot de passe en mode invitation ; `aria-controls` de la bulle du glossaire.
 - Nom du comité (`CDA19`) et adresse de contact renseignés dans `src/lib/config.ts` (`NOM_COMITE`, `CONTACT_EMAIL`).
 
 ### 0. Les 100 améliorations UI/UX : faites et en ligne
