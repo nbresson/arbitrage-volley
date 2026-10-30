@@ -71,7 +71,7 @@ test('heure du serveur : chronomètre et heure de réponse corrigés du décalag
 	const avance = 9 * 60_000; // l'appareil retarde de 9 minutes sur le serveur
 	const ecran = render(PassationExamen, {
 		source: source({
-			charger: async () => ({ debut: new Date(Date.now() + avance).toISOString(), dureeMinutes: 10, fin: null, maintenant: new Date(Date.now() + avance + 9 * 60_000).toISOString(), questions: [question] }),
+			charger: async () => ({ debut: new Date(Date.now() + avance).toISOString(), dureeMinutes: 10, fin: null, maintenant: new Date(Date.now() + avance + 9 * 60_000 + 2000).toISOString(), questions: [question] }),
 			repondre
 		})
 	});
@@ -137,4 +137,74 @@ test('temps écoulé : départ vers le résultat avec l’annonce du nombre de r
 		source: source({ charger: async () => ({ debut: new Date(Date.now() - 11 * 60_000).toISOString(), dureeMinutes: 10, fin: null, questions: [{ ...question, choisie: 'B' }] }) })
 	});
 	await waitFor(() => expect(h.goto).toHaveBeenCalledWith('/tentative/t1/resultat?fin=auto&n=1'));
+});
+
+const question2 = { ...question, questionId: 'q2', enonce: 'Le libéro attaque au-dessus du filet.' };
+
+test('réponse cochée puis grille : elle est enregistrée avant le changement de question', async () => {
+	const repondre = vi.fn(async () => {});
+	const ecran = render(PassationExamen, {
+		source: source({ charger: async () => ({ debut: new Date().toISOString(), dureeMinutes: 10, fin: null, questions: [question, question2] }), repondre })
+	});
+	await fireEvent.click(await ecran.findByLabelText(/Proposition B/));
+	await fireEvent.click(ecran.getByRole('button', { name: /Question 2, sans réponse/ }));
+	await waitFor(() => expect(repondre).toHaveBeenCalledWith('q1', 'B', expect.any(String)));
+	expect(await ecran.findByText(question2.enonce)).toBeInTheDocument();
+	expect(ecran.getByRole('button', { name: /Question 1, répondue/ })).toBeInTheDocument();
+});
+
+test('réponse modifiée sur une question déjà répondue : la nouvelle valeur part aussi', async () => {
+	const repondre = vi.fn(async () => {});
+	const ecran = render(PassationExamen, {
+		source: source({ charger: async () => ({ debut: new Date().toISOString(), dureeMinutes: 10, fin: null, questions: [{ ...question, choisie: 'A' }, question2] }), repondre })
+	});
+	await fireEvent.click(await ecran.findByRole('button', { name: /Question 1/ }));
+	await fireEvent.click(ecran.getByLabelText(/Proposition C/));
+	await fireEvent.click(ecran.getByRole('button', { name: /Question 2/ }));
+	await waitFor(() => expect(repondre).toHaveBeenCalledWith('q1', 'C', expect.any(String)));
+});
+
+test('fin du temps : la réponse cochée part avant la clôture', async () => {
+	const ordre: string[] = [];
+	const ecran = render(PassationExamen, {
+		source: source({
+			charger: async () => ({ debut: new Date(Date.now() - 10 * 60_000 + 1500).toISOString(), dureeMinutes: 10, fin: null, questions: [question] }),
+			repondre: async (q, v) => void ordre.push(`repondre ${q} ${v}`),
+			terminer: async () => void ordre.push('terminer')
+		})
+	});
+	await fireEvent.click(await ecran.findByLabelText(/Proposition B/));
+	await waitFor(() => expect(ordre).toEqual(['repondre q1 B', 'terminer']), { timeout: 4000 });
+});
+
+test('fin du temps hors ligne : réponse cochée gardée et envoyée au retour', async () => {
+	let reseau = false;
+	const terminer = vi.fn(async () => {});
+	const repondre = vi.fn(async () => {
+		if (!reseau) throw new Error('Failed to fetch');
+	});
+	const ecran = render(PassationExamen, {
+		source: source({ charger: async () => ({ debut: new Date(Date.now() - 10 * 60_000 + 1500).toISOString(), dureeMinutes: 10, fin: null, questions: [question] }), repondre, terminer })
+	});
+	await fireEvent.click(await ecran.findByLabelText(/Proposition B/));
+	expect(await ecran.findByText(/Ne fermez pas cette page/, {}, { timeout: 4000 })).toBeInTheDocument();
+	expect(terminer).not.toHaveBeenCalled();
+	reseau = true;
+	window.dispatchEvent(new Event('online'));
+	await waitFor(() => expect(terminer).toHaveBeenCalled());
+	expect(repondre).toHaveBeenLastCalledWith('q1', 'B', expect.any(String));
+	await waitFor(() => expect(h.goto).toHaveBeenCalledWith('/tentative/t1/resultat?fin=auto&n=1'));
+});
+
+test('chargement en échec : pas de bouton « Terminer l’examen »', async () => {
+	const ecran = render(PassationExamen, { source: source({ charger: async () => Promise.reject(new Error('réseau')) }) });
+	await ecran.findByRole('button', { name: 'Réessayer' });
+	expect(ecran.queryByRole('button', { name: 'Terminer l’examen' })).toBeNull();
+});
+
+test('tout est répondu : « Terminer et voir mon score »', async () => {
+	const ecran = render(PassationExamen, { source: source({}) });
+	await fireEvent.click(await ecran.findByLabelText(/Proposition B/));
+	await fireEvent.click(ecran.getByRole('button', { name: 'Valider et continuer' }));
+	expect(await ecran.findByRole('button', { name: 'Terminer et voir mon score', hidden: true })).toBeInTheDocument();
 });

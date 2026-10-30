@@ -54,6 +54,11 @@
 	let chargement = $state<'en_cours' | 'pret' | 'erreur'>('en_cours');
 	let courant = $state(1);
 	let choix = $state<Record<string, string>>({});
+	// Dernière valeur confiée à la file pour chaque question : une réponse cochée qui en diffère n'est pas encore enregistrée.
+	const confiees: Record<string, string> = {};
+	// Fin du temps : envoi des réponses en cours, en attente du réseau, ou échec de la clôture.
+	let finTemps = $state<'' | 'envoi' | 'attente'>('');
+	let occupe = $state(false);
 	const repondues = new SvelteSet<number>();
 	const signalees = new SvelteSet<number>();
 	let enLigne = $state(navigator.onLine);
@@ -99,12 +104,12 @@
 				info = { debut: d.debut, dureeMinutes: d.dureeMinutes };
 				questions = d.questions;
 				d.questions.forEach((q, k) => {
-					if (q.choisie) choix[q.questionId] = q.choisie;
+					if (q.choisie) (choix[q.questionId] = q.choisie), (confiees[q.questionId] = q.choisie);
 					if (q.signalee) signalees.add(k + 1);
 				});
 				// Réponses gardées hors ligne lors d'une visite précédente.
 				for (const r of file.lister()) {
-					if (d.questions.some((q) => q.questionId === r.questionId)) choix[r.questionId] = r.propositionId;
+					if (d.questions.some((q) => q.questionId === r.questionId)) (choix[r.questionId] = r.propositionId), (confiees[r.questionId] = r.propositionId);
 				}
 				marquerRepondues(d.questions);
 				courant = prochaineSansReponse(repondues, 0, d.questions.length) ?? 1;
@@ -116,6 +121,7 @@
 		const tic = setInterval(() => (maintenant = heure()), 1000);
 		const enLigneOn = async () => {
 			enLigne = true;
+			if (finTemps === 'attente') return void finirAuTemps();
 			const avant = file.lister().length;
 			const b = await envoyerFile();
 			retablie = texteRetablie(Math.min(avant, b.envoyees));
@@ -139,6 +145,7 @@
 		addEventListener('offline', horsLigne);
 		return () => {
 			clearInterval(tic);
+			clearTimeout(relance);
 			removeEventListener('online', enLigneOn);
 			removeEventListener('offline', horsLigne);
 			document.removeEventListener('visibilitychange', visibilite);
@@ -152,9 +159,53 @@
 	const textes = $derived(texteConfirmation(sansReponse, signalees.size));
 	const deux = (n: number) => String(n).padStart(2, '0');
 
+	// Fin du temps : une seule séquence (pas une relance chaque seconde), qui n'achève jamais la tentative
+	// tant que des réponses attendent sur l'appareil.
 	$effect(() => {
-		if (temps?.ecoule && !fini) terminer();
+		if (temps?.ecoule && !fini && !finTemps && chargement === 'pret') finirAuTemps();
 	});
+
+	let relance: ReturnType<typeof setTimeout> | undefined;
+	async function finirAuTemps() {
+		clearTimeout(relance);
+		finTemps = 'envoi';
+		await enregistrerCourante();
+		const bilan = await envoyerFile();
+		if (bilan.restantes) return attendreReseau();
+		try {
+			fini = true;
+			await source.terminer();
+			localStorage.removeItem(cleFile);
+			goto(`${source.urlResultat}?fin=auto&n=${repondues.size}`);
+		} catch {
+			fini = false;
+			attendreReseau();
+		}
+	}
+	function attendreReseau() {
+		finTemps = 'attente';
+		relance = setTimeout(finirAuTemps, 5000);
+	}
+
+	/** Met la réponse cochée de la question courante dans la file si elle n'y est pas déjà, puis l'envoie. */
+	async function enregistrerCourante() {
+		if (!question) return;
+		const valeur = choix[question.questionId];
+		if (!valeur || confiees[question.questionId] === valeur) return;
+		file.ajouter({ seanceId: cleFile, questionId: question.questionId, propositionId: valeur, reponduLe: heure().toISOString() });
+		confiees[question.questionId] = valeur;
+		repondues.add(courant);
+		enregistrement = 'en_cours';
+		toutEnvoye = false;
+		const bilan = await envoyerFile();
+		enregistrement = bilan.restantes ? 'locale' : 'enregistree';
+	}
+
+	async function aller(n: number) {
+		await enregistrerCourante();
+		courant = n;
+		enregistrement = '';
+	}
 
 	async function envoyerFile() {
 		const bilan = await file.vider(async (r) => {
@@ -181,12 +232,8 @@
 
 	async function valider() {
 		if (!question || !choix[question.questionId]) return;
-		file.ajouter({ seanceId: cleFile, questionId: question.questionId, propositionId: choix[question.questionId], reponduLe: heure().toISOString() });
+		await enregistrerCourante();
 		repondues.add(courant);
-		enregistrement = 'en_cours';
-		toutEnvoye = false;
-		const bilan = await envoyerFile();
-		enregistrement = bilan.restantes ? 'locale' : 'enregistree';
 		const suite = prochaineSansReponse(repondues, courant, questions.length);
 		if (suite === null) confirmation = true;
 		else courant = suite;
@@ -204,20 +251,25 @@
 	}
 
 	async function terminer() {
+		if (occupe) return;
+		occupe = true;
 		fini = true;
 		erreurFin = '';
+		await enregistrerCourante();
 		const bilan = await envoyerFile();
-		if (bilan.restantes && !temps?.ecoule) {
+		if (bilan.restantes) {
 			fini = false;
+			occupe = false;
 			erreurFin = `${bilan.restantes} réponse(s) n’ont pas encore pu être envoyées. Vérifiez votre connexion puis réessayez.`;
 			return;
 		}
 		try {
 			await source.terminer();
 			localStorage.removeItem(cleFile);
-			goto(temps?.ecoule ? `${source.urlResultat}?fin=auto&n=${repondues.size}` : source.urlResultat);
+			goto(source.urlResultat);
 		} catch {
 			fini = false;
+			occupe = false;
 			erreurFin = 'L’examen n’a pas pu être terminé. Vérifiez votre connexion puis réessayez.';
 		}
 	}
@@ -238,7 +290,11 @@
 		</div>
 		<span class="resume">Question {courant}/{questions.length} · {repondues.size} répondues{temps ? ` · ${deux(temps.minutes)}:${deux(temps.secondes)}` : ''}</span>
 	{/if}
-	<div class="droite"><button class="fin" onclick={() => (confirmation = true)}>Terminer l’examen</button></div>
+	<div class="droite">
+		{#if chargement === 'pret' && questions.length && !temps?.ecoule}
+			<button class="fin" onclick={async () => ((confirmation = true), await enregistrerCourante())}>Terminer l’examen</button>
+		{/if}
+	</div>
 </header>
 
 <!-- Région annoncée présente dès le départ : son texte ne change qu'à 5 minutes puis à 1 minute de la fin. -->
@@ -260,6 +316,17 @@
 	<p class="etat" role="status">Chargement de l’examen…</p>
 {:else if chargement === 'erreur'}
 	<MessageErreur texte="L’examen n’a pas pu être chargé." classe="etat" />
+{:else if temps?.ecoule}
+	<section class="temps-ecoule" role="status">
+		<h1>Temps écoulé</h1>
+		{#if finTemps === 'attente'}
+			<p>Connexion perdue : vos réponses sont gardées sur cet appareil et partiront au retour du réseau. Ne fermez pas cette page.</p>
+			{#if enAttente}<p class="aide">{texteEnAttente(enAttente)}.</p>{/if}
+			<button type="button" class="btn" onclick={finirAuTemps}>Réessayer maintenant</button>
+		{:else}
+			<p>Envoi de vos réponses…</p>
+		{/if}
+	</section>
 {:else if question}
 	<div class="jeu">
 		<section class="situation">
@@ -297,7 +364,7 @@
 		<Filet />
 		<aside class="cote">
 			<h2>Vos réponses</h2>
-			<GrilleQuestions total={questions.length} {courant} {repondues} {signalees} onaller={(n) => ((courant = n), (enregistrement = ''))} />
+			<GrilleQuestions total={questions.length} {courant} {repondues} {signalees} onaller={aller} />
 			<p>Cliquez sur un numéro pour revenir à une question tant que l’examen n’est pas terminé. <b>{signalees.size}</b> signalée(s) à vérifier, <b>{sansReponse}</b> sans réponse.</p>
 		</aside>
 	</div>
@@ -308,9 +375,10 @@
 	titre={textes.titre}
 	texte={textes.texte}
 	libelleAnnuler="Continuer l’examen"
-	libelleConfirmer="Terminer quand même"
+	libelleConfirmer={sansReponse ? 'Terminer quand même' : 'Terminer et voir mon score'}
 	erreur={erreurFin}
 	onannuler={() => ((confirmation = false), (erreurFin = ''))}
+	{occupe}
 	onconfirmer={terminer}
 />
 
@@ -418,6 +486,26 @@
 	}
 	.etat {
 		margin: 40px;
+	}
+	.temps-ecoule {
+		max-width: 640px;
+		margin: 48px auto;
+		padding: 0 20px;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 14px;
+	}
+	.temps-ecoule h1 {
+		margin: 0;
+		font-family: var(--police-chiffres);
+		font-weight: 800;
+		font-size: 34px;
+	}
+	.temps-ecoule p {
+		margin: 0;
+		font-size: 18px;
+		line-height: 1.5;
 	}
 	.jeu {
 		display: flex;

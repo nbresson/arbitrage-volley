@@ -8,7 +8,8 @@
 		libelleConfirmer,
 		onannuler,
 		onconfirmer,
-		erreur = ''
+		erreur = '',
+		occupe = false
 	}: {
 		ouvert: boolean;
 		titre: string;
@@ -18,6 +19,8 @@
 		onannuler: () => void;
 		onconfirmer: () => void;
 		erreur?: string;
+		/** Action en cours : les deux boutons sont bloqués (pas de double appui), le bouton de confirmation dit « Envoi… ». */
+		occupe?: boolean;
 	} = $props();
 
 	let dialogue = $state<HTMLDialogElement>();
@@ -35,8 +38,8 @@
 	{#if erreur}<p class="message-erreur" role="alert">{erreur}</p>{/if}
 	<div class="actions">
 		<!-- svelte-ignore a11y_autofocus -->
-		<button class="btn" autofocus onclick={onannuler}>{libelleAnnuler}</button>
-		<button class="btn2" onclick={onconfirmer}>{libelleConfirmer}</button>
+		<button class="btn" autofocus onclick={onannuler} disabled={occupe}>{libelleAnnuler}</button>
+		<button class="btn2" onclick={onconfirmer} disabled={occupe}>{occupe ? 'Envoi…' : libelleConfirmer}</button>
 	</div>
 </dialog>
 
