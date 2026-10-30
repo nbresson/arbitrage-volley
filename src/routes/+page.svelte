@@ -18,7 +18,7 @@
 	import { mesMarquees, seanceMarquees } from '#lib/data/marquees.ts';
 	import { parametresParDefaut } from '#lib/data/parametres-seance.ts';
 	import { fichierIcs, joursAvant, seancesDeLaSemaine, serieDeJours, tempsRestantEstime, trierLignes, type TriThemes } from '#lib/domain/accueil.ts';
-	import { dateHeure, etatConvocation } from '#lib/examen-officiel/convocation.ts';
+	import { dateHeure, etatConvocation, examenActif } from '#lib/examen-officiel/convocation.ts';
 	import { enregistrerPreferences, lirePreferences } from '#lib/preferences.ts';
 	import { session } from '#lib/session.svelte.ts';
 
@@ -65,7 +65,9 @@
 	function changerFiltre(role: 'arbitre' | 'marqueur' | null) {
 		filtreRole = role;
 		enregistrerPreferences({ filtreRole: role });
-		chargerAvancement().catch(() => (etat = 'erreur'));
+		chargerAvancement()
+			.then(() => (etat = 'pret'))
+			.catch(() => (etat = 'erreur'));
 	}
 	function changerTri(e: Event) {
 		tri = (e.target as HTMLSelectElement).value as TriThemes;
@@ -85,10 +87,16 @@
 		}
 	}
 
-	$effect(() => {
+	// Avancement et séance à reprendre : relancés par « Réessayer » sans recharger la page.
+	function charger() {
+		etat = 'chargement';
 		Promise.all([chargerAvancement(), seanceAReprendre()])
 			.then(([, r]) => ((reprise = r), (etat = 'pret')))
 			.catch(() => (etat = 'erreur'));
+	}
+
+	$effect(() => {
+		charger();
 		// Compléments : s'ils échouent, l'accueil reste utilisable sans eux.
 		mesSeancesRecentes()
 			.then((s) => (seancesRecentes = s))
@@ -117,6 +125,10 @@
 	const serie = $derived(serieDeJours(seancesRecentes));
 	const nouveau = $derived(etat === 'pret' && !reprise && t.travaillees === 0 && lignes.length > 0);
 	const icsUrl = (c: Convocation) => `data:text/calendar;charset=utf-8,${encodeURIComponent(fichierIcs(c))}`;
+	// Le jour J (examen ouvert ou commencé), la convocation passe en tête à toutes les largeurs ;
+	// sur téléphone, toute convocation y passe (ordre de lecture = ordre visuel).
+	const actif = $derived(examenActif(convocations));
+	const enTete = $derived(convocations.length > 0 && (mobile || actif));
 	const role = $derived(session.profil?.profil_formation === 'marqueur' ? 'marqueur' : 'arbitre');
 	const jour = new Intl.DateTimeFormat('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' }).format(new Date());
 	const aujourdhui = jour.charAt(0).toUpperCase() + jour.slice(1);
@@ -127,11 +139,13 @@
 <Bandeau
 	titre="Arbitrage volley"
 	sousTitre="Formation des arbitres · espace stagiaire"
-	compteurs={[
-		{ valeur: t.travaillees, chiffres: 3, libelle: 'Questions travaillées' },
-		{ valeur: t.acquises, chiffres: 3, libelle: 'Acquises', couleur: 'bleu' },
-		{ valeur: t.aRevoir, chiffres: 3, libelle: 'À revoir', couleur: 'rouge' }
-	]}
+	compteurs={etat === 'pret'
+		? [
+				{ valeur: t.travaillees, chiffres: 3, libelle: 'Questions travaillées' },
+				{ valeur: t.acquises, chiffres: 3, libelle: 'Acquises', couleur: 'bleu' },
+				{ valeur: t.aRevoir, chiffres: 3, libelle: 'À revoir', couleur: 'rouge' }
+			]
+		: []}
 	resumeTexte="{pluriel(t.travaillees, 'travaillée')} · {pluriel(t.acquises, 'acquise')} · {t.aRevoir} à revoir"
 >
 	{#snippet navigation()}<NavPrincipale />{/snippet}
@@ -178,10 +192,10 @@
 
 <div class="jeu">
 	<!-- Sur téléphone, la convocation est placée en tête dans le document lui-même : l'ordre de lecture suit l'ordre visuel. -->
-	{#if mobile && convocations.length}<div class="convocations-haut">{@render blocConvocations()}</div>{/if}
+	{#if enTete}<div class="convocations-haut" class:jour-j={actif}>{@render blocConvocations()}</div>{/if}
 	<section class="principal">
 		{#if etat === 'erreur'}
-			<MessageErreur texte="Votre avancement n’a pas pu être chargé." />
+			<MessageErreur texte="Votre avancement n’a pas pu être chargé." onreessayer={charger} />
 		{/if}
 
 		<div class="accueil">
@@ -194,6 +208,17 @@
 			{/if}
 		</div>
 
+		{#if nouveau}
+			<section class="bienvenue" aria-label="Pour commencer">
+				<h2>Bienvenue ! Trois étapes pour commencer</h2>
+				<ol>
+					<li class="faite"><Icone nom="coche" taille={20} /><span><strong>Vous avez lu la notice</strong> sur vos données.</span></li>
+					<li><span class="num">2</span><span><strong>Faites une première séance</strong> : choisissez un thème ci-dessous ou lancez « 5 questions au hasard ». Chaque réponse est corrigée avec la règle.</span></li>
+					<li><span class="num">3</span><span><strong>Gardez les règles sous la main</strong> : <a href="/regles">le règlement FIVB, le Casebook et les consignes CFA</a>, avec recherche.</span></li>
+				</ol>
+			</section>
+		{/if}
+
 		<nav class="tuiles" aria-label="Commencer">
 			{#if reprise}
 				<a class="tuile sombre" href="/entrainement/{reprise.id}">
@@ -203,7 +228,7 @@
 					<span class="suite">Reprendre la séance <Icone nom="fleche" taille={18} /></span>
 				</a>
 			{:else}
-				<a class="tuile sombre" href="/entrainement/nouvelle">
+				<a class="tuile" class:sombre={!actif} href="/entrainement/nouvelle">
 					<span class="pastille"><Icone nom="sifflet" taille={26} /></span>
 					<span class="nom">Séance d’entraînement</span>
 					<span class="desc">Choisissez des thèmes : chaque réponse est corrigée avec la règle qui la fonde.</span>
@@ -237,7 +262,7 @@
 					{#if revision === 'erreur'}<span class="message-erreur" role="alert">La séance n’a pas pu être créée. Réessayez.</span>{/if}
 				{/if}
 				<a class="btn2 express" href="/examens-blancs"><Icone nom="chrono" taille={18} />Mes examens blancs</a>
-				{#if etat === 'pret'}
+				{#if etat === 'pret' && !nouveau}
 					<div class="semaine" aria-label="Cette semaine">
 						<span class="barre-objectif" aria-hidden="true"><span class="b" style="width: {Math.min(100, (semaine / objectif) * 100)}%"></span></span>
 						<label class="objectif">Objectif : <strong>{semaine}/{objectif}</strong>
@@ -250,16 +275,7 @@
 				{/if}
 			</div>
 
-			{#if nouveau}
-				<section class="bienvenue" aria-label="Pour commencer">
-					<h2>Bienvenue ! Trois étapes pour commencer</h2>
-					<ol>
-						<li class="faite"><Icone nom="coche" taille={20} /><span><strong>Vous avez lu la notice</strong> sur vos données.</span></li>
-						<li><span class="num">2</span><span><strong>Faites une première séance</strong> : choisissez un thème ci-dessous ou lancez « 5 questions au hasard ». Chaque réponse est corrigée avec la règle.</span></li>
-						<li><span class="num">3</span><span><strong>Gardez les règles sous la main</strong> : <a href="/regles">le règlement FIVB, le Casebook et les consignes CFA</a>, avec recherche.</span></li>
-					</ol>
-				</section>
-			{/if}
+
 
 			{#if nouveautes}
 				<section class="nouveautes" aria-label="Nouveautés">
@@ -287,7 +303,9 @@
 			</div>
 		{#if etat === 'chargement'}
 			<Chargement />
-		{:else if !lignes.length && etat === 'pret'}
+		{:else if etat === 'erreur'}
+			<!-- Le message d'erreur, en haut, propose de réessayer : pas de tableau vide trompeur. -->
+		{:else if !lignes.length}
 			{#if filtreRole}
 				<EtatVide titre="Aucune question pour ce rôle" texte="Aucune question validée ne vise les {filtreRole === 'arbitre' ? 'arbitres' : 'marqueurs'} pour l’instant.">
 					{#snippet action()}<button type="button" class="btn2" onclick={() => changerFiltre(null)}>Voir tous les rôles</button>{/snippet}
@@ -324,7 +342,7 @@
 	</section>
 	<Filet />
 	<aside class="cote" class:convoque={convocations.length > 0}>
-		{#if !(mobile && convocations.length)}{@render blocConvocations()}{/if}
+		{#if !enTete}{@render blocConvocations()}{/if}
 		<div>
 			<h2>Règles consultées récemment</h2>
 			{#if consultees.length}
@@ -346,6 +364,15 @@
 		display: flex;
 		flex-wrap: wrap;
 		min-height: calc(100vh - 140px);
+	}
+	/* Convocation en tête (le jour J, ou sur téléphone) : une rangée pleine largeur avant les colonnes. */
+	.convocations-haut {
+		flex-basis: 100%;
+		padding: 32px 44px 0;
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+		max-width: 760px;
 	}
 	.principal {
 		flex: 999 1 560px;
@@ -800,11 +827,7 @@
 			padding: 24px 20px;
 		}
 		.convocations-haut {
-			flex-basis: 100%;
 			padding: 24px 20px 0;
-			display: flex;
-			flex-direction: column;
-			gap: 16px;
 		}
 		.jeu > :global(.filet) {
 			display: none;

@@ -12,6 +12,9 @@ export function etatConvocation(c: Convocation): EtatConvocation {
 	return c.statut === 'brouillon' ? 'a_venir' : 'ouvert';
 }
 
+/** Un examen ouvert ou commencé : le jour J, il passe avant tout le reste sur l'accueil. */
+export const examenActif = (cs: Convocation[]) => cs.some((c) => ['ouvert', 'en_cours'].includes(etatConvocation(c)));
+
 /** « samedi 1 novembre 2026 à 10:00 » */
 export const dateHeure = (iso: string) =>
 	new Intl.DateTimeFormat('fr-FR', { dateStyle: 'full', timeStyle: 'short' }).format(new Date(iso));
