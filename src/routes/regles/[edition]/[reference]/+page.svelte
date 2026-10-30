@@ -24,7 +24,7 @@
 	} from '#lib/data/regles.ts';
 	import { pluriel, titreLisible } from '#lib/domain/texte.ts';
 	import { comparerReferences, type Regle } from '#lib/regles/arbre.ts';
-	import { chapitre, cleFigure, segmentsGlossaire, voisines } from '#lib/regles/lecture.ts';
+	import { chapitre, cleFigure, segmentsGlossaire, vueDeSource, voisines } from '#lib/regles/lecture.ts';
 
 	let regles = $state<Regle[]>([]);
 	let etat = $state<'chargement' | 'pret' | 'erreur'>('chargement');
@@ -97,9 +97,11 @@
 	const enfants = $derived(
 		regle ? edition.filter((r) => r.parent_reference === regle.reference).sort((a, b) => comparerReferences(a.reference, b.reference)) : []
 	);
+	// Le fil d'Ariane ramène à la liste sur la bonne source (un cas du Casebook → onglet Casebook).
+	const vueListe = $derived(regle ? `/regles?vue=${vueDeSource(regle.source)}` : '/regles');
 	const etapes = $derived([
-		{ libelle: 'Règles', href: '/regles' },
-		...(regle ? [{ libelle: regle.edition, href: '/regles' }] : []),
+		{ libelle: 'Règles', href: vueListe },
+		...(regle ? [{ libelle: regle.edition, href: vueListe }] : []),
 		...(racine && regle && racine.id !== regle.id
 			? [{ libelle: `${racine.source === 'casebook' ? '' : 'Chapitre '}${racine.reference}`, href: urlRegle(racine) }]
 			: []),

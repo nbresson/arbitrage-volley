@@ -7,13 +7,18 @@
 	import Bandeau from '#lib/components/Bandeau.svelte';
 	import NavPrincipale from '#lib/components/NavPrincipale.svelte';
 	import { page } from '$app/state';
+	import { replaceState } from '$app/navigation';
 	import { mesEpingles, toutesLesRegles, urlRegle } from '#lib/data/regles.ts';
 	import { chercher, construireArbre, type NoeudRegle, type Regle } from '#lib/regles/arbre.ts';
-	import { extrait, rechercheActive, segmentsSurlignes } from '#lib/regles/lecture.ts';
+	import { comptesParSource, extrait, rechercheActive, segmentsSurlignes, vueDeSource, type VueRegles } from '#lib/regles/lecture.ts';
 
 	let regles = $state<Regle[]>([]);
 	let etat = $state<'chargement' | 'pret' | 'erreur'>('chargement');
-	let source = $state<'fivb_regles' | 'casebook' | 'cfa' | 'epinglees'>(page.url.searchParams.get('vue') === 'mes-regles' ? 'epinglees' : 'fivb_regles');
+	type Onglet = 'fivb_regles' | 'casebook' | 'cfa' | 'epinglees';
+	const DEPUIS_VUE: Record<string, Onglet> = { fivb: 'fivb_regles', casebook: 'casebook', cfa: 'cfa', 'mes-regles': 'epinglees' };
+	let source = $state<Onglet>(DEPUIS_VUE[page.url.searchParams.get('vue') ?? ''] ?? 'fivb_regles');
+	// Pendant une recherche, les résultats couvrent toutes les sources ; cliquer un onglet les restreint à celle-ci.
+	let filtreRecherche = $state(false);
 	let requete = $state(page.url.searchParams.get('q') ?? '');
 	let epinglees = $state<string[]>([]);
 
@@ -28,11 +33,33 @@
 
 	// L'onglet CFA n'apparaît que lorsqu'une consigne d'une édition active existe.
 	const avecCfa = $derived(regles.some((r) => r.source === 'cfa'));
-	const deLaSource = $derived(source === 'epinglees' ? regles : regles.filter((r) => r.source === source));
-	const active = $derived(rechercheActive(requete));
-	const resultats = $derived(active ? chercher(deLaSource, requete) : []);
 	const parId = $derived(new Map(regles.map((r) => [r.id, r])));
 	const mesRegles = $derived(epinglees.map((id) => parId.get(id)).filter((r): r is Regle => !!r));
+	const deLaSource = $derived(source === 'epinglees' ? mesRegles : regles.filter((r) => r.source === source));
+	const active = $derived(rechercheActive(requete));
+	const trouvees = $derived(active ? chercher(source === 'epinglees' ? mesRegles : regles, requete) : []);
+	const comptes = $derived(comptesParSource(trouvees));
+	const resultats = $derived(filtreRecherche && source !== 'epinglees' ? trouvees.filter((r) => r.source === source) : trouvees);
+	const NOMS_SOURCES = { fivb_regles: 'FIVB', casebook: 'Casebook', cfa: 'CFA' } as const;
+
+	function choisirOnglet(o: Onglet) {
+		source = o;
+		filtreRecherche = active;
+	}
+	// Onglet et recherche gardés dans l'adresse : le retour arrière depuis une fiche les retrouve.
+	$effect(() => {
+		const vue: VueRegles = source === 'epinglees' ? 'mes-regles' : vueDeSource(source);
+		const q = requete.trim();
+		try {
+			replaceState(`?vue=${vue}${q ? `&q=${encodeURIComponent(q)}` : ''}`, {});
+		} catch {
+			/* routeur pas encore prêt au tout premier affichage : l'adresse sera mise à jour au changement suivant */
+		}
+	});
+	$effect(() => {
+		requete;
+		filtreRecherche = false;
+	});
 	const arbre = $derived(construireArbre(deLaSource));
 </script>
 
@@ -64,10 +91,10 @@
 	<h1 class="titre-page"><span class="surtitre">Règlement FIVB · Casebook{avecCfa ? ' · Consignes CFA' : ''}</span>Règles</h1>
 	<div class="outils">
 		<div role="tablist" aria-label="Source" class="onglets">
-			<button role="tab" aria-selected={source === 'fivb_regles'} onclick={() => (source = 'fivb_regles')}>Règles officielles FIVB</button>
-			<button role="tab" aria-selected={source === 'casebook'} onclick={() => (source = 'casebook')}>Casebook FIVB</button>
-			{#if avecCfa}<button role="tab" aria-selected={source === 'cfa'} onclick={() => (source = 'cfa')}>Consignes CFA</button>{/if}
-			<button role="tab" aria-selected={source === 'epinglees'} onclick={() => (source = 'epinglees')}>Mes règles{epinglees.length ? ` (${epinglees.length})` : ''}</button>
+			<button role="tab" aria-selected={source === 'fivb_regles'} onclick={() => choisirOnglet('fivb_regles')}><span class="long">Règles officielles FIVB</span><span class="court">FIVB</span>{active ? ` (${comptes.fivb_regles})` : ''}</button>
+			<button role="tab" aria-selected={source === 'casebook'} onclick={() => choisirOnglet('casebook')}><span class="long">Casebook FIVB</span><span class="court">Casebook</span>{active ? ` (${comptes.casebook})` : ''}</button>
+			{#if avecCfa}<button role="tab" aria-selected={source === 'cfa'} onclick={() => choisirOnglet('cfa')}><span class="long">Consignes CFA</span><span class="court">CFA</span>{active ? ` (${comptes.cfa})` : ''}</button>{/if}
+			<button role="tab" aria-selected={source === 'epinglees'} onclick={() => choisirOnglet('epinglees')}>Mes règles{epinglees.length ? ` (${epinglees.length})` : ''}</button>
 		</div>
 		<label class="champ recherche">
 			Chercher un numéro ou des mots
@@ -87,6 +114,7 @@
 				{#each resultats.slice(0, 100) as r (r.id)}
 					<li>
 						<a href={urlRegle(r)} class="ref">{r.reference}</a>
+						<span class="badge">{NOMS_SOURCES[r.source]}</span>
 						{#if titreLisible(r.titre)}<span class="titre">{@render surligne(titreLisible(r.titre))}</span>{/if}
 						<span class="apercu">{@render surligne(extrait(r.texte, requete, 180))}</span>
 						{#if source === 'epinglees'}<span class="edition">{r.edition}</span>{/if}
@@ -132,9 +160,32 @@
 	}
 	.onglets {
 		display: flex;
+		max-width: 100%;
+		overflow-x: auto;
+		scrollbar-width: none;
 		border-bottom: 1px solid var(--filet);
 	}
+	.onglets .court {
+		display: none;
+	}
+	@media (max-width: 600px) {
+		.onglets .long {
+			display: none;
+		}
+		.onglets .court {
+			display: inline;
+		}
+	}
+	.badge {
+		font-size: 12px;
+		font-weight: 700;
+		color: var(--doux);
+		border: 1px solid var(--filet);
+		border-radius: var(--r-petit);
+		padding: 1px 6px;
+	}
 	.onglets button {
+		white-space: nowrap;
 		font: inherit;
 		font-size: 15px;
 		font-weight: 600;

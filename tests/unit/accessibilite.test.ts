@@ -14,7 +14,7 @@ const convocation = {
 };
 
 vi.mock('$app/state', () => ({ page: { get params() { return h.params; }, url: new URL('http://x/') } }));
-vi.mock('$app/navigation', () => ({ goto: vi.fn(), onNavigate: vi.fn() }));
+vi.mock('$app/navigation', () => ({ goto: vi.fn(), onNavigate: vi.fn(), replaceState: vi.fn() }));
 vi.mock('#lib/supabase.ts', () => ({ supabase: { auth: { getUser: async () => ({ data: { user: { email: 'camille@exemple.fr' } } }) } } }));
 vi.mock('#lib/session.svelte.ts', () => ({
 	session: { pret: true, profil: { id: 'u1', prenom: 'Camille', nom: 'Essai', role: 'stagiaire', profil_formation: 'arbitre', niveau_id: 'n1', notice_acceptee_le: '2026-10-01', actif: true } },

@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
 import type { Regle } from '../../src/lib/regles/arbre';
-import { chapitre, cleFigure, extrait, rechercheActive, segmentsGlossaire, segmentsSurlignes, voisines } from '../../src/lib/regles/lecture';
+import { chapitre, cleFigure, comptesParSource, vueDeSource, extrait, rechercheActive, segmentsGlossaire, segmentsSurlignes, voisines } from '../../src/lib/regles/lecture';
 
 const r = (reference: string, parent_reference: string | null, texte = '', edition = 'Règles'): Regle => ({
 	id: reference,
@@ -97,5 +97,17 @@ describe('cleFigure', () => {
 		expect(cleFigure('Fig.9')).toEqual({ reference: 'Fig.9', detail: null, libelle: 'Figure 9' });
 		expect(cleFigure('Fig.11 (15)')).toEqual({ reference: 'Fig.11', detail: '15', libelle: 'Figure 11, n° 15' });
 		expect(cleFigure('12.4')).toBeNull();
+	});
+});
+
+describe('sources et vues', () => {
+	test('comptesParSource', () => {
+		const rs = [r('1', null), { ...r('Cas 3.35', null), source: 'casebook' as const }, { ...r('Cas 3.36', null), source: 'casebook' as const }];
+		expect(comptesParSource(rs)).toEqual({ fivb_regles: 1, casebook: 2, cfa: 0 });
+	});
+	test('vue d’adresse de chaque source', () => {
+		expect(vueDeSource('fivb_regles')).toBe('fivb');
+		expect(vueDeSource('casebook')).toBe('casebook');
+		expect(vueDeSource('cfa')).toBe('cfa');
 	});
 });

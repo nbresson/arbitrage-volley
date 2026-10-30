@@ -105,3 +105,15 @@ export function cleFigure(renvoi: string): { reference: string; detail: string |
 	if (!m) return null;
 	return { reference: `Fig.${m[1]}`, detail: m[2] ?? null, libelle: `Figure ${m[1]}${m[2] ? `, n° ${m[2]}` : ''}` };
 }
+
+/** Nombre de résultats par source (onglets de la liste des règles pendant une recherche). */
+export function comptesParSource(resultats: Regle[]): Record<Regle['source'], number> {
+	const c = { fivb_regles: 0, casebook: 0, cfa: 0 };
+	for (const r of resultats) c[r.source]++;
+	return c;
+}
+
+export type VueRegles = 'fivb' | 'casebook' | 'cfa' | 'mes-regles';
+
+/** Nom de la vue dans l'adresse (?vue=…) pour une source. */
+export const vueDeSource = (s: Regle['source']): VueRegles => (s === 'fivb_regles' ? 'fivb' : s);

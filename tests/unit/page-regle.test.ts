@@ -1,5 +1,5 @@
 // Fiche d'une règle : questions liées, glossaire, figures, voisines, marque-page.
-import { fireEvent, render, waitFor } from '@testing-library/svelte';
+import { fireEvent, render, waitFor, within } from '@testing-library/svelte';
 import { beforeEach, expect, test, vi } from 'vitest';
 
 const h = vi.hoisted(() => ({ params: { edition: 'regles', reference: '21.3' } as Record<string, string>, epingler: vi.fn(async () => {}), nb: 2 }));
@@ -50,4 +50,12 @@ test('aucune question : pas de bouton d’entraînement', async () => {
 	expect(await ecran.findByText('Aucune question ne cite encore cette règle.')).toBeInTheDocument();
 	expect(ecran.queryByRole('link', { name: /S’entraîner sur/ })).toBeNull();
 	h.nb = 2;
+});
+
+test('le fil d’Ariane renvoie vers la vue de la source', async () => {
+	const ecran = render(Page);
+	await ecran.findByText('2 questions citent cette règle.');
+	const liens = within(ecran.getByRole('navigation', { name: 'Fil d’Ariane' })).getAllByRole('link', { name: 'Règles' });
+	expect(liens.length).toBeGreaterThan(0);
+	for (const l of liens) expect(l.getAttribute('href')).toBe('/regles?vue=fivb');
 });
