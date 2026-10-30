@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { NOM_COMITE } from '#lib/config.ts';
 	import '#lib/components/formulaire.css';
 	import Bandeau from '#lib/components/Bandeau.svelte';
 	import { supabase } from '#lib/supabase.ts';
@@ -26,7 +27,7 @@
 
 <svelte:head><title>{'Connexion'} · Arbitrage volley</title></svelte:head>
 
-<Bandeau titre="Arbitrage volley" sousTitre="Formation des arbitres · [Comité]" />
+<Bandeau titre="Arbitrage volley" sousTitre="Formation des arbitres · {NOM_COMITE}" />
 
 <main class="page fond-filet">
 	<form class="carte" onsubmit={seConnecter} novalidate>

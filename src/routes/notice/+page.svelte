@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { CONTACT_EMAIL, lienContact, NOM_COMITE } from '#lib/config.ts';
 	import '#lib/components/formulaire.css';
 	import Bandeau from '#lib/components/Bandeau.svelte';
 	import { chargerProfil, session } from '#lib/session.svelte.ts';
@@ -22,13 +23,13 @@
 
 <svelte:head><title>{'Vos données'} · Arbitrage volley</title></svelte:head>
 
-<Bandeau titre="Arbitrage volley" sousTitre="Formation des arbitres · [Comité]" />
+<Bandeau titre="Arbitrage volley" sousTitre="Formation des arbitres · {NOM_COMITE}" />
 
 <main class="page fond-filet">
 	<article class="carte">
 		<h1>Vos données sur la plateforme</h1>
 		<p>
-			Cette plateforme est gérée par le [Comité] pour la formation de ses arbitres et marqueurs. Elle enregistre votre
+			Cette plateforme est gérée par le {NOM_COMITE} pour la formation de ses arbitres et marqueurs. Elle enregistre votre
 			nom, votre prénom, votre adresse e-mail, votre profil de formation, ainsi que vos réponses et résultats.
 		</p>
 		<h2>Qui voit quoi</h2>
@@ -40,7 +41,7 @@
 		<h2>Combien de temps</h2>
 		<p>
 			Vos données sont supprimées 2 ans après la désactivation de votre compte. Vous pouvez demander leur suppression à
-			tout moment à votre formateur ou à [adresse de contact du comité].
+			tout moment à votre formateur ou à <a href={lienContact}>{CONTACT_EMAIL}</a>.
 		</p>
 		<p>Si vous êtes mineur, vos parents ont été informés par votre formateur lors de la création de votre compte.</p>
 		{#if erreur}<p class="message-erreur" role="alert">{erreur}</p>{/if}

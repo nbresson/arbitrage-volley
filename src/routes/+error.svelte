@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { CONTACT_EMAIL, lienContact } from '#lib/config.ts';
 	// Page d'erreur : « Ballon hors terrain » pour une adresse inconnue ; sinon un message calme, une action, un contact.
 	import '#lib/components/formulaire.css';
 	import { page } from '$app/state';
@@ -29,7 +30,7 @@
 	{:else}
 		<h1 class="titre-page"><span class="surtitre">Un instant</span>Le service ne répond pas pour le moment</h1>
 		<p>Vos réponses déjà enregistrées ne sont pas perdues. Réessayez dans quelques minutes.</p>
-		<p>Si le problème dure, prévenez votre formateur ou écrivez à [adresse de contact du comité].</p>
+		<p>Si le problème dure, prévenez votre formateur ou écrivez à <a href={lienContact}>{CONTACT_EMAIL}</a>.</p>
 		<div class="actions">
 			<button type="button" class="btn" onclick={() => location.reload()}>Réessayer</button>
 			<a href="/">Retour à l’accueil</a>

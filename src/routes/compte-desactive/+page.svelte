@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { CONTACT_EMAIL, lienContact, NOM_COMITE } from '#lib/config.ts';
 	import '#lib/components/formulaire.css';
 	import Bandeau from '#lib/components/Bandeau.svelte';
 	import { seDeconnecter } from '#lib/session.svelte.ts';
@@ -6,13 +7,13 @@
 
 <svelte:head><title>{'Compte désactivé'} · Arbitrage volley</title></svelte:head>
 
-<Bandeau titre="Arbitrage volley" sousTitre="Formation des arbitres · [Comité]" />
+<Bandeau titre="Arbitrage volley" sousTitre="Formation des arbitres · {NOM_COMITE}" />
 
 <main class="page fond-filet">
 	<div class="carte" role="alert">
 		<h1>Compte désactivé</h1>
 		<p>Votre accès à la plateforme a été désactivé par un formateur. Vos résultats sont conservés.</p>
-		<p>Si vous pensez qu’il s’agit d’une erreur, contactez votre formateur ou [adresse de contact du comité].</p>
+		<p>Si vous pensez qu’il s’agit d’une erreur, contactez votre formateur ou <a href={lienContact}>{CONTACT_EMAIL}</a>.</p>
 		<button class="btn2" onclick={seDeconnecter}>Se déconnecter</button>
 	</div>
 </main>

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { CONTACT_EMAIL, lienContact } from '#lib/config.ts';
 	// Aide : les trois façons de s'entraîner, les raccourcis clavier, les questions fréquentes, le contact.
 	import '#lib/components/formulaire.css';
 	import Bandeau from '#lib/components/Bandeau.svelte';
@@ -72,7 +73,7 @@
 
 	<section class="carte">
 		<h2>Contact</h2>
-		<p>Pour une question sur la formation, un examen ou votre compte, adressez-vous à votre formateur, ou écrivez à [adresse de contact du comité].</p>
+		<p>Pour une question sur la formation, un examen ou votre compte, adressez-vous à votre formateur, ou écrivez à <a href={lienContact}>{CONTACT_EMAIL}</a>.</p>
 	</section>
 </main>
 
