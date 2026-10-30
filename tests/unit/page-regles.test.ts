@@ -27,7 +27,7 @@ beforeEach(() => {
 test('une recherche active couvre toutes les sources', async () => {
 	const e = render(Regles);
 	await fireEvent.input(await e.findByLabelText(/Chercher un numéro ou des mots/), { target: { value: 'Cas 3.35' } });
-	expect(await e.findByRole('link', { name: 'Cas 3.35' })).toBeInTheDocument();
+	expect(await e.findByRole('link', { name: /^Cas 3\.35/ })).toBeInTheDocument();
 	expect(e.getByText('Casebook', { selector: '.badge' })).toBeInTheDocument();
 });
 
@@ -36,7 +36,7 @@ test('onglets : compte par source pendant une recherche', async () => {
 	await fireEvent.input(await e.findByLabelText(/Chercher un numéro ou des mots/), { target: { value: 'libéro' } });
 	expect(await e.findByRole('tab', { name: /Casebook.*\(1\)/ })).toBeInTheDocument();
 	expect(e.getByRole('tab', { name: /^Règles officielles.*\(1\)/ })).toBeInTheDocument();
-	expect(e.getAllByRole('link', { name: /12\.4|Cas 3\.35/ })).toHaveLength(2);
+	expect(e.getAllByRole('link', { name: /^(12\.4|Cas 3\.35)/ })).toHaveLength(2);
 });
 
 test('Mes règles : la recherche ne porte que sur les règles épinglées', async () => {
@@ -45,8 +45,8 @@ test('Mes règles : la recherche ne porte que sur les règles épinglées', asyn
 	const e = render(Regles);
 	await fireEvent.input(await e.findByLabelText(/Chercher un numéro ou des mots/), { target: { value: 'cas' } });
 	await e.findByRole('status');
-	await waitFor(() => expect(e.queryByRole('link', { name: 'Cas 3.35' })).toBeNull());
-	expect(e.getByRole('link', { name: 'Cas 3.36' })).toBeInTheDocument();
+	await waitFor(() => expect(e.queryByRole('link', { name: /^Cas 3\.35/ })).toBeNull());
+	expect(e.getByRole('link', { name: /^Cas 3\.36/ })).toBeInTheDocument();
 });
 
 test('vue et recherche relues depuis l’adresse', async () => {
@@ -61,4 +61,11 @@ test('vue et recherche écrites dans l’adresse', async () => {
 	await fireEvent.click(await e.findByRole('tab', { name: /Casebook/ }));
 	await fireEvent.input(e.getByLabelText(/Chercher un numéro ou des mots/), { target: { value: 'libero' } });
 	await waitFor(() => expect(h.replaceState).toHaveBeenLastCalledWith('?vue=casebook&q=libero', {}));
+});
+
+test('chaque résultat est un seul lien sur toute la ligne', async () => {
+	const e = render(Regles);
+	await fireEvent.input(await e.findByLabelText(/Chercher un numéro ou des mots/), { target: { value: 'libéro' } });
+	const lien = await e.findByRole('link', { name: /12\.4.*Le libéro ne peut pas servir/ });
+	expect(lien.classList.contains('ligne')).toBe(true);
 });

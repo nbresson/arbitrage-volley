@@ -78,8 +78,7 @@
 			</ul>
 		</details>
 	{:else}
-		<a href={urlRegle(n.regle)} class="ref">{n.regle.reference}</a>
-		<span class="apercu">{titreLisible(n.regle.titre) || n.regle.texte.slice(0, 90)}</span>
+		<a href={urlRegle(n.regle)} class="ligne"><span class="ref">{n.regle.reference}</span> <span class="apercu">{titreLisible(n.regle.titre) || n.regle.texte.slice(0, 90)}</span></a>
 	{/if}
 {/snippet}
 
@@ -99,7 +98,7 @@
 		<label class="champ recherche">
 			Chercher un numéro ou des mots
 			<input id="recherche-regles" type="search" bind:value={requete} placeholder="ex. 19.3.1.4, Cas 3.35, libéro passe" aria-describedby="aide-recherche" />
-			<span class="aide" id="aide-recherche">Les résultats s’affichent dès deux lettres. Raccourci : touche « / ».</span>
+			<span class="aide" id="aide-recherche">Les résultats s’affichent dès deux lettres.<span class="clavier"> Raccourci : touche « / ».</span></span>
 		</label>
 	</div>
 
@@ -113,11 +112,13 @@
 			<ul class="liste resultats">
 				{#each resultats.slice(0, 100) as r (r.id)}
 					<li>
-						<a href={urlRegle(r)} class="ref">{r.reference}</a>
-						<span class="badge">{NOMS_SOURCES[r.source]}</span>
-						{#if titreLisible(r.titre)}<span class="titre">{@render surligne(titreLisible(r.titre))}</span>{/if}
-						<span class="apercu">{@render surligne(extrait(r.texte, requete, 180))}</span>
-						{#if source === 'epinglees'}<span class="edition">{r.edition}</span>{/if}
+						<a href={urlRegle(r)} class="ligne">
+							<span class="ref">{r.reference}</span>
+							<span class="badge">{NOMS_SOURCES[r.source]}</span>
+							{#if titreLisible(r.titre)}<span class="titre">{@render surligne(titreLisible(r.titre))}</span>{/if}
+							<span class="apercu">{@render surligne(extrait(r.texte, requete, 180))}</span>
+							{#if source === 'epinglees'}<span class="edition">{r.edition}</span>{/if}
+						</a>
 					</li>
 				{/each}
 			</ul>
@@ -128,7 +129,7 @@
 		{#if mesRegles.length}
 			<ul class="liste resultats">
 				{#each mesRegles as r (r.id)}
-					<li><a href={urlRegle(r)} class="ref">{r.reference}</a> <span class="titre">{titreLisible(r.titre) || r.texte.slice(0, 90)}</span><span class="edition">{r.edition}</span></li>
+					<li><a href={urlRegle(r)} class="ligne"><span class="ref">{r.reference}</span> <span class="titre">{titreLisible(r.titre) || r.texte.slice(0, 90)}</span><span class="edition">{r.edition}</span></a></li>
 				{/each}
 			</ul>
 		{:else}
@@ -229,7 +230,7 @@
 	summary {
 		cursor: pointer;
 		font-weight: 600;
-		min-height: 36px;
+		min-height: 44px;
 		display: flex;
 		align-items: center;
 		gap: 8px;
@@ -259,12 +260,30 @@
 		font-weight: 600;
 	}
 	.resultats li {
+		border-bottom: 1px solid var(--filet-doux);
+	}
+	/* Toute la ligne est le lien : une cible confortable au doigt. */
+	.ligne {
 		display: flex;
 		flex-wrap: wrap;
 		align-items: baseline;
 		gap: 2px 10px;
-		padding: 6px 0;
-		border-bottom: 1px solid var(--filet-doux);
+		min-height: 44px;
+		padding: 8px 4px;
+		color: var(--encre);
+		text-decoration: none;
+		border-radius: var(--r-petit);
+	}
+	.ligne:hover {
+		background: var(--ligne-survol);
+	}
+	.ligne:hover .ref {
+		text-decoration: underline;
+	}
+	@media (pointer: coarse) {
+		.clavier {
+			display: none;
+		}
 	}
 	.resultats li:last-child {
 		border-bottom: 0;

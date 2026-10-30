@@ -31,7 +31,16 @@
 	let termes = $state<Terme[]>([]);
 	let lesFigures = $state<Figure[]>([]);
 	let epinglees = $state<string[]>([]);
-	let nbQuestions = $state<number | null>(null);
+	let nbQuestions = $state<number | null | 'erreur'>(null);
+	// Glossaire : un terme ouvert à la fois (au clic ou au toucher), fermé par Échap ou un clic ailleurs.
+	let termeOuvert = $state<number | null>(null);
+	let bulleADroite = $state(false);
+	function basculerTerme(i: number, e: MouseEvent) {
+		e.stopPropagation();
+		const b = (e.currentTarget as HTMLElement).getBoundingClientRect();
+		bulleADroite = b.left > window.innerWidth / 2;
+		termeOuvert = termeOuvert === i ? null : i;
+	}
 	let erreurEpingle = $state('');
 	// Sur grand écran, le sommaire est ouvert et le Casebook s'affiche en regard ; sur téléphone, à la demande.
 	const large = typeof matchMedia === 'function' && matchMedia('(min-width: 1000px)').matches;
@@ -73,11 +82,15 @@
 	$effect(() => {
 		if (!regle) return;
 		memoriserConsultation(regle);
-		nbQuestions = null;
-		nbQuestionsRegle(regle.id)
-			.then((n) => (nbQuestions = n))
-			.catch(() => (nbQuestions = null));
+		compterQuestions(regle.id);
 	});
+
+	function compterQuestions(id: string) {
+		nbQuestions = null;
+		nbQuestionsRegle(id)
+			.then((n) => (nbQuestions = n))
+			.catch(() => (nbQuestions = 'erreur'));
+	}
 
 	async function basculerEpingle() {
 		if (!regle) return;
@@ -108,6 +121,11 @@
 		{ libelle: reference }
 	]);
 </script>
+
+<svelte:window
+	onkeydown={(e) => e.key === 'Escape' && (termeOuvert = null)}
+	onclick={() => (termeOuvert = null)}
+/>
 
 <svelte:head><title>{`Règle ${reference}${regle?.titre ? ` · ${titreLisible(regle.titre)}` : ''}`} · Arbitrage volley</title></svelte:head>
 
@@ -150,7 +168,7 @@
 				<div class="outils">
 					<button type="button" class="btn2" aria-pressed={epinglee} onclick={basculerEpingle}>
 						<svg width="16" height="16" viewBox="0 0 24 24" fill={epinglee ? 'currentColor' : 'none'} stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12v18l-6-4-6 4z" /></svg>
-						{epinglee ? 'Épinglée dans Mes règles' : 'Épingler'}
+						Épingler
 					</button>
 					<button type="button" class="btn2" onclick={() => window.print()}>Imprimer</button>
 					{#if regle.source === 'casebook' && regle.texte_original}
@@ -164,7 +182,7 @@
 						<div>
 							{#if enRegardActif}<p class="langue">Traduction française</p>{/if}
 							<blockquote class="texte extrait-reglement">
-								«&nbsp;{#each segments as seg, i (i)}{#if seg.definition}<span class="terme"><button type="button" aria-describedby="def-{i}">{seg.texte}</button><span class="bulle" role="tooltip" id="def-{i}">{seg.definition}</span></span>{:else}{seg.texte}{/if}{/each}&nbsp;»
+								«&nbsp;{#each segments as seg, i (i)}{#if seg.definition}<span class="terme"><button type="button" aria-expanded={termeOuvert === i} aria-controls="def-{i}" onclick={(e) => basculerTerme(i, e)}>{seg.texte}</button>{#if termeOuvert === i}<span class="bulle" class:droite={bulleADroite} role="tooltip" id="def-{i}">{seg.definition}</span>{/if}</span>{:else}{seg.texte}{/if}{/each}&nbsp;»
 							</blockquote>
 						</div>
 						{#if enRegardActif}
@@ -179,12 +197,6 @@
 
 				{#if regle.source === 'casebook'}
 					<p class="mention">Traduction française non officielle : en cas de divergence, le texte anglais du Casebook FIVB fait foi.</p>
-					{#if regle.texte_original && !enRegard}
-						<details>
-							<summary>Texte original (anglais)</summary>
-							<div class="texte original" lang="en">{regle.texte_original}</div>
-						</details>
-					{/if}
 				{/if}
 
 				{#if regle.video_url}
@@ -231,7 +243,10 @@
 
 				<section class="entrainement">
 					<h2>S’entraîner</h2>
-					{#if nbQuestions === null}
+					{#if nbQuestions === 'erreur'}
+						<MessageErreur texte="Les questions liées n’ont pas pu être comptées." onreessayer={() => compterQuestions(regle.id)} />
+						<a href="/entrainement/nouvelle?regle={encodeURIComponent(regle.id)}">S’entraîner sur cette règle</a>
+					{:else if nbQuestions === null}
 						<p class="aide">Recherche des questions liées…</p>
 					{:else if nbQuestions > 0}
 						<p>{nbQuestions > 1 ? `${nbQuestions} questions citent cette règle.` : 'Une question cite cette règle.'}</p>
@@ -299,7 +314,7 @@
 	}
 	.sommaire a {
 		display: block;
-		padding: 5px 6px;
+		padding: 10px 8px;
 		border-radius: var(--r-petit);
 		color: var(--encre);
 		text-decoration: none;
@@ -408,7 +423,6 @@
 		text-underline-offset: 3px;
 	}
 	.bulle {
-		display: none;
 		position: absolute;
 		left: 0;
 		top: calc(100% + 6px);
@@ -424,9 +438,9 @@
 		padding: 8px 10px;
 		border-radius: var(--r-petit);
 	}
-	.terme:hover .bulle,
-	.terme:focus-within .bulle {
-		display: block;
+	.bulle.droite {
+		left: auto;
+		right: 0;
 	}
 	.mention {
 		margin: 0;
@@ -509,6 +523,14 @@
 	.voisines .ref {
 		font-family: var(--police-chiffres);
 		font-weight: 800;
+	}
+	@media (max-width: 600px) {
+		.cadre {
+			padding: 0 12px;
+		}
+		.fiche {
+			padding: 20px 16px;
+		}
 	}
 	/* Version imprimable : la fiche seule, avec la référence et l'édition. */
 	@media print {
