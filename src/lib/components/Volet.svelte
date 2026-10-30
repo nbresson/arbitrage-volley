@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { animationsReduites as mouvementReduit } from '#lib/preferences.ts';
 	// Un volet de tableau de marque : un chiffre, une ligne de pli, une rotation quand il change.
 	let {
 		chiffre,
@@ -9,9 +10,6 @@
 
 	let tourne = $state(false);
 	let precedent: string | undefined;
-
-	const mouvementReduit = () =>
-		typeof window !== 'undefined' && !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 
 	$effect.pre(() => {
 		if (precedent === undefined) {
@@ -48,7 +46,7 @@
 		font-weight: 800;
 		font-size: 50px;
 		font-variant-numeric: tabular-nums;
-		color: var(--papier);
+		color: var(--sur-fonce);
 		transform-origin: 50% 0;
 	}
 	.volet::after {

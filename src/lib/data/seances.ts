@@ -179,3 +179,11 @@ export async function seanceAReprendre(): Promise<{ id: string; theme: string; i
 
 export const urlSeance = (type: ParametresSeance['type'], id: string) =>
 	type === 'pedagogique' ? `/entrainement/${id}` : `/examen-entrainement/${id}`;
+
+/** Une séance ou un examen blanc commencé depuis moins de 12 heures et pas terminé (déconnexion protégée). */
+export async function seanceEnCours(): Promise<boolean> {
+	const depuis = new Date(Date.now() - 12 * 3_600_000).toISOString();
+	const { count, error } = await supabase.from('seances').select('id', { count: 'exact', head: true }).is('fin', null).gte('debut', depuis);
+	if (error) return false;
+	return (count ?? 0) > 0;
+}

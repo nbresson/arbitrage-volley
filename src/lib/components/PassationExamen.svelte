@@ -316,7 +316,7 @@
 <style>
 	.bandeau {
 		background: var(--tableau);
-		color: var(--papier);
+		color: var(--sur-fonce);
 		display: flex;
 		flex-wrap: wrap;
 		align-items: center;
@@ -325,7 +325,7 @@
 		border-bottom: 6px solid var(--papier);
 	}
 	.bandeau :global(:focus-visible) {
-		outline-color: var(--papier);
+		outline-color: var(--sur-fonce);
 	}
 	.marque {
 		flex: 1 1 220px;
@@ -365,11 +365,11 @@
 	}
 	.fin {
 		font: inherit;
-		color: var(--papier);
+		color: var(--sur-fonce);
 		font-weight: 700;
 		font-size: 15px;
 		padding: 12px 16px;
-		border: 1.5px solid var(--papier);
+		border: 1.5px solid var(--sur-fonce);
 		border-radius: var(--r);
 		background: transparent;
 		cursor: pointer;

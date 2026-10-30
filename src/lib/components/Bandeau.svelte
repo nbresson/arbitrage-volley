@@ -1,7 +1,10 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
+	import { seanceEnCours } from '#lib/data/seances.ts';
+	import { appliquerAffichage, enregistrerPreferences, lirePreferences, type Preferences } from '#lib/preferences.ts';
 	import { seDeconnecter, session } from '#lib/session.svelte.ts';
 	import Compteur from './Compteur.svelte';
+	import DialogueConfirmation from './DialogueConfirmation.svelte';
 	import Icone from './Icone.svelte';
 
 	type DefCompteur = { valeur: number; chiffres: number; libelle: string; couleur?: 'bleu' | 'rouge' | null };
@@ -25,6 +28,20 @@
 	const profil = $derived(session.profil);
 	const initiales = $derived(profil ? `${profil.prenom.charAt(0)}${profil.nom.charAt(0)}`.toUpperCase() : '');
 	let menu = $state<HTMLDetailsElement>();
+
+	let theme = $state<Preferences['theme']>(lirePreferences().theme);
+	let confirmerSortie = $state(false);
+
+	function changerTheme(t: Preferences['theme']) {
+		theme = t;
+		appliquerAffichage(enregistrerPreferences({ theme: t }));
+	}
+
+	// Déconnexion protégée : une séance commencée reste enregistrée, mais on le dit avant de partir.
+	async function demanderSortie() {
+		if (await seanceEnCours()) confirmerSortie = true;
+		else await seDeconnecter();
+	}
 
 	// Le menu du compte se referme quand on clique ailleurs.
 	function fermerSiDehors(e: MouseEvent) {
@@ -57,17 +74,37 @@
 			<div class="menu">
 				<p class="nom">{profil.prenom} {profil.nom}</p>
 				<p class="role">{profil.role === 'formateur' ? 'Formateur' : 'Stagiaire'} · {profil.profil_formation}</p>
-				<button type="button" onclick={seDeconnecter}><Icone nom="sortie" taille={18} />Se déconnecter</button>
+				<a href="/profil">Mon profil</a>
+				<a href="/mot-de-passe">Changer mon mot de passe</a>
+				<a href="/preferences">Préférences</a>
+				<a href="/aide">Aide</a>
+				<fieldset class="themes">
+					<legend>Thème</legend>
+					{#each [['auto', 'Auto'], ['clair', 'Clair'], ['sombre', 'Sombre']] as [v, l] (v)}
+						<label class:choisi={theme === v}><input type="radio" name="theme-menu" checked={theme === v} onchange={() => changerTheme(v as Preferences['theme'])} />{l}</label>
+					{/each}
+				</fieldset>
+				<button type="button" onclick={demanderSortie}><Icone nom="sortie" taille={18} />Se déconnecter</button>
 			</div>
 		</details>
 	{/if}
 </header>
 
+<DialogueConfirmation
+	ouvert={confirmerSortie}
+	titre="Votre séance reste enregistrée. Se déconnecter ?"
+	texte="Vous la retrouverez à la prochaine connexion, à la question où vous vous êtes arrêté."
+	libelleAnnuler="Rester connecté"
+	libelleConfirmer="Se déconnecter quand même"
+	onannuler={() => (confirmerSortie = false)}
+	onconfirmer={() => ((confirmerSortie = false), seDeconnecter())}
+/>
+
 <style>
 	.bandeau {
 		position: relative;
 		background: var(--tableau);
-		color: var(--papier);
+		color: var(--sur-fonce);
 		display: flex;
 		flex-wrap: wrap;
 		align-items: center;
@@ -94,7 +131,7 @@
 		position: relative;
 	}
 	.bandeau :global(:focus-visible) {
-		outline-color: var(--papier);
+		outline-color: var(--sur-fonce);
 	}
 	.marque {
 		flex: 1 1 220px;
@@ -153,11 +190,11 @@
 	}
 	.nav :global(a:hover) {
 		background: var(--volet);
-		color: var(--papier);
+		color: var(--sur-fonce);
 	}
 	.nav :global(a[aria-current='page']) {
 		background: var(--papier);
-		color: var(--tableau);
+		color: var(--trait);
 	}
 	.compte {
 		position: relative;
@@ -183,14 +220,14 @@
 	}
 	.compte summary:hover,
 	.compte[open] summary {
-		border-color: var(--papier);
+		border-color: var(--sur-fonce);
 	}
 	.menu {
 		position: absolute;
 		right: 0;
 		top: calc(100% + 8px);
 		z-index: 10;
-		min-width: 230px;
+		min-width: 280px;
 		background: var(--papier);
 		color: var(--encre);
 		border: 1px solid var(--filet);
@@ -225,6 +262,60 @@
 		cursor: pointer;
 		text-align: left;
 	}
+	.menu > a {
+		display: flex;
+		align-items: center;
+		min-height: 40px;
+		padding: 0 8px;
+		border-top: 1px solid var(--filet-doux);
+		color: var(--encre);
+		font-weight: 600;
+		text-decoration: none;
+	}
+	.menu > a:hover {
+		background: var(--ligne-survol);
+	}
+	.themes {
+		border: 0;
+		border-top: 1px solid var(--filet-doux);
+		margin: 0;
+		padding: 10px 8px;
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 6px;
+	}
+	.themes legend {
+		float: left;
+		margin-right: 6px;
+		font-size: 13px;
+		color: var(--doux);
+	}
+	.themes label {
+		position: relative;
+		font-size: 13px;
+		font-weight: 600;
+		padding: 6px 10px;
+		border: 1px solid var(--filet);
+		border-radius: var(--r-petit);
+		cursor: pointer;
+	}
+	.themes label.choisi {
+		background: var(--tableau);
+		border-color: var(--tableau);
+		color: var(--sur-fonce);
+	}
+	.themes input {
+		position: absolute;
+		inset: 0;
+		opacity: 0;
+		margin: 0;
+		cursor: pointer;
+	}
+	.themes label:has(input:focus-visible) {
+		outline: 2px solid var(--bleu);
+		outline-offset: 2px;
+	}
 	.menu button:hover {
 		background: var(--ligne-survol);
 	}
@@ -238,6 +329,11 @@
 		.nav :global(a) {
 			padding: 10px;
 			font-size: 14px;
+		}
+		/* Sur téléphone, le lien courant est aussi souligné : le fond seul se remarque mal sur un petit écran. */
+		.nav :global(a[aria-current='page']) {
+			text-decoration: underline 3px var(--bleu);
+			text-underline-offset: 6px;
 		}
 	}
 	@media (max-width: 600px) {

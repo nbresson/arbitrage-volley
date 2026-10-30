@@ -23,7 +23,7 @@
 	.grand {
 		font-size: 18px;
 		padding: 8px 14px;
-		color: var(--papier);
+		color: var(--sur-fonce);
 	}
 	.grand.reussi {
 		background: var(--bleu);

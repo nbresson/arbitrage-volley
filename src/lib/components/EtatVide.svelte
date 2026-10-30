@@ -9,11 +9,11 @@
 	<svg width="120" height="78" viewBox="0 0 120 78" fill="none" aria-hidden="true">
 		<path d="M4 74h112" stroke="var(--filet)" stroke-width="2" stroke-linecap="round" />
 		<path d="M60 8v66" stroke="var(--doux)" stroke-width="2.5" stroke-linecap="round" />
-		<path d="M60 12h40M60 40h40" stroke="var(--tableau)" stroke-width="2" />
+		<path d="M60 12h40M60 40h40" stroke="var(--trait)" stroke-width="2" />
 		<path d="M66 12v28M72 12v28M78 12v28M84 12v28M90 12v28M96 12v28M60 19h40M60 26h40M60 33h40" stroke="var(--filet)" stroke-width="1" />
 		<path d="M100 8v66" stroke="var(--doux)" stroke-width="2.5" stroke-linecap="round" />
-		<circle cx="34" cy="61" r="12" fill="var(--papier)" stroke="var(--tableau)" stroke-width="2" />
-		<path d="M34 49c-3 4-3 8 0 12s3 8 0 12M22.5 57c4 1 8 1 11.5 4s7.5 3 11.5 3" stroke="var(--tableau)" stroke-width="1.6" stroke-linecap="round" />
+		<circle cx="34" cy="61" r="12" fill="var(--papier)" stroke="var(--trait)" stroke-width="2" />
+		<path d="M34 49c-3 4-3 8 0 12s3 8 0 12M22.5 57c4 1 8 1 11.5 4s7.5 3 11.5 3" stroke="var(--trait)" stroke-width="1.6" stroke-linecap="round" />
 	</svg>
 	<svelte:element this={`h${niveau}`} class="titre">{titre}</svelte:element>
 	{#if texte}<p>{texte}</p>{/if}

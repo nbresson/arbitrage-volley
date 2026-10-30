@@ -180,7 +180,7 @@
 		gap: 16px 40px;
 		padding: 28px 40px 32px;
 		background: var(--tableau);
-		color: var(--papier);
+		color: var(--sur-fonce);
 	}
 	.score::before {
 		content: '';
@@ -362,7 +362,7 @@
 		gap: 8px;
 		font-size: 17px;
 		font-weight: 700;
-		color: var(--papier);
+		color: var(--sur-fonce);
 	}
 	.rejouer {
 		display: flex;

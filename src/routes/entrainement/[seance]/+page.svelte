@@ -501,7 +501,7 @@
 	}
 	.jnsp input {
 		margin: 0;
-		accent-color: var(--tableau);
+		accent-color: var(--trait);
 	}
 	.jnsp .aide {
 		grid-column: 2;
@@ -700,7 +700,7 @@
 	/* Fin de séance : le score s'affiche sur le tableau de marque, comme une fin de set. */
 	.score-fin {
 		background: var(--tableau);
-		color: var(--papier);
+		color: var(--sur-fonce);
 		/* Même colonne que le contenu dessous (860 px centrés). */
 		padding: 28px max(20px, calc((100% - 860px) / 2 + 20px)) 32px;
 		display: flex;

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import RetourHaut from '#lib/components/RetourHaut.svelte';
 	import { pluriel } from '#lib/domain/texte.ts';
 	import EtatVide from '#lib/components/EtatVide.svelte';
 	import Chargement from '#lib/components/Chargement.svelte';
@@ -130,6 +131,8 @@
 		{/if}
 	{/if}
 </main>
+
+<RetourHaut />
 
 <style>
 	.page {

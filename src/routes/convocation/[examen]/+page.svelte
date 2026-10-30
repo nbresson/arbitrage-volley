@@ -87,7 +87,7 @@
 	}
 	.tete {
 		background: var(--tableau);
-		color: var(--papier);
+		color: var(--sur-fonce);
 		padding: 14px 20px;
 		display: flex;
 		flex-wrap: wrap;

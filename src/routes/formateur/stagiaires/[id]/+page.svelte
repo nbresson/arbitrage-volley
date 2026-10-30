@@ -410,7 +410,7 @@
 	}
 	.grille li.ok {
 		background: var(--bleu);
-		color: var(--papier);
+		color: var(--sur-fonce);
 	}
 	.grille li.ko {
 		background: var(--papier);

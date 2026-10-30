@@ -63,8 +63,8 @@
 	}
 	.rep {
 		background: var(--tableau);
-		border-color: var(--tableau);
-		color: var(--papier);
+		border-color: var(--trait);
+		color: var(--sur-fonce);
 	}
 	.cur {
 		border: 2px solid var(--bleu);

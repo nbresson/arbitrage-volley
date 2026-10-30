@@ -19,8 +19,8 @@
 	<span class="courbe">
 		<svg width={L} height={H} viewBox="0 0 {L} {H}" role="img" aria-label={description}>
 			<line x1="0" x2={L} y1={H / 2} y2={H / 2} stroke="var(--filet-doux)" stroke-dasharray="3 3" />
-			<polyline points={points.map((p) => `${p.x},${p.y}`).join(' ')} fill="none" stroke="var(--tableau)" stroke-width="1.75" stroke-linejoin="round" />
-			{#each points as p, i (i)}<circle cx={p.x} cy={p.y} r={i === points.length - 1 ? 3 : 2} fill="var(--tableau)" />{/each}
+			<polyline points={points.map((p) => `${p.x},${p.y}`).join(' ')} fill="none" stroke="var(--trait)" stroke-width="1.75" stroke-linejoin="round" />
+			{#each points as p, i (i)}<circle cx={p.x} cy={p.y} r={i === points.length - 1 ? 3 : 2} fill="var(--trait)" />{/each}
 		</svg>
 		<span class="dernier">{valeurs[valeurs.length - 1]} %</span>
 	</span>

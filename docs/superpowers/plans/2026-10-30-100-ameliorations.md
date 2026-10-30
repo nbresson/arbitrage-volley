@@ -13,7 +13,7 @@ Préférences personnelles (objectif, tri, taille du texte, thème…) : d'abord
 | C | Examen blanc et résultats | 21–30 | **fait** (migration `20261030000004_rejouer_examen`) ; seuil des examens blancs : 70 % provisoire (`SEUIL_BLANC`), à confirmer par le comité |
 | D | Examen officiel | 31–40 | **fait** (migration `20261031000001_examen_officiel_enrichi`) ; 93 « Connexion rétablie » fait au passage |
 | E | Règles et recherche | 41–50 | **fait** (migration `20261031000002_regles_enrichies`) ; 47 et 49 : mécanisme en place (page formateur « Glossaire et figures »), images et définitions à fournir ; 55 fil d’Ariane côté stagiaire fait au passage |
-| F | Navigation et compte | 51–60 | à faire |
+| F | Navigation et compte | 51–60 | **fait** (sans migration) ; thème sombre complet (jetons `--sur-fonce` et `--trait`, DESIGN.md › Thème sombre) ; 58 : soulignement en `--bleu` (pas de turquoise dans le système) ; 83 « Contraste élevé » fait au passage |
 | G | Formateur : stagiaires et examens | 61–70 | à faire |
 | H | Formateur : questions et contenu | 71–80 | à faire |
 | I | Accessibilité et téléphone | 81–90 | à faire |

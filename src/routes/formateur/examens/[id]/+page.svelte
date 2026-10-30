@@ -434,7 +434,7 @@
 		inset: 0;
 		z-index: 50;
 		background: var(--tableau);
-		color: var(--papier);
+		color: var(--sur-fonce);
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -472,9 +472,9 @@
 		margin-top: 4vh;
 		font: inherit;
 		font-weight: 700;
-		color: var(--papier);
+		color: var(--sur-fonce);
 		background: transparent;
-		border: 1.5px solid var(--papier);
+		border: 1.5px solid var(--sur-fonce);
 		border-radius: var(--r);
 		padding: 12px 18px;
 		cursor: pointer;

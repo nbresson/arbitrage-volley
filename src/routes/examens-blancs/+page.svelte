@@ -181,13 +181,13 @@
 	}
 	.trace {
 		fill: none;
-		stroke: var(--tableau);
+		stroke: var(--trait);
 		stroke-width: 2;
 		stroke-linejoin: round;
 		stroke-linecap: round;
 	}
 	.point {
-		fill: var(--tableau);
+		fill: var(--trait);
 		stroke: var(--papier);
 		stroke-width: 2;
 	}
@@ -198,7 +198,7 @@
 		position: absolute;
 		transform: translate(-50%, calc(-100% - 12px));
 		background: var(--tableau);
-		color: var(--papier);
+		color: var(--sur-fonce);
 		border-radius: var(--r-petit);
 		padding: 8px 10px;
 		font-size: 14px;

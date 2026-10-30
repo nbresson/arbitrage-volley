@@ -1,4 +1,5 @@
 <script lang="ts">
+	import RetourHaut from '#lib/components/RetourHaut.svelte';
 	import { titreLisible } from '#lib/domain/texte.ts';
 	import EtatVide from '#lib/components/EtatVide.svelte';
 	import '#lib/components/formulaire.css';
@@ -108,6 +109,8 @@
 		</ul>
 	{/if}
 </main>
+
+<RetourHaut />
 
 <style>
 	.page {

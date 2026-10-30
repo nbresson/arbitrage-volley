@@ -88,7 +88,7 @@
 	}
 	.sel .l {
 		background: var(--tableau);
-		color: var(--papier);
+		color: var(--sur-fonce);
 	}
 	.ok {
 		border: 2px solid var(--bleu);
@@ -97,7 +97,7 @@
 	}
 	.ok .l {
 		background: var(--bleu);
-		color: var(--papier);
+		color: var(--sur-fonce);
 	}
 	.ok em {
 		color: var(--bleu-texte);
@@ -108,7 +108,7 @@
 	}
 	.ko .l {
 		background: var(--rouge);
-		color: var(--papier);
+		color: var(--sur-fonce);
 	}
 	.ko em {
 		color: var(--rouge-texte);

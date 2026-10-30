@@ -33,8 +33,20 @@ Nuances dérivées (ajoutées après la revue UX, pour supprimer les valeurs hor
 - `--filet-doux` #E3E5E0 : séparateurs entre les lignes d'un tableau, plus discrets que `--filet`.
 - `--ligne-survol` #F7F7F5 : survol d'une ligne de tableau, fond des figures.
 - `--terrain` #E1E3DE / `--zone-surlignee` #D2DDF3 : fond du schéma de terrain et zone en cause dans la situation.
+- `--sur-fonce` #FFFFFF : texte et traits posés sur un aplat foncé ou coloré (bandeau, bouton principal, plaque, pastille d'état). Il reste blanc dans les deux thèmes, alors que `--papier` devient sombre.
+- `--trait` #1C2430 : texte, bordures et tracés « anthracite » posés sur une surface (bouton secondaire, courbes, état vide). Il s'éclaircit en thème sombre ; `--tableau` reste réservé aux aplats.
 - Règle : le bleu et le rouge ne servent qu'à l'état (juste ou faux, acquis ou à revoir). Ils ne décorent jamais.
 - Exception : les cartons de sanction dessinés (jaune `--ambre-vif`, rouge `--rouge`) représentent des objets réels, toujours accompagnés du nom de la sanction.
+
+### Thème sombre
+
+Choisi dans les préférences (clair, sombre ou automatique, qui suit le système). Mêmes rôles, valeurs recalculées : texte ≥ 7:1 sur les surfaces, marques graphiques ≥ 3:1, blanc ≥ 5:1 sur le bleu et le rouge d'état. Le bandeau devient un cran plus clair que la page, pour rester un panneau.
+
+`--tableau` #2C3748 · `--volet` #3A475C · `--sol` #12161C · `--papier` #1B212A · `--encre` #E6E9ED · `--doux` #A3ACB8 · `--filet` #4A5463 · `--bleu` #3F6AC9 · `--bleu-clair` #1C2A45 · `--rouge` #C23A30 · `--rouge-clair` #3A2020 · `--ambre` #EDB55C · `--ambre-clair` #332818 · `--tableau-survol` #3A475C · `--volet-bord` #55627A · `--bleu-texte` #A8C0F4 · `--rouge-texte` #F4A097 · `--desactive` #2B323C · `--filet-doux` #2A313B · `--ligne-survol` #222933 · `--terrain` #262D36 · `--zone-surlignee` #2B3E66 · `--trait` #C5CDD8.
+
+### Contraste élevé
+
+Option des préférences : texte secondaire plus foncé, filets plus marqués, bordures de 2 px sur les boutons et les champs, textures retirées. En clair : `--doux` #3A4049, `--filet` #6E737B, `--filet-doux` #A3A7A1. En sombre : `--doux` #D0D5DC, `--filet` #8A94A3, `--filet-doux` #5A6472.
 
 ## Typographie
 

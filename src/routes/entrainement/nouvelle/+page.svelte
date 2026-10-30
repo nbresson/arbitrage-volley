@@ -226,7 +226,7 @@
 		width: 18px;
 		height: 18px;
 		margin-top: 3px;
-		accent-color: var(--tableau);
+		accent-color: var(--trait);
 	}
 	.themes {
 		display: grid;

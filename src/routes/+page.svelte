@@ -137,7 +137,7 @@
 			<h1 class="titre-page"><span class="surtitre">{aujourdhui} · {role} stagiaire</span>Bonjour {session.profil?.prenom ?? ''}</h1>
 			{#if niveau}
 				<div class="niveau">
-					<svg width="30" height="34" viewBox="0 0 34 38" aria-hidden="true"><path d="M17 2 31 7v11c0 9-6 15-14 18C9 33 3 27 3 18V7z" fill="var(--tableau)" /><path d="M11 18l4 4 8-8" fill="none" stroke="var(--papier)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" /></svg>
+					<svg width="30" height="34" viewBox="0 0 34 38" aria-hidden="true"><path d="M17 2 31 7v11c0 9-6 15-14 18C9 33 3 27 3 18V7z" fill="var(--tableau)" /><path d="M11 18l4 4 8-8" fill="none" stroke="var(--sur-fonce)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" /></svg>
 					<span><span class="petit">Niveau de formation</span>{niveau}</span>
 				</div>
 			{/if}
@@ -358,7 +358,7 @@
 		transition: border-color var(--duree-micro) ease-out, transform var(--duree-micro) ease-out;
 	}
 	.tuile:hover {
-		border-color: var(--tableau);
+		border-color: var(--trait);
 		transform: translateY(-2px);
 	}
 	.tuile .pastille {
@@ -366,7 +366,7 @@
 		height: 46px;
 		border-radius: var(--r);
 		background: var(--tableau);
-		color: var(--papier);
+		color: var(--sur-fonce);
 		display: grid;
 		place-items: center;
 	}
@@ -390,15 +390,15 @@
 	}
 	.tuile.sombre {
 		background-color: var(--tableau);
-		border-color: var(--tableau);
-		color: var(--papier);
+		border-color: var(--trait);
+		color: var(--sur-fonce);
 	}
 	.tuile.sombre:hover {
 		background-color: var(--tableau-survol);
 	}
 	.tuile.sombre .pastille {
 		background: var(--papier);
-		color: var(--tableau);
+		color: var(--trait);
 	}
 	.tuile.sombre .desc {
 		color: var(--tableau-texte);
@@ -414,7 +414,7 @@
 		height: 36px;
 		border-radius: var(--r);
 		background: var(--sol);
-		color: var(--tableau);
+		color: var(--trait);
 		display: grid;
 		place-items: center;
 	}
@@ -500,7 +500,7 @@
 		display: grid;
 		place-items: center;
 		background: var(--tableau);
-		color: var(--papier);
+		color: var(--sur-fonce);
 		font-family: var(--police-chiffres);
 		font-weight: 800;
 	}
@@ -556,7 +556,7 @@
 	}
 	.pastilles button.actif {
 		background: var(--tableau);
-		color: var(--papier);
+		color: var(--sur-fonce);
 	}
 	.tri {
 		font-size: 14px;
@@ -695,7 +695,7 @@
 	}
 	.convocation .tete {
 		background: var(--tableau);
-		color: var(--papier);
+		color: var(--sur-fonce);
 		padding: 14px 18px;
 		display: flex;
 		justify-content: space-between;

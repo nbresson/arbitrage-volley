@@ -307,7 +307,7 @@
 	}
 	.sommaire a[aria-current='page'] {
 		background: var(--tableau);
-		color: var(--papier);
+		color: var(--sur-fonce);
 	}
 	.sommaire .num {
 		font-family: var(--police-chiffres);
@@ -363,7 +363,7 @@
 		gap: 6px;
 	}
 	.outils [aria-pressed='true'] {
-		border-color: var(--tableau);
+		border-color: var(--trait);
 		background: var(--ligne-survol);
 	}
 	.texte {
@@ -413,7 +413,7 @@
 		width: max-content;
 		max-width: min(320px, 80vw);
 		background: var(--tableau);
-		color: var(--papier);
+		color: var(--sur-fonce);
 		font-size: 14px;
 		line-height: 1.5;
 		font-style: normal;
@@ -493,7 +493,7 @@
 		text-decoration: none;
 	}
 	.voisines a:hover {
-		border-color: var(--tableau);
+		border-color: var(--trait);
 	}
 	.voisines .suivante {
 		text-align: right;

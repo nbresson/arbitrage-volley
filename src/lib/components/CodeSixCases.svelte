@@ -73,7 +73,7 @@
 		border-radius: var(--r);
 	}
 	input:focus-visible {
-		border-color: var(--tableau);
+		border-color: var(--trait);
 		outline: 3px solid var(--bleu);
 		outline-offset: 1px;
 	}
