@@ -122,3 +122,16 @@ export function texteCloture(r: { etat: 'absent' | 'en_cours' | 'termine' }[]): 
 	if (absents) parties.push(absents > 1 ? `${absents} n’ont pas commencé et seront notés absents` : '1 n’a pas commencé et sera noté absent');
 	return `${parties.join(', ')}.`;
 }
+
+const jourLocal = (d: Date) => new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
+
+/** Liste des examens actifs : ouverts d'abord (à suivre en salle), puis brouillons du plus proche au plus lointain. */
+export function ordreExamens<T extends { statut: 'brouillon' | 'ouvert' | 'clos'; date_heure: string }>(l: T[], _maintenant: Date = new Date()): T[] {
+	return [...l].sort((a, b) => (a.statut === 'ouvert' ? 0 : 1) - (b.statut === 'ouvert' ? 0 : 1) || a.date_heure.localeCompare(b.date_heure));
+}
+
+/** Repère à côté de la date : « Aujourd’hui », « Date passée », ou rien. */
+export function repereDate(iso: string, maintenant: Date = new Date()): 'Aujourd’hui' | 'Date passée' | null {
+	const j = jourLocal(new Date(iso)), m = jourLocal(maintenant);
+	return j === m ? 'Aujourd’hui' : j < m ? 'Date passée' : null;
+}

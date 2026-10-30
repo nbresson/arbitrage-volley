@@ -7,14 +7,16 @@ const h = vi.hoisted(() => ({
 	enregistrer: vi.fn(),
 	ouvrir: vi.fn(),
 	desinscrire: vi.fn(),
-	resultats: [] as unknown[]
+	resultats: [] as unknown[],
+	reserve: [] as unknown[],
+	composer: vi.fn()
 }));
 vi.mock('$app/state', () => ({ page: { params: { id: 'e1' }, url: new URL('http://x/formateur/examens/e1') } }));
 vi.mock('$app/navigation', () => ({ goto: vi.fn(), onNavigate: vi.fn(), beforeNavigate: vi.fn() }));
 vi.mock('#lib/supabase.ts', () => ({ supabase: {} }));
 vi.mock('#lib/session.svelte.ts', () => ({ session: { pret: true, profil: null }, chargerProfil: vi.fn(), seDeconnecter: vi.fn() }));
 vi.mock('#lib/data/seances.ts', async (orig) => ({ ...(await orig<typeof import('../../src/lib/data/seances')>()), seanceEnCours: async () => false }));
-vi.mock('#lib/data/questions.ts', async (orig) => ({ ...(await orig<typeof import('../../src/lib/data/questions')>()), listerQuestions: async () => [] }));
+vi.mock('#lib/data/questions.ts', async (orig) => ({ ...(await orig<typeof import('../../src/lib/data/questions')>()), listerQuestions: async () => h.reserve }));
 vi.mock('#lib/data/stagiaires.ts', async (orig) => ({
 	...(await orig<typeof import('../../src/lib/data/stagiaires')>()),
 	listerComptes: async () => [{ id: 's1', prenom: 'Lou', nom: 'Essai', email: 'l@x.fr', role: 'stagiaire', profil_formation: 'arbitre', niveau_id: 'n1', actif: true, promotion: null }]
@@ -26,6 +28,7 @@ vi.mock('#lib/data/examens-formateur.ts', async (orig) => ({
 	enregistrerExamen: h.enregistrer,
 	ouvrirExamen: h.ouvrir,
 	desinscrire: h.desinscrire,
+	composerExamen: h.composer,
 	codeExamen: async () => '123456',
 	resultatsExamen: async () => h.resultats,
 	statsExamen: async () => []
@@ -43,6 +46,10 @@ beforeEach(() => {
 	h.resultats = [];
 	h.enregistrer.mockResolvedValue('e1');
 	h.ouvrir.mockResolvedValue('123456');
+	h.composer.mockImplementation(async (_id: string, l: string[]) => l.length);
+	h.reserve = ['Libéro au service', 'Libéro en attaque', 'Filet touché', 'Rotation fautive'].map((enonce, i) => ({
+		id: `r${i}`, enonce, statut: 'validee', usage: 'reserve_examen', theme: 'Thème', niveau: 'N1', role_cible: 'arbitre', a_relire: false, origine: 'manuelle', theme_id: 't', niveau_id: 'n', reference_origine: null
+	}));
 });
 
 test('ouvrir avec un seuil modifié enregistre d’abord', async () => {
@@ -94,4 +101,23 @@ test('examen ouvert : « En salle » précède les informations, repliées dans 
 	const zone = e.getAllByRole('status').find((s) => /commencé/.test(s.textContent ?? ''))!;
 	expect(zone.textContent).not.toMatch(/dernière à/);
 	expect(e.getByText(/1 stagiaire est encore en cours/)).toBeInTheDocument();
+});
+
+test('réserve : recherche dans l’énoncé, ajout des questions affichées en une fois', async () => {
+	const e = render(Page);
+	await fireEvent.input(await e.findByLabelText('Rechercher dans l’énoncé'), { target: { value: 'libéro' } });
+	await fireEvent.click(e.getByRole('button', { name: 'Ajouter les 2 questions affichées' }));
+	await waitFor(() => expect(h.composer).toHaveBeenCalledTimes(1));
+	expect(h.composer).toHaveBeenCalledWith('e1', ['q1', 'q2', 'q3', 'r0', 'r1']);
+});
+
+test('après « Ajouter », le focus va au bouton suivant ; boutons bloqués pendant l’enregistrement', async () => {
+	let finir: (n: number) => void = () => {};
+	h.composer.mockReturnValue(new Promise((r) => (finir = r)));
+	const e = render(Page);
+	const boutons = await e.findAllByRole('button', { name: 'Ajouter' });
+	await fireEvent.click(boutons[0]);
+	expect(e.getAllByRole('button', { name: 'Ajouter' }).every((b) => (b as HTMLButtonElement).disabled)).toBe(true);
+	finir(4);
+	await waitFor(() => expect(document.activeElement?.textContent).toBe('Ajouter'));
 });

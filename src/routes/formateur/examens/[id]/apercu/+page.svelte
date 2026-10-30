@@ -39,8 +39,10 @@
 </Bandeau>
 
 <main class="page">
-	<FilAriane etapes={[{ libelle: 'Examens officiels', href: '/formateur/examens' }, { libelle: titre, href: `/formateur/examens/${id}` }, { libelle: 'Aperçu côté stagiaire' }]} />
-	<p class="bandeau-apercu" role="note">Aperçu : c’est l’écran que verront les stagiaires ({questions.length} questions, {duree} minutes). Vous pouvez cocher des réponses pour essayer, rien n’est enregistré.</p>
+	<FilAriane etapes={[{ libelle: 'Examens officiels', href: '/formateur/examens' }, { libelle: titre || 'Examen', href: `/formateur/examens/${id}` }, { libelle: 'Aperçu côté stagiaire' }]} />
+	{#if etat === 'pret'}
+		<p class="bandeau-apercu" role="note">Aperçu : c’est l’écran que verront les stagiaires ({questions.length} question{questions.length > 1 ? 's' : ''}, {duree} minutes). Vous pouvez cocher des réponses pour essayer, rien n’est enregistré.</p>
+	{/if}
 
 	{#if etat === 'chargement'}
 		<Chargement />

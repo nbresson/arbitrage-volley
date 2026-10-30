@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { tick } from 'svelte';
 	import MessageErreur from '#lib/components/MessageErreur.svelte';
 	import Chargement from '#lib/components/Chargement.svelte';
 	// Un examen officiel, dans l'ordre du travail du formateur : informations, questions, inscrits, salle, résultats.
@@ -49,7 +50,7 @@
 	let choisies = $state<string[]>([]);
 	let etatQuestions = $state('');
 	let erreurQuestions = $state('');
-	let filtre = $state({ theme: '', niveau: '', role: '' });
+	let filtre = $state({ theme: '', niveau: '', role: '', texte: '' });
 	let erreurInscrits = $state('');
 	let code = $state<string | null>(null);
 	let resultats = $state<ResultatStagiaire[]>([]);
@@ -151,6 +152,17 @@
 		}
 	}
 
+	const plierTexte = (t: string) => t.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase();
+	const enregistrementQuestions = $derived(etatQuestions === 'Enregistrement…');
+
+	// Après un ajout, le focus passe au bouton « Ajouter » qui a pris la place de la ligne ajoutée.
+	async function ajouter(qid: string, rang: number) {
+		await composer([...choisies, qid]);
+		await tick();
+		const boutons = document.querySelectorAll<HTMLButtonElement>('.reserve .ajouter');
+		(boutons[rang] ?? boutons[boutons.length - 1])?.focus();
+	}
+
 	const deplacer = (k: number, sens: -1 | 1) => {
 		const l = [...choisies];
 		[l[k], l[k + sens]] = [l[k + sens], l[k]];
@@ -216,7 +228,8 @@
 				!choisies.includes(q.id) &&
 				(!filtre.theme || q.theme === filtre.theme) &&
 				(!filtre.niveau || q.niveau === filtre.niveau) &&
-				(!filtre.role || q.role_cible === filtre.role || q.role_cible === 'les_deux')
+				(!filtre.role || q.role_cible === filtre.role || q.role_cible === 'les_deux') &&
+				(!filtre.texte.trim() || plierTexte(q.enonce).includes(plierTexte(filtre.texte.trim())))
 		)
 	);
 	// Code en plein écran pour le vidéoprojecteur ; Échap ou le bouton referment.
@@ -328,8 +341,8 @@
 								<span class="enonce">{libelle(qid)}</span>
 								{#if brouillon}
 									<span class="outils">
-										<button class="lien" disabled={k === 0} onclick={() => deplacer(k, -1)} aria-label="Monter la question {k + 1}">Monter</button>
-										<button class="lien" disabled={k === choisies.length - 1} onclick={() => deplacer(k, 1)} aria-label="Descendre la question {k + 1}">Descendre</button>
+										<button class="lien" disabled={k === 0 || enregistrementQuestions} onclick={() => deplacer(k, -1)} aria-label="Monter la question {k + 1}">Monter</button>
+										<button class="lien" disabled={k === choisies.length - 1 || enregistrementQuestions} onclick={() => deplacer(k, 1)} aria-label="Descendre la question {k + 1}">Descendre</button>
 										<button class="lien" onclick={() => composer(choisies.filter((x) => x !== qid))} aria-label="Retirer la question {k + 1}">Retirer</button>
 									</span>
 								{/if}
@@ -348,13 +361,17 @@
 							<label class="champ">Thème<select bind:value={filtre.theme}><option value="">Tous</option>{#each themes as t (t)}<option>{t}</option>{/each}</select></label>
 							<label class="champ">Niveau<select bind:value={filtre.niveau}><option value="">Tous</option>{#each niveaux as n (n)}<option>{n}</option>{/each}</select></label>
 							<label class="champ">Rôle<select bind:value={filtre.role}><option value="">Tous</option><option value="arbitre">Arbitre</option><option value="marqueur">Marqueur</option></select></label>
+							<label class="champ">Rechercher dans l’énoncé<input type="search" bind:value={filtre.texte} autocomplete="off" /></label>
 						</div>
 						{#if disponibles.length}
+							<button class="btn2" disabled={enregistrementQuestions} onclick={() => composer([...choisies, ...disponibles.map((q) => q.id)])}>
+								Ajouter {disponibles.length > 1 ? `les ${disponibles.length} questions affichées` : 'la question affichée'}
+							</button>
 							<ul class="reserve">
-								{#each disponibles as q (q.id)}
+								{#each disponibles as q, rang (q.id)}
 									<li>
 										<span class="enonce">{q.enonce}<span class="sous">{[q.theme, q.niveau].filter(Boolean).join(' · ')}</span></span>
-										<button class="btn2" onclick={() => composer([...choisies, q.id])}>Ajouter</button>
+										<button class="btn2 ajouter" disabled={enregistrementQuestions} onclick={() => ajouter(q.id, rang)}>Ajouter</button>
 									</li>
 								{/each}
 							</ul>

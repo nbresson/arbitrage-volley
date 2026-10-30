@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import { analyserListe, csvResultats, texteCloture, filtrerComptes, ilYa, listeControle, themesFaibles, trierComptes } from '../../src/lib/formateur/suivi';
+import { analyserListe, csvResultats, ordreExamens, repereDate, texteCloture, filtrerComptes, ilYa, listeControle, themesFaibles, trierComptes } from '../../src/lib/formateur/suivi';
 
 describe('analyserListe (import de comptes)', () => {
 	test('une personne par ligne : prénom, nom, adresse, séparés par ; , ou tabulation', () => {
@@ -113,5 +113,19 @@ describe('texteCloture', () => {
 	});
 	test('tout le monde a terminé', () => {
 		expect(texteCloture([r('termine')])).toBe('Tous les stagiaires ont terminé.');
+	});
+});
+
+describe('liste des examens', () => {
+	const maintenant = new Date('2026-11-10T08:00:00Z');
+	const e = (id: string, statut: 'brouillon' | 'ouvert' | 'clos', date: string) => ({ id, titre: id, date_heure: date, lieu: '', statut, inscrits: 1 });
+	test('ordreExamens : ouverts d’abord, puis brouillons par date croissante', () => {
+		const l = [e('b2', 'brouillon', '2026-12-01T09:00:00Z'), e('o', 'ouvert', '2026-11-10T09:00:00Z'), e('b1', 'brouillon', '2026-11-12T09:00:00Z')];
+		expect(ordreExamens(l, maintenant).map((x) => x.id)).toEqual(['o', 'b1', 'b2']);
+	});
+	test('repereDate : aujourd’hui, date passée, sinon rien', () => {
+		expect(repereDate('2026-11-10T17:00:00Z', maintenant)).toBe('Aujourd’hui');
+		expect(repereDate('2026-11-09T17:00:00Z', maintenant)).toBe('Date passée');
+		expect(repereDate('2026-11-12T09:00:00Z', maintenant)).toBeNull();
 	});
 });
