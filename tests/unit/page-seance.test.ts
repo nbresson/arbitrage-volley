@@ -66,3 +66,32 @@ test('après correction, un second bouton « Question suivante » suit le pannea
 	await fireEvent.click(boutons[1]);
 	expect(await e.findByText('Énoncé 2')).toBeInTheDocument();
 });
+
+test('bilan après rechargement : la liste des questions ratées vient du serveur', async () => {
+	h.questions.mockResolvedValue([q(1, false), q(2, true)]);
+	h.terminer.mockResolvedValue({ score: 1, total: 2, par_theme: [] });
+	h.erreurs.mockResolvedValue([{ question_id: 'q1', enonce: 'Énoncé 1', source: { source: 'fivb_regles', edition: 'Règles', reference: '12.4', texte: 'T', texte_original: null, principale: true } }]);
+	const e = render(Seance);
+	expect(await e.findByRole('heading', { name: 'Les questions ratées' })).toBeInTheDocument();
+	expect(e.getByText('Énoncé 1')).toBeInTheDocument();
+	expect(e.getByRole('link', { name: '12.4' })).toBeInTheDocument();
+	expect(h.erreurs).toHaveBeenCalledWith('s1');
+});
+
+test('bilan en cours de calcul : pas de bouton principal qui change de place', async () => {
+	h.questions.mockResolvedValue([q(1, false)]);
+	h.terminer.mockReturnValue(new Promise(() => {}));
+	const e = render(Seance);
+	await e.findByRole('heading', { name: /Séance terminée/ });
+	expect(e.queryByRole('link', { name: 'Nouvelle séance' })).toBeNull();
+});
+
+test('échec du bilan : message rassurant et Réessayer rappelle le calcul', async () => {
+	h.questions.mockResolvedValue([q(1, false)]);
+	h.terminer.mockRejectedValueOnce(new Error('réseau')).mockResolvedValue({ score: 0, total: 1, par_theme: [] });
+	const e = render(Seance);
+	expect(await e.findByText(/Le bilan n’a pas pu être calculé\. Vos réponses sont bien enregistrées\./)).toBeInTheDocument();
+	await fireEvent.click(e.getByRole('button', { name: 'Réessayer' }));
+	await waitFor(() => expect(h.terminer).toHaveBeenCalledTimes(2));
+	expect(await e.findByRole('link', { name: 'Nouvelle séance' })).toBeInTheDocument();
+});

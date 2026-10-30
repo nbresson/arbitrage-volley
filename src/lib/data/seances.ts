@@ -1,5 +1,5 @@
 import { supabase } from '#lib/supabase.ts';
-import type { QuestionSeance, ResultatValidation } from '#lib/seance/pedagogique.ts';
+import type { QuestionSeance, ResultatValidation, SourceCitee } from '#lib/seance/pedagogique.ts';
 import type { Avancement } from './avancement.ts';
 import type { ParametresSeance } from './parametres-seance.ts';
 
@@ -98,6 +98,13 @@ export async function terminerSeance(id: string): Promise<BilanSeance> {
 	const { data, error } = await supabase.rpc('terminer_seance', { p_seance: id });
 	if (error) throw new Error(error.message);
 	return data as BilanSeance;
+}
+
+/** Questions ratées d'une séance de l'appelant, avec leur règle principale (bilan de fin de séance). */
+export async function erreursDeSeance(id: string): Promise<{ question_id: string; enonce: string; source: SourceCitee | null }[]> {
+	const { data, error } = await supabase.rpc('erreurs_de_seance', { p_seance: id });
+	if (error) throw new Error(error.message);
+	return data ?? [];
 }
 
 /** « Revoir mes erreurs » : nouvelle séance pédagogique faite des questions ratées de cette séance. */

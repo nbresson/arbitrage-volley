@@ -14,7 +14,7 @@
 	import PanneauDecision from '#lib/components/PanneauDecision.svelte';
 	import Reponse, { type EtatReponse } from '#lib/components/Reponse.svelte';
 	import { urlRegle } from '#lib/data/regles.ts';
-	import { questionsDeSeance, revoirErreurs, terminerSeance, validerReponse, type BilanSeance } from '#lib/data/seances.ts';
+	import { erreursDeSeance, questionsDeSeance, revoirErreurs, terminerSeance, validerReponse, type BilanSeance } from '#lib/data/seances.ts';
 	import Icone from '#lib/components/Icone.svelte';
 	import ProgressionVolets from '#lib/components/ProgressionVolets.svelte';
 	import Volet from '#lib/components/Volet.svelte';
@@ -39,6 +39,8 @@
 	let etat = $state<EtatPedago | null>(null);
 	let chargement = $state<'en_cours' | 'pret' | 'erreur'>('en_cours');
 	let bilan = $state<BilanSeance | null>(null);
+	// Échec du calcul du bilan : distinct d'un échec de chargement de la séance (les réponses, elles, sont enregistrées).
+	let erreurBilan = $state(false);
 	let aRevoir = $state<{ question: string; source: SourceCitee | undefined }[]>([]);
 	let panneau = $state<HTMLElement>();
 	let boutonSuivante = $state<HTMLButtonElement>();
@@ -153,7 +155,6 @@
 				confirmationLente = true;
 				setTimeout(() => (confirmationLente = false), 3000);
 			}
-			if (!r.correcte) aRevoir.push({ question: question.enonce, source: r.sources.find((s) => s.principale) ?? r.sources[0] });
 			const juste = question.propositions.find((p) => p.id === r.bonne_proposition_id);
 			annonce = r.correcte
 				? 'Bonne réponse.'
@@ -170,11 +171,17 @@
 	}
 
 	async function terminer() {
+		erreurBilan = false;
 		try {
 			bilan = await terminerSeance(seanceId);
 		} catch {
-			chargement = 'erreur';
+			erreurBilan = true;
+			return;
 		}
+		// Les questions ratées viennent de la base : une reprise ou un rechargement ne les fait pas disparaître.
+		aRevoir = await erreursDeSeance(seanceId)
+			.then((l) => l.map((x) => ({ question: x.enonce, source: x.source ?? undefined })))
+			.catch(() => []);
 	}
 
 	const erreurs = $derived(bilan ? bilan.total - bilan.score : 0);
@@ -310,9 +317,15 @@
 				{#each chiffres(bilan.total) as c, i (i)}<Volet chiffre={c} taille="grand" total />{/each}
 			</div>
 			<p class="detail">{pluriel(bilan.score, 'bonne réponse', 'bonnes réponses')} · {pluriel(erreurs, 'erreur')}</p>
+		{:else if !erreurBilan}
+			<div class="calcul"><Chargement lignes={2} /></div>
 		{/if}
 	</section>
 	<main class="fin">
+		{#if erreurBilan}
+			<MessageErreur texte="Le bilan n’a pas pu être calculé. Vos réponses sont bien enregistrées." onreessayer={terminer} />
+		{/if}
+		{#if bilan}
 		<div class="actions">
 			{#if erreurs > 0}
 				<button class="btn" onclick={revoir} disabled={relance === 'en_cours'}>
@@ -322,6 +335,7 @@
 			<a class={erreurs > 0 ? 'btn2' : 'btn'} href="/entrainement/nouvelle">Nouvelle séance</a>
 			<a href="/">Retour à l’accueil</a>
 		</div>
+		{/if}
 		{#if relance === 'erreur'}<p class="message-erreur" role="alert">La séance de révision n’a pas pu être créée. Vérifiez votre connexion puis réessayez.</p>{/if}
 
 		{#if bilan && bilan.par_theme.length}
