@@ -2,6 +2,7 @@
 	import { NOM_COMITE } from '#lib/config.ts';
 	import '#lib/components/formulaire.css';
 	import Bandeau from '#lib/components/Bandeau.svelte';
+	import Chargement from '#lib/components/Chargement.svelte';
 	import { supabase } from '#lib/supabase.ts';
 
 	// Deux usages : demander un lien (sans session), ou choisir un mot de passe
@@ -12,7 +13,9 @@
 	let message = $state('');
 	let erreur = $state('');
 	let envoi = $state(false);
-	let modeChoix = $state(false);
+	// null tant que la session n'est pas lue : aucun formulaire ne s'affiche à tort.
+	let modeChoix = $state<boolean | null>(null);
+	let enregistre = $state(false);
 
 	$effect(() => {
 		supabase.auth.getSession().then(({ data }) => (modeChoix = !!data.session));
@@ -20,8 +23,9 @@
 
 	async function demanderLien(e: SubmitEvent) {
 		e.preventDefault();
-		envoi = true;
 		erreur = '';
+		if (!email.trim()) return void (erreur = 'Indiquez votre adresse e-mail.');
+		envoi = true;
 		const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), {
 			redirectTo: `${location.origin}/mot-de-passe`
 		});
@@ -39,7 +43,10 @@
 		const { error } = await supabase.auth.updateUser({ password: nouveau });
 		envoi = false;
 		if (error) erreur = 'Le mot de passe n’a pas pu être enregistré. Le lien a peut-être expiré : demandez-en un nouveau.';
-		else location.assign('/');
+		else {
+			enregistre = true;
+			setTimeout(() => location.assign('/'), 1500);
+		}
 	}
 </script>
 
@@ -48,7 +55,9 @@
 <Bandeau titre="Arbitrage volley" sousTitre="Formation des arbitres · {NOM_COMITE}" />
 
 <main class="page fond-filet">
-	{#if modeChoix}
+	{#if modeChoix === null}
+		<div class="carte"><Chargement lignes={3} /></div>
+	{:else if modeChoix}
 		<form class="carte" onsubmit={choisir} novalidate>
 			<h1>Choisir votre mot de passe</h1>
 			<label class="champ">
@@ -60,7 +69,9 @@
 				<input type="password" bind:value={confirmation} autocomplete="new-password" />
 			</label>
 			{#if erreur}<p class="message-erreur" role="alert">{erreur}</p>{/if}
-			<button class="btn" type="submit" disabled={envoi}>{envoi ? 'Enregistrement…' : 'Enregistrer le mot de passe'}</button>
+			<p class="message-info" role="status">{enregistre ? 'Mot de passe enregistré.' : ''}</p>
+			<button class="btn" type="submit" disabled={envoi || enregistre}>{envoi ? 'Enregistrement…' : 'Enregistrer le mot de passe'}</button>
+			<a href="/profil">Annuler</a>
 		</form>
 	{:else}
 		<form class="carte" onsubmit={demanderLien} novalidate>
@@ -72,7 +83,7 @@
 			</label>
 			{#if erreur}<p class="message-erreur" role="alert">{erreur}</p>{/if}
 			{#if message}<p class="message-info" role="status">{message}</p>{/if}
-			<button class="btn" type="submit" disabled={envoi || !email}>{envoi ? 'Envoi…' : 'Recevoir un lien'}</button>
+			<button class="btn" type="submit" disabled={envoi}>{envoi ? 'Envoi…' : 'Recevoir un lien'}</button>
 			<a href="/connexion">Retour à la connexion</a>
 		</form>
 	{/if}

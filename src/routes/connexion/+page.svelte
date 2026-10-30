@@ -12,6 +12,8 @@
 	async function seConnecter(e: SubmitEvent) {
 		e.preventDefault();
 		erreur = '';
+		// Validation à l'envoi : l'autoremplissage du navigateur ne signale ses valeurs qu'après une interaction.
+		if (!email.trim() || !motDePasse) return void (erreur = 'Indiquez votre adresse e-mail et votre mot de passe.');
 		envoi = true;
 		const { error } = await supabase.auth.signInWithPassword({ email: email.trim(), password: motDePasse });
 		envoi = false;
@@ -34,14 +36,14 @@
 		<h1>Se connecter</h1>
 		<label class="champ">
 			Adresse e-mail
-			<input type="email" bind:value={email} autocomplete="email" required />
+			<input type="email" bind:value={email} autocomplete="email" required aria-describedby={erreur ? 'erreur-connexion' : undefined} />
 		</label>
 		<label class="champ">
 			Mot de passe
-			<input type="password" bind:value={motDePasse} autocomplete="current-password" required />
+			<input type="password" bind:value={motDePasse} autocomplete="current-password" required aria-describedby={erreur ? 'erreur-connexion' : undefined} />
 		</label>
-		{#if erreur}<p class="message-erreur" role="alert">{erreur}</p>{/if}
-		<button class="btn" type="submit" disabled={envoi || !email || !motDePasse}>
+		{#if erreur}<p class="message-erreur" role="alert" id="erreur-connexion">{erreur}</p>{/if}
+		<button class="btn" type="submit" disabled={envoi}>
 			{envoi ? 'Connexion…' : 'Se connecter'}
 		</button>
 		<a href="/mot-de-passe">Mot de passe oublié ?</a>
