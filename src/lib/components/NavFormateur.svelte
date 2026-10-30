@@ -7,6 +7,7 @@
 		{ href: '/formateur/examens', libelle: 'Examens officiels', icone: 'chrono', actif: page.url.pathname.startsWith('/formateur/examens') },
 		{ href: '/formateur/questions', libelle: 'Questions', icone: 'questions', actif: page.url.pathname.startsWith('/formateur/questions') },
 		{ href: '/formateur/regles', libelle: 'Règles', icone: 'regles', actif: page.url.pathname.startsWith('/formateur/regles') },
+		{ href: '/formateur/mesures', libelle: 'Mesures', icone: 'terrain', actif: page.url.pathname.startsWith('/formateur/mesures') },
 		{ href: '/', libelle: 'Espace stagiaire', icone: 'accueil', actif: false }
 	]);
 </script>

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import MessageErreur from '#lib/components/MessageErreur.svelte';
 	// Salle d'examen : écran d'attente, test de connexion, code d'accès en six cases. Sert aussi à reprendre une tentative.
 	import '#lib/components/formulaire.css';
 	import { goto } from '$app/navigation';
@@ -76,7 +77,7 @@
 	{#if chargement === 'en_cours'}
 		<Chargement />
 	{:else if chargement === 'erreur'}
-		<p class="message-erreur" role="alert">L’examen n’a pas pu être chargé. Vérifiez votre connexion puis rechargez la page.</p>
+		<MessageErreur texte="L’examen n’a pas pu être chargé." />
 	{:else if chargement === 'introuvable' || !convocation}
 		<h1>Examen introuvable</h1>
 		<p class="aide">Vous n’êtes pas inscrit à cet examen, ou il est clos. <a href="/">Retour à l’accueil</a></p>

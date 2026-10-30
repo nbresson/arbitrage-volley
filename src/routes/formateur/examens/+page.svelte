@@ -1,4 +1,5 @@
 <script lang="ts">
+	import MessageErreur from '#lib/components/MessageErreur.svelte';
 	import Icone from '#lib/components/Icone.svelte';
 	import EtatVide from '#lib/components/EtatVide.svelte';
 	import Chargement from '#lib/components/Chargement.svelte';
@@ -58,7 +59,7 @@
 	{#if etat === 'chargement'}
 		<Chargement />
 	{:else if etat === 'erreur'}
-		<p class="message-erreur" role="alert">Les examens n’ont pas pu être chargés. Vérifiez votre connexion puis rechargez la page.</p>
+		<MessageErreur texte="Les examens n’ont pas pu être chargés." />
 	{:else if !examens.length}
 		<EtatVide titre="Aucun examen pour l’instant" texte="Créez le premier, puis choisissez ses questions dans la réserve d’examen.">
 			{#snippet action()}<a class="btn" href="/formateur/examens/nouveau">Créer un examen</a>{/snippet}

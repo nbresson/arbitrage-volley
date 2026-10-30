@@ -17,6 +17,6 @@ Préférences personnelles (objectif, tri, taille du texte, thème…) : d'abord
 | G | Formateur : stagiaires et examens | 61–70 | **fait** sauf 69 (migration `20261031000003_formateur_suivi`) ; **69 « Rappel la veille » non fait : dépend du réglage des e-mails** |
 | H | Formateur : questions et contenu | 71–80 | **fait** (migration `20261031000004_questions_suivi`) ; 79 : import par copier-coller ou fichier texte avec découpage assisté (pas de lecture directe des PDF et Word) |
 | I | Accessibilité et téléphone | 81–90 | **fait** (sans migration ; dépendance de test `axe-core`) ; 83 fait au lot F ; 85 : le libellé de la recherche était déjà visible ; 95 « Règles hors ligne » fait au passage (service worker) |
-| J | Retours, états et performance | 91–100 | à faire |
+| J | Retours, états et performance | 91–100 | **fait** (migration `20261031000005_mesures_avis`) ; 93 fait au lot D, 95 au lot I ; 94 : déjà le cas (toutes les questions sont chargées au début de la séance) ; 100 : question « Comment s’est passé l’examen ? » provisoire, à confirmer par le comité |
 
 Points qui dépendent de l'utilisateur ou du comité (à signaler quand le lot arrive) : 15 et 49 (contenu à rédiger), 47 (figures : images à fournir), 69 (e-mails non réglés), 99 (accord sur la mesure d'usage), 100 (décision du comité sur la question posée).

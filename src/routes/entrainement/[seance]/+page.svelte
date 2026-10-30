@@ -1,4 +1,5 @@
 <script lang="ts">
+	import MessageErreur from '#lib/components/MessageErreur.svelte';
 	import { pluriel } from '#lib/domain/texte.ts';
 	import { iconeTheme } from '#lib/domain/icone-theme.ts';
 	import '#lib/components/formulaire.css';
@@ -135,8 +136,12 @@
 		return 'ecartee';
 	}
 
+	// Connexion lente : un petit « Réponse enregistrée » confirme que l'envoi a abouti.
+	let confirmationLente = $state(false);
+
 	async function valider() {
 		if (!etat || !question) return;
+		const debutEnvoi = performance.now();
 		const avant = etat;
 		etat = debutValidation(etat);
 		if (etat === avant) return; // pas de choix, déjà corrigé ou envoi en cours
@@ -144,6 +149,10 @@
 			const proposition = etat.choix === JE_NE_SAIS_PAS ? null : etat.choix;
 			const r = (await validerReponse(seanceId, question.question_id, proposition)) as ResultatValidation;
 			etat = finValidation(etat, r);
+			if (performance.now() - debutEnvoi > 800) {
+				confirmationLente = true;
+				setTimeout(() => (confirmationLente = false), 3000);
+			}
 			if (!r.correcte) aRevoir.push({ question: question.enonce, source: r.sources.find((s) => s.principale) ?? r.sources[0] });
 			const juste = question.propositions.find((p) => p.id === r.bonne_proposition_id);
 			annonce = r.correcte
@@ -283,7 +292,7 @@
 {#if chargement === 'en_cours'}
 	<div class="etat"><Chargement lignes={5} /></div>
 {:else if chargement === 'erreur'}
-	<p class="etat message-erreur" role="alert">La séance n’a pas pu être chargée. Vérifiez votre connexion puis rechargez la page.</p>
+	<MessageErreur texte="La séance n’a pas pu être chargée." classe="etat" />
 {:else if etat?.terminee}
 	<div class="bande-filet" aria-hidden="true"></div>
 	<section class="score-fin">
@@ -393,6 +402,7 @@
 						{etat.index < etat.questions.length - 1 ? 'Question suivante' : 'Voir le bilan'}
 					</button>
 					<span class="aide balayage">ou balayez vers la gauche</span>
+					{#if confirmationLente}<span class="aide confirmation" role="status">Réponse enregistrée</span>{/if}
 				{:else}
 					<button class="btn" disabled={!etat.choix || etat.envoi === 'en_cours'} onclick={valider}>
 						{etat.envoi === 'en_cours' ? 'Enregistrement…' : etat.envoi === 'erreur' ? 'Réessayer' : 'Valider ma réponse'}
@@ -537,6 +547,10 @@
 	}
 	.balayage {
 		display: none;
+	}
+	.confirmation {
+		font-weight: 600;
+		color: var(--bleu-texte);
 	}
 	@media (pointer: coarse) {
 		.balayage {

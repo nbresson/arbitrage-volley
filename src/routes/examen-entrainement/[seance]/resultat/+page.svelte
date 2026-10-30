@@ -1,4 +1,5 @@
 <script lang="ts">
+	import MessageErreur from '#lib/components/MessageErreur.svelte';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
 	import ResultatExamen from '#lib/components/ResultatExamen.svelte';
@@ -35,7 +36,7 @@
 <svelte:head><title>{'Résultat de l’examen blanc'} · Arbitrage volley</title></svelte:head>
 
 {#if erreur}
-	<p class="etat message-erreur" role="alert">Le résultat n’a pas pu être chargé. Vérifiez votre connexion puis rechargez la page.</p>
+	<MessageErreur texte="Le résultat n’a pas pu être chargé." classe="etat" />
 {:else if !bilan}
 	<p class="etat" role="status">Calcul du résultat…</p>
 {:else}

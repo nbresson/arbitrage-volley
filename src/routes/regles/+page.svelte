@@ -1,4 +1,5 @@
 <script lang="ts">
+	import MessageErreur from '#lib/components/MessageErreur.svelte';
 	import RetourHaut from '#lib/components/RetourHaut.svelte';
 	import { titreLisible } from '#lib/domain/texte.ts';
 	import EtatVide from '#lib/components/EtatVide.svelte';
@@ -78,7 +79,7 @@
 	{#if etat === 'chargement'}
 		<p role="status">Chargement des règles…</p>
 	{:else if etat === 'erreur'}
-		<p class="message-erreur" role="alert">Les règles n’ont pas pu être chargées. Vérifiez votre connexion puis rechargez la page.</p>
+		<MessageErreur texte="Les règles n’ont pas pu être chargées." />
 	{:else if active}
 		<p class="compte" role="status">{resultats.length} résultat{resultats.length > 1 ? 's' : ''}{resultats.length > 100 ? ' (les 100 premiers affichés)' : ''}</p>
 		{#if resultats.length}

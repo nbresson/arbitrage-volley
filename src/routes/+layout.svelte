@@ -6,6 +6,7 @@
 	import { garde } from '#lib/auth.ts';
 	import AideRaccourcis from '#lib/components/AideRaccourcis.svelte';
 	import Chargement from '#lib/components/Chargement.svelte';
+	import PiedDePage from '#lib/components/PiedDePage.svelte';
 	import { actionGlobale, estSaisie } from '#lib/raccourcis-globaux.ts';
 	import { animationsReduites } from '#lib/preferences.ts';
 	import { chargerProfil, session } from '#lib/session.svelte.ts';
@@ -71,6 +72,8 @@
 
 {#if autorise}
 	{@render children()}
+	<!-- Pas de pied de page pendant un examen : rien ne doit distraire ni faire quitter l'écran. -->
+	{#if !/^\/(tentative|examen-entrainement)\/[^/]+$/.test(page.url.pathname)}<PiedDePage />{/if}
 {:else}
 	<div class="chargement"><Chargement lignes={4} /></div>
 {/if}

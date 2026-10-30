@@ -1,4 +1,5 @@
 <script lang="ts">
+	import MessageErreur from '#lib/components/MessageErreur.svelte';
 	import RetourHaut from '#lib/components/RetourHaut.svelte';
 	import { pluriel } from '#lib/domain/texte.ts';
 	import EtatVide from '#lib/components/EtatVide.svelte';
@@ -135,7 +136,7 @@
 	{#if etat === 'chargement'}
 		<Chargement />
 	{:else if etat === 'erreur'}
-		<p class="message-erreur" role="alert">Les questions n’ont pas pu être chargées. Vérifiez votre connexion puis rechargez la page.</p>
+		<MessageErreur texte="Les questions n’ont pas pu être chargées." />
 	{:else}
 		<p class="compte" role="status">{visibles.length > limite ? `${limite} affichées sur ${visibles.length} questions` : pluriel(visibles.length, 'question')}</p>
 		{#if visibles.length}

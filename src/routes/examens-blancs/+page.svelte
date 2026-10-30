@@ -1,4 +1,5 @@
 <script lang="ts">
+	import MessageErreur from '#lib/components/MessageErreur.svelte';
 	// Historique des examens blancs : la courbe des scores (seuil provisoire de 70 % en repère) et le tableau daté.
 	import '#lib/components/formulaire.css';
 	import BadgeReussite from '#lib/components/BadgeReussite.svelte';
@@ -49,7 +50,7 @@
 	<h1 class="titre-page"><span class="surtitre">S’entraîner</span>Mes examens blancs</h1>
 
 	{#if erreur}
-		<p class="message-erreur" role="alert">L’historique n’a pas pu être chargé. Vérifiez votre connexion puis rechargez la page.</p>
+		<MessageErreur texte="L’historique n’a pas pu être chargé." />
 	{:else if !examens}
 		<p role="status">Chargement de l’historique…</p>
 	{:else if !examens.length}

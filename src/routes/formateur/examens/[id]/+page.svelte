@@ -1,4 +1,5 @@
 <script lang="ts">
+	import MessageErreur from '#lib/components/MessageErreur.svelte';
 	import Chargement from '#lib/components/Chargement.svelte';
 	// Un examen officiel, dans l'ordre du travail du formateur : informations, questions, inscrits, salle, résultats.
 	// Informations et questions ne sont modifiables qu'en brouillon (la base le garantit aussi).
@@ -27,6 +28,7 @@
 		type StatQuestion
 	} from '#lib/data/examens-formateur.ts';
 	import { csvResultats, listeControle } from '#lib/formateur/suivi.ts';
+	import { avisDeLExamen, type Avis } from '#lib/data/mesures.ts';
 	import { listerQuestions, type LigneQuestion } from '#lib/data/questions.ts';
 	import { listerComptes, type Compte } from '#lib/data/stagiaires.ts';
 	import { LIBELLE_STATUT, seuilParDefaut, validerExamen, versChampDate, type FormulaireExamen } from '#lib/formateur/validation-examen.ts';
@@ -51,6 +53,7 @@
 	let confirmer = $state<'' | 'ouvrir' | 'clore'>('');
 	let erreurSalle = $state('');
 	let stats = $state<StatQuestion[]>([]);
+	let avis = $state<Avis[]>([]);
 	let misAJour = $state<Date | null>(null);
 	let pleinEcran = $state(false);
 	let ecranCode = $state<HTMLElement>();
@@ -73,7 +76,12 @@
 				};
 				choisies = examen.questions.map((x) => x.question_id);
 				if (examen.statut !== 'brouillon') {
-					[code, resultats, stats] = await Promise.all([codeExamen(id), resultatsExamen(id), statsExamen(id).catch(() => [])]);
+					[code, resultats, stats, avis] = await Promise.all([
+						codeExamen(id),
+						resultatsExamen(id),
+						statsExamen(id).catch(() => []),
+						avisDeLExamen(id).catch(() => [])
+					]);
 					misAJour = new Date();
 				}
 			}
@@ -220,6 +228,7 @@
 		listeControle({ nbQuestions: choisies.length, inscrits: examen?.inscrits.length ?? 0, seuil: examen?.seuil_reussite ?? null, lieu: examen?.lieu ?? '' })
 	);
 	const avecStats = $derived(stats.some((x) => x.repondants > 0));
+	const moyenneAvis = $derived(avis.length ? (avis.reduce((s, a) => s + a.note, 0) / avis.length).toFixed(1).replace('.', ',') : '');
 	const taux = (x: StatQuestion) => (x.repondants ? Math.round((x.justes / x.repondants) * 100) : 0);
 
 	function exporterCsv() {
@@ -253,7 +262,7 @@
 	{#if etat === 'chargement'}
 		<Chargement />
 	{:else if etat === 'erreur'}
-		<p class="message-erreur" role="alert">L’examen n’a pas pu être chargé. Vérifiez votre connexion puis rechargez la page.</p>
+		<MessageErreur texte="L’examen n’a pas pu être chargé." />
 	{:else}
 		<!-- 1. Informations -->
 		<section class="bloc">
@@ -452,6 +461,18 @@
 					</div>
 				</section>
 			{/if}
+
+			{#if avis.length}
+				<section class="bloc">
+					<h2>7. Avis des stagiaires <span class="compte">{avis.length} avis · moyenne {moyenneAvis} / 5</span></h2>
+					<p class="aide">« Comment s’est passé l’examen ? », de 1 (très mal) à 5 (très bien). Les avis sont anonymes.</p>
+					<ul class="avis">
+						{#each avis as a, i (i)}
+							<li><b>{a.note} / 5</b>{#if a.commentaire} — {a.commentaire}{/if}</li>
+						{/each}
+					</ul>
+				</section>
+			{/if}
 		{/if}
 	{/if}
 </main>
@@ -489,6 +510,13 @@
 />
 
 <style>
+	.avis {
+		margin: 0;
+		padding-left: 18px;
+		display: flex;
+		flex-direction: column;
+		gap: 6px;
+	}
 	.controle {
 		list-style: none;
 		margin: 0;

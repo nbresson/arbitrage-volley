@@ -12,6 +12,7 @@
 	import { rejouerExamen, urlSeance } from '#lib/data/seances.ts';
 	import { pluriel } from '#lib/domain/texte.ts';
 	import { verdictBlanc } from '#lib/seance/resultat-blanc.ts';
+	import AvisExamen from '#lib/components/AvisExamen.svelte';
 	import { session } from '#lib/session.svelte.ts';
 
 	type Bilan = { score: number; total: number; par_theme: { theme_id?: string; theme: string; justes: number; total: number }[] };
@@ -24,7 +25,8 @@
 		sousTitre,
 		blanc = null,
 		annonce = '',
-		contexte = null
+		contexte = null,
+		tentative = null
 	}: {
 		bilan: Bilan;
 		officiel: null | { seuil: number; reussi: boolean };
@@ -34,6 +36,8 @@
 		annonce?: string;
 		/** Examen officiel : date et lieu rappelés sur le résultat. */
 		contexte?: { date: string; lieu: string } | null;
+		/** Examen officiel : l'identifiant de la tentative, pour l'avis après l'examen. */
+		tentative?: string | null;
 	} = $props();
 
 	const verdict = $derived(blanc && !officiel ? verdictBlanc(bilan.score, bilan.total) : null);
@@ -139,6 +143,7 @@
 				<a class="btn" href="/entrainement/nouvelle">S’entraîner</a>
 				<a href="/">Retour à l’accueil</a>
 			</div>
+			{#if tentative}<AvisExamen {tentative} />{/if}
 		{:else}
 			{#if faibles.length}
 				<p>Revoyez ces thèmes en mode pédagogique : chaque question y est corrigée avec la règle qui la fonde.</p>

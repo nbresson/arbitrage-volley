@@ -1,4 +1,5 @@
 <script lang="ts">
+	import MessageErreur from '#lib/components/MessageErreur.svelte';
 	import Chargement from '#lib/components/Chargement.svelte';
 	import '#lib/components/formulaire.css';
 	import { goto } from '$app/navigation';
@@ -231,7 +232,7 @@
 	{#if etat === 'chargement'}
 		<Chargement />
 	{:else if etat === 'erreur'}
-		<p class="message-erreur" role="alert">La question n’a pas pu être chargée. Vérifiez votre connexion puis rechargez la page.</p>
+		<MessageErreur texte="La question n’a pas pu être chargée." />
 	{:else}
 		{#if relecture && position}
 			<div class="relecture" role="status">

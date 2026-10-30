@@ -1,4 +1,5 @@
 <script lang="ts">
+	import MessageErreur from '#lib/components/MessageErreur.svelte';
 	import { pluriel, titreLisible } from '#lib/domain/texte.ts';
 	import Chargement from '#lib/components/Chargement.svelte';
 	import '#lib/components/formulaire.css';
@@ -180,7 +181,7 @@
 	{#if mobile && convocations.length}<div class="convocations-haut">{@render blocConvocations()}</div>{/if}
 	<section class="principal">
 		{#if etat === 'erreur'}
-			<p class="message-erreur" role="alert">Votre avancement n’a pas pu être chargé. Vérifiez votre connexion puis rechargez la page.</p>
+			<MessageErreur texte="Votre avancement n’a pas pu être chargé." />
 		{/if}
 
 		<div class="accueil">

@@ -1,34 +1,42 @@
 # HANDOFF — reprise des développements
 
-À lire en premier par toute nouvelle session Claude Code. Mis à jour le 2026-10-30 (nuit).
+À lire en premier par toute nouvelle session Claude Code. Mis à jour le 2026-10-31.
 
 ## En une phrase
 
-Plateforme web (SvelteKit 3 statique + Supabase) de formation des arbitres de volley-ball d'un comité : règles FIVB, Casebook et consignes CFA consultables, QCM en mode pédagogique (correction + règle citée), examens blancs, examens officiels en salle. **V1 « S'entraîner » et V2 « Évaluer » sont en ligne**, avec deux passes de design (planche de 35 propositions, puis deux audits impeccable). **Chantier en cours : les 100 améliorations UI/UX, lots A, B et C faits sur la branche `ameliorations-100` (non fusionnée, non en ligne). Reste aussi, avant d'inviter des stagiaires : l'envoi des e-mails.**
+Plateforme web (SvelteKit 3 statique + Supabase) de formation des arbitres de volley-ball d'un comité : règles FIVB, Casebook et consignes CFA consultables, QCM en mode pédagogique (correction + règle citée), examens blancs, examens officiels en salle. **V1 « S'entraîner » et V2 « Évaluer » sont en ligne**, avec deux passes de design (planche de 35 propositions, puis deux audits impeccable). **Chantier des 100 améliorations UI/UX : les dix lots (A à J) sont faits sur la branche `ameliorations-100`, sauf le n° 69 (rappel par e-mail). Branche non fusionnée, non en ligne : 8 migrations à appliquer en prod d'abord. Reste aussi, avant d'inviter des stagiaires : l'envoi des e-mails.**
 
 ## État au 2026-10-30
 
 | Élément | État |
 |---|---|
 | Site en ligne | https://arbitrage-volley.nkobrs21.workers.dev — **Cloudflare Workers** (pas Pages), site statique décrit par `wrangler.jsonc` |
-| Dépôt | https://github.com/nbresson/arbitrage-volley (privé). Branche publiée : `main` (Cloudflare compile à chaque envoi). Branches fusionnées : `v1-sentrainer`, `design-*`, `corrections-audit`, `audit-2`. **Branche en cours : `ameliorations-100`** (3 commits : lots A, B et C), à fusionner avec l'accord de l'utilisateur |
-| Base de **prod** (Supabase, Paris eu-west-3) | 11 migrations appliquées (jusqu'à `20261030000001_revoir_erreurs`). **Pas encore appliquées en prod** : `20261030000002_avancement_role`, `20261030000003_seance_enrichie` et `20261030000004_rejouer_examen` (lots A, B et C) — à appliquer **avant** de mettre la branche en ligne. fonction `creer-compte` déployée, contenu chargé (539 règles, 208 cas, 204 questions **en brouillon**). Auth : Site URL et Redirect URLs = l'adresse du site. Un compte formateur : Nicolas Bresson (nkobrs21@gmail.com) |
-| Base de **dev / test** (Supabase, Londres) | 14 migrations (les trois du chantier en plus). Sert aux tests d'intégration et aux vérifications visuelles (données temporaires créées puis supprimées) |
+| Dépôt | https://github.com/nbresson/arbitrage-volley (privé). Branche publiée : `main` (Cloudflare compile à chaque envoi). Branches fusionnées : `v1-sentrainer`, `design-*`, `corrections-audit`, `audit-2`. **Branche en cours : `ameliorations-100`** (un commit par lot, A à J), à fusionner avec l'accord de l'utilisateur |
+| Base de **prod** (Supabase, Paris eu-west-3) | 11 migrations appliquées (jusqu'à `20261030000001_revoir_erreurs`). **Pas encore appliquées en prod** (8 migrations du chantier) : `20261030000002_avancement_role`, `20261030000003_seance_enrichie`, `20261030000004_rejouer_examen`, `20261031000001_examen_officiel_enrichi`, `20261031000002_regles_enrichies`, `20261031000003_formateur_suivi`, `20261031000004_questions_suivi`, `20261031000005_mesures_avis` — à appliquer **avant** de mettre la branche en ligne. fonction `creer-compte` déployée, contenu chargé (539 règles, 208 cas, 204 questions **en brouillon**). Auth : Site URL et Redirect URLs = l'adresse du site. Un compte formateur : Nicolas Bresson (nkobrs21@gmail.com) |
+| Base de **dev / test** (Supabase, Londres) | 19 migrations (les 8 du chantier en plus). Sert aux tests d'intégration et aux vérifications visuelles (données temporaires créées puis supprimées) |
 | Réveil de la base | `.github/workflows/reveil-supabase.yml`, tous les 3 jours ; secrets GitHub `SUPABASE_PROD_URL` et `SUPABASE_PROD_ANON_KEY`. Le rôle anon n'a aucun droit : la réponse attendue est « permission refusée » (42501), ce qui suffit à compter comme activité |
-| Tests (branche `ameliorations-100`) | `npm test` 214/214 · `npm run test:integration` 137/137 · `npm run check` 0 erreur · `npm run build` OK |
+| Tests (branche `ameliorations-100`) | `npm test` 300/300 · `npm run test:integration` 155/155 (sur une base de test sans données temporaires : le test du référentiel compte les thèmes) · `npm run check` 0 erreur · `npm run build` OK |
 | Audits design (skill impeccable) | 1er : 27/40, 1 P0. 2e (après corrections) : 26/40, 0 P0 — la note varie selon la profondeur de la revue ; tous les points du 1er audit sont confirmés corrigés. Rapports : `.impeccable/critique/` (non versionné) |
 
 ## Ce qui reste à faire
 
-### 0. Chantier en cours : les 100 améliorations UI/UX
+### 0. Les 100 améliorations UI/UX : faites, à mettre en ligne
 
-Plan et suivi : [docs/superpowers/plans/2026-10-30-100-ameliorations.md](docs/superpowers/plans/2026-10-30-100-ameliorations.md) (source : planche https://claude.ai/artifact/JKiod9XUSkCiDcn9ZzQhNg, page 2). Décision de l'utilisateur : tout implémenter, un lot de dix par famille, pause demandée après le lot B.
+Plan et suivi lot par lot (avec les écarts) : [docs/superpowers/plans/2026-10-30-100-ameliorations.md](docs/superpowers/plans/2026-10-30-100-ameliorations.md). Planche d'origine : https://claude.ai/artifact/JKiod9XUSkCiDcn9ZzQhNg, page 2. L'utilisateur a donné son accord pour réaliser tous les lots (2026-10-30).
 
-- **Lot A « Accueil » (1–10) : fait.** Reprise précise, objectif de la semaine et régularité (`src/lib/domain/accueil.ts`), tri et filtre arbitre/marqueur des thèmes (`avancement(p_role)`), compte à rebours et fichier agenda `.ics` de la convocation, historique des règles (5 puis tout), carte « Nouveautés » (questions validées depuis la dernière visite), parcours de bienvenue, séance express de 5 questions. Préférences locales dans `src/lib/preferences.ts` (`localStorage`).
-- **Lot B « Séance pédagogique » (11–20) : fait.** Barre de progression, « Je ne sais pas » (`JE_NE_SAIS_PAS`, `valider_reponse` avec proposition nulle), questions marquées (`questions_marquees`, `seance_marquees()`, bouton « Mes questions marquées » sur l'accueil), minuteur 30 s facultatif, explication par mauvaise proposition (`propositions.explication`) et passage surligné (`question_regles.passage`) — **le mécanisme est en place, le contenu reste à saisir par les formateurs dans l'éditeur**, signalement d'un problème (`signalements_question`, lu et traité dans l'éditeur, badge dans la liste), vidéo intégrée, transitions, message de reprise.
-- **Lot C « Examen blanc et résultats » (21–30) : fait.** Bandeau ambre à 5 min puis 1 min (`tempsRestant().alerte`, aussi en examen officiel : écran commun), confirmation « N questions sans réponse. Terminer quand même ? », verdict au seuil **provisoire de 70 %** (`SEUIL_BLANC` dans `src/lib/seance/resultat-blanc.ts`, à confirmer par le comité), temps utilisé, comparaison avec l'examen blanc précédent, page `/examens-blancs` (courbe + tableau, lien depuis l'accueil et le résultat), « Revoir l'examen avec la correction » et « Refaire le même examen » (`rejouer_examen(p_seance, p_avec_correction)`, refusé tant que l'examen n'est pas terminé), format « Examen par thème » (10 questions, 15 min, `?format=theme`), export par impression / PDF du navigateur.
-- **Prochain lot : D « Examen officiel » (31–40)**, puis E à J.
-- Avant la mise en ligne de la branche : appliquer les trois migrations en prod (`npx tsx scripts/db/appliquer.ts --cible prod`), fusionner dans `main`, pousser, vérifier la publication.
+- **A Accueil, B Séance pédagogique** : voir les commits ; préférences locales dans `src/lib/preferences.ts`.
+- **C Examen blanc** : alertes de temps, verdict au seuil **provisoire de 70 %** (`SEUIL_BLANC`), temps utilisé, comparaison, page `/examens-blancs`, revoir avec correction / refaire (`rejouer_examen`), examen par thème (`?format=theme`), impression.
+- **D Examen officiel** : écran d'attente, code en six cases (`CodeSixCases.svelte`), test de connexion, réponses en attente et « Connexion rétablie », fin automatique annoncée (`?fin=auto&n=`), résultat avec date et lieu, convocation imprimable (`/convocation/[examen]`), suivi en direct (10 s, début, réponses, sorties), code plein écran, sorties d'écran enregistrées (`noter_sortie`, avertissement « Quitter le site ? » pendant l'examen officiel).
+- **E Règles** : recherche dès deux lettres avec surlignage, sommaire collant, précédente/suivante, questions liées (`nb_questions_regle`), Casebook en regard, marque-pages (`regles_epinglees`, onglet « Mes règles »), glossaire et figures (tables `glossaire`, `figures`, page formateur `/formateur/glossaire`), impression.
+- **F Navigation et compte** : menu du compte complet, pages `/preferences`, `/profil`, `/aide`, **thème sombre** (jetons `--sur-fonce` et `--trait`, DESIGN.md › Thème sombre), taille du texte (zoom), animations réduites, contraste élevé, raccourcis « / » et « ? », retour en haut, déconnexion protégée.
+- **G Formateur, stagiaires et examens** : tri, recherche, promotions (`profils.promotion`, protégée), import d'une liste, dernière activité, thèmes faibles, liste de contrôle avant ouverture, aperçu côté stagiaire, export CSV et impression, statistiques par question, archives. **69 (rappel la veille) non fait** : attend le réglage des e-mails.
+- **H Formateur, questions** : file de relecture « Relire les brouillons (N) » avec compteur, aperçu stagiaire dans l'éditeur, dupliquer, historique (`questions_historique` et déclencheurs), doublons, tri par réussite (`taux_questions`), statistiques par thème, Ctrl+Entrée, sauvegarde automatique locale, vérificateur de qualité, import assisté des consignes CFA (texte collé ou fichier texte).
+- **I Accessibilité et téléphone** : cibles de 44 px, convocation déplacée dans le document sur téléphone, annonce ciblée des compteurs, texte fluide, zone sûre, balayage, **application installable** (`static/manifest.webmanifest`, `static/sw.js`, icônes), tests axe (`tests/unit/accessibilite.test.ts`).
+- **J Retours et états** : confirmation discrète, erreurs avec « Réessayer » (`MessageErreur.svelte`), page 404 « Ballon hors terrain » et page d'erreur (`src/routes/+error.svelte`), version dans le pied de page, mesures d'usage anonymes (`/formateur/mesures`), avis après l'examen officiel (`avis_examen`, question provisoire).
+
+**À fournir ou décider** : définitions du glossaire et images des figures (formateurs, page « Glossaire et figures ») ; seuil des examens blancs (70 % provisoire) ; question d'avis après l'examen ; explications par mauvaise proposition et passages surlignés (lot B).
+
+**Mise en ligne de la branche**, avec l'accord de l'utilisateur à chaque étape : appliquer les 8 migrations en prod (`npx tsx scripts/db/appliquer.ts --cible prod`), fusionner dans `main`, pousser, vérifier la publication (y compris que `/sw.js` et `/manifest.webmanifest` sont servis).
 
 ### 1. Envoi des e-mails (bloquant pour inviter des stagiaires)
 
@@ -113,6 +121,11 @@ Nom de la plateforme (« Arbitrage volley » provisoire), listes des niveaux (Ni
 - **Examens officiels** : le stagiaire ne lit que la copie figée (`examen_questions`) ; il répond par lettre ; le code vit dans `examen_codes` ; écran commun `PassationExamen.svelte`. Un examen en brouillon apparaît déjà au stagiaire comme « à venir » (voulu : il est inscrit).
 - **Vérifier à l'écran** : créer des données temporaires sur la base de **test** (comptes `@test.invalid`, questions validées, séances), lancer `npm run dev -- --port 5180 --strictPort`, puis tout supprimer. Arrêter Vite par son numéro de processus si un serveur reste ouvert. Le garde-fou de Claude Code peut refuser la lecture des mots de passe de test par un sous-agent : se connecter soi-même avant de lancer les sous-agents.
 - **Règles citées** : un déclencheur refuse la suppression d'une règle citée par une question validée.
+- **Couleurs et thème sombre** : `--papier` est une surface (sombre en thème sombre). Pour du texte ou un trait posé sur un aplat foncé ou coloré, utiliser `--sur-fonce` ; pour un trait « anthracite » posé sur une surface, `--trait` ; `--tableau` reste réservé aux aplats.
+- **Service worker** (`static/sw.js`) : enregistré seulement sur le site compilé. Il ne met en cache que l'application et le contenu des règles, jamais de données personnelles. Changer le nom `CACHE` si la stratégie change. Le profil est gardé dans `localStorage` (`profil-hors-ligne`) pour rester connecté hors ligne ; il est effacé à la déconnexion.
+- **Pendant un examen** (`/tentative/…`, `/examen-entrainement/…`) : pas de raccourcis globaux, pas de pied de page.
+- **Outils sous Windows** : Python écrit des fins de ligne CRLF si l'on n'ouvre pas les fichiers avec `newline=''` ; un long script passé à Bash par un « here-document » peut échouer (apostrophes) : écrire le script dans un fichier puis l'exécuter.
+- **Migration corrigée avant la prod** : `20261031000004_questions_suivi` a été corrigée après son application en test (fonctions réappliquées à la main sur la base de test) ; la prod recevra directement la version corrigée.
 
 ## Méthode de travail suivie
 

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import MessageErreur from '#lib/components/MessageErreur.svelte';
 	import EtatVide from '#lib/components/EtatVide.svelte';
 	import Chargement from '#lib/components/Chargement.svelte';
 	import '#lib/components/formulaire.css';
@@ -160,7 +161,7 @@
 			{#if etat === 'chargement'}
 				<Chargement />
 			{:else if etat === 'erreur'}
-				<p class="message-erreur" role="alert">Les comptes n’ont pas pu être chargés. Vérifiez votre connexion puis rechargez la page.</p>
+				<MessageErreur texte="Les comptes n’ont pas pu être chargés." />
 			{:else if !comptes.length}
 				<EtatVide titre="Aucun compte pour l’instant" texte="Créez le premier avec le formulaire : la personne reçoit une invitation par e-mail." />
 			{:else}

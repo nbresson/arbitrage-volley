@@ -27,6 +27,7 @@
 </script>
 
 <script lang="ts">
+	import MessageErreur from '#lib/components/MessageErreur.svelte';
 	import '#lib/components/formulaire.css';
 	import { goto } from '$app/navigation';
 	import Compteur from '#lib/components/Compteur.svelte';
@@ -258,7 +259,7 @@
 {#if chargement === 'en_cours'}
 	<p class="etat" role="status">Chargement de l’examen…</p>
 {:else if chargement === 'erreur'}
-	<p class="etat message-erreur" role="alert">L’examen n’a pas pu être chargé. Vérifiez votre connexion puis rechargez la page.</p>
+	<MessageErreur texte="L’examen n’a pas pu être chargé." classe="etat" />
 {:else if question}
 	<div class="jeu">
 		<section class="situation">

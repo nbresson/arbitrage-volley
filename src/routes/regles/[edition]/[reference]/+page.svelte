@@ -1,4 +1,5 @@
 <script lang="ts">
+	import MessageErreur from '#lib/components/MessageErreur.svelte';
 	// Fiche d'une règle : texte (avec le glossaire), sommaire collant du chapitre, précédente et suivante,
 	// questions liées, Casebook en regard, figures, marque-page et impression.
 	import '#lib/components/formulaire.css';
@@ -136,7 +137,7 @@
 		{#if etat === 'chargement'}
 			<Chargement />
 		{:else if etat === 'erreur'}
-			<p class="message-erreur" role="alert">La règle n’a pas pu être chargée. Vérifiez votre connexion puis rechargez la page.</p>
+			<MessageErreur texte="La règle n’a pas pu être chargée." />
 		{:else if !regle}
 			<p>Cette règle n’existe pas dans les éditions en vigueur. <a href="/regles">Retour aux règles</a></p>
 		{:else}

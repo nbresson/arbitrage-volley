@@ -1,4 +1,5 @@
 <script lang="ts">
+	import MessageErreur from '#lib/components/MessageErreur.svelte';
 	import Chargement from '#lib/components/Chargement.svelte';
 	// Fiche d'un stagiaire (maquette « Formateur ») : examens officiels passés, détail, règles à retravailler,
 	// puis avancement en mode pédagogique. Les examens d'entraînement restent privés et n'apparaissent jamais ici.
@@ -115,7 +116,7 @@
 {#if etat === 'chargement'}
 	<div class="etat"><Chargement /></div>
 {:else if etat === 'erreur'}
-	<p class="etat message-erreur" role="alert">La fiche n’a pas pu être chargée. Vérifiez votre connexion puis rechargez la page.</p>
+	<MessageErreur texte="La fiche n’a pas pu être chargée." classe="etat" />
 {:else if etat === 'introuvable' || !compte}
 	<p class="etat">Ce compte n’existe pas. <a href="/formateur/stagiaires">Retour aux stagiaires</a></p>
 {:else}

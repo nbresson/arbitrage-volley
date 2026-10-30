@@ -1,4 +1,5 @@
 <script lang="ts">
+	import MessageErreur from '#lib/components/MessageErreur.svelte';
 	// Aperçu côté stagiaire : l'examen tel qu'il s'affichera, question par question. Rien n'est enregistré.
 	import '#lib/components/formulaire.css';
 	import { page } from '$app/state';
@@ -44,7 +45,7 @@
 	{#if etat === 'chargement'}
 		<Chargement />
 	{:else if etat === 'erreur'}
-		<p class="message-erreur" role="alert">L’aperçu n’a pas pu être chargé. Vérifiez votre connexion puis rechargez la page.</p>
+		<MessageErreur texte="L’aperçu n’a pas pu être chargé." />
 	{:else if !q}
 		<p>Cet examen n’a pas encore de question. <a href="/formateur/examens/{id}">Choisir les questions</a></p>
 	{:else}

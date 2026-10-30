@@ -1,4 +1,5 @@
 <script lang="ts">
+	import MessageErreur from '#lib/components/MessageErreur.svelte';
 	import EtatVide from '#lib/components/EtatVide.svelte';
 	import Chargement from '#lib/components/Chargement.svelte';
 	// Consignes CFA (spec § 9.3, écran 12) : les formateurs les saisissent une par une, édition par édition.
@@ -196,7 +197,7 @@
 	{#if etat === 'chargement'}
 		<Chargement />
 	{:else if etat === 'erreur'}
-		<p class="message-erreur" role="alert">Les consignes n’ont pas pu être chargées. Vérifiez votre connexion puis rechargez la page.</p>
+		<MessageErreur texte="Les consignes n’ont pas pu être chargées." />
 	{:else}
 		{#if message}<p class="message-info" role="status">{message}</p>{/if}
 		<div class="colonnes">

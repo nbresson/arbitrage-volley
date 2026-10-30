@@ -1,4 +1,5 @@
 <script lang="ts">
+	import MessageErreur from '#lib/components/MessageErreur.svelte';
 	// Convocation imprimable, au format billet : une page qui s'imprime seule (ou s'enregistre en PDF).
 	import '#lib/components/formulaire.css';
 	import { page } from '$app/state';
@@ -34,7 +35,7 @@
 	{#if etat === 'chargement'}
 		<Chargement />
 	{:else if etat === 'erreur'}
-		<p class="message-erreur" role="alert">La convocation n’a pas pu être chargée. Vérifiez votre connexion puis rechargez la page.</p>
+		<MessageErreur texte="La convocation n’a pas pu être chargée." />
 	{:else if !c}
 		<h1>Convocation introuvable</h1>
 		<p>Vous n’êtes pas inscrit à cet examen, ou il est clos. <a href="/">Retour à l’accueil</a></p>
