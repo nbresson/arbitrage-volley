@@ -10,6 +10,7 @@ export type Compte = {
 	profil_formation: 'arbitre' | 'marqueur';
 	niveau_id: string | null;
 	actif: boolean;
+	promotion: string | null;
 };
 
 export type NouveauCompte = {
@@ -37,7 +38,7 @@ export async function seancesRecentes(): Promise<SeanceReponses[]> {
 export async function listerComptes(): Promise<Compte[]> {
 	const { data, error } = await supabase
 		.from('profils')
-		.select('id, prenom, nom, email, role, profil_formation, niveau_id, actif')
+		.select('id, prenom, nom, email, role, profil_formation, niveau_id, actif, promotion')
 		.order('nom');
 	if (error) throw new Error(error.message);
 	return data ?? [];
@@ -63,4 +64,24 @@ export async function creerCompte(c: NouveauCompte): Promise<{ ok: true } | { ok
 export async function changerActivation(id: string, actif: boolean) {
 	const { error } = await supabase.from('profils').update({ actif }).eq('id', id);
 	if (error) throw new Error(error.message);
+}
+
+/** Promotion (session de formation) d'un compte ; vide pour l'enlever. */
+export async function changerPromotion(id: string, promotion: string) {
+	const { error } = await supabase.from('profils').update({ promotion: promotion.trim() || null }).eq('id', id);
+	if (error) throw new Error(error.message);
+}
+
+/** Pose la promotion du compte qui vient d'être créé (la fonction de création ne la connaît pas). */
+export async function promotionParEmail(email: string, promotion: string) {
+	if (!promotion.trim()) return;
+	const { error } = await supabase.from('profils').update({ promotion: promotion.trim() }).eq('email', email.trim());
+	if (error) throw new Error(error.message);
+}
+
+/** Date de dernière activité de chaque stagiaire (séances pédagogiques et examens officiels). */
+export async function activiteStagiaires(): Promise<Map<string, string>> {
+	const { data, error } = await supabase.rpc('activite_stagiaires');
+	if (error) throw new Error(error.message);
+	return new Map(((data ?? []) as { stagiaire_id: string; derniere: string }[]).map((l) => [l.stagiaire_id, l.derniere]));
 }

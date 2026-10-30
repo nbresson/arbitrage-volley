@@ -118,6 +118,13 @@ export async function resultatsExamen(id: string): Promise<ResultatStagiaire[]> 
 	return (verifier(await supabase.rpc('resultats_examen', { p_examen: id })) as ResultatStagiaire[]) ?? [];
 }
 
+export type StatQuestion = { ordre: number; question_id: string; enonce: string; bonne_lettre: string; repondants: number; justes: number; sans_reponse: number };
+
+/** Taux de réussite de chaque question d'un examen (tentatives terminées). */
+export async function statsExamen(id: string): Promise<StatQuestion[]> {
+	return (verifier(await supabase.rpc('stats_examen', { p_examen: id })) as StatQuestion[]) ?? [];
+}
+
 // Fiche stagiaire ---------------------------------------------------------------------
 
 export type DetailTentative = {
@@ -150,4 +157,26 @@ export async function examensDuStagiaire(stagiaireId: string): Promise<ExamenPas
 
 export async function detailTentative(tentativeId: string): Promise<DetailTentative> {
 	return verifier(await supabase.rpc('detail_tentative', { p_tentative: tentativeId })) as DetailTentative;
+}
+
+export type QuestionApercu = { ordre: number; enonce: string; theme: string; propositions: { lettre: string; texte: string }[] };
+
+/**
+ * L'examen tel que le stagiaire le verra : la copie figée s'il est ouvert, sinon les questions actuelles.
+ * Jamais la bonne réponse.
+ */
+export async function apercuExamen(id: string): Promise<QuestionApercu[]> {
+	const lignes = verifier(
+		await supabase
+			.from('examen_questions')
+			.select('ordre, enonce, theme, propositions, questions(enonce, themes(libelle), propositions(lettre, texte))')
+			.eq('examen_id', id)
+			.order('ordre')
+	) as any[];
+	return (lignes ?? []).map((l) => ({
+		ordre: l.ordre,
+		enonce: l.enonce ?? l.questions?.enonce ?? '',
+		theme: l.theme ?? l.questions?.themes?.libelle ?? 'Sans thème',
+		propositions: [...((l.propositions ?? l.questions?.propositions ?? []) as { lettre: string; texte: string }[])].sort((a, b) => a.lettre.localeCompare(b.lettre))
+	}));
 }

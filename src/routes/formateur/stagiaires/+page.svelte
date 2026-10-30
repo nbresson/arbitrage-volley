@@ -9,7 +9,17 @@
 	import NavFormateur from '#lib/components/NavFormateur.svelte';
 	import { referentiel, type Option } from '#lib/data/seances.ts';
 	import { session } from '#lib/session.svelte.ts';
-	import { changerActivation, creerCompte, listerComptes, seancesRecentes, type Compte, type NouveauCompte } from '#lib/data/stagiaires.ts';
+	import {
+		activiteStagiaires,
+		changerActivation,
+		creerCompte,
+		listerComptes,
+		promotionParEmail,
+		seancesRecentes,
+		type Compte,
+		type NouveauCompte
+	} from '#lib/data/stagiaires.ts';
+	import { analyserListe, filtrerComptes, ilYa, trierComptes, type LigneImport } from '#lib/formateur/suivi.ts';
 
 	let comptes = $state<Compte[]>([]);
 	let niveaux = $state<Option[]>([]);
@@ -31,6 +41,57 @@
 	let erreurEnvoi = $state('');
 	let envoi = $state(false);
 	let aDesactiver = $state<Compte | null>(null);
+	let promotionNouveau = $state('');
+	let activite = $state(new Map<string, string>());
+	// Tri, recherche et filtre de la liste.
+	let recherche = $state('');
+	let tri = $state<'nom' | 'niveau' | 'reussite'>('nom');
+	let filtrePromotion = $state('');
+	// Import d'une liste.
+	let texteImport = $state('');
+	let communs = $state({ profil_formation: 'arbitre' as 'arbitre' | 'marqueur', niveau_id: '', promotion: '', majeurs: true, parentsInformes: false });
+	let apercu = $state<(LigneImport & { resultat?: string; ok?: boolean })[]>([]);
+	let importEnCours = $state(false);
+	let erreurImport = $state('');
+
+	const promotions = $derived([...new Set(comptes.map((c) => c.promotion).filter(Boolean))].sort() as string[]);
+	const reussite = $derived(new Map([...courbes].filter(([, v]) => v.length).map(([id, v]) => [id, v[v.length - 1]])));
+	const rangs = $derived(new Map(niveaux.map((x, i) => [x.id, i])));
+	const affiches = $derived(trierComptes(filtrerComptes(comptes, recherche, filtrePromotion), tri, { niveaux: rangs, reussite }));
+	const valides = $derived(apercu.filter((l) => !l.erreur && !l.ok));
+
+	function verifierImport() {
+		erreurImport = '';
+		apercu = analyserListe(texteImport);
+		if (!apercu.length) erreurImport = 'Collez au moins une ligne : prénom ; nom ; adresse e-mail.';
+	}
+
+	async function importer() {
+		erreurImport = '';
+		if (!communs.niveau_id) return void (erreurImport = 'Choisissez le niveau de ces stagiaires.');
+		if (!communs.majeurs && !communs.parentsInformes) return void (erreurImport = 'Pour des mineurs, confirmez que les parents ont été informés.');
+		importEnCours = true;
+		for (const l of apercu) {
+			if (l.erreur || l.ok) continue;
+			const r = await creerCompte({
+				email: l.email,
+				prenom: l.prenom,
+				nom: l.nom,
+				role: 'stagiaire',
+				profil_formation: communs.profil_formation,
+				niveau_id: communs.niveau_id,
+				mineur_parents_informes: !communs.majeurs
+			});
+			if (r.ok) {
+				await promotionParEmail(l.email, communs.promotion).catch(() => {});
+				l.ok = true;
+				l.resultat = 'Compte créé, invitation envoyée.';
+			} else l.resultat = r.message;
+			apercu = [...apercu];
+		}
+		importEnCours = false;
+		charger();
+	}
 
 	const charger = () =>
 		Promise.all([listerComptes(), referentiel()])
@@ -38,6 +99,9 @@
 			.catch(() => (etat = 'erreur'));
 	$effect(() => {
 		charger();
+		activiteStagiaires()
+			.then((a) => (activite = a))
+			.catch(() => {});
 		// Les courbes sont un plus : en cas d'échec, la liste reste utilisable sans elles.
 		seancesRecentes()
 			.then((s) => (courbes = courbesReussite(s)))
@@ -64,6 +128,8 @@
 		envoi = false;
 		if (r.ok) {
 			message = `Compte créé : une invitation a été envoyée à ${n.email.trim()}.`;
+			await promotionParEmail(n.email, promotionNouveau).catch(() => {});
+			promotionNouveau = '';
 			n = vide();
 			charger();
 		} else erreurEnvoi = r.message;
@@ -98,17 +164,30 @@
 			{:else if !comptes.length}
 				<EtatVide titre="Aucun compte pour l’instant" texte="Créez le premier avec le formulaire : la personne reçoit une invitation par e-mail." />
 			{:else}
+				<div class="outils">
+					<label class="champ">Chercher un nom<input type="search" bind:value={recherche} autocomplete="off" /></label>
+					<label class="champ">Trier par
+						<select bind:value={tri}><option value="nom">Nom</option><option value="niveau">Niveau</option><option value="reussite">Réussite (les plus faibles d’abord)</option></select>
+					</label>
+					{#if promotions.length}
+						<label class="champ">Promotion
+							<select bind:value={filtrePromotion}><option value="">Toutes</option>{#each promotions as p (p)}<option>{p}</option>{/each}<option value="(sans)">Sans promotion</option></select>
+						</label>
+					{/if}
+				</div>
+				<p class="aide" role="status">{affiches.length} compte{affiches.length > 1 ? 's' : ''}{affiches.length < comptes.length ? ` sur ${comptes.length}` : ''}</p>
 				<div class="defile">
 					<table>
 						<caption class="vh">Comptes</caption>
-						<thead><tr><th scope="col">Nom</th><th scope="col">Rôle</th><th scope="col">Niveau</th><th scope="col">Réussite <span class="sous-entete">5 dernières séances pédagogiques</span></th><th scope="col">État</th><th scope="col"><span class="vh">Action</span></th></tr></thead>
+						<thead><tr><th scope="col">Nom</th><th scope="col">Rôle</th><th scope="col">Niveau</th><th scope="col">Réussite <span class="sous-entete">5 dernières séances pédagogiques</span></th><th scope="col">Dernière activité</th><th scope="col">État</th><th scope="col"><span class="vh">Action</span></th></tr></thead>
 						<tbody>
-							{#each comptes as c (c.id)}
+							{#each affiches as c (c.id)}
 								<tr class:inactif={!c.actif}>
-									<th scope="row">{#if c.role === 'stagiaire'}<a class="nom" href="/formateur/stagiaires/{c.id}">{c.prenom} {c.nom}</a>{:else}{c.prenom} {c.nom}{/if}<span class="sous">{c.email ?? ''}</span></th>
+									<th scope="row">{#if c.role === 'stagiaire'}<a class="nom" href="/formateur/stagiaires/{c.id}">{c.prenom} {c.nom}</a>{:else}{c.prenom} {c.nom}{/if}<span class="sous">{c.email ?? ''}{c.promotion ? ` · ${c.promotion}` : ''}</span></th>
 									<td>{c.role === 'formateur' ? 'Formateur' : c.profil_formation === 'marqueur' ? 'Marqueur stagiaire' : 'Arbitre stagiaire'}</td>
 									<td>{c.role === 'stagiaire' ? libelleNiveau(c.niveau_id) : '—'}</td>
 									<td>{#if c.role === 'stagiaire'}<Courbe valeurs={courbes.get(c.id) ?? []} />{/if}</td>
+									<td>{c.role === 'stagiaire' ? ilYa(activite.get(c.id) ?? null) : '—'}</td>
 									<td>{c.actif ? 'Actif' : 'Désactivé'}</td>
 									<td>
 										{#if c.id === session.profil?.id}<span class="sous">Votre compte</span>{:else if c.actif}<button class="lien discret" onclick={() => (aDesactiver = c)}>Désactiver…</button>{:else}<button class="lien" onclick={() => basculer(c)}>Réactiver</button>{/if}
@@ -135,6 +214,10 @@
 					<select bind:value={n.profil_formation}><option value="arbitre">Arbitre</option><option value="marqueur">Marqueur</option></select>
 				</label>
 			</div>
+			<label class="champ">Promotion <span class="aide">(facultatif)</span>
+				<input bind:value={promotionNouveau} list="promotions" autocomplete="off" placeholder="ex. Session automne 2026" />
+			</label>
+			<datalist id="promotions">{#each promotions as p (p)}<option value={p}></option>{/each}</datalist>
 			<label class="champ">Niveau
 				<select bind:value={n.niveau_id}><option value="">Choisir…</option>{#each niveaux as x (x.id)}<option value={x.id}>{x.libelle}</option>{/each}</select>
 				{#if erreurs.niveau}<span class="erreur">{erreurs.niveau}</span>{/if}
@@ -151,6 +234,44 @@
 			{#if erreurEnvoi}<p class="message-erreur" role="alert">{erreurEnvoi}</p>{/if}
 			{#if message}<p class="message-info" role="status">{message}</p>{/if}
 			<button class="btn" type="submit" disabled={envoi}>{envoi ? 'Création…' : 'Créer le compte'}</button>
+
+			<details class="import">
+				<summary>Créer plusieurs comptes d’un coup</summary>
+				<div class="contenu-import">
+					<p class="aide">Collez une liste depuis un tableur ou un e-mail : une personne par ligne, « prénom ; nom ; adresse e-mail ». Chaque personne reçoit une invitation. Tant que le service d’envoi d’e-mails n’est pas réglé, l’envoi est limité à quelques messages par heure.</p>
+					<label class="champ">Liste<textarea bind:value={texteImport} rows="5" placeholder="Camille;Martin;camille.martin@exemple.fr"></textarea></label>
+					<button type="button" class="btn2" onclick={verifierImport}>Vérifier la liste</button>
+					{#if apercu.length}
+						<ul class="apercu">
+							{#each apercu as l, i (i)}
+								<li class:ko={!!l.erreur || (!!l.resultat && !l.ok)} class:ok={l.ok}>
+									<span>{l.prenom} {l.nom} <span class="sous">{l.email}</span></span>
+									<span class="etat-ligne">{l.erreur ?? l.resultat ?? 'Prêt'}</span>
+								</li>
+							{/each}
+						</ul>
+						<div class="ligne">
+							<label class="champ">Formation
+								<select bind:value={communs.profil_formation}><option value="arbitre">Arbitre</option><option value="marqueur">Marqueur</option></select>
+							</label>
+							<label class="champ">Niveau
+								<select bind:value={communs.niveau_id}><option value="">Choisir…</option>{#each niveaux as x (x.id)}<option value={x.id}>{x.libelle}</option>{/each}</select>
+							</label>
+						</div>
+						<label class="champ">Promotion <span class="aide">(facultatif)</span><input bind:value={communs.promotion} list="promotions" autocomplete="off" /></label>
+						<label class="case"><input type="checkbox" bind:checked={communs.majeurs} /> Toutes ces personnes sont majeures</label>
+						{#if !communs.majeurs}
+							<label class="case"><input type="checkbox" bind:checked={communs.parentsInformes} /> Les parents ont reçu la notice d’information sur les données</label>
+						{/if}
+						{#if erreurImport}<p class="message-erreur" role="alert">{erreurImport}</p>{/if}
+						<button type="button" class="btn" disabled={!valides.length || importEnCours} onclick={importer}>
+							{importEnCours ? 'Création en cours…' : `Créer ${valides.length} compte${valides.length > 1 ? 's' : ''}`}
+						</button>
+					{:else if erreurImport}
+						<p class="message-erreur" role="alert">{erreurImport}</p>
+					{/if}
+				</div>
+			</details>
 		</form>
 	</div>
 </main>
@@ -291,6 +412,58 @@
 		display: block;
 		font-weight: 400;
 		font-size: 12px;
+	}
+	.outils {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 12px;
+		margin-bottom: 8px;
+	}
+	.outils .champ {
+		flex: 1 1 200px;
+	}
+	.import {
+		border-top: 1px solid var(--filet);
+		padding-top: 14px;
+	}
+	.import summary {
+		cursor: pointer;
+		font-weight: 700;
+		min-height: 32px;
+	}
+	.contenu-import {
+		margin-top: 12px;
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+	}
+	.apercu {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		max-height: 280px;
+		overflow: auto;
+		border: 1px solid var(--filet-doux);
+		border-radius: var(--r);
+	}
+	.apercu li {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		gap: 4px 12px;
+		padding: 8px 10px;
+		border-bottom: 1px solid var(--filet-doux);
+		font-size: 14px;
+	}
+	.etat-ligne {
+		font-weight: 600;
+		color: var(--doux);
+	}
+	.apercu li.ko .etat-ligne {
+		color: var(--rouge-texte);
+	}
+	.apercu li.ok .etat-ligne {
+		color: var(--bleu-texte);
 	}
 	@media (max-width: 700px) {
 		.page {

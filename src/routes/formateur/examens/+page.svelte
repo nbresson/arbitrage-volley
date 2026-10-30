@@ -18,7 +18,30 @@
 			.then((e) => ((examens = e), (etat = 'pret')))
 			.catch(() => (etat = 'erreur'));
 	});
+
+	// Les examens clos passent dans « Archives », repliée : la liste principale ne garde que le travail en cours.
+	const actifs = $derived(examens.filter((e) => e.statut !== 'clos'));
+	const archives = $derived(examens.filter((e) => e.statut === 'clos'));
 </script>
+
+{#snippet tableau(liste: LigneExamen[], legende: string)}
+	<div class="defile">
+		<table>
+			<caption class="vh">{legende}</caption>
+			<thead><tr><th scope="col">Examen</th><th scope="col">Date</th><th scope="col">Inscrits</th><th scope="col">État</th></tr></thead>
+			<tbody>
+				{#each liste as e (e.id)}
+					<tr>
+						<th scope="row"><a href="/formateur/examens/{e.id}">{e.titre}</a>{#if e.lieu}<span class="sous">{e.lieu}</span>{/if}</th>
+						<td>{dateHeure(e.date_heure)}</td>
+						<td class="chiffres">{e.inscrits}</td>
+						<td><span class="statut {e.statut}"><Icone nom={ICONES_STATUT[e.statut]} taille={15} />{LIBELLE_STATUT[e.statut]}</span></td>
+					</tr>
+				{/each}
+			</tbody>
+		</table>
+	</div>
+{/snippet}
 
 <svelte:head><title>{'Examens officiels'} · Arbitrage volley</title></svelte:head>
 
@@ -41,22 +64,17 @@
 			{#snippet action()}<a class="btn" href="/formateur/examens/nouveau">Créer un examen</a>{/snippet}
 		</EtatVide>
 	{:else}
-		<div class="defile">
-			<table>
-				<caption class="vh">Examens officiels</caption>
-				<thead><tr><th scope="col">Examen</th><th scope="col">Date</th><th scope="col">Inscrits</th><th scope="col">État</th></tr></thead>
-				<tbody>
-					{#each examens as e (e.id)}
-						<tr>
-							<th scope="row"><a href="/formateur/examens/{e.id}">{e.titre}</a>{#if e.lieu}<span class="sous">{e.lieu}</span>{/if}</th>
-							<td>{dateHeure(e.date_heure)}</td>
-							<td class="chiffres">{e.inscrits}</td>
-							<td><span class="statut {e.statut}"><Icone nom={ICONES_STATUT[e.statut]} taille={15} />{LIBELLE_STATUT[e.statut]}</span></td>
-						</tr>
-					{/each}
-				</tbody>
-			</table>
-		</div>
+		{#if actifs.length}
+			{@render tableau(actifs, 'Examens en préparation ou ouverts')}
+		{:else}
+			<p class="aide">Aucun examen en préparation. <a href="/formateur/examens/nouveau">Créer un examen</a></p>
+		{/if}
+		{#if archives.length}
+			<details class="archives">
+				<summary>Archives : {archives.length} examen{archives.length > 1 ? 's' : ''} clos</summary>
+				{@render tableau(archives, 'Examens clos')}
+			</details>
+		{/if}
 	{/if}
 </main>
 
@@ -78,6 +96,13 @@
 		margin: 0;
 		color: var(--doux);
 		max-width: 46em;
+	}
+	.archives summary {
+		cursor: pointer;
+		font-weight: 700;
+		min-height: 44px;
+		display: flex;
+		align-items: center;
 	}
 	.defile {
 		overflow-x: auto;

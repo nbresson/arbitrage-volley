@@ -13,7 +13,8 @@
 	import { detailTentative, examensDuStagiaire, inscrire, listerExamens, type DetailTentative, type ExamenPasse, type LigneExamen } from '#lib/data/examens-formateur.ts';
 	import { urlRegle } from '#lib/data/regles.ts';
 	import { avancement, referentiel } from '#lib/data/seances.ts';
-	import { listerComptes, type Compte } from '#lib/data/stagiaires.ts';
+	import { activiteStagiaires, changerPromotion, listerComptes, type Compte } from '#lib/data/stagiaires.ts';
+	import { ilYa, themesFaibles } from '#lib/formateur/suivi.ts';
 	import { dateHeure } from '#lib/examen-officiel/convocation.ts';
 	import { casesDetail, libelleErreurs } from '#lib/formateur/fiche.ts';
 
@@ -31,6 +32,9 @@
 	let examenChoisi = $state('');
 	let messageInscription = $state('');
 	let erreurInscription = $state('');
+	let derniere = $state<string | null>(null);
+	let promotion = $state('');
+	let messagePromotion = $state('');
 
 	$effect(() => {
 		Promise.all([listerComptes(), referentiel(), examensDuStagiaire(id), avancement(id)])
@@ -38,13 +42,28 @@
 				compte = cs.find((c) => c.id === id) ?? null;
 				if (!compte) return void (etat = 'introuvable');
 				niveau = r.niveaux.find((n) => n.id === compte?.niveau_id)?.libelle ?? '';
+				promotion = compte.promotion ?? '';
 				examens = ex;
 				av = a;
 				etat = 'pret';
 				if (ex.length) choisir(ex[0].tentative_id);
 			})
 			.catch(() => (etat = 'erreur'));
+		activiteStagiaires()
+			.then((a) => (derniere = a.get(id) ?? null))
+			.catch(() => {});
 	});
+
+	async function enregistrerPromotion(e: SubmitEvent) {
+		e.preventDefault();
+		messagePromotion = '';
+		try {
+			await changerPromotion(id, promotion);
+			messagePromotion = promotion.trim() ? 'Promotion enregistrée.' : 'Promotion retirée.';
+		} catch {
+			messagePromotion = 'La promotion n’a pas pu être enregistrée. Réessayez.';
+		}
+	}
 
 	async function choisir(tentative: string) {
 		choisi = tentative;
@@ -81,6 +100,7 @@
 	}
 
 	const lignes = $derived(lignesThemes(av));
+	const faibles = $derived(themesFaibles(av));
 	const cases = $derived(detail ? casesDetail(detail) : []);
 	const pourcent = (n: number, total: number) => `${Math.round((n / total) * 100)}%`;
 	const formation = $derived(compte?.profil_formation === 'marqueur' ? 'Marqueur stagiaire' : 'Arbitre stagiaire');
@@ -106,6 +126,28 @@
 			<div class="sous">{formation}{niveau ? ` · ${niveau}` : ''}{compte.actif ? '' : ' · compte désactivé'}</div>
 		</div>
 		<button class="btn" onclick={ouvrirInscription}>Inscrire à un examen officiel</button>
+	</div>
+
+	<div class="resume-fiche">
+		<div>
+			<p class="etiquette">Dernière activité</p>
+			<p class="valeur">{ilYa(derniere)}</p>
+		</div>
+		<div>
+			<p class="etiquette">À retravailler</p>
+			{#if faibles.length}
+				<ul class="faibles">
+					{#each faibles as t (t.theme_id)}<li>{t.theme} <span class="sous">{t.a_revoir} à revoir</span></li>{/each}
+				</ul>
+			{:else}
+				<p class="valeur">Aucun thème à revoir pour l’instant</p>
+			{/if}
+		</div>
+		<form class="promotion" onsubmit={enregistrerPromotion}>
+			<label class="champ">Promotion<input bind:value={promotion} autocomplete="off" placeholder="ex. Session automne 2026" /></label>
+			<button class="btn2" type="submit">Enregistrer</button>
+			{#if messagePromotion}<p class="aide" role="status">{messagePromotion}</p>{/if}
+		</form>
 	</div>
 
 	{#if aInscrire || messageInscription || erreurInscription}
@@ -220,6 +262,54 @@
 {/if}
 
 <style>
+	.resume-fiche {
+		margin: 16px 40px 8px;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 16px 40px;
+		align-items: flex-start;
+		background: var(--papier);
+		border: 1px solid var(--filet);
+		border-radius: var(--r);
+		padding: 18px 22px;
+	}
+	.resume-fiche p {
+		margin: 0;
+	}
+	.etiquette {
+		font-size: 13px;
+		color: var(--doux);
+	}
+	.valeur {
+		font-weight: 700;
+	}
+	.faibles .sous {
+		display: inline;
+		font-size: 13px;
+		font-weight: 400;
+		margin: 0 0 0 4px;
+	}
+	.faibles {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		font-weight: 700;
+	}
+	.promotion {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: flex-end;
+		gap: 10px;
+		margin-left: auto;
+	}
+	@media (max-width: 700px) {
+		.resume-fiche {
+			margin: 0 16px 8px;
+		}
+		.promotion {
+			margin-left: 0;
+		}
+	}
 	.etat {
 		margin: 40px;
 	}

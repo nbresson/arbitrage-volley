@@ -21,9 +21,12 @@
 		lireExamen,
 		ouvrirExamen,
 		resultatsExamen,
+		statsExamen,
 		type Examen,
-		type ResultatStagiaire
+		type ResultatStagiaire,
+		type StatQuestion
 	} from '#lib/data/examens-formateur.ts';
+	import { csvResultats, listeControle } from '#lib/formateur/suivi.ts';
 	import { listerQuestions, type LigneQuestion } from '#lib/data/questions.ts';
 	import { listerComptes, type Compte } from '#lib/data/stagiaires.ts';
 	import { LIBELLE_STATUT, seuilParDefaut, validerExamen, versChampDate, type FormulaireExamen } from '#lib/formateur/validation-examen.ts';
@@ -47,6 +50,7 @@
 	let resultats = $state<ResultatStagiaire[]>([]);
 	let confirmer = $state<'' | 'ouvrir' | 'clore'>('');
 	let erreurSalle = $state('');
+	let stats = $state<StatQuestion[]>([]);
 	let misAJour = $state<Date | null>(null);
 	let pleinEcran = $state(false);
 	let ecranCode = $state<HTMLElement>();
@@ -69,7 +73,7 @@
 				};
 				choisies = examen.questions.map((x) => x.question_id);
 				if (examen.statut !== 'brouillon') {
-					[code, resultats] = await Promise.all([codeExamen(id), resultatsExamen(id)]);
+					[code, resultats, stats] = await Promise.all([codeExamen(id), resultatsExamen(id), statsExamen(id).catch(() => [])]);
 					misAJour = new Date();
 				}
 			}
@@ -212,6 +216,22 @@
 	const heure = (d: Date | string) => new Intl.DateTimeFormat('fr-FR', { timeStyle: 'medium' }).format(new Date(d));
 	const heureCourte = (d: string) => new Intl.DateTimeFormat('fr-FR', { hour: '2-digit', minute: '2-digit' }).format(new Date(d));
 
+	const controle = $derived(
+		listeControle({ nbQuestions: choisies.length, inscrits: examen?.inscrits.length ?? 0, seuil: examen?.seuil_reussite ?? null, lieu: examen?.lieu ?? '' })
+	);
+	const avecStats = $derived(stats.some((x) => x.repondants > 0));
+	const taux = (x: StatQuestion) => (x.repondants ? Math.round((x.justes / x.repondants) * 100) : 0);
+
+	function exporterCsv() {
+		if (!examen) return;
+		const blob = new Blob([csvResultats(resultats)], { type: 'text/csv;charset=utf-8' });
+		const lien = document.createElement('a');
+		lien.href = URL.createObjectURL(blob);
+		lien.download = `Résultats - ${examen.titre}.csv`;
+		lien.click();
+		URL.revokeObjectURL(lien.href);
+	}
+
 	const libelleEtat = { absent: 'Pas encore commencé', en_cours: 'En cours', termine: 'Terminé' } as const;
 	const commences = $derived(resultats.filter((r) => r.etat !== 'absent').length);
 	const termines = $derived(resultats.filter((r) => r.etat === 'termine').length);
@@ -337,7 +357,21 @@
 				<h2>4. En salle</h2>
 				{#if examen.statut === 'brouillon'}
 					<p class="aide">Le jour de l’examen, ouvrez-le devant les stagiaires : un code d’accès s’affichera, à leur donner pour commencer.</p>
-					<button class="btn" onclick={() => ((confirmer = 'ouvrir'), (erreurSalle = ''))}>Ouvrir l’examen</button>
+					<ul class="controle" aria-label="Avant l’ouverture">
+						{#each controle.points as pt (pt.libelle)}
+							<li class:ok={pt.ok} class:manque={!pt.ok && pt.bloquant}>
+								<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+									{#if pt.ok}<path d="M4 12l5 5L20 6" />{:else}<path d="M12 7v6M12 17h.01" />{/if}
+								</svg>
+								<span><b>{pt.libelle}</b> : {pt.detail}{pt.ok ? '' : pt.bloquant ? ' (à faire)' : ''}</span>
+							</li>
+						{/each}
+					</ul>
+					<div class="actions">
+						<a class="btn2" href="/formateur/examens/{id}/apercu">Aperçu côté stagiaire</a>
+						<button class="btn" disabled={!controle.pret} onclick={() => ((confirmer = 'ouvrir'), (erreurSalle = ''))}>Ouvrir l’examen</button>
+					</div>
+					{#if !controle.pret}<p class="aide">Le bouton « Ouvrir l’examen » s’active quand tout est prêt.</p>{/if}
 				{:else if examen.statut === 'ouvert'}
 					{#if code}
 						<p class="aide">Code d’accès à donner aux stagiaires :</p>
@@ -362,8 +396,14 @@
 
 			<!-- 5. Résultats -->
 			{#if examen.statut !== 'brouillon'}
-				<section class="bloc">
-					<h2>5. Résultats</h2>
+				<section class="bloc resultats">
+					<div class="titre-bloc">
+						<h2>5. Résultats</h2>
+						<div class="actions export">
+							<button class="btn2" onclick={exporterCsv}>Exporter en CSV</button>
+							<button class="btn2" onclick={() => window.print()}>Imprimer</button>
+						</div>
+					</div>
 					<div class="defile">
 						<table>
 							<caption class="vh">Résultats par stagiaire</caption>
@@ -378,6 +418,33 @@
 										<td class:alerte={r.sorties > 0}>{r.etat === 'absent' ? '—' : r.sorties}</td>
 										<td class="chiffres">{r.etat === 'termine' ? `${r.score} / ${r.total}` : '—'}</td>
 										<td>{#if r.etat === 'termine' && r.reussi !== null}<BadgeReussite reussi={r.reussi} taille="petit" />{/if}</td>
+									</tr>
+								{/each}
+							</tbody>
+						</table>
+					</div>
+				</section>
+			{/if}
+
+			{#if avecStats}
+				<section class="bloc">
+					<h2>6. Statistiques par question</h2>
+					<p class="aide">Part de bonnes réponses parmi les stagiaires qui ont terminé. Une question très ratée est peut-être mal posée : relisez-la.</p>
+					<div class="defile">
+						<table>
+							<caption class="vh">Taux de réussite par question</caption>
+							<thead><tr><th scope="col">N°</th><th scope="col">Énoncé</th><th scope="col">Bonne réponse</th><th scope="col">Réussite</th><th scope="col">Sans réponse</th></tr></thead>
+							<tbody>
+								{#each stats as x (x.question_id)}
+									<tr class:alerte={x.repondants >= 3 && taux(x) < 40}>
+										<td class="chiffres">{x.ordre}</td>
+										<td class="enonce">{x.enonce}</td>
+										<td class="chiffres">{x.bonne_lettre}</td>
+										<td>
+											<span class="taux"><span class="barre" aria-hidden="true"><span style:width="{taux(x)}%"></span></span><b>{taux(x)} %</b> <span class="sous-stat">{x.justes} / {x.repondants}</span></span>
+											{#if x.repondants >= 3 && taux(x) < 40}<span class="a-relire">À relire</span>{/if}
+										</td>
+										<td class="chiffres">{x.sans_reponse}</td>
 									</tr>
 								{/each}
 							</tbody>
@@ -422,6 +489,75 @@
 />
 
 <style>
+	.controle {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+	}
+	.controle li {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		color: var(--doux);
+	}
+	.controle li.ok {
+		color: var(--encre);
+	}
+	.controle li.ok svg {
+		color: var(--bleu);
+	}
+	.controle li.manque {
+		color: var(--ambre);
+	}
+	.titre-bloc {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		align-items: center;
+		gap: 12px;
+	}
+	.enonce {
+		max-width: 38em;
+	}
+	.taux {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		white-space: nowrap;
+	}
+	.barre {
+		width: 80px;
+		height: 8px;
+		border-radius: 4px;
+		background: var(--filet-doux);
+		overflow: hidden;
+	}
+	.barre span {
+		display: block;
+		height: 100%;
+		background: var(--bleu);
+	}
+	.sous-stat {
+		font-size: 13px;
+		color: var(--doux);
+	}
+	.a-relire {
+		margin-left: 8px;
+		font-size: 13px;
+		font-weight: 700;
+		color: var(--ambre);
+	}
+	@media print {
+		:global(.bandeau),
+		:global(.fil),
+		.export,
+		.bloc:not(.resultats) {
+			display: none !important;
+		}
+	}
 	.plein {
 		align-self: flex-start;
 	}
