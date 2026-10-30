@@ -32,7 +32,7 @@
 	});
 </script>
 
-<dialog bind:this={dialogue} aria-labelledby="dlg-titre" aria-describedby="dlg-texte" oncancel={(e) => (e.preventDefault(), onannuler())}>
+<dialog bind:this={dialogue} aria-labelledby="dlg-titre" aria-describedby="dlg-texte" oncancel={(e) => (e.preventDefault(), !occupe && onannuler())}>
 	<h2 id="dlg-titre">{titre}</h2>
 	<p id="dlg-texte">{texte}</p>
 	{#if erreur}<p class="message-erreur" role="alert">{erreur}</p>{/if}

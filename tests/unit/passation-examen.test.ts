@@ -208,3 +208,59 @@ test('tout est répondu : « Terminer et voir mon score »', async () => {
 	await fireEvent.click(ecran.getByRole('button', { name: 'Valider et continuer' }));
 	expect(await ecran.findByRole('button', { name: 'Terminer et voir mon score', hidden: true })).toBeInTheDocument();
 });
+
+test('fin du temps : la réponse cochée est datée d’avant la limite, le serveur l’accepte', async () => {
+	const debut = Date.now() - 10 * 60_000 + 1500;
+	const acceptees: string[] = [];
+	const terminer = vi.fn(async () => {});
+	const ecran = render(PassationExamen, {
+		source: source({
+			charger: async () => ({ debut: new Date(debut).toISOString(), dureeMinutes: 10, fin: null, questions: [question] }),
+			repondre: async (q, v, le) => {
+				if (new Date(le).getTime() > debut + 10 * 60_000) throw new ErreurServeur('Le temps de l’examen est écoulé.');
+				acceptees.push(`${q} ${v}`);
+			},
+			terminer
+		})
+	});
+	await fireEvent.click(await ecran.findByLabelText(/Proposition B/));
+	await waitFor(() => expect(terminer).toHaveBeenCalled(), { timeout: 4000 });
+	expect(acceptees).toEqual(['q1 B']);
+});
+
+test('dialogue « Terminer » ouvert quand le temps s’écoule : il se ferme', async () => {
+	const proto = HTMLDialogElement.prototype as unknown as { showModal: () => void; close: () => void };
+	const [show, close] = [proto.showModal, proto.close];
+	proto.showModal = function (this: HTMLDialogElement) { this.setAttribute('open', ''); };
+	proto.close = function (this: HTMLDialogElement) { this.removeAttribute('open'); };
+	try {
+		const ecran = render(PassationExamen, {
+			source: source({
+				charger: async () => ({ debut: new Date(Date.now() - 10 * 60_000 + 1500).toISOString(), dureeMinutes: 10, fin: null, questions: [question] }),
+				repondre: async () => Promise.reject(new Error('Failed to fetch'))
+			})
+		});
+		await fireEvent.click(await ecran.findByLabelText(/Proposition B/));
+		await fireEvent.click(ecran.getByRole('button', { name: 'Terminer l’examen' }));
+		expect(document.querySelector('dialog')?.open).toBe(true);
+		expect(await ecran.findByText(/Ne fermez pas cette page/, {}, { timeout: 4000 })).toBeInTheDocument();
+		expect(document.querySelector('dialog')?.open).toBe(false);
+	} finally {
+		proto.showModal = show;
+		proto.close = close;
+	}
+});
+
+test('changer de question n’attend pas le réseau', async () => {
+	const q2 = { ...question, questionId: 'q2', enonce: 'Deuxième énoncé de la passation.' };
+	const ecran = render(PassationExamen, {
+		source: source({
+			charger: async () => ({ debut: new Date().toISOString(), dureeMinutes: 10, fin: null, questions: [question, q2] }),
+			repondre: () => new Promise(() => {})
+		})
+	});
+	await fireEvent.click(await ecran.findByLabelText(/Proposition B/));
+	const cases = ecran.getByRole('navigation', { name: 'Aller à une question' }).querySelectorAll('button');
+	await fireEvent.click(cases[1]);
+	expect(await ecran.findByText('Deuxième énoncé de la passation.', {}, { timeout: 300 })).toBeInTheDocument();
+});

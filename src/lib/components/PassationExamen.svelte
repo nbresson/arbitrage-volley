@@ -66,6 +66,8 @@
 	let maintenant = $state(new Date());
 	let confirmation = $state(false);
 	let erreurFin = $state('');
+	// Heure à laquelle chaque proposition a été cochée : c'est elle qui part au serveur, pas l'heure de l'envoi.
+	const cocheeLe: Record<string, Date> = {};
 	let refus = $state('');
 	let fini = false;
 	// Réponses gardées sur l'appareil en attendant le réseau ; « Tout est envoyé » une fois la file vidée.
@@ -162,12 +164,15 @@
 	// Fin du temps : une seule séquence (pas une relance chaque seconde), qui n'achève jamais la tentative
 	// tant que des réponses attendent sur l'appareil.
 	$effect(() => {
-		if (temps?.ecoule && !fini && !finTemps && chargement === 'pret') finirAuTemps();
+		if (temps?.ecoule && !fini && !finTemps && !occupe && chargement === 'pret') finirAuTemps();
 	});
 
 	let relance: ReturnType<typeof setTimeout> | undefined;
 	async function finirAuTemps() {
 		clearTimeout(relance);
+		// Un dialogue resté ouvert masquerait l'écran « Temps écoulé ».
+		confirmation = false;
+		erreurFin = '';
 		finTemps = 'envoi';
 		await enregistrerCourante();
 		const bilan = await envoyerFile();
@@ -187,24 +192,35 @@
 		relance = setTimeout(finirAuTemps, 5000);
 	}
 
-	/** Met la réponse cochée de la question courante dans la file si elle n'y est pas déjà, puis l'envoie. */
-	async function enregistrerCourante() {
-		if (!question) return;
+	/** Met la réponse cochée de la question courante dans la file si elle n'y est pas déjà (sans attendre le réseau). */
+	function confierCourante(): boolean {
+		if (!question) return false;
 		const valeur = choix[question.questionId];
-		if (!valeur || confiees[question.questionId] === valeur) return;
-		file.ajouter({ seanceId: cleFile, questionId: question.questionId, propositionId: valeur, reponduLe: heure().toISOString() });
+		if (!valeur || confiees[question.questionId] === valeur) return false;
+		// Datée du moment où elle a été cochée, et jamais après la fin : le serveur refuse les réponses postérieures.
+		let le = cocheeLe[question.questionId] ?? heure();
+		if (info?.dureeMinutes) le = new Date(Math.min(le.getTime(), new Date(info.debut).getTime() + info.dureeMinutes * 60_000));
+		file.ajouter({ seanceId: cleFile, questionId: question.questionId, propositionId: valeur, reponduLe: le.toISOString() });
 		confiees[question.questionId] = valeur;
 		repondues.add(courant);
-		enregistrement = 'en_cours';
 		toutEnvoye = false;
+		return true;
+	}
+
+	/** Confie la réponse courante, puis l'envoie. */
+	async function enregistrerCourante() {
+		if (!confierCourante()) return;
+		enregistrement = 'en_cours';
 		const bilan = await envoyerFile();
 		enregistrement = bilan.restantes ? 'locale' : 'enregistree';
 	}
 
-	async function aller(n: number) {
-		await enregistrerCourante();
+	// Changer de question ne bloque jamais sur le réseau : la réponse est confiée à la file, l'envoi suit en arrière-plan.
+	function aller(n: number) {
+		const confiee = confierCourante();
 		courant = n;
 		enregistrement = '';
+		if (confiee) envoyerFile();
 	}
 
 	async function envoyerFile() {
@@ -342,7 +358,7 @@
 						texte={p.texte}
 						choisie={choix[question.questionId] === p.valeur}
 						desactivee={!!temps?.ecoule}
-						onchoisir={(v) => ((choix[question.questionId] = v), (enregistrement = ''))}
+						onchoisir={(v) => ((choix[question.questionId] = v), (cocheeLe[question.questionId] = heure()), (enregistrement = ''))}
 					/>
 				{/each}
 			</fieldset>
