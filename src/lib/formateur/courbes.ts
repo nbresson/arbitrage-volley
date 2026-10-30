@@ -16,3 +16,7 @@ export function courbesReussite(seances: SeanceReponses[], n = 5): Map<string, n
 	for (const [id, taux] of parStagiaire) parStagiaire.set(id, taux.reverse());
 	return parStagiaire;
 }
+
+/** Moyenne arrondie des taux (réussite affichée et triée dans la liste des stagiaires) ; null sans valeur. */
+export const moyenne = (valeurs: number[]): number | null =>
+	valeurs.length ? Math.round(valeurs.reduce((s, v) => s + v, 0) / valeurs.length) : null;

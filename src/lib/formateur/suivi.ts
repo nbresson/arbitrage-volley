@@ -24,7 +24,7 @@ export function analyserListe(texte: string): LigneImport[] {
 		});
 }
 
-type CompteTriable = { id: string; prenom: string; nom: string; niveau_id: string | null; promotion?: string | null };
+type CompteTriable = { id: string; prenom: string; nom: string; niveau_id: string | null; promotion?: string | null; role?: 'stagiaire' | 'formateur' };
 
 export function trierComptes<T extends CompteTriable>(
 	comptes: T[],
@@ -34,9 +34,13 @@ export function trierComptes<T extends CompteTriable>(
 	const nom = (c: T) => `${c.nom} ${c.prenom}`;
 	const parNom = (a: T, b: T) => nom(a).localeCompare(nom(b), 'fr');
 	return [...comptes].sort((a, b) => {
+		// Les formateurs ferment toujours la liste : on cherche d'abord parmi les stagiaires.
+		const fa = a.role === 'formateur' ? 1 : 0, fb = b.role === 'formateur' ? 1 : 0;
+		if (fa !== fb) return fa - fb;
 		if (cle === 'niveau') return (contexte.niveaux.get(a.niveau_id ?? '') ?? 99) - (contexte.niveaux.get(b.niveau_id ?? '') ?? 99) || parNom(a, b);
 		if (cle === 'reussite') {
-			const ra = contexte.reussite.get(a.id) ?? Infinity, rb = contexte.reussite.get(b.id) ?? Infinity;
+			// Sans séance : en tête, ce sont les stagiaires les plus à risque.
+			const ra = contexte.reussite.get(a.id) ?? -1, rb = contexte.reussite.get(b.id) ?? -1;
 			return ra - rb || parNom(a, b);
 		}
 		return parNom(a, b);

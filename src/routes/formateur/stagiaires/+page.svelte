@@ -6,7 +6,7 @@
 	import Bandeau from '#lib/components/Bandeau.svelte';
 	import Courbe from '#lib/components/Courbe.svelte';
 	import DialogueConfirmation from '#lib/components/DialogueConfirmation.svelte';
-	import { courbesReussite } from '#lib/formateur/courbes.ts';
+	import { courbesReussite, moyenne } from '#lib/formateur/courbes.ts';
 	import NavFormateur from '#lib/components/NavFormateur.svelte';
 	import { referentiel, type Option } from '#lib/data/seances.ts';
 	import { session } from '#lib/session.svelte.ts';
@@ -25,6 +25,9 @@
 	let comptes = $state<Compte[]>([]);
 	let niveaux = $state<Option[]>([]);
 	let courbes = $state(new Map<string, number[]>());
+	// Courbes et activité se chargent à part : « en cours » et « en échec » ne doivent jamais passer pour « rien ».
+	let courbesEtat = $state<'chargement' | 'pret' | 'erreur'>('chargement');
+	let activiteEtat = $state<'chargement' | 'pret' | 'erreur'>('chargement');
 	let etat = $state<'chargement' | 'pret' | 'erreur'>('chargement');
 	const vide = (): NouveauCompte & { majeur: '' | 'majeur' | 'mineur' } => ({
 		email: '',
@@ -56,7 +59,7 @@
 	let erreurImport = $state('');
 
 	const promotions = $derived([...new Set(comptes.map((c) => c.promotion).filter(Boolean))].sort() as string[]);
-	const reussite = $derived(new Map([...courbes].filter(([, v]) => v.length).map(([id, v]) => [id, v[v.length - 1]])));
+	const reussite = $derived(new Map([...courbes].filter(([, v]) => v.length).map(([id, v]) => [id, moyenne(v)!])));
 	const rangs = $derived(new Map(niveaux.map((x, i) => [x.id, i])));
 	const affiches = $derived(trierComptes(filtrerComptes(comptes, recherche, filtrePromotion), tri, { niveaux: rangs, reussite }));
 	const valides = $derived(apercu.filter((l) => !l.erreur && !l.ok));
@@ -101,13 +104,18 @@
 	$effect(() => {
 		charger();
 		activiteStagiaires()
-			.then((a) => (activite = a))
-			.catch(() => {});
+			.then((a) => ((activite = a), (activiteEtat = 'pret')))
+			.catch(() => (activiteEtat = 'erreur'));
 		// Les courbes sont un plus : en cas d'échec, la liste reste utilisable sans elles.
-		seancesRecentes()
-			.then((s) => (courbes = courbesReussite(s)))
-			.catch(() => {});
+		chargerCourbes();
 	});
+
+	function chargerCourbes() {
+		courbesEtat = 'chargement';
+		seancesRecentes()
+			.then((s) => ((courbes = courbesReussite(s)), (courbesEtat = 'pret')))
+			.catch(() => (courbesEtat = 'erreur'));
+	}
 
 	const libelleNiveau = (id: string | null) => niveaux.find((x) => x.id === id)?.libelle ?? '—';
 
@@ -129,7 +137,8 @@
 		envoi = false;
 		if (r.ok) {
 			message = `Compte créé : une invitation a été envoyée à ${n.email.trim()}.`;
-			await promotionParEmail(n.email, promotionNouveau).catch(() => {});
+			const promotionOk = await promotionParEmail(n.email, promotionNouveau).then(() => true, () => false);
+			if (!promotionOk) message = 'Compte créé, mais la promotion n’a pas été enregistrée : ajoutez-la depuis sa fiche.';
 			promotionNouveau = '';
 			n = vide();
 			charger();
@@ -168,7 +177,7 @@
 				<div class="outils">
 					<label class="champ">Chercher un nom<input type="search" bind:value={recherche} autocomplete="off" /></label>
 					<label class="champ">Trier par
-						<select bind:value={tri}><option value="nom">Nom</option><option value="niveau">Niveau</option><option value="reussite">Réussite (les plus faibles d’abord)</option></select>
+						<select bind:value={tri}><option value="nom">Nom</option><option value="niveau">Niveau</option><option value="reussite" disabled={courbesEtat !== 'pret'}>Réussite (sans séance, puis les plus faibles)</option></select>
 					</label>
 					{#if promotions.length}
 						<label class="champ">Promotion
@@ -176,19 +185,26 @@
 						</label>
 					{/if}
 				</div>
+				{#if courbesEtat === 'erreur'}<MessageErreur texte="Courbes indisponibles." onreessayer={chargerCourbes} />{/if}
 				<p class="aide" role="status">{affiches.length} compte{affiches.length > 1 ? 's' : ''}{affiches.length < comptes.length ? ` sur ${comptes.length}` : ''}</p>
 				<div class="defile">
 					<table>
 						<caption class="vh">Comptes</caption>
-						<thead><tr><th scope="col">Nom</th><th scope="col">Rôle</th><th scope="col">Niveau</th><th scope="col">Réussite <span class="sous-entete">5 dernières séances pédagogiques</span></th><th scope="col">Dernière activité</th><th scope="col">État</th><th scope="col"><span class="vh">Action</span></th></tr></thead>
+						<thead><tr><th scope="col">Nom</th><th scope="col">Rôle</th><th scope="col">Niveau</th><th scope="col">Réussite moyenne <span class="sous-entete">5 dernières séances pédagogiques</span></th><th scope="col">Dernière activité</th><th scope="col">État</th><th scope="col"><span class="vh">Action</span></th></tr></thead>
 						<tbody>
 							{#each affiches as c (c.id)}
 								<tr class:inactif={!c.actif}>
 									<th scope="row">{#if c.role === 'stagiaire'}<a class="nom" href="/formateur/stagiaires/{c.id}">{c.prenom} {c.nom}</a>{:else}{c.prenom} {c.nom}{/if}<span class="sous">{c.email ?? ''}{c.promotion ? ` · ${c.promotion}` : ''}</span></th>
 									<td>{c.role === 'formateur' ? 'Formateur' : c.profil_formation === 'marqueur' ? 'Marqueur stagiaire' : 'Arbitre stagiaire'}</td>
 									<td>{c.role === 'stagiaire' ? libelleNiveau(c.niveau_id) : '—'}</td>
-									<td>{#if c.role === 'stagiaire'}<Courbe valeurs={courbes.get(c.id) ?? []} />{/if}</td>
-									<td>{c.role === 'stagiaire' ? ilYa(activite.get(c.id) ?? null) : '—'}</td>
+									<td>
+										{#if c.role === 'stagiaire'}
+											{#if courbesEtat === 'chargement'}<span class="sous">…</span>
+											{:else if courbesEtat === 'erreur'}<span class="sous">—</span>
+											{:else}<Courbe valeurs={courbes.get(c.id) ?? []} resume={moyenne(courbes.get(c.id) ?? [])} />{/if}
+										{/if}
+									</td>
+									<td>{c.role !== 'stagiaire' ? '—' : activiteEtat === 'pret' ? ilYa(activite.get(c.id) ?? null) : activiteEtat === 'chargement' ? '…' : '—'}</td>
 									<td>{c.actif ? 'Actif' : 'Désactivé'}</td>
 									<td>
 										{#if c.id === session.profil?.id}<span class="sous">Votre compte</span>{:else if c.actif}<button class="lien discret" onclick={() => (aDesactiver = c)}>Désactiver…</button>{:else}<button class="lien" onclick={() => basculer(c)}>Réactiver</button>{/if}

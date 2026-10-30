@@ -1,6 +1,7 @@
 <script lang="ts">
 	// Mini-courbe de réussite (0 à 100 %), décrite en toutes lettres pour les lecteurs d'écran.
-	let { valeurs }: { valeurs: number[] } = $props();
+	// `resume` : le chiffre affiché à côté de la courbe (la moyenne des séances) ; à défaut, la dernière valeur.
+	let { valeurs, resume = null }: { valeurs: number[]; resume?: number | null } = $props();
 
 	const L = 96;
 	const H = 28;
@@ -18,11 +19,11 @@
 {#if valeurs.length}
 	<span class="courbe">
 		<svg width={L} height={H} viewBox="0 0 {L} {H}" role="img" aria-label={description}>
-			<line x1="0" x2={L} y1={H / 2} y2={H / 2} stroke="var(--filet-doux)" stroke-dasharray="3 3" />
+			<line x1="0" x2={L} y1={H / 2} y2={H / 2} stroke="var(--filet-doux)" stroke-dasharray="3 3" ><title>repère 50 %</title></line>
 			<polyline points={points.map((p) => `${p.x},${p.y}`).join(' ')} fill="none" stroke="var(--trait)" stroke-width="1.75" stroke-linejoin="round" />
 			{#each points as p, i (i)}<circle cx={p.x} cy={p.y} r={i === points.length - 1 ? 3 : 2} fill="var(--trait)" />{/each}
 		</svg>
-		<span class="dernier">{valeurs[valeurs.length - 1]} %</span>
+		<span class="dernier">{resume ?? valeurs[valeurs.length - 1]} %</span>
 	</span>
 {:else}
 	<span class="aucune">Aucune séance</span>

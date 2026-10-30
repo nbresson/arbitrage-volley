@@ -23,16 +23,15 @@ export type NouveauCompte = {
 	mineur_parents_informes: boolean;
 };
 
-/** Séances pédagogiques récentes de tous les stagiaires, avec la justesse de chaque réponse (courbes de réussite). */
+/** Les 5 dernières séances pédagogiques de chaque stagiaire (courbes de réussite), sans plafond global. */
 export async function seancesRecentes(): Promise<SeanceReponses[]> {
-	const { data, error } = await supabase
-		.from('seances')
-		.select('stagiaire_id, debut, reponses(correcte)')
-		.eq('type', 'pedagogique')
-		.order('debut', { ascending: false })
-		.limit(1000);
+	const { data, error } = await supabase.rpc('dernieres_seances', { p_n: 5 });
 	if (error) throw new Error(error.message);
-	return (data ?? []) as SeanceReponses[];
+	return ((data ?? []) as { stagiaire_id: string; debut: string; justes: number; total: number }[]).map((l) => ({
+		stagiaire_id: l.stagiaire_id,
+		debut: l.debut,
+		reponses: Array.from({ length: l.total }, (_, i) => ({ correcte: i < l.justes }))
+	}));
 }
 
 export async function listerComptes(): Promise<Compte[]> {

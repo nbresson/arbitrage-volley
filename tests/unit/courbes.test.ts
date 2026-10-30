@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest';
-import { courbesReussite } from '../../src/lib/formateur/courbes.ts';
+import { courbesReussite, moyenne } from '../../src/lib/formateur/courbes.ts';
 
 const s = (stagiaire_id: string, debut: string, correctes: (boolean | null)[]) => ({
 	stagiaire_id,
@@ -24,4 +24,10 @@ test('taux de réussite des 5 dernières séances, de la plus ancienne à la plu
 test('les séances sans réponse comptée sont ignorées', () => {
 	const c = courbesReussite([s('a', '2026-10-02', []), s('a', '2026-10-01', [null])]);
 	expect(c.get('a')).toBeUndefined();
+});
+
+test('moyenne des cinq dernières, arrondie ; aucune valeur : null', () => {
+	expect(moyenne([0, 100, 50, 50, 100])).toBe(60);
+	expect(moyenne([75])).toBe(75);
+	expect(moyenne([])).toBeNull();
 });

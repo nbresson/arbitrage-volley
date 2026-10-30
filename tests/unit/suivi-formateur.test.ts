@@ -31,10 +31,10 @@ const comptes = [
 
 describe('tri et recherche des comptes', () => {
 	const contexte = { niveaux: new Map([['n1', 1], ['n2', 2]]), reussite: new Map([['1', 80], ['3', 40]]) };
-	test('par nom, par niveau, par réussite (les plus faibles d’abord, sans données en dernier)', () => {
+	test('par nom, par niveau, par réussite (sans données en tête, puis les plus faibles)', () => {
 		expect(trierComptes(comptes, 'nom', contexte).map((c) => c.id)).toEqual(['1', '3', '2']);
 		expect(trierComptes(comptes, 'niveau', contexte).map((c) => c.id)).toEqual(['3', '2', '1']);
-		expect(trierComptes(comptes, 'reussite', contexte).map((c) => c.id)).toEqual(['3', '1', '2']);
+		expect(trierComptes(comptes, 'reussite', contexte).map((c) => c.id)).toEqual(['2', '3', '1']);
 	});
 	test('recherche par nom ou prénom sans accents, filtre par promotion', () => {
 		expect(filtrerComptes(comptes, 'cami', '').map((c) => c.id)).toEqual(['3']);
@@ -87,4 +87,14 @@ test('export CSV des résultats : séparateur point-virgule, lisible par un tabl
 	expect(csv.startsWith('﻿Nom;Prénom;État;Score;Sur;Résultat;Sorties d’écran\r\n')).toBe(true);
 	expect(csv).toContain('Durand;Lou;Terminé;24;30;Réussi;0\r\n');
 	expect(csv).toContain('"Roy; fils";Ana;Absent;;;;0');
+});
+
+test('sans séance : en tête du tri par réussite ; formateurs à la fin', () => {
+	const liste = [
+		{ id: 'f', prenom: 'Ana', nom: 'Formatrice', niveau_id: null, role: 'formateur' as const },
+		{ id: 'a', prenom: 'Lou', nom: 'Actif', niveau_id: null, role: 'stagiaire' as const },
+		{ id: 'z', prenom: 'Zoé', nom: 'Inactive', niveau_id: null, role: 'stagiaire' as const }
+	];
+	const ordre = trierComptes(liste, 'reussite', { niveaux: new Map(), reussite: new Map([['a', 90]]) }).map((c) => c.id);
+	expect(ordre).toEqual(['z', 'a', 'f']);
 });
