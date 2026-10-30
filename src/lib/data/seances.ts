@@ -76,7 +76,7 @@ export async function questionsDeSeance(id: string): Promise<QuestionSeanceAvecE
 	return data ?? [];
 }
 
-export async function validerReponse(seance: string, question: string, proposition: string, reponduLe?: string) {
+export async function validerReponse(seance: string, question: string, proposition: string | null, reponduLe?: string) {
 	const { data, error } = await supabase.rpc('valider_reponse', {
 		p_seance: seance,
 		p_question: question,

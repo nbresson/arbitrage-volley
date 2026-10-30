@@ -18,6 +18,7 @@
 	import ProgressionVolets from '#lib/components/ProgressionVolets.svelte';
 	import Volet from '#lib/components/Volet.svelte';
 	import {
+		JE_NE_SAIS_PAS,
 		choisir,
 		debutValidation,
 		echecValidation,
@@ -28,6 +29,10 @@
 		type ResultatValidation,
 		type SourceCitee
 	} from '#lib/seance/pedagogique.ts';
+	import { lecteurVideo } from '#lib/seance/affichage.ts';
+	import { marquer, mesMarquees } from '#lib/data/marquees.ts';
+	import { signalerProbleme } from '#lib/data/signalements.ts';
+	import { enregistrerPreferences, lirePreferences } from '#lib/preferences.ts';
 
 	const seanceId = page.params.seance ?? '';
 	let etat = $state<EtatPedago | null>(null);
@@ -38,6 +43,17 @@
 	let boutonSuivante = $state<HTMLButtonElement>();
 	// Verdict annoncé aux lecteurs d'écran (la correction complète reste lisible dans le panneau).
 	let annonce = $state('');
+	// Reprise d'une séance commencée : l'index de la première question non faite, pour le dire une fois.
+	let repriseIndex = $state<number | null>(null);
+	// Questions marquées « à revoir plus tard ».
+	let marquees = $state(new Set<string>());
+	let erreurMarque = $state('');
+	// Minuteur facultatif : 30 secondes conseillées par question.
+	let minuteur = $state(lirePreferences().minuteurQuestion);
+	let secondes = $state(30);
+	// Signalement d'un problème sur la question.
+	let signalement = $state('');
+	let signalementEtat = $state<'' | 'envoi' | 'envoye' | 'erreur'>('');
 
 	$effect(() => {
 		questionsDeSeance(seanceId)
@@ -50,11 +66,64 @@
 				);
 				const premiere = qs.findIndex((q) => q.correcte_precedente === null);
 				etat = { ...e, index: premiere === -1 ? 0 : premiere, terminee: premiere === -1 };
+				if (premiere > 0) repriseIndex = premiere;
 				chargement = 'pret';
 				if (premiere === -1) terminer();
 			})
 			.catch(() => (chargement = 'erreur'));
+		mesMarquees()
+			.then((m) => (marquees = m))
+			.catch(() => {});
 	});
+
+	// Le minuteur repart à chaque question et s'arrête à la correction (il ignore le simple choix d'une réponse).
+	const indexCourant = $derived(etat?.index);
+	const corrigee = $derived(!!etat?.resultat);
+	const seanceFinie = $derived(!!etat?.terminee);
+	$effect(() => {
+		const index = indexCourant;
+		const fin = corrigee || seanceFinie;
+		secondes = 30;
+		if (!minuteur || index === undefined || fin) return;
+		const t = setInterval(() => {
+			secondes = Math.max(0, secondes - 1);
+			if (secondes === 0) clearInterval(t);
+		}, 1000);
+		return () => clearInterval(t);
+	});
+	function basculerMinuteur() {
+		minuteur = !minuteur;
+		enregistrerPreferences({ minuteurQuestion: minuteur });
+	}
+
+	async function basculerMarque() {
+		if (!question) return;
+		const id = question.question_id;
+		const nouvelle = !marquees.has(id);
+		erreurMarque = '';
+		try {
+			await marquer(id, nouvelle);
+			const m = new Set(marquees);
+			if (nouvelle) m.add(id);
+			else m.delete(id);
+			marquees = m;
+		} catch {
+			erreurMarque = 'Le marquage n’a pas pu être enregistré.';
+		}
+	}
+
+	async function envoyerSignalement(e: SubmitEvent) {
+		e.preventDefault();
+		if (!question || !signalement.trim()) return;
+		signalementEtat = 'envoi';
+		try {
+			await signalerProbleme(question.question_id, signalement);
+			signalementEtat = 'envoye';
+			signalement = '';
+		} catch {
+			signalementEtat = 'erreur';
+		}
+	}
 
 	const question = $derived(etat ? etat.questions[etat.index] : null);
 	const bonne = $derived(question && etat?.resultat ? question.propositions.find((p) => p.id === etat!.resultat!.bonne_proposition_id) : null);
@@ -72,11 +141,16 @@
 		etat = debutValidation(etat);
 		if (etat === avant) return; // pas de choix, déjà corrigé ou envoi en cours
 		try {
-			const r = (await validerReponse(seanceId, question.question_id, etat.choix!)) as ResultatValidation;
+			const proposition = etat.choix === JE_NE_SAIS_PAS ? null : etat.choix;
+			const r = (await validerReponse(seanceId, question.question_id, proposition)) as ResultatValidation;
 			etat = finValidation(etat, r);
 			if (!r.correcte) aRevoir.push({ question: question.enonce, source: r.sources.find((s) => s.principale) ?? r.sources[0] });
 			const juste = question.propositions.find((p) => p.id === r.bonne_proposition_id);
-			annonce = r.correcte ? 'Bonne réponse.' : `Réponse fausse. La bonne réponse est ${juste?.lettre ?? ''} : ${juste?.texte ?? ''}.`;
+			annonce = r.correcte
+				? 'Bonne réponse.'
+				: r.sans_reponse
+					? `Vous n’avez pas répondu. La bonne réponse est ${juste?.lettre ?? ''} : ${juste?.texte ?? ''}.`
+					: `Réponse fausse. La bonne réponse est ${juste?.lettre ?? ''} : ${juste?.texte ?? ''}.`;
 			// Sur écran étroit, la décision est sous la question : on y amène le focus. Sinon, sur « Question suivante ».
 			await tick();
 			if (window.innerWidth < 1000) panneau?.focus();
@@ -112,6 +186,8 @@
 	function continuer() {
 		if (!etat) return;
 		annonce = '';
+		repriseIndex = null;
+		signalementEtat = '';
 		etat = suivante(etat);
 		if (etat.terminee) terminer();
 	}
@@ -178,6 +254,9 @@
 <Bandeau titre="Arbitrage volley" sousTitre="Mode pédagogique" {compteurs} resumeTexte={resume}>
 	{#snippet navigation()}<NavPrincipale />{/snippet}
 </Bandeau>
+{#if etat && !etat.terminee}
+	<div class="progression" aria-hidden="true"><span style="width: {((etat.index + (etat.resultat ? 1 : 0)) / etat.questions.length) * 100}%"></span></div>
+{/if}
 
 {#if chargement === 'en_cours'}
 	<div class="etat"><Chargement lignes={5} /></div>
@@ -240,11 +319,29 @@
 				<Etiquette>{question.theme}</Etiquette>
 				<Etiquette>{question.niveau}</Etiquette>
 				<span class="mode">Mode pédagogique</span>
+				<button type="button" class="marque" class:marquee={marquees.has(question.question_id)} onclick={basculerMarque} aria-pressed={marquees.has(question.question_id)}>
+					<svg width="18" height="18" viewBox="0 0 24 24" fill={marquees.has(question.question_id) ? 'currentColor' : 'none'} stroke="currentColor" stroke-width="1.75" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9-5.2-2.8-5.2 2.8 1-5.9L3.5 9.7l5.9-.8z"></path></svg>
+					{marquees.has(question.question_id) ? 'Marquée pour plus tard' : 'Marquer pour plus tard'}
+				</button>
+				{#if erreurMarque}<span class="message-erreur" role="alert">{erreurMarque}</span>{/if}
 				<a class="quitter" href="/">Quitter la séance <span class="aide-quitter">(vous la reprendrez depuis l’accueil)</span></a>
 			</div>
+			{#if repriseIndex !== null && etat.index === repriseIndex}
+				<p class="reprise" role="status">Vous reprenez à la question {repriseIndex + 1} sur {etat.questions.length}.</p>
+			{/if}
+			{#key etat.index}
+			<div class="question-bloc">
 			<h1 id="enonce">{question.enonce}</h1>
 			{#if question.video_url}
-				<p><a href={question.video_url} target="_blank" rel="noopener">Voir la vidéo de la situation (nouvel onglet)</a></p>
+				{@const video = lecteurVideo(question.video_url)}
+				{#if video?.type === 'youtube'}
+					<div class="video"><iframe src={video.src} title="Vidéo de la situation" allow="encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+				{:else if video?.type === 'fichier'}
+					<!-- svelte-ignore a11y_media_has_caption -->
+					<video class="video-fichier" src={video.src} controls preload="metadata"></video>
+				{:else if video}
+					<p><a href={video.src} target="_blank" rel="noopener">Voir la vidéo de la situation (nouvel onglet)</a></p>
+				{/if}
 			{/if}
 			<fieldset aria-describedby="enonce">
 				<legend class="vh">Propositions de réponse</legend>
@@ -260,7 +357,14 @@
 						onchoisir={(v) => (etat = choisir(etat!, v))}
 					/>
 				{/each}
+				<label class="jnsp" class:sel={etat.choix === JE_NE_SAIS_PAS} class:corrigee={!!etat.resultat}>
+					<input type="radio" name="reponse-{question.question_id}" value={JE_NE_SAIS_PAS} checked={etat.choix === JE_NE_SAIS_PAS} disabled={!!etat.resultat || etat.envoi === 'en_cours'} onchange={() => (etat = choisir(etat!, JE_NE_SAIS_PAS))} />
+					<span>Je ne sais pas</span>
+					<span class="aide">compte comme une erreur, mais sans deviner</span>
+				</label>
 			</fieldset>
+			</div>
+			{/key}
 			<div class="actions">
 				{#if etat.resultat}
 					<button class="btn siffle" bind:this={boutonSuivante} onclick={continuer}>
@@ -281,11 +385,40 @@
 				{#if raccourcisActifs}Au clavier : <kbd>A</kbd> à <kbd>D</kbd> pour choisir, <kbd>Entrée</kbd> pour valider, <kbd>S</kbd> pour la question suivante.{:else}Raccourcis clavier désactivés.{/if}
 				<button type="button" class="lien-raccourcis" onclick={basculerRaccourcis}>{raccourcisActifs ? 'Désactiver' : 'Activer'}</button>
 			</p>
+			<p class="minuteur" class:depasse={minuteur && secondes === 0 && !etat.resultat}>
+				{#if minuteur}
+					<Icone nom="chrono" taille={16} />
+					{#if etat.resultat}Minuteur arrêté.{:else if secondes > 0}<span class="chiffres">{secondes} s</span> conseillées pour décider.{:else}Temps conseillé dépassé : décidez, comme en match.{/if}
+				{:else}
+					Minuteur de 30 s par question désactivé.
+				{/if}
+				<button type="button" class="lien-raccourcis" onclick={basculerMinuteur}>{minuteur ? 'Désactiver' : 'Activer'}</button>
+			</p>
 			<p class="vh" role="status">{annonce}</p>
 		</section>
 		<Filet />
 		<aside class="decision" bind:this={panneau} tabindex="-1" aria-label="Décision">
-			<PanneauDecision resultat={etat.resultat} decision={bonne?.texte ?? ''} lettre={bonne?.lettre ?? ''} />
+			{#key etat.resultat}
+			<div class="decision-bloc">
+			<PanneauDecision resultat={etat.resultat} decision={bonne?.texte ?? ''} lettre={bonne?.lettre ?? ''} propositions={question.propositions} choix={etat.choix} />
+			{#if etat.resultat}
+				<details class="signaler">
+					<summary>Un souci avec cette question ?</summary>
+					{#if signalementEtat === 'envoye'}
+						<p class="message-info" role="status">Merci, votre formateur a été prévenu.</p>
+					{:else}
+						<form onsubmit={envoyerSignalement}>
+							<label class="champ">Décrivez le problème (énoncé ambigu, réponse contestable, règle inexacte…)
+								<textarea rows="3" bind:value={signalement} maxlength="1000" required></textarea>
+							</label>
+							{#if signalementEtat === 'erreur'}<p class="message-erreur" role="alert">Le signalement n’a pas pu être envoyé. Réessayez.</p>{/if}
+							<button class="btn2" type="submit" disabled={signalementEtat === 'envoi' || !signalement.trim()}>{signalementEtat === 'envoi' ? 'Envoi…' : 'Prévenir le formateur'}</button>
+						</form>
+					{/if}
+				</details>
+			{/if}
+			</div>
+			{/key}
 		</aside>
 	</div>
 {/if}
@@ -293,6 +426,165 @@
 <style>
 	.etat {
 		margin: 40px;
+	}
+	/* Barre de progression fine sous le bandeau. */
+	.progression {
+		height: 4px;
+		background: var(--filet-doux);
+	}
+	.progression span {
+		display: block;
+		height: 100%;
+		background: var(--tableau);
+		transition: width var(--duree-volet) var(--courbe-volet);
+	}
+	.marque {
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		font: inherit;
+		font-size: 13px;
+		font-weight: 600;
+		padding: 5px 10px;
+		border: 1px solid var(--filet);
+		border-radius: var(--r-petit);
+		background: var(--papier);
+		color: var(--doux);
+		cursor: pointer;
+	}
+	.marque.marquee {
+		color: var(--ambre);
+		border-color: var(--ambre-vif);
+		background: var(--ambre-clair);
+	}
+	.reprise {
+		margin: 0;
+		padding: 10px 14px;
+		background: var(--papier);
+		border: 1px solid var(--filet);
+		border-radius: var(--r);
+		font-size: 14px;
+		font-weight: 600;
+	}
+	.video {
+		position: relative;
+		max-width: 46em;
+		aspect-ratio: 16 / 9;
+		background: var(--tableau);
+		border-radius: var(--r);
+		overflow: hidden;
+	}
+	.video iframe {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		border: 0;
+	}
+	.video-fichier {
+		max-width: 46em;
+		width: 100%;
+		border-radius: var(--r);
+		background: var(--tableau);
+	}
+	.jnsp {
+		display: grid;
+		grid-template-columns: auto 1fr;
+		align-items: center;
+		column-gap: 10px;
+		padding: 10px 16px;
+		border: 1.5px dashed var(--filet);
+		border-radius: var(--r);
+		color: var(--doux);
+		font-size: 15px;
+		cursor: pointer;
+	}
+	.jnsp input {
+		margin: 0;
+		accent-color: var(--tableau);
+	}
+	.jnsp .aide {
+		grid-column: 2;
+		font-size: 13px;
+	}
+	.jnsp.sel {
+		border-style: solid;
+		border-color: var(--encre);
+		color: var(--encre);
+	}
+	.jnsp.corrigee {
+		cursor: default;
+	}
+	.minuteur {
+		margin: 0;
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		font-size: 13px;
+		color: var(--doux);
+	}
+	.minuteur .chiffres {
+		font-weight: 800;
+		font-size: 15px;
+		color: var(--encre);
+	}
+	.minuteur.depasse {
+		color: var(--ambre);
+	}
+	/* Transition entre questions : l'énoncé suivant glisse, la décision se fond. */
+	.question-bloc {
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+		animation: glisser var(--duree-micro) ease-out;
+	}
+	.decision-bloc {
+		display: flex;
+		flex-direction: column;
+		gap: 18px;
+		animation: fondu var(--duree-micro) ease-out;
+	}
+	@keyframes glisser {
+		from {
+			opacity: 0;
+			transform: translateX(24px);
+		}
+		to {
+			opacity: 1;
+			transform: none;
+		}
+	}
+	@keyframes fondu {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
+	}
+	.signaler {
+		margin-top: auto;
+		font-size: 14px;
+	}
+	.signaler summary {
+		cursor: pointer;
+		color: var(--doux);
+		font-weight: 600;
+	}
+	.signaler form {
+		margin-top: 10px;
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.question-bloc,
+		.decision-bloc {
+			animation: none;
+		}
+		.progression span {
+			transition: none;
+		}
 	}
 	/* Sur grand écran, la page reste groupée : la décision se lit à côté des réponses. */
 	.jeu {

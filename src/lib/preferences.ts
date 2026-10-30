@@ -4,9 +4,10 @@ export type Preferences = {
 	triThemes: 'reglement' | 'faibles' | 'alpha';
 	filtreRole: 'arbitre' | 'marqueur' | null;
 	derniereVisite: string | null; // ISO
+	minuteurQuestion: boolean; // 30 s conseillées par question en séance
 };
 
-const DEFAUTS: Preferences = { objectifSemaine: 3, triThemes: 'reglement', filtreRole: null, derniereVisite: null };
+const DEFAUTS: Preferences = { objectifSemaine: 3, triThemes: 'reglement', filtreRole: null, derniereVisite: null, minuteurQuestion: false };
 const CLE = 'preferences';
 
 export function lirePreferences(): Preferences {

@@ -7,15 +7,20 @@
 	import Icone from '#lib/components/Icone.svelte';
 	import NavFormateur from '#lib/components/NavFormateur.svelte';
 	import { listerQuestions, type LigneQuestion } from '#lib/data/questions.ts';
+	import { signalementsNonTraites } from '#lib/data/signalements.ts';
 
 	let questions = $state<LigneQuestion[]>([]);
 	let etat = $state<'chargement' | 'pret' | 'erreur'>('chargement');
+	let signales = $state(new Map<string, number>());
 	let f = $state({ statut: 'brouillon', theme: '', niveau: '', role: '', origine: '', aRelire: false, texte: '' });
 
 	$effect(() => {
 		listerQuestions()
 			.then((q) => ((questions = q), (etat = 'pret')))
 			.catch(() => (etat = 'erreur'));
+		signalementsNonTraites()
+			.then((s) => (signales = s))
+			.catch(() => {});
 	});
 
 	const themes = $derived([...new Set(questions.map((q) => q.theme).filter(Boolean))].sort() as string[]);
@@ -108,6 +113,7 @@
 								<td>
 									<span class="statut {q.statut}"><Icone nom={STATUTS[q.statut].icone} taille={15} />{STATUTS[q.statut].libelle}</span>
 									{#if q.a_relire}<span class="statut relire">À relire</span>{/if}
+									{#if signales.get(q.id)}<span class="statut relire">{signales.get(q.id)} signalement{(signales.get(q.id) ?? 0) > 1 ? 's' : ''}</span>{/if}
 								</td>
 							</tr>
 						{/each}

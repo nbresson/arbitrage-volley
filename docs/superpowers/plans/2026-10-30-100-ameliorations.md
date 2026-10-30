@@ -9,7 +9,7 @@ Préférences personnelles (objectif, tri, taille du texte, thème…) : d'abord
 | Lot | Famille | Numéros | État |
 |---|---|---|---|
 | A | Accueil | 1–10 | **fait** (migration `20261030000002_avancement_role`) |
-| B | Séance pédagogique | 11–20 | en cours |
+| B | Séance pédagogique | 11–20 | **fait** (migration `20261030000003_seance_enrichie`) ; 15 et 17 : mécanisme en place, contenu à saisir par les formateurs |
 | C | Examen blanc et résultats | 21–30 | à faire |
 | D | Examen officiel | 31–40 | à faire |
 | E | Règles et recherche | 41–50 | à faire |

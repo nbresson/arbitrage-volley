@@ -2,7 +2,7 @@ import type { Lettre, RoleCible } from '#lib/domain/types.ts';
 
 export type FormulaireQuestion = {
 	enonce: string;
-	propositions: { lettre: Lettre; texte: string }[];
+	propositions: { lettre: Lettre; texte: string; explication?: string }[];
 	bonne: Lettre | null;
 	explication: string;
 	themeId: string | null;
@@ -10,7 +10,7 @@ export type FormulaireQuestion = {
 	roleCible: RoleCible;
 	usage: 'entrainement' | 'reserve_examen';
 	videoUrl: string;
-	regles: { id: string; principale: boolean }[];
+	regles: { id: string; principale: boolean; passage?: string }[];
 };
 
 /** URL d'intégration pour YouTube (youtube-nocookie), URL d'origine pour FIVB Academy, null sinon. */

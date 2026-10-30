@@ -14,6 +14,7 @@
 	import { mesConvocations, type Convocation } from '#lib/data/examens-officiels.ts';
 	import { avancement, creerSeance, mesSeancesRecentes, referentiel, seanceAReprendre } from '#lib/data/seances.ts';
 	import { nouveautesDepuis } from '#lib/data/questions.ts';
+	import { mesMarquees, seanceMarquees } from '#lib/data/marquees.ts';
 	import { parametresParDefaut } from '#lib/data/parametres-seance.ts';
 	import { fichierIcs, joursAvant, seancesDeLaSemaine, serieDeJours, tempsRestantEstime, trierLignes, type TriThemes } from '#lib/domain/accueil.ts';
 	import { dateHeure, etatConvocation } from '#lib/examen-officiel/convocation.ts';
@@ -36,6 +37,17 @@
 	let seancesRecentes = $state<string[]>([]);
 	let nouveautes = $state<{ nb: number; themes: string[] } | null>(null);
 	let express = $state<'' | 'en_cours' | 'erreur'>('');
+	let nbMarquees = $state(0);
+	let revision = $state<'' | 'en_cours' | 'erreur'>('');
+
+	async function revoirMarquees() {
+		revision = 'en_cours';
+		try {
+			window.location.assign(`/entrainement/${await seanceMarquees()}`);
+		} catch {
+			revision = 'erreur';
+		}
+	}
 
 	function chargerAvancement() {
 		return avancement(undefined, filtreRole).then((a) => (av = a));
@@ -70,6 +82,9 @@
 		// Compléments : s'ils échouent, l'accueil reste utilisable sans eux.
 		mesSeancesRecentes()
 			.then((s) => (seancesRecentes = s))
+			.catch(() => {});
+		mesMarquees()
+			.then((m) => (nbMarquees = m.size))
 			.catch(() => {});
 		if (prefs.derniereVisite) {
 			nouveautesDepuis(prefs.derniereVisite)
@@ -163,6 +178,13 @@
 					<Icone nom="ballon" taille={18} />{express === 'en_cours' ? 'Préparation…' : '5 questions au hasard'}
 				</button>
 				{#if express === 'erreur'}<span class="message-erreur" role="alert">La séance express n’a pas pu être créée. Réessayez.</span>{/if}
+				{#if nbMarquees > 0}
+					<button type="button" class="btn2 express" onclick={revoirMarquees} disabled={revision === 'en_cours'}>
+						<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.75" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9-5.2-2.8-5.2 2.8 1-5.9L3.5 9.7l5.9-.8z"></path></svg>
+						{revision === 'en_cours' ? 'Préparation…' : `Mes ${pluriel(nbMarquees, 'question marquée', 'questions marquées')}`}
+					</button>
+					{#if revision === 'erreur'}<span class="message-erreur" role="alert">La séance n’a pas pu être créée. Réessayez.</span>{/if}
+				{/if}
 				{#if etat === 'pret'}
 					<div class="semaine" aria-label="Cette semaine">
 						<span class="barre-objectif" aria-hidden="true"><span class="b" style="width: {Math.min(100, (semaine / objectif) * 100)}%"></span></span>

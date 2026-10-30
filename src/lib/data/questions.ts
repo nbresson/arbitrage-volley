@@ -50,7 +50,7 @@ export async function listerQuestions(): Promise<LigneQuestion[]> {
 	}));
 }
 
-export type RegleLiee = { id: string; reference: string; edition: string; principale: boolean };
+export type RegleLiee = { id: string; reference: string; edition: string; principale: boolean; passage?: string };
 
 export type QuestionComplete = {
 	id: string;
@@ -65,7 +65,7 @@ export async function chargerQuestion(id: string): Promise<QuestionComplete> {
 	const { data: q, error } = await supabase
 		.from('questions')
 		.select(
-			'id, enonce, explication, theme_id, niveau_id, role_cible, usage, video_url, statut, a_relire, propositions(id, lettre, texte), bonnes_reponses(proposition_id), question_regles(principale, regles(id, reference, editions(libelle))), cas_origine:regles!questions_origine_regle_id_fkey(reference, texte, texte_original, video_url)'
+			'id, enonce, explication, theme_id, niveau_id, role_cible, usage, video_url, statut, a_relire, propositions(id, lettre, texte, explication), bonnes_reponses(proposition_id), question_regles(principale, passage, regles(id, reference, editions(libelle))), cas_origine:regles!questions_origine_regle_id_fkey(reference, texte, texte_original, video_url)'
 		)
 		.eq('id', id)
 		.single();
@@ -76,7 +76,8 @@ export async function chargerQuestion(id: string): Promise<QuestionComplete> {
 		id: l.regles.id,
 		reference: l.regles.reference,
 		edition: l.regles.editions.libelle,
-		principale: l.principale
+		principale: l.principale,
+		passage: l.passage ?? ''
 	}));
 	return {
 		id: q.id,
@@ -86,7 +87,7 @@ export async function chargerQuestion(id: string): Promise<QuestionComplete> {
 		origine: (q as any).cas_origine ?? null,
 		formulaire: {
 			enonce: q.enonce,
-			propositions: props.map((p) => ({ lettre: p.lettre as Lettre, texte: p.texte })),
+			propositions: props.map((p) => ({ lettre: p.lettre as Lettre, texte: p.texte, explication: p.explication ?? '' })),
 			bonne: (props.find((p) => p.id === bonneId)?.lettre as Lettre) ?? null,
 			explication: q.explication,
 			themeId: q.theme_id,
@@ -94,14 +95,14 @@ export async function chargerQuestion(id: string): Promise<QuestionComplete> {
 			roleCible: q.role_cible,
 			usage: q.usage,
 			videoUrl: q.video_url ?? '',
-			regles: reglesLiees.map((r) => ({ id: r.id, principale: r.principale }))
+			regles: reglesLiees.map((r) => ({ id: r.id, principale: r.principale, passage: r.passage ?? '' }))
 		}
 	};
 }
 
 export const formulaireVide = (): FormulaireQuestion => ({
 	enonce: '',
-	propositions: (['A', 'B', 'C', 'D'] as const).map((lettre) => ({ lettre, texte: '' })),
+	propositions: (['A', 'B', 'C', 'D'] as const).map((lettre) => ({ lettre, texte: '', explication: '' })),
 	bonne: null,
 	explication: '',
 	themeId: null,

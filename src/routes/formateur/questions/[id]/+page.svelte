@@ -9,6 +9,7 @@
 	import NavFormateur from '#lib/components/NavFormateur.svelte';
 	import { archiverQuestion, chargerQuestion, enregistrerQuestion, formulaireVide, listerQuestions, type QuestionComplete, type RegleLiee } from '#lib/data/questions.ts';
 	import { toutesLesRegles } from '#lib/data/regles.ts';
+	import { signalementsDeQuestion, traiterSignalement, type Signalement } from '#lib/data/signalements.ts';
 	import { referentiel, type Option } from '#lib/data/seances.ts';
 	import { validerFormulaire, type FormulaireQuestion } from '#lib/formateur/validation-question.ts';
 	import { chercher, type Regle } from '#lib/regles/arbre.ts';
@@ -30,12 +31,23 @@
 	let confirmerArchive = $state(false);
 	// Après la validation d'un brouillon : le brouillon suivant à relire, pour enchaîner sans repasser par la liste.
 	let brouillonSuivant = $state<string | null>(null);
+	let signalements = $state<Signalement[]>([]);
+
+	async function traiter(s: Signalement) {
+		try {
+			await traiterSignalement(s.id);
+			signalements = signalements.map((x) => (x.id === s.id ? { ...x, traite_le: new Date().toISOString() } : x));
+		} catch {
+			erreurEnvoi = 'Le signalement n’a pas pu être marqué comme traité.';
+		}
+	}
 
 	$effect(() => {
 		Promise.all([id ? chargerQuestion(id) : Promise.resolve(null), referentiel(), toutesLesRegles()])
 			.then(([q, r, rg]) => {
 				question = q;
 				if (q) (f = q.formulaire), (liees = q.reglesLiees);
+				if (q) signalementsDeQuestion(q.id).then((s) => (signalements = s)).catch(() => {});
 				themes = r.themes;
 				niveaux = r.niveaux;
 				regles = rg;
@@ -46,19 +58,24 @@
 
 	const suggestions = $derived(rechercheRegle.trim() ? chercher(regles, rechercheRegle).filter((r) => !liees.some((l) => l.id === r.id)).slice(0, 8) : []);
 
+	const versFormulaire = () => (f.regles = liees.map((l) => ({ id: l.id, principale: l.principale, passage: l.passage ?? '' })));
 	function lier(r: Regle) {
-		liees.push({ id: r.id, reference: r.reference, edition: r.edition, principale: liees.length === 0 });
-		f.regles = liees.map((l) => ({ id: l.id, principale: l.principale }));
+		liees.push({ id: r.id, reference: r.reference, edition: r.edition, principale: liees.length === 0, passage: '' });
+		versFormulaire();
 		rechercheRegle = '';
 	}
 	function delier(idRegle: string) {
 		liees = liees.filter((l) => l.id !== idRegle);
 		if (liees.length && !liees.some((l) => l.principale)) liees[0].principale = true;
-		f.regles = liees.map((l) => ({ id: l.id, principale: l.principale }));
+		versFormulaire();
 	}
 	function rendrePrincipale(idRegle: string) {
 		liees = liees.map((l) => ({ ...l, principale: l.id === idRegle }));
-		f.regles = liees.map((l) => ({ id: l.id, principale: l.principale }));
+		versFormulaire();
+	}
+	function changerPassage(idRegle: string, passage: string) {
+		liees = liees.map((l) => (l.id === idRegle ? { ...l, passage } : l));
+		versFormulaire();
 	}
 
 	async function enregistrer(valider: boolean) {
@@ -126,6 +143,21 @@
 					{#if question?.a_relire}<span class="statut brouillon">À relire : une règle liée a changé d’édition</span>{/if}
 				</div>
 
+				{#if signalements.length}
+					<section class="signalements" aria-label="Signalements des stagiaires">
+						<h2>Signalements des stagiaires</h2>
+						<ul>
+							{#each signalements as s (s.id)}
+								<li class:traite={!!s.traite_le}>
+									<span class="texte">{s.message}</span>
+									<span class="meta">{s.auteur ?? 'Stagiaire'} · {new Date(s.cree_le).toLocaleDateString('fr-FR')}{s.traite_le ? ' · traité' : ''}</span>
+									{#if !s.traite_le}<button type="button" class="lien" onclick={() => traiter(s)}>Marquer comme traité</button>{/if}
+								</li>
+							{/each}
+						</ul>
+					</section>
+				{/if}
+
 				<label class="champ">Énoncé
 					<textarea rows="4" bind:value={f.enonce} aria-invalid={!!erreurs.enonce}></textarea>
 					{#if erreurs.enonce}<span class="erreur">{erreurs.enonce}</span>{/if}
@@ -137,6 +169,9 @@
 						<div class="proposition">
 							<label class="bonne"><input type="radio" name="bonne" value={p.lettre} bind:group={f.bonne} /> <span class="vh">Bonne réponse :</span> {p.lettre}</label>
 							<input class="texte" aria-label="Proposition {p.lettre}" bind:value={f.propositions[i].texte} />
+							{#if f.bonne !== p.lettre}
+								<input class="texte pourquoi" aria-label="Pourquoi la proposition {p.lettre} est fausse (facultatif)" placeholder="Pourquoi c’est faux (facultatif, montré après la réponse)" bind:value={f.propositions[i].explication} />
+							{/if}
 						</div>
 					{/each}
 					{#if erreurs.propositions}<span class="erreur">{erreurs.propositions}</span>{/if}
@@ -180,6 +215,7 @@
 									<span class="ref plaque">{l.reference}</span> <span class="aide">{l.edition}</span>
 									{#if l.principale}<span class="statut validee">Principale</span>{:else}<button type="button" class="lien" onclick={() => rendrePrincipale(l.id)}>Rendre principale</button>{/if}
 									<button type="button" class="lien" onclick={() => delier(l.id)} aria-label="Retirer {l.reference}">Retirer</button>
+									<input class="texte passage" aria-label="Passage de {l.reference} à surligner (facultatif)" placeholder="Passage à surligner dans la règle (facultatif)" value={l.passage ?? ''} oninput={(e) => changerPassage(l.id, (e.target as HTMLInputElement).value)} />
 								</li>
 							{/each}
 						</ul>
@@ -347,6 +383,55 @@
 		border: 1px solid var(--filet);
 		border-radius: var(--r);
 		padding: 8px 12px;
+	}
+	.signalements {
+		background: var(--ambre-clair);
+		border: 1px solid var(--ambre-vif);
+		border-radius: var(--r);
+		padding: 14px 18px;
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+	}
+	.signalements h2 {
+		margin: 0;
+		font-size: 16px;
+		color: var(--ambre);
+	}
+	.signalements ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+	}
+	.signalements li {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: baseline;
+		gap: 4px 12px;
+		font-size: 14px;
+	}
+	.signalements li.traite {
+		color: var(--doux);
+	}
+	.signalements .texte {
+		flex-basis: 100%;
+		font-size: 15px;
+	}
+	.signalements .meta {
+		font-size: 13px;
+		color: var(--doux);
+	}
+	.proposition .pourquoi,
+	.liees .passage {
+		grid-column: 1 / -1;
+		font-size: 14px;
+	}
+	.liees .passage {
+		flex-basis: 100%;
+		margin-top: 4px;
 	}
 	.statut {
 		font-size: 13px;

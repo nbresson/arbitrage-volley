@@ -20,7 +20,12 @@ export type SourceCitee = {
 	texte: string;
 	texte_original: string | null;
 	principale: boolean;
+	/** Passage de la règle à surligner dans la correction (facultatif). */
+	passage?: string | null;
 };
+
+/** Valeur du choix « Je ne sais pas » : compte comme une erreur, sans deviner. */
+export const JE_NE_SAIS_PAS = 'je-ne-sais-pas';
 
 /** Réponse de la fonction valider_reponse pour une séance pédagogique. */
 export type ResultatValidation = {
@@ -28,7 +33,11 @@ export type ResultatValidation = {
 	/** Proposition réellement enregistrée par le serveur (la première réponse fait foi). */
 	proposition_id?: string;
 	bonne_proposition_id: string;
+	/** Le stagiaire a répondu « je ne sais pas ». */
+	sans_reponse?: boolean;
 	explication: string;
+	/** Pourquoi chaque mauvaise proposition est fausse (id → texte), quand le formateur l'a rédigé. */
+	explications_propositions?: Record<string, string>;
 	sources: SourceCitee[];
 };
 
@@ -62,7 +71,7 @@ export const debutValidation = (e: EtatPedago): EtatPedago =>
 
 export const finValidation = (e: EtatPedago, r: ResultatValidation): EtatPedago => ({
 	...e,
-	choix: r.proposition_id ?? e.choix,
+	choix: r.sans_reponse ? JE_NE_SAIS_PAS : (r.proposition_id ?? e.choix),
 	resultat: r,
 	envoi: 'repos',
 	acquises: e.acquises + (r.correcte ? 1 : 0),
