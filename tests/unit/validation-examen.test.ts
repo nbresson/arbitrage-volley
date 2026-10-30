@@ -40,3 +40,8 @@ describe('versChampDate', () => {
 		expect(versChampDate(new Date('2026-11-07T09:30').toISOString())).toBe('2026-11-07T09:30');
 	});
 });
+
+test('seuil facultatif tant qu’il n’y a pas de questions', () => {
+	expect(validerExamen({ ...correct, seuil: null }, 0)).toEqual({});
+	expect(validerExamen({ ...correct, seuil: null }, 3)).toEqual({ seuil: 'Indiquez le seuil de réussite.' });
+});

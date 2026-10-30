@@ -15,8 +15,10 @@ export function validerExamen(f: FormulaireExamen, nbQuestions: number): Record<
 	if (!f.titre.trim()) e.titre = 'Donnez un titre à l’examen.';
 	if (!f.dateHeure) e.dateHeure = 'Choisissez la date et l’heure.';
 	if (!f.dureeMinutes || f.dureeMinutes < 1 || f.dureeMinutes > 240) e.dureeMinutes = 'La durée doit être comprise entre 1 et 240 minutes.';
-	if (!f.seuil || f.seuil < 1) e.seuil = 'Indiquez le seuil de réussite.';
-	else if (nbQuestions > 0 && f.seuil > nbQuestions) e.seuil = `Le seuil dépasse le nombre de questions (${nbQuestions}).`;
+	// Sans question choisie, le seuil peut attendre (la liste de contrôle bloque de toute façon l'ouverture).
+	if (!f.seuil || f.seuil < 1) {
+		if (nbQuestions > 0 || f.seuil !== null) e.seuil = 'Indiquez le seuil de réussite.';
+	} else if (nbQuestions > 0 && f.seuil > nbQuestions) e.seuil = `Le seuil dépasse le nombre de questions (${nbQuestions}).`;
 	return e;
 }
 

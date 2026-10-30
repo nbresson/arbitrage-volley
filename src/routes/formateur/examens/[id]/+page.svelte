@@ -4,7 +4,7 @@
 	// Un examen officiel, dans l'ordre du travail du formateur : informations, questions, inscrits, salle, résultats.
 	// Informations et questions ne sont modifiables qu'en brouillon (la base le garantit aussi).
 	import '#lib/components/formulaire.css';
-	import { goto } from '$app/navigation';
+	import { beforeNavigate, goto } from '$app/navigation';
 	import { page } from '$app/state';
 	import BadgeReussite from '#lib/components/BadgeReussite.svelte';
 	import Bandeau from '#lib/components/Bandeau.svelte';
@@ -40,6 +40,9 @@
 	let stagiaires = $state<Compte[]>([]);
 	let etat = $state<'chargement' | 'pret' | 'erreur'>('chargement');
 	let f = $state<FormulaireExamen>({ titre: '', dateHeure: '', lieu: '', dureeMinutes: 45, seuil: null });
+	// Informations telles qu'enregistrées : toute différence avec le formulaire est une modification en attente.
+	let enregistre = $state('');
+	let inscriptionEnCours = $state<string | null>(null);
 	let erreurs = $state<Record<string, string>>({});
 	let messageInfos = $state('');
 	let erreurInfos = $state('');
@@ -74,6 +77,7 @@
 					dureeMinutes: examen.duree_minutes,
 					seuil: examen.seuil_reussite
 				};
+				enregistre = JSON.stringify(f);
 				choisies = examen.questions.map((x) => x.question_id);
 				if (examen.statut !== 'brouillon') {
 					[code, resultats, stats, avis] = await Promise.all([
@@ -124,6 +128,7 @@
 			const nouvelId = await enregistrerExamen(f, id);
 			if (!id) return goto(`/formateur/examens/${nouvelId}`, { replaceState: true }).then(charger);
 			messageInfos = 'Informations enregistrées.';
+			enregistre = JSON.stringify(f);
 			examen = await lireExamen(nouvelId);
 		} catch (err) {
 			erreurInfos = (err as Error).message || 'L’examen n’a pas pu être enregistré. Réessayez.';
@@ -152,15 +157,20 @@
 		composer(l);
 	};
 
-	async function basculerInscription(s: Compte, coche: boolean) {
+	async function basculerInscription(s: Compte, coche: boolean, caseElement: HTMLInputElement) {
 		if (!id || !examen) return;
 		erreurInscrits = '';
+		inscriptionEnCours = s.id;
 		try {
 			if (coche) await inscrire(id, [s.id]);
 			else await desinscrire(id, s.id);
 			examen.inscrits = coche ? [...examen.inscrits, s.id] : examen.inscrits.filter((x) => x !== s.id);
 		} catch (err) {
-			erreurInscrits = (err as Error).message || 'L’inscription n’a pas pu être modifiée. Réessayez.';
+			// La case revient à l'état réel, et l'erreur dit de qui il s'agit.
+			caseElement.checked = !coche;
+			erreurInscrits = `${s.prenom} ${s.nom} : ${(err as Error).message || 'l’inscription n’a pas pu être modifiée. Réessayez.'}`;
+		} finally {
+			inscriptionEnCours = null;
 		}
 	}
 
@@ -168,6 +178,13 @@
 		if (!id) return;
 		erreurSalle = '';
 		try {
+			// L'ouverture fige l'examen : les informations modifiées sont d'abord enregistrées.
+			if (modifie) {
+				erreurs = validerExamen(f, choisies.length);
+				if (Object.keys(erreurs).length) return void (erreurSalle = 'Corrigez les informations de l’examen avant de l’ouvrir.');
+				await enregistrerExamen(f, id);
+				enregistre = JSON.stringify(f);
+			}
 			code = await ouvrirExamen(id);
 			confirmer = '';
 			await charger();
@@ -224,9 +241,12 @@
 	const heure = (d: Date | string) => new Intl.DateTimeFormat('fr-FR', { timeStyle: 'medium' }).format(new Date(d));
 	const heureCourte = (d: string) => new Intl.DateTimeFormat('fr-FR', { hour: '2-digit', minute: '2-digit' }).format(new Date(d));
 
-	const controle = $derived(
-		listeControle({ nbQuestions: choisies.length, inscrits: examen?.inscrits.length ?? 0, seuil: examen?.seuil_reussite ?? null, lieu: examen?.lieu ?? '' })
-	);
+	const modifie = $derived(!!id && !!enregistre && JSON.stringify(f) !== enregistre);
+	beforeNavigate(({ cancel }) => {
+		if (modifie && brouillon && !confirm('Les informations modifiées ne sont pas enregistrées. Quitter quand même ?')) cancel();
+	});
+	// La liste de contrôle lit le formulaire : ce que l'ouverture va réellement figer.
+	const controle = $derived(listeControle({ nbQuestions: choisies.length, inscrits: examen?.inscrits.length ?? 0, seuil: f.seuil, lieu: f.lieu }));
 	const avecStats = $derived(stats.some((x) => x.repondants > 0));
 	const moyenneAvis = $derived(avis.length ? (avis.reduce((s, a) => s + a.note, 0) / avis.length).toFixed(1).replace('.', ',') : '');
 	const taux = (x: StatQuestion) => (x.repondants ? Math.round((x.justes / x.repondants) * 100) : 0);
@@ -269,16 +289,19 @@
 			<h2>1. Informations</h2>
 			<form onsubmit={enregistrerInfos} novalidate>
 				<fieldset disabled={!brouillon}>
-					<label class="champ">Titre<input bind:value={f.titre} autocomplete="off" />{#if erreurs.titre}<span class="erreur">{erreurs.titre}</span>{/if}</label>
+					<label class="champ">Titre<input bind:value={f.titre} autocomplete="off" aria-invalid={!!erreurs.titre} aria-describedby={erreurs.titre ? 'err-titre' : undefined} />{#if erreurs.titre}<span class="erreur" id="err-titre">{erreurs.titre}</span>{/if}</label>
 					<div class="ligne">
-						<label class="champ">Date et heure<input type="datetime-local" bind:value={f.dateHeure} />{#if erreurs.dateHeure}<span class="erreur">{erreurs.dateHeure}</span>{/if}</label>
+						<label class="champ">Date et heure<input type="datetime-local" bind:value={f.dateHeure} aria-invalid={!!erreurs.dateHeure} aria-describedby={erreurs.dateHeure ? 'err-date' : undefined} />{#if erreurs.dateHeure}<span class="erreur" id="err-date">{erreurs.dateHeure}</span>{/if}</label>
 						<label class="champ">Lieu<input bind:value={f.lieu} autocomplete="off" /></label>
 					</div>
 					<div class="ligne">
-						<label class="champ">Durée (minutes)<input type="number" min="1" max="240" bind:value={f.dureeMinutes} />{#if erreurs.dureeMinutes}<span class="erreur">{erreurs.dureeMinutes}</span>{/if}</label>
+						<label class="champ">Durée (minutes)<input type="number" min="1" max="240" bind:value={f.dureeMinutes} aria-invalid={!!erreurs.dureeMinutes} aria-describedby={erreurs.dureeMinutes ? 'err-duree' : undefined} />{#if erreurs.dureeMinutes}<span class="erreur" id="err-duree">{erreurs.dureeMinutes}</span>{/if}</label>
 						<label class="champ">Seuil de réussite (bonnes réponses)
-							<input type="number" min="1" bind:value={f.seuil} placeholder={choisies.length ? String(seuilParDefaut(choisies.length)) : ''} />
-							{#if erreurs.seuil}<span class="erreur">{erreurs.seuil}</span>{/if}
+							<span class="seuil">
+								<input type="number" min="1" bind:value={f.seuil} placeholder={choisies.length ? String(seuilParDefaut(choisies.length)) : ''} aria-invalid={!!erreurs.seuil} aria-describedby={erreurs.seuil ? 'err-seuil' : undefined} />
+								<span class="sur">/ {choisies.length}</span>
+							</span>
+							{#if erreurs.seuil}<span class="erreur" id="err-seuil">{erreurs.seuil}</span>{/if}
 						</label>
 					</div>
 					{#if brouillon && choisies.length && !f.seuil}
@@ -351,7 +374,7 @@
 						<legend class="vh">Stagiaires inscrits à l’examen</legend>
 						{#each stagiaires as s (s.id)}
 							<label class="case">
-								<input type="checkbox" checked={examen.inscrits.includes(s.id)} onchange={(e) => basculerInscription(s, e.currentTarget.checked)} />
+								<input type="checkbox" checked={examen.inscrits.includes(s.id)} disabled={inscriptionEnCours === s.id} onchange={(e) => basculerInscription(s, e.currentTarget.checked, e.currentTarget)} />
 								{s.prenom} {s.nom}
 							</label>
 						{/each}
@@ -379,6 +402,7 @@
 					<div class="actions">
 						<a class="btn2" href="/formateur/examens/{id}/apercu">Aperçu côté stagiaire</a>
 						<button class="btn" disabled={!controle.pret} onclick={() => ((confirmer = 'ouvrir'), (erreurSalle = ''))}>Ouvrir l’examen</button>
+						{#if modifie}<p class="aide">Vos modifications des informations seront enregistrées à l’ouverture.</p>{/if}
 					</div>
 					{#if !controle.pret}<p class="aide">Le bouton « Ouvrir l’examen » s’active quand tout est prêt.</p>{/if}
 				{:else if examen.statut === 'ouvert'}
@@ -510,6 +534,20 @@
 />
 
 <style>
+	.seuil {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+	}
+	.seuil input {
+		flex: 1;
+		min-width: 0;
+	}
+	.sur {
+		font-weight: 700;
+		color: var(--doux);
+		white-space: nowrap;
+	}
 	.avis {
 		margin: 0;
 		padding-left: 18px;
