@@ -9,6 +9,7 @@ Liste vivante des améliorations demandées et des petits défauts connus. Le co
 Mélanger l'ordre des propositions à chaque affichage d'une question, pour qu'on ne retienne pas « c'est la B ».
 
 Points à trancher avant de coder :
+
 - **Ce que veut dire la lettre.** Aujourd'hui la lettre (A, B, C, D) est enregistrée avec la proposition (`propositions.lettre`) et sert à noter la réponse (`reponses`, `tentatives_reponses.lettre`, `bonnes_reponses`). Le plus simple : mélanger seulement l'affichage, et renuméroter A, B, C, D selon la position à l'écran, en gardant en coulisse la lettre d'origine pour l'enregistrement.
 - **Explications qui citent une lettre.** Une explication du type « la réponse B est fausse car… » deviendrait fausse une fois mélangée. Vérifier la banque et, si besoin, avertir dans l'éditeur (vérificateur de qualité) quand une explication cite une lettre.
 - **Propositions qui dépendent de leur place** (« Aucune des réponses ci-dessus », « A et B »). Prévoir de les garder en dernier ou de désactiver le mélange question par question.
@@ -20,7 +21,8 @@ Points à trancher avant de coder :
 
 Classées par utilité. Toutes respectent les contraintes de PRODUCT.md : pas d'IA en fonctionnement, coût minimal, simple à entretenir par des bénévoles.
 
-**Très utiles**
+#### Très utiles
+
 1. **Révisions espacées** : une question ratée revient à J+1, J+3, J+7 ; l'accueil propose « Vos révisions du jour ». Sert directement « comprendre plutôt que mémoriser ».
 2. **Neutraliser une question après un examen officiel** : retirée du calcul, scores recalculés pour tous. Équité de l'examen.
 3. **Exercices de feuille de match pour les marqueurs** : un déroulé de match (remplacements, temps morts, libéro, sanctions), le stagiaire indique ce qu'il inscrit.
@@ -31,7 +33,8 @@ Classées par utilité. Toutes respectent les contraintes de PRODUCT.md : pas d'
 8. **Composition automatique d'un examen** : répartition fixée (par thème, par niveau), tirage par la plateforme.
 9. **Notifications dans le site, sans e-mail** : examen à passer, nouveau devoir, résultat disponible. Contourne le blocage des e-mails.
 
-**Utiles**
+#### Utiles
+
 10. **Analyse des mauvaises réponses** : quelle proposition fausse attire le plus, par question (vérifier ce que les statistiques par question montrent déjà).
 11. **Modèles d'examen réutilisables** d'une session à l'autre, questions renouvelées.
 12. **Temps majoré pour un stagiaire** (tiers-temps, aménagement), réglé individuellement.
@@ -43,7 +46,8 @@ Classées par utilité. Toutes respectent les contraintes de PRODUCT.md : pas d'
 18. **Attestation de réussite** imprimable ou en PDF (date, score, nom du comité).
 19. **Relecture par un deuxième formateur** avant validation, avec commentaires internes sur la question.
 
-**Bonus**
+#### Bonus
+
 20. **Quiz en direct en salle** : question projetée, réponses sur téléphone, résultats en direct.
 21. **Question à un formateur** depuis une règle ou une correction, réponse dans le site.
 22. **Nouveaux types de questions** : vrai ou faux, plusieurs bonnes réponses, étapes dans l'ordre (à valider selon le format de l'examen réel).
