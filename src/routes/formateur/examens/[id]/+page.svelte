@@ -47,6 +47,9 @@
 	let resultats = $state<ResultatStagiaire[]>([]);
 	let confirmer = $state<'' | 'ouvrir' | 'clore'>('');
 	let erreurSalle = $state('');
+	let misAJour = $state<Date | null>(null);
+	let pleinEcran = $state(false);
+	let ecranCode = $state<HTMLElement>();
 
 	const brouillon = $derived(!id || examen?.statut === 'brouillon');
 
@@ -67,6 +70,7 @@
 				choisies = examen.questions.map((x) => x.question_id);
 				if (examen.statut !== 'brouillon') {
 					[code, resultats] = await Promise.all([codeExamen(id), resultatsExamen(id)]);
+					misAJour = new Date();
 				}
 			}
 			etat = 'pret';
@@ -79,11 +83,11 @@
 		charger();
 	});
 
-	// Suivi en salle : les résultats se rafraîchissent toutes les 15 secondes tant que l'examen est ouvert.
+	// Suivi en direct : qui a commencé, qui a terminé, rafraîchi toutes les 10 secondes tant que l'examen est ouvert.
 	$effect(() => {
 		if (examen?.statut !== 'ouvert' || !id) return;
 		const examenId = id;
-		const t = setInterval(() => actualiser(examenId), 15_000);
+		const t = setInterval(() => actualiser(examenId), 10_000);
 		return () => clearInterval(t);
 	});
 
@@ -91,6 +95,7 @@
 		if (!examenId) return;
 		try {
 			resultats = await resultatsExamen(examenId);
+			misAJour = new Date();
 			erreurSalle = '';
 		} catch {
 			erreurSalle = 'Les résultats n’ont pas pu être actualisés. Vérifiez votre connexion.';
@@ -185,6 +190,28 @@
 				(!filtre.role || q.role_cible === filtre.role || q.role_cible === 'les_deux')
 		)
 	);
+	// Code en plein écran pour le vidéoprojecteur ; Échap ou le bouton referment.
+	async function afficherPleinEcran() {
+		pleinEcran = true;
+		await Promise.resolve();
+		ecranCode?.requestFullscreen?.().catch(() => {});
+		ecranCode?.focus();
+	}
+	// Échap en plein écran est d'abord capté par le navigateur : la sortie du plein écran ferme aussi l'affichage.
+	$effect(() => {
+		const sortie = () => {
+			if (!document.fullscreenElement) pleinEcran = false;
+		};
+		document.addEventListener('fullscreenchange', sortie);
+		return () => document.removeEventListener('fullscreenchange', sortie);
+	});
+	function fermerPleinEcran() {
+		pleinEcran = false;
+		if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+	}
+	const heure = (d: Date | string) => new Intl.DateTimeFormat('fr-FR', { timeStyle: 'medium' }).format(new Date(d));
+	const heureCourte = (d: string) => new Intl.DateTimeFormat('fr-FR', { hour: '2-digit', minute: '2-digit' }).format(new Date(d));
+
 	const libelleEtat = { absent: 'Pas encore commencé', en_cours: 'En cours', termine: 'Terminé' } as const;
 	const commences = $derived(resultats.filter((r) => r.etat !== 'absent').length);
 	const termines = $derived(resultats.filter((r) => r.etat === 'termine').length);
@@ -317,8 +344,12 @@
 						<div class="code" role="img" aria-label="Code d’accès : {code.split('').join(' ')}">
 							{#each code.split('') as c, i (i)}<Volet chiffre={c} taille="grand" />{/each}
 						</div>
+						<button class="btn2 plein" onclick={afficherPleinEcran}>Afficher le code en plein écran</button>
 					{/if}
-					<p class="aide" role="status">{commences} commencé(s) sur {resultats.length} inscrit(s) · {termines} terminé(s). Mise à jour toutes les 15 secondes.</p>
+					<p class="aide" role="status">
+						{commences} commencé(s) sur {resultats.length} inscrit(s) · {termines} terminé(s).
+						Mise à jour toutes les 10 secondes{misAJour ? ` (dernière à ${heure(misAJour)})` : ''}.
+					</p>
 					<div class="actions">
 						<button class="btn2" onclick={() => actualiser()}>Actualiser</button>
 						<button class="btn" onclick={() => ((confirmer = 'clore'), (erreurSalle = ''))}>Clore l’examen</button>
@@ -336,12 +367,15 @@
 					<div class="defile">
 						<table>
 							<caption class="vh">Résultats par stagiaire</caption>
-							<thead><tr><th scope="col">Stagiaire</th><th scope="col">État</th><th scope="col">Score</th><th scope="col">Résultat</th></tr></thead>
+							<thead><tr><th scope="col">Stagiaire</th><th scope="col">État</th><th scope="col">Début</th><th scope="col">Réponses</th><th scope="col">Sorties d’écran</th><th scope="col">Score</th><th scope="col">Résultat</th></tr></thead>
 							<tbody>
 								{#each resultats as r (r.stagiaire_id)}
 									<tr>
 										<th scope="row"><a href="/formateur/stagiaires/{r.stagiaire_id}">{r.prenom} {r.nom}</a></th>
 										<td>{examen.statut === 'clos' && r.etat === 'absent' ? 'Absent' : libelleEtat[r.etat]}</td>
+										<td>{r.debut ? heureCourte(r.debut) : '—'}{r.fin ? ` → ${heureCourte(r.fin)}` : ''}</td>
+										<td class="chiffres">{r.etat === 'absent' ? '—' : `${r.repondues} / ${r.nb_questions}`}</td>
+										<td class:alerte={r.sorties > 0}>{r.etat === 'absent' ? '—' : r.sorties}</td>
 										<td class="chiffres">{r.etat === 'termine' ? `${r.score} / ${r.total}` : '—'}</td>
 										<td>{#if r.etat === 'termine' && r.reussi !== null}<BadgeReussite reussi={r.reussi} taille="petit" />{/if}</td>
 									</tr>
@@ -354,6 +388,17 @@
 		{/if}
 	{/if}
 </main>
+
+{#if pleinEcran && code && examen}
+	<div class="ecran-code" bind:this={ecranCode} tabindex="-1" role="dialog" aria-modal="true" aria-label="Code d’accès en plein écran" onkeydown={(e) => e.key === 'Escape' && fermerPleinEcran()}>
+		<p class="titre-projete">{examen.titre}</p>
+		<p class="consigne">Code d’accès</p>
+		<div class="code-geant" role="img" aria-label="Code d’accès : {code.split('').join(' ')}">
+			{#each code.split('') as c, i (i)}<span>{c}</span>{#if i === 2}<span class="tiret" aria-hidden="true">–</span>{/if}{/each}
+		</div>
+		<button class="fermer" onclick={fermerPleinEcran}>Fermer (Échap)</button>
+	</div>
+{/if}
 
 <DialogueConfirmation
 	ouvert={confirmer === 'ouvrir'}
@@ -377,6 +422,63 @@
 />
 
 <style>
+	.plein {
+		align-self: flex-start;
+	}
+	td.alerte {
+		color: var(--ambre);
+		font-weight: 700;
+	}
+	.ecran-code {
+		position: fixed;
+		inset: 0;
+		z-index: 50;
+		background: var(--tableau);
+		color: var(--papier);
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 2vh;
+		padding: 4vh 4vw;
+		text-align: center;
+	}
+	.ecran-code:focus {
+		outline: none;
+	}
+	.titre-projete {
+		margin: 0;
+		font-size: clamp(20px, 3vw, 40px);
+		font-weight: 700;
+	}
+	.consigne {
+		margin: 0;
+		font-size: clamp(16px, 2vw, 28px);
+		color: var(--tableau-texte-doux);
+	}
+	.code-geant {
+		display: flex;
+		gap: 2vw;
+		font-family: var(--police-chiffres);
+		font-weight: 800;
+		font-size: clamp(64px, 16vw, 260px);
+		line-height: 1;
+		font-variant-numeric: tabular-nums;
+	}
+	.code-geant .tiret {
+		color: var(--tableau-texte-doux);
+	}
+	.ecran-code .fermer {
+		margin-top: 4vh;
+		font: inherit;
+		font-weight: 700;
+		color: var(--papier);
+		background: transparent;
+		border: 1.5px solid var(--papier);
+		border-radius: var(--r);
+		padding: 12px 18px;
+		cursor: pointer;
+	}
 	.page {
 		padding: 28px 40px 48px;
 		display: flex;

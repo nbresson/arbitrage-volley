@@ -28,6 +28,12 @@ export type ResultatStagiaire = {
 	score: number | null;
 	total: number | null;
 	reussi: boolean | null;
+	/** Suivi en direct : heures de début et de fin, réponses données sur nb_questions, sorties de l'écran. */
+	debut: string | null;
+	fin: string | null;
+	repondues: number;
+	sorties: number;
+	nb_questions: number;
 };
 
 const verifier = <T>(r: { data: T; error: { message: string; code?: string } | null }): T => {

@@ -21,6 +21,8 @@
 		repondre(questionId: string, valeur: string, reponduLe: string): Promise<void>;
 		signaler(questionId: string, signalee: boolean): Promise<void>;
 		terminer(): Promise<void>;
+		/** Examen officiel : enregistre une sortie de l'écran (onglet ou application quittés). */
+		noterSortie?(): Promise<void>;
 	};
 </script>
 
@@ -34,6 +36,7 @@
 	import GrilleQuestions from '#lib/components/GrilleQuestions.svelte';
 	import Reponse from '#lib/components/Reponse.svelte';
 	import { ErreurServeur } from '#lib/data/seances.ts';
+	import { texteEnAttente, texteRetablie } from '#lib/examen-officiel/salle.ts';
 	import { prochaineSansReponse, tempsRestant, texteConfirmation } from '#lib/seance/examen.ts';
 	import { creerFile, RefusDefinitif } from '#lib/seance/file-hors-ligne.ts';
 	import { SvelteSet } from 'svelte/reactivity';
@@ -59,6 +62,11 @@
 	let erreurFin = $state('');
 	let refus = $state('');
 	let fini = false;
+	// Réponses gardées sur l'appareil en attendant le réseau ; « Tout est envoyé » une fois la file vidée.
+	let enAttente = $state(0);
+	let toutEnvoye = $state(false);
+	let retablie = $state('');
+	let sortie = $state(false);
 	// Écart entre l'horloge du serveur et celle de l'appareil : le temps qui compte est celui du serveur.
 	let decalage = 0;
 	const heure = () => new Date(Date.now() + decalage);
@@ -105,7 +113,26 @@
 			.catch(() => (chargement = 'erreur'));
 
 		const tic = setInterval(() => (maintenant = heure()), 1000);
-		const enLigneOn = () => ((enLigne = true), envoyerFile());
+		const enLigneOn = async () => {
+			enLigne = true;
+			const avant = file.lister().length;
+			const b = await envoyerFile();
+			retablie = texteRetablie(Math.min(avant, b.envoyees));
+			setTimeout(() => (retablie = ''), 6000);
+		};
+		// Examen officiel : quitter l'écran est enregistré, et signalé au retour.
+		const visibilite = () => {
+			if (!source.noterSortie || fini || chargement !== 'pret') return;
+			if (document.visibilityState === 'hidden') {
+				sortie = true;
+				source.noterSortie().catch(() => {});
+			}
+		};
+		const avantFermeture = (e: BeforeUnloadEvent) => {
+			if (source.noterSortie && !fini && chargement === 'pret') e.preventDefault();
+		};
+		document.addEventListener('visibilitychange', visibilite);
+		addEventListener('beforeunload', avantFermeture);
 		const horsLigne = () => (enLigne = false);
 		addEventListener('online', enLigneOn);
 		addEventListener('offline', horsLigne);
@@ -113,6 +140,8 @@
 			clearInterval(tic);
 			removeEventListener('online', enLigneOn);
 			removeEventListener('offline', horsLigne);
+			document.removeEventListener('visibilitychange', visibilite);
+			removeEventListener('beforeunload', avantFermeture);
 		};
 	});
 
@@ -144,6 +173,8 @@
 			else if (d) marquerRepondues(d.questions);
 		}
 		if (bilan.envoyees && !bilan.restantes && enregistrement === 'locale') enregistrement = 'enregistree';
+		if (enAttente > 0 && !bilan.restantes) toutEnvoye = true;
+		enAttente = bilan.restantes;
 		return bilan;
 	}
 
@@ -152,6 +183,7 @@
 		file.ajouter({ seanceId: cleFile, questionId: question.questionId, propositionId: choix[question.questionId], reponduLe: heure().toISOString() });
 		repondues.add(courant);
 		enregistrement = 'en_cours';
+		toutEnvoye = false;
 		const bilan = await envoyerFile();
 		enregistrement = bilan.restantes ? 'locale' : 'enregistree';
 		const suite = prochaineSansReponse(repondues, courant, questions.length);
@@ -182,7 +214,7 @@
 		try {
 			await source.terminer();
 			localStorage.removeItem(cleFile);
-			goto(source.urlResultat);
+			goto(temps?.ecoule ? `${source.urlResultat}?fin=auto&n=${repondues.size}` : source.urlResultat);
 		} catch {
 			fini = false;
 			erreurFin = 'L’examen n’a pas pu être terminé. Vérifiez votre connexion puis réessayez.';
@@ -212,7 +244,15 @@
 <div class="alerte-temps" class:visible={!!temps?.alerte} role="status">{temps?.alerte ? `${temps.alerte} Vos réponses enregistrées seront envoyées automatiquement à la fin du temps.` : ''}</div>
 
 {#if !enLigne}
-	<div class="hors-ligne" role="status">Hors ligne : vos réponses restent sur cet appareil et seront envoyées dès le retour de la connexion.</div>
+	<div class="hors-ligne" role="status">Hors ligne : vos réponses restent sur cet appareil et seront envoyées dès le retour de la connexion.{enAttente ? ` ${texteEnAttente(enAttente)}.` : ''}</div>
+{:else if retablie}
+	<div class="retablie" role="status">{retablie}</div>
+{/if}
+{#if sortie}
+	<div class="hors-ligne" role="alert">
+		Vous avez quitté l’écran de l’examen : votre sortie a été enregistrée et votre formateur la verra.
+		<button type="button" class="fermer" onclick={() => (sortie = false)}>Compris</button>
+	</div>
 {/if}
 
 {#if chargement === 'en_cours'}
@@ -245,12 +285,12 @@
 					{signalees.has(courant) ? 'Signalée à vérifier' : 'Signaler à vérifier'}
 				</button>
 				<span class="aide" role="status">
-					{enregistrement === 'enregistree' ? 'Réponse enregistrée' : enregistrement === 'locale' ? 'Réponse gardée sur cet appareil' : ''}
+					{enAttente ? texteEnAttente(enAttente) : toutEnvoye ? 'Tout est envoyé' : enregistrement === 'enregistree' ? 'Réponse enregistrée' : enregistrement === 'locale' ? 'Réponse gardée sur cet appareil' : ''}
 				</span>
 			</div>
 			{#if refus}<p class="message-erreur" role="alert">{refus}</p>{/if}
 			<p class="aide">
-				Les corrections ne sont pas affichées pendant l’examen. À la fin du temps, vos réponses enregistrées sont envoyées automatiquement.
+				{source.noterSortie ? 'Restez sur cet écran : chaque sortie est enregistrée. ' : ''}Les corrections ne sont pas affichées pendant l’examen. À la fin du temps, vos réponses enregistrées sont envoyées automatiquement.
 			</p>
 		</section>
 		<Filet />
@@ -343,6 +383,23 @@
 		border-bottom: 1px solid var(--ambre-vif);
 		padding: 12px 40px;
 		font-weight: 600;
+	}
+	.retablie {
+		background: var(--bleu-clair);
+		color: var(--bleu-texte);
+		padding: 12px 40px;
+		font-weight: 600;
+	}
+	.fermer {
+		margin-left: 12px;
+		font: inherit;
+		font-weight: 700;
+		color: inherit;
+		background: none;
+		border: 1.5px solid currentColor;
+		border-radius: var(--r-petit);
+		padding: 4px 10px;
+		cursor: pointer;
 	}
 	.alerte-temps:not(.visible) {
 		padding: 0 !important;
@@ -442,6 +499,7 @@
 			padding: 16px 20px;
 		}
 		.alerte-temps,
+		.retablie,
 		.hors-ligne {
 			padding: 12px 20px;
 		}

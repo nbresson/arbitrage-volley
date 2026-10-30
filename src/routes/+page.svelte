@@ -294,6 +294,7 @@
 					{#if e === 'a_venir'}
 						<a class="btn2" href="/entrainement/nouvelle?mode=examen_entrainement">Passer un examen blanc</a>
 						<a class="agenda" href={icsUrl(c)} download="{c.titre}.ics"><Icone nom="calendrier" taille={16} />Ajouter à mon agenda</a>
+						<a class="agenda" href="/convocation/{c.examen_id}">Imprimer la convocation</a>
 					{:else if e === 'ouvert'}
 						<a class="btn" href="/examen-officiel/{c.examen_id}">Commencer l’examen</a>
 					{:else if e === 'en_cours'}
@@ -569,6 +570,9 @@
 		border-radius: var(--r-petit);
 		background: var(--papier);
 		padding: 6px 8px;
+	}
+	.agenda + .agenda {
+		margin-left: 16px;
 	}
 	.agenda {
 		display: inline-flex;

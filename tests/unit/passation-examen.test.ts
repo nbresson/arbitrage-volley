@@ -95,3 +95,46 @@ test('alerte de temps : bandeau à 5 minutes de la fin, absent avant', async () 
 	await tot.findByLabelText(/Proposition B/);
 	expect(tot.queryByText(/Plus que 5 minutes/)).toBeNull();
 });
+
+test('hors ligne : réponses en attente visibles, puis « Connexion rétablie » et « Tout est envoyé »', async () => {
+	let reseau = false;
+	const ecran = render(PassationExamen, {
+		source: source({
+			repondre: async () => {
+				if (!reseau) throw new Error('Failed to fetch');
+			}
+		})
+	});
+	await fireEvent.click(await ecran.findByLabelText(/Proposition B/));
+	await fireEvent.click(ecran.getByRole('button', { name: 'Valider et continuer' }));
+	expect(await ecran.findByText('1 réponse en attente d’envoi')).toBeInTheDocument();
+	reseau = true;
+	window.dispatchEvent(new Event('online'));
+	expect(await ecran.findByText('Connexion rétablie, 1 réponse envoyée.')).toBeInTheDocument();
+	expect(await ecran.findByText('Tout est envoyé')).toBeInTheDocument();
+});
+
+test('examen officiel : quitter l’écran est enregistré et signalé au retour', async () => {
+	const noterSortie = vi.fn(async () => {});
+	const ecran = render(PassationExamen, { source: source({ noterSortie }) });
+	await ecran.findByLabelText(/Proposition B/);
+	expect(ecran.getByText(/Restez sur cet écran : chaque sortie est enregistrée/)).toBeInTheDocument();
+	Object.defineProperty(document, 'visibilityState', { value: 'hidden', configurable: true });
+	document.dispatchEvent(new Event('visibilitychange'));
+	Object.defineProperty(document, 'visibilityState', { value: 'visible', configurable: true });
+	expect(noterSortie).toHaveBeenCalledTimes(1);
+	expect(await ecran.findByText(/votre sortie a été enregistrée/)).toBeInTheDocument();
+});
+
+test('examen blanc : aucune sortie enregistrée', async () => {
+	const ecran = render(PassationExamen, { source: source({}) });
+	await ecran.findByLabelText(/Proposition B/);
+	expect(ecran.queryByText(/chaque sortie est enregistrée/)).toBeNull();
+});
+
+test('temps écoulé : départ vers le résultat avec l’annonce du nombre de réponses envoyées', async () => {
+	render(PassationExamen, {
+		source: source({ charger: async () => ({ debut: new Date(Date.now() - 11 * 60_000).toISOString(), dureeMinutes: 10, fin: null, questions: [{ ...question, choisie: 'B' }] }) })
+	});
+	await waitFor(() => expect(h.goto).toHaveBeenCalledWith('/tentative/t1/resultat?fin=auto&n=1'));
+});

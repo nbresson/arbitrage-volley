@@ -8,6 +8,7 @@ const h = vi.hoisted(() => ({
 	goto: vi.fn(),
 	mesConvocations: vi.fn(),
 	commencerTentative: vi.fn(),
+	mesurerConnexion: vi.fn(async () => ({ etat: 'stable', texte: 'Connexion stable.' })),
 	infoTentative: vi.fn(),
 	bilanTentative: vi.fn()
 }));
@@ -20,6 +21,7 @@ vi.mock('#lib/data/examens-officiels.ts', async (orig) => ({
 	...(await orig<typeof import('../../src/lib/data/examens-officiels')>()),
 	mesConvocations: h.mesConvocations,
 	commencerTentative: h.commencerTentative,
+	mesurerConnexion: h.mesurerConnexion,
 	infoTentative: h.infoTentative,
 	bilanTentative: h.bilanTentative
 }));
@@ -41,7 +43,7 @@ describe('saisie du code', () => {
 	test('le bouton reste désactivé tant que le code n’a pas 6 chiffres', async () => {
 		h.params = { examen: 'e1' };
 		const ecran = render(SaisieCode);
-		const champ = await ecran.findByLabelText('Code d’accès donné par votre formateur');
+		const champ = await ecran.findByLabelText('Chiffre 1 sur 6');
 		const bouton = ecran.getByRole('button', { name: 'Commencer l’examen' });
 		await fireEvent.input(champ, { target: { value: '12 34' } });
 		expect(bouton).toBeDisabled();
@@ -53,11 +55,11 @@ describe('saisie du code', () => {
 		h.params = { examen: 'e1' };
 		h.commencerTentative.mockRejectedValue(new ErreurServeur('Code d’accès incorrect.', 'P0001'));
 		const ecran = render(SaisieCode);
-		const champ = await ecran.findByLabelText('Code d’accès donné par votre formateur');
+		const champ = await ecran.findByLabelText('Chiffre 1 sur 6');
 		await fireEvent.input(champ, { target: { value: '000000' } });
 		await fireEvent.click(ecran.getByRole('button', { name: 'Commencer l’examen' }));
 		expect(await ecran.findByRole('alert')).toHaveTextContent('Code d’accès incorrect.');
-		expect(champ).toHaveValue('000000');
+		expect(ecran.getAllByLabelText(/Chiffre/).map((c) => (c as HTMLInputElement).value).join('')).toBe('000000');
 		expect(h.goto).not.toHaveBeenCalled();
 	});
 
@@ -65,11 +67,31 @@ describe('saisie du code', () => {
 		h.params = { examen: 'e1' };
 		h.commencerTentative.mockResolvedValue('t1');
 		const ecran = render(SaisieCode);
-		const champ = await ecran.findByLabelText('Code d’accès donné par votre formateur');
+		const champ = await ecran.findByLabelText('Chiffre 1 sur 6');
 		await fireEvent.input(champ, { target: { value: '123456' } });
 		await fireEvent.click(ecran.getByRole('button', { name: 'Commencer l’examen' }));
 		await waitFor(() => expect(h.goto).toHaveBeenCalledWith('/tentative/t1'));
 		expect(h.commencerTentative).toHaveBeenCalledWith('e1', '123456');
+	});
+});
+
+describe('salle d’attente', () => {
+	test('écran d’attente avec l’heure et le lieu, test de connexion, convocation imprimable', async () => {
+		h.params = { examen: 'e1' };
+		const ecran = render(SaisieCode);
+		expect(await ecran.findByText('L’examen commence quand votre formateur donne le code.')).toBeInTheDocument();
+		expect(ecran.getByText(/Salle 2/)).toBeInTheDocument();
+		expect(await ecran.findByText('Connexion stable.')).toBeInTheDocument();
+		expect(ecran.getByRole('link', { name: 'Imprimer la convocation' }).getAttribute('href')).toBe('/convocation/e1');
+	});
+
+	test('examen pas encore ouvert : code et bouton désactivés, message d’attente', async () => {
+		h.params = { examen: 'e1' };
+		h.mesConvocations.mockResolvedValue([{ ...convocation, statut: 'brouillon' }]);
+		const ecran = render(SaisieCode);
+		expect(await ecran.findByText(/pas encore ouvert l’examen/)).toBeInTheDocument();
+		expect(ecran.getByLabelText('Chiffre 1 sur 6')).toBeDisabled();
+		expect(ecran.getByRole('button', { name: 'Commencer l’examen' })).toBeDisabled();
 	});
 });
 
@@ -90,5 +112,14 @@ describe('résultat de l’examen officiel', () => {
 		expect(await ecran.findByText('Non réussi')).toBeInTheDocument();
 		expect(ecran.getByText('Seuil de réussite : 21 / 30')).toBeInTheDocument();
 		expect(ecran.queryByRole('link', { name: /Revoir/ })).toBeNull();
+	});
+
+	test('résultat contextualisé : date, lieu, et le détail chez le formateur', async () => {
+		h.params = { tentative: 't1' };
+		h.infoTentative.mockResolvedValue({ id: 't1', examen_id: 'e1', titre: 'Examen', debut: '', fin: new Date().toISOString(), duree_minutes: 45, nb_questions: 30, date_heure: '2026-11-01T09:00:00Z', lieu: 'Salle 2' });
+		h.bilanTentative.mockResolvedValue({ score: 24, total: 30, seuil: 21, reussi: true, par_theme: [] });
+		const ecran = render(Resultat);
+		expect(await ecran.findByText(/1 novembre 2026.*Salle 2/)).toBeInTheDocument();
+		expect(ecran.getByText(/Votre formateur a le détail de vos réponses/)).toBeInTheDocument();
 	});
 });

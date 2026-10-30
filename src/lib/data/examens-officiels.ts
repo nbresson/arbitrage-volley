@@ -1,5 +1,6 @@
 // Examens officiels côté stagiaire : convocations et passation (fonctions SQL « examens_passation »).
 import type { SourcePassation } from '#lib/components/PassationExamen.svelte';
+import { qualiteConnexion, type QualiteConnexion } from '#lib/examen-officiel/salle.ts';
 import { supabase } from '#lib/supabase.ts';
 import { ErreurServeur } from './seances.ts';
 
@@ -17,7 +18,18 @@ export type Convocation = {
 };
 
 /** `maintenant` : l'heure du serveur au moment de la lecture. */
-export type InfoTentative = { id: string; examen_id: string; titre: string; debut: string; fin: string | null; duree_minutes: number; nb_questions: number; maintenant: string };
+export type InfoTentative = {
+	id: string;
+	examen_id: string;
+	titre: string;
+	debut: string;
+	fin: string | null;
+	duree_minutes: number;
+	nb_questions: number;
+	maintenant: string;
+	date_heure: string;
+	lieu: string;
+};
 
 export type BilanTentative = { score: number; total: number; seuil: number; reussi: boolean; par_theme: { theme: string; justes: number; total: number }[] };
 
@@ -28,6 +40,18 @@ export async function mesConvocations(): Promise<Convocation[]> {
 	const { data, error } = await supabase.rpc('mes_convocations');
 	if (error) throw erreur(error);
 	return data ?? [];
+}
+
+/** Test de connexion avant l'examen : trois allers-retours vers le serveur, chacun limité à 4 secondes. */
+export async function mesurerConnexion(): Promise<QualiteConnexion> {
+	const mesures: (number | null)[] = [];
+	for (let i = 0; i < 3; i++) {
+		const t0 = performance.now();
+		const delai = new Promise<null>((r) => setTimeout(() => r(null), 4000));
+		const appel = supabase.rpc('mes_convocations').then((r) => (r.error ? null : performance.now() - t0), () => null);
+		mesures.push(await Promise.race([appel, delai]));
+	}
+	return qualiteConnexion(mesures);
 }
 
 export async function commencerTentative(examenId: string, code: string): Promise<string> {
@@ -91,6 +115,9 @@ export function sourceTentative(id: string, titreExamen = ''): SourcePassation {
 		async terminer() {
 			const { error } = await supabase.rpc('terminer_tentative', { p_tentative: id });
 			if (error) throw erreur(error);
+		},
+		async noterSortie() {
+			await supabase.rpc('noter_sortie', { p_tentative: id });
 		}
 	};
 }

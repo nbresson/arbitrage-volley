@@ -22,8 +22,19 @@
 		bilan,
 		officiel,
 		sousTitre,
-		blanc = null
-	}: { bilan: Bilan; officiel: null | { seuil: number; reussi: boolean }; sousTitre: string; blanc?: Blanc | null } = $props();
+		blanc = null,
+		annonce = '',
+		contexte = null
+	}: {
+		bilan: Bilan;
+		officiel: null | { seuil: number; reussi: boolean };
+		sousTitre: string;
+		blanc?: Blanc | null;
+		/** Message affiché en tête, par exemple après la fin automatique du temps. */
+		annonce?: string;
+		/** Examen officiel : date et lieu rappelés sur le résultat. */
+		contexte?: { date: string; lieu: string } | null;
+	} = $props();
 
 	const verdict = $derived(blanc && !officiel ? verdictBlanc(bilan.score, bilan.total) : null);
 	let rejeu = $state<'' | 'correction' | 'refaire'>('');
@@ -55,6 +66,7 @@
 </Bandeau>
 
 <div class="bande-filet" aria-hidden="true"></div>
+{#if annonce}<p class="annonce" role="status">{annonce}</p>{/if}
 {#if blanc}
 	<p class="impression">Examen blanc{session.profil ? ` de ${session.profil.prenom} ${session.profil.nom}` : ''}{blanc.date ? `, ${jour(blanc.date)}` : ''}</p>
 {/if}
@@ -83,13 +95,16 @@
 			<BadgeReussite reussi={officiel.reussi} />
 			<span>Seuil de réussite : {officiel.seuil} / {bilan.total}</span>
 		</div>
+		{#if contexte}
+			<p class="contexte">Examen du {jour(contexte.date)}{contexte.lieu ? ` · ${contexte.lieu}` : ''}</p>
+		{/if}
 	{/if}
 </div>
 <div class="jeu">
 	<section class="themes">
 		<h1>Résultat par thème</h1>
 		{#if officiel}
-			<p class="aide">Les corrections ne sont pas affichées. Ce résultat est transmis à vos formateurs.</p>
+			<p class="aide">Les corrections ne sont pas affichées ici. Votre formateur a le détail de vos réponses et reviendra avec vous sur les règles à retravailler.</p>
 		{:else}
 			<p class="aide">En mode examen, les corrections ne sont pas affichées. Pour comprendre vos erreurs, reprenez les thèmes faibles en mode pédagogique.</p>
 		{/if}
@@ -315,6 +330,20 @@
 		align-items: center;
 		border-top: 1px solid var(--filet);
 		padding-top: 16px;
+	}
+	.annonce {
+		margin: 0;
+		padding: 12px 40px;
+		background: var(--ambre-clair);
+		color: var(--ambre);
+		border-bottom: 1px solid var(--ambre-vif);
+		font-weight: 700;
+	}
+	.contexte {
+		flex-basis: 100%;
+		margin: 0;
+		font-size: 15px;
+		color: var(--tableau-texte);
 	}
 	.reperes {
 		flex-basis: 100%;
