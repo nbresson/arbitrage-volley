@@ -15,7 +15,7 @@
 	import { mesConvocations, type Convocation } from '#lib/data/examens-officiels.ts';
 	import { avancement, creerSeance, mesSeancesRecentes, referentiel, seanceAReprendre } from '#lib/data/seances.ts';
 	import { nouveautesDepuis } from '#lib/data/questions.ts';
-	import { mesMarquees, seanceMarquees } from '#lib/data/marquees.ts';
+	import { mesMarquees, seanceARevoir, seanceMarquees } from '#lib/data/marquees.ts';
 	import { parametresParDefaut } from '#lib/data/parametres-seance.ts';
 	import { fichierIcs, joursAvant, seancesDeLaSemaine, serieDeJours, tempsRestantEstime, trierLignes, type TriThemes } from '#lib/domain/accueil.ts';
 	import { dateHeure, etatConvocation, examenActif } from '#lib/examen-officiel/convocation.ts';
@@ -56,6 +56,16 @@
 			window.location.assign(`/entrainement/${await seanceMarquees()}`);
 		} catch {
 			revision = 'erreur';
+		}
+	}
+
+	let revisionARevoir = $state<'' | 'en_cours' | 'erreur'>('');
+	async function revoirARevoir() {
+		revisionARevoir = 'en_cours';
+		try {
+			window.location.assign(`/entrainement/${await seanceARevoir()}`);
+		} catch {
+			revisionARevoir = 'erreur';
 		}
 	}
 
@@ -250,6 +260,12 @@
 		</nav>
 
 			<div class="sous-tuiles">
+				{#if etat === 'pret' && t.aRevoir > 0}
+					<button type="button" class="btn2 express" onclick={revoirARevoir} disabled={revisionARevoir === 'en_cours'}>
+						<Icone nom="retour" taille={18} />{revisionARevoir === 'en_cours' ? 'Préparation…' : t.aRevoir > 1 ? `Revoir mes ${t.aRevoir} questions à revoir` : 'Revoir ma question à revoir'}
+					</button>
+					{#if revisionARevoir === 'erreur'}<span class="message-erreur" role="alert">La séance n’a pas pu être créée. Réessayez.</span>{/if}
+				{/if}
 				<button type="button" class="btn2 express" onclick={seanceExpress} disabled={express === 'en_cours'}>
 					<Icone nom="ballon" taille={18} />{express === 'en_cours' ? 'Préparation…' : '5 questions au hasard'}
 				</button>

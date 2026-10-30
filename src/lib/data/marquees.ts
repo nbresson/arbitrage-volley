@@ -20,3 +20,10 @@ export async function seanceMarquees(): Promise<string> {
 	if (error) throw new Error(error.message);
 	return data as string;
 }
+
+/** Séance pédagogique des questions dont la dernière réponse est fausse (compteur « À revoir » de l'accueil). */
+export async function seanceARevoir(): Promise<string> {
+	const { data, error } = await supabase.rpc('seance_a_revoir');
+	if (error) throw new Error(error.message);
+	return data as string;
+}

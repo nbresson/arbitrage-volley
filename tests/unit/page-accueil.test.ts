@@ -4,6 +4,7 @@ import { beforeEach, expect, test, vi } from 'vitest';
 
 const h = vi.hoisted(() => ({
 	avancement: vi.fn(),
+	seanceARevoir: vi.fn(async () => 's-revoir'),
 	convocations: [] as unknown[]
 }));
 vi.mock('$app/state', () => ({ page: { params: {}, url: new URL('http://x/') } }));
@@ -23,7 +24,7 @@ vi.mock('#lib/data/seances.ts', async (orig) => ({
 	seanceEnCours: async () => false
 }));
 vi.mock('#lib/data/questions.ts', async (orig) => ({ ...(await orig<typeof import('../../src/lib/data/questions')>()), nouveautesDepuis: async () => ({ nb: 0, themes: [] }) }));
-vi.mock('#lib/data/marquees.ts', () => ({ mesMarquees: async () => new Set(), seanceMarquees: vi.fn(), marquer: vi.fn() }));
+vi.mock('#lib/data/marquees.ts', () => ({ mesMarquees: async () => new Set(), seanceMarquees: vi.fn(), marquer: vi.fn(), seanceARevoir: h.seanceARevoir }));
 vi.mock('#lib/data/examens-officiels.ts', async (orig) => ({ ...(await orig<typeof import('../../src/lib/data/examens-officiels')>()), mesConvocations: async () => h.convocations }));
 
 import Accueil from '../../src/routes/+page.svelte';
@@ -77,4 +78,18 @@ test('nouveau stagiaire : bienvenue juste sous le titre, sans objectif de la sem
 	const tuiles = e.container.querySelector('.tuiles')!;
 	expect(bienvenue.compareDocumentPosition(tuiles) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
 	expect(e.container.querySelector('.semaine')).toBeNull();
+});
+
+test('« Revoir mes questions à revoir » seulement s’il y en a, et il lance la séance', async () => {
+	const assign = vi.fn();
+	Object.defineProperty(window, 'location', { value: { ...window.location, assign }, configurable: true });
+	const e = render(Accueil);
+	const bouton = await e.findByRole('button', { name: 'Revoir ma question à revoir' });
+	await fireEvent.click(bouton);
+	await waitFor(() => expect(assign).toHaveBeenCalledWith('/entrainement/s-revoir'));
+	e.unmount();
+	h.avancement.mockResolvedValue([ligne(3, 0)]);
+	const f = render(Accueil);
+	await f.findByRole('table');
+	expect(f.queryByRole('button', { name: /à revoir/ })).toBeNull();
 });
