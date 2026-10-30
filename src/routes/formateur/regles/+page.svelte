@@ -142,24 +142,24 @@
 	// Import assisté : texte collé (ou fichier texte), découpé en consignes, relu, puis ajouté.
 	let texteImport = $state('');
 	let prefixe = $state('CFA ');
-	let decoupees = $state<(ConsigneDecoupee & { garder: boolean; erreur?: string })[]>([]);
+	// erreur : bloque l'ajout (référence déjà présente, texte vide) ; avertissement : numéro en double ; echec : refus à l'enregistrement.
+	let decoupees = $state<(ConsigneDecoupee & { garder: boolean; erreur?: string; avertissement?: string; echec?: string })[]>([]);
 	const avecPrefixe = (ref: string) => `${prefixe}${ref}`.trim();
 	// Relit chaque consigne découpée : référence déjà présente dans l'édition, texte vide, numéro en double dans le collage.
-	function evaluer(l: ConsigneDecoupee[]) {
+	// gardes : choix déjà faits par le formateur (undefined = valeur par défaut). Un doublon n'est jamais coché d'office.
+	function evaluer(l: ConsigneDecoupee[], gardes: (boolean | undefined)[] = []) {
 		const existantes = liste.map((c) => c.reference);
-		decoupees = l.map((c) => {
-			const erreur = existantes.includes(avecPrefixe(c.reference))
-				? 'Référence déjà présente dans cette édition.'
-				: !c.texte.trim()
-					? 'Texte vide.'
-					: c.doublon
-						? 'Numéro en double dans le texte collé : rattachez-la à la précédente ou décochez-la.'
-						: undefined;
-			return { ...c, garder: !erreur || c.doublon, erreur };
+		decoupees = l.map((c, i) => {
+			const erreur = existantes.includes(avecPrefixe(c.reference)) ? 'Référence déjà présente dans cette édition.' : !c.texte.trim() ? 'Texte vide.' : undefined;
+			const avertissement = c.doublon ? 'Numéro en double dans le texte collé : rattachez-la à la précédente, ou n’en cochez qu’une.' : undefined;
+			return { ...c, garder: erreur ? false : (gardes[i] ?? !avertissement), erreur, avertissement };
 		});
 	}
 	function rattacher(i: number) {
-		evaluer(rattacherALaPrecedente(decoupees, i));
+		const gardes: (boolean | undefined)[] = decoupees.map((x) => x.garder);
+		gardes.splice(i, 1);
+		gardes[i - 1] = undefined;
+		evaluer(rattacherALaPrecedente(decoupees, i), gardes);
 	}
 	let messageImport = $state('');
 	let importEnCours = $state(false);
@@ -179,16 +179,18 @@
 		if (!choisie) return;
 		importEnCours = true;
 		let n = 0;
+		const restantes: typeof decoupees = [];
 		for (const c of decoupees.filter((x) => x.garder)) {
 			try {
 				await enregistrerConsigne(choisie, { reference: avecPrefixe(c.reference), titre: c.titre, texte: c.texte }, null, liste.length + n + 1);
 				n++;
 			} catch {
-				c.erreur = 'Non enregistrée : réessayez.';
+				restantes.push({ ...c, echec: 'Non enregistrée (référence peut-être déjà prise) : vérifiez-la, puis réessayez.' });
 			}
 		}
 		importEnCours = false;
-		decoupees = decoupees.filter((x) => x.erreur && x.garder);
+		// Seules les consignes refusées restent à l'écran : celles enregistrées ne peuvent plus être ajoutées deux fois.
+		decoupees = restantes;
 		messageImport = `${n} consigne${n > 1 ? 's' : ''} ajoutée${n > 1 ? 's' : ''}.`;
 		if (!decoupees.length) texteImport = '';
 		await charger();
@@ -300,9 +302,9 @@
 							<ul class="decoupees">
 								{#each decoupees as c, i (i)}
 									<li>
-										<label class="case"><input type="checkbox" bind:checked={c.garder} disabled={!!c.erreur && !c.doublon && !c.garder} /> <span class="ref plaque">{avecPrefixe(c.reference)}</span> <b>{c.titre}</b></label>
+										<label class="case"><input type="checkbox" bind:checked={c.garder} disabled={!!c.erreur} /> <span class="ref plaque">{avecPrefixe(c.reference)}</span> <b>{c.titre}</b></label>
 										<p>{c.texte.length > 220 ? `${c.texte.slice(0, 220)}…` : c.texte}</p>
-										{#if c.erreur}<p class="erreur">{c.erreur}</p>{/if}
+										{#each [c.erreur, c.avertissement, c.echec].filter(Boolean) as m (m)}<p class="erreur">{m}</p>{/each}
 										{#if i > 0}<button type="button" class="lien" onclick={() => rattacher(i)}>Rattacher à la précédente</button>{/if}
 									</li>
 								{/each}
