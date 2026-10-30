@@ -11,8 +11,8 @@ Préférences personnelles (objectif, tri, taille du texte, thème…) : d'abord
 | A | Accueil | 1–10 | **fait** (migration `20261030000002_avancement_role`) |
 | B | Séance pédagogique | 11–20 | **fait** (migration `20261030000003_seance_enrichie`) ; 15 et 17 : mécanisme en place, contenu à saisir par les formateurs |
 | C | Examen blanc et résultats | 21–30 | **fait** (migration `20261030000004_rejouer_examen`) ; seuil des examens blancs : 70 % provisoire (`SEUIL_BLANC`), à confirmer par le comité |
-| D | Examen officiel | 31–40 | **fait** (migration `20261031000001_examen_officiel_enrichi`) ; 94 « Connexion rétablie » fait au passage |
-| E | Règles et recherche | 41–50 | à faire |
+| D | Examen officiel | 31–40 | **fait** (migration `20261031000001_examen_officiel_enrichi`) ; 93 « Connexion rétablie » fait au passage |
+| E | Règles et recherche | 41–50 | **fait** (migration `20261031000002_regles_enrichies`) ; 47 et 49 : mécanisme en place (page formateur « Glossaire et figures »), images et définitions à fournir ; 55 fil d’Ariane côté stagiaire fait au passage |
 | F | Navigation et compte | 51–60 | à faire |
 | G | Formateur : stagiaires et examens | 61–70 | à faire |
 | H | Formateur : questions et contenu | 71–80 | à faire |

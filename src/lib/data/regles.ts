@@ -77,3 +77,77 @@ export function lireConsultations(): { edition: string; reference: string; resum
 		return [];
 	}
 }
+
+// Lot E : questions liées, marque-pages, glossaire, figures --------------------------------------
+
+/** Nombre de questions d'entraînement validées qui citent la règle. */
+export async function nbQuestionsRegle(regleId: string): Promise<number> {
+	const { data, error } = await supabase.rpc('nb_questions_regle', { p_regle: regleId });
+	if (error) throw new Error(error.message);
+	return (data as number) ?? 0;
+}
+
+/** Identifiants des règles épinglées par le compte connecté (« Mes règles »). */
+export async function mesEpingles(): Promise<string[]> {
+	const { data, error } = await supabase.from('regles_epinglees').select('regle_id').order('cree_le', { ascending: false });
+	if (error) throw new Error(error.message);
+	return (data ?? []).map((l) => l.regle_id as string);
+}
+
+export async function epingler(regleId: string, epinglee: boolean) {
+	const { error } = epinglee
+		? await supabase.from('regles_epinglees').upsert({ regle_id: regleId }, { onConflict: 'stagiaire_id,regle_id', ignoreDuplicates: true })
+		: await supabase.from('regles_epinglees').delete().eq('regle_id', regleId);
+	if (error) throw new Error(error.message);
+}
+
+export type Terme = { id: string; terme: string; definition: string };
+
+let cacheGlossaire: Promise<Terme[]> | null = null;
+
+/** Glossaire, chargé une fois par visite ; une liste vide si la lecture échoue (l'explication est un confort). */
+export function glossaire(recharger = false): Promise<Terme[]> {
+	if (recharger) cacheGlossaire = null;
+	cacheGlossaire ??= (async () => {
+		const { data, error } = await supabase.from('glossaire').select('id, terme, definition').order('terme');
+		if (error) {
+			cacheGlossaire = null;
+			return [];
+		}
+		return (data ?? []) as Terme[];
+	})();
+	return cacheGlossaire;
+}
+
+export async function enregistrerTerme(t: { id?: string; terme: string; definition: string }) {
+	const ligne = { terme: t.terme.trim(), definition: t.definition.trim(), modifie_le: new Date().toISOString() };
+	const { error } = t.id ? await supabase.from('glossaire').update(ligne).eq('id', t.id) : await supabase.from('glossaire').insert(ligne);
+	if (error) throw new Error(/duplicate|unique/i.test(error.message) ? 'Ce terme existe déjà dans le glossaire.' : error.message);
+	cacheGlossaire = null;
+}
+
+export async function supprimerTerme(id: string) {
+	const { error } = await supabase.from('glossaire').delete().eq('id', id);
+	if (error) throw new Error(error.message);
+	cacheGlossaire = null;
+}
+
+export type Figure = { reference: string; legende: string; image_url: string | null };
+
+export async function figures(): Promise<Figure[]> {
+	const { data, error } = await supabase.from('figures').select('reference, legende, image_url');
+	if (error) return [];
+	return (data ?? []) as Figure[];
+}
+
+export async function enregistrerFigure(f: Figure) {
+	const { error } = await supabase
+		.from('figures')
+		.upsert({ reference: f.reference.trim(), legende: f.legende.trim(), image_url: f.image_url?.trim() || null, modifie_le: new Date().toISOString() });
+	if (error) throw new Error(/check/i.test(error.message) ? 'Vérifiez la référence (Fig.9, Fig.1a…) et l’adresse de l’image (https://…).' : error.message);
+}
+
+export async function supprimerFigure(reference: string) {
+	const { error } = await supabase.from('figures').delete().eq('reference', reference);
+	if (error) throw new Error(error.message);
+}

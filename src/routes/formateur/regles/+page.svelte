@@ -145,6 +145,7 @@
 <main class="page">
 	<div class="tete">
 		<h1 class="titre-page"><span class="surtitre">Espace formateur</span>Consignes CFA</h1>
+		<a href="/formateur/glossaire">Glossaire et figures</a>
 		<a href="/regles">Consulter toutes les règles</a>
 	</div>
 	<p class="aide">Les règles FIVB et le Casebook sont importés par script. Les consignes de la Commission Française d’Arbitrage se saisissent ici, puis se lient aux questions comme les autres règles.</p>
