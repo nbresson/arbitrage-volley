@@ -2,6 +2,7 @@
 	import MessageErreur from '#lib/components/MessageErreur.svelte';
 	import Chargement from '#lib/components/Chargement.svelte';
 	import '#lib/components/formulaire.css';
+	import { tick } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
 	import Bandeau from '#lib/components/Bandeau.svelte';
@@ -43,6 +44,19 @@
 	let erreurEnvoi = $state('');
 	let envoi = $state(false);
 	let confirmerArchive = $state(false);
+	let confirmerDepublication = $state(false);
+	// Champs signalés, dans l'ordre du formulaire : la liste d'erreurs renvoie vers chacun.
+	const CHAMPS: [string, string][] = [
+		['enonce', 'Énoncé'],
+		['propositions', 'Propositions'],
+		['bonne', 'Bonne réponse'],
+		['explication', 'Explication'],
+		['theme', 'Thème'],
+		['niveau', 'Niveau'],
+		['video', 'Vidéo'],
+		['regles', 'Règles liées']
+	];
+	const champsEnErreur = $derived(CHAMPS.filter(([k]) => erreurs[k]));
 	// Après la validation d'un brouillon : le brouillon suivant à relire, pour enchaîner sans repasser par la liste.
 	let brouillonSuivant = $state<string | null>(null);
 	let signalements = $state<Signalement[]>([]);
@@ -160,6 +174,8 @@
 		erreurs = validerFormulaire(f);
 		if (Object.keys(erreurs).length) {
 			erreurEnvoi = 'Le formulaire contient des erreurs : corrigez les champs signalés.';
+			await tick();
+			document.querySelector<HTMLElement>('form [aria-invalid="true"], form [data-invalide]')?.focus();
 			return;
 		}
 		// Vérificateur de qualité, au moment de la validation d'un brouillon : des points à relire, qui n'empêchent pas de valider.
@@ -271,9 +287,9 @@
 					</section>
 				{/if}
 
-				<label class="champ">Énoncé
-					<textarea rows="5" bind:value={f.enonce} aria-invalid={!!erreurs.enonce}></textarea>
-					{#if erreurs.enonce}<span class="erreur">{erreurs.enonce}</span>{/if}
+				<label class="champ"><span id="libelle-enonce">Énoncé</span>
+					<textarea id="champ-enonce" aria-labelledby="libelle-enonce" rows="5" bind:value={f.enonce} aria-invalid={!!erreurs.enonce} aria-describedby={erreurs.enonce ? 'erreur-enonce' : undefined}></textarea>
+					{#if erreurs.enonce}<span class="erreur" id="erreur-enonce">{erreurs.enonce}</span>{/if}
 				</label>
 				{#if doublonsTrouves.length}
 					<div class="doublons" role="status">
@@ -286,7 +302,7 @@
 					</div>
 				{/if}
 
-				<fieldset>
+				<fieldset id="champ-propositions" tabindex="-1" data-invalide={erreurs.propositions || erreurs.bonne ? true : undefined} aria-describedby={erreurs.propositions || erreurs.bonne ? 'erreur-propositions' : undefined}>
 					<legend>Propositions et bonne réponse</legend>
 					{#each f.propositions as p, i (p.lettre)}
 						<div class="proposition">
@@ -297,24 +313,25 @@
 							{/if}
 						</div>
 					{/each}
-					{#if erreurs.propositions}<span class="erreur">{erreurs.propositions}</span>{/if}
-					{#if erreurs.bonne}<span class="erreur">{erreurs.bonne}</span>{/if}
+					{#if erreurs.propositions || erreurs.bonne}
+						<span class="erreur" id="erreur-propositions">{[erreurs.propositions, erreurs.bonne].filter(Boolean).join(' ')}</span>
+					{/if}
 					<span class="aide">Cochez la lettre de la bonne réponse.</span>
 				</fieldset>
 
-				<label class="champ">Explication (affichée après la réponse en mode pédagogique)
-					<textarea rows="6" bind:value={f.explication}></textarea>
-					{#if erreurs.explication}<span class="erreur">{erreurs.explication}</span>{/if}
+				<label class="champ"><span id="libelle-explication">Explication (affichée après la réponse en mode pédagogique)</span>
+					<textarea id="champ-explication" aria-labelledby="libelle-explication" rows="6" bind:value={f.explication} aria-invalid={!!erreurs.explication} aria-describedby={erreurs.explication ? 'erreur-explication' : undefined}></textarea>
+					{#if erreurs.explication}<span class="erreur" id="erreur-explication">{erreurs.explication}</span>{/if}
 				</label>
 
 				<div class="ligne">
-					<label class="champ">Thème
-						<select bind:value={f.themeId}><option value={null}>Choisir…</option>{#each themes as t (t.id)}<option value={t.id}>{t.libelle}</option>{/each}</select>
-						{#if erreurs.theme}<span class="erreur">{erreurs.theme}</span>{/if}
+					<label class="champ"><span id="libelle-theme">Thème</span>
+						<select id="champ-theme" aria-labelledby="libelle-theme" bind:value={f.themeId} aria-invalid={!!erreurs.theme} aria-describedby={erreurs.theme ? 'erreur-theme' : undefined}><option value={null}>Choisir…</option>{#each themes as t (t.id)}<option value={t.id}>{t.libelle}</option>{/each}</select>
+						{#if erreurs.theme}<span class="erreur" id="erreur-theme">{erreurs.theme}</span>{/if}
 					</label>
-					<label class="champ">Niveau
-						<select bind:value={f.niveauId}><option value={null}>Choisir…</option>{#each niveaux as n (n.id)}<option value={n.id}>{n.libelle}</option>{/each}</select>
-						{#if erreurs.niveau}<span class="erreur">{erreurs.niveau}</span>{/if}
+					<label class="champ"><span id="libelle-niveau">Niveau</span>
+						<select id="champ-niveau" aria-labelledby="libelle-niveau" bind:value={f.niveauId} aria-invalid={!!erreurs.niveau} aria-describedby={erreurs.niveau ? 'erreur-niveau' : undefined}><option value={null}>Choisir…</option>{#each niveaux as n (n.id)}<option value={n.id}>{n.libelle}</option>{/each}</select>
+						{#if erreurs.niveau}<span class="erreur" id="erreur-niveau">{erreurs.niveau}</span>{/if}
 					</label>
 					<label class="champ">Rôle visé
 						<select bind:value={f.roleCible}><option value="arbitre">Arbitre</option><option value="marqueur">Marqueur</option><option value="les_deux">Les deux</option></select>
@@ -324,12 +341,12 @@
 					</label>
 				</div>
 
-				<label class="champ">Vidéo (YouTube non répertorié ou FIVB Academy, facultatif)
-					<input type="url" bind:value={f.videoUrl} placeholder="https://youtu.be/…" />
-					{#if erreurs.video}<span class="erreur">{erreurs.video}</span>{/if}
+				<label class="champ"><span id="libelle-video">Vidéo (YouTube non répertorié ou FIVB Academy, facultatif)</span>
+					<input id="champ-video" aria-labelledby="libelle-video" type="url" bind:value={f.videoUrl} placeholder="https://youtu.be/…" aria-invalid={!!erreurs.video} aria-describedby={erreurs.video ? 'erreur-video' : undefined} />
+					{#if erreurs.video}<span class="erreur" id="erreur-video">{erreurs.video}</span>{/if}
 				</label>
 
-				<fieldset>
+				<fieldset id="champ-regles" tabindex="-1" data-invalide={erreurs.regles ? true : undefined} aria-describedby={erreurs.regles ? 'erreur-regles' : undefined}>
 					<legend>Règles liées</legend>
 					{#if liees.length}
 						<ul class="liees">
@@ -353,7 +370,7 @@
 							{/each}
 						</ul>
 					{/if}
-					{#if erreurs.regles}<span class="erreur">{erreurs.regles}</span>{/if}
+					{#if erreurs.regles}<span class="erreur" id="erreur-regles">{erreurs.regles}</span>{/if}
 				</fieldset>
 
 				{#if avertissements.length}
@@ -366,15 +383,31 @@
 						</div>
 					</div>
 				{/if}
-				{#if erreurEnvoi}<p class="message-erreur" role="alert">{erreurEnvoi}</p>{/if}
+				{#if erreurEnvoi}
+					<div class="message-erreur" role="alert">
+						<p>{erreurEnvoi}</p>
+						{#if champsEnErreur.length}
+							<ul class="liste-erreurs">
+								{#each champsEnErreur as [k, libelle] (k)}<li><a href="#champ-{k}">{libelle}</a> : {erreurs[k]}</li>{/each}
+							</ul>
+						{/if}
+					</div>
+				{/if}
 				{#if message}<p class="message-info" role="status">{message}</p>{/if}
 				<!-- Rechargement complet : la page d'édition lit son identifiant au démarrage. -->
-				{#if brouillonSuivant}<a class="btn2" href="/formateur/questions/{brouillonSuivant}" data-sveltekit-reload>Relire le brouillon suivant</a>{/if}
 				<div class="actions">
-					<button class="btn" type="button" disabled={envoi} onclick={() => enregistrer(true)}>{question?.statut === 'validee' ? 'Enregistrer et garder validée' : 'Valider la question'}</button>
-					<button class="btn2" type="button" disabled={envoi} onclick={() => enregistrer(false)}>{question?.statut === 'validee' ? 'Repasser en brouillon' : 'Enregistrer le brouillon'}</button>
+					<!-- Après la validation d'un brouillon, enchaîner sur le suivant devient l'action principale. -->
+					{#if brouillonSuivant}
+						<a class="btn" href="/formateur/questions/{brouillonSuivant}{relecture ? '?relecture' : ''}" data-sveltekit-reload>Relire le brouillon suivant</a>
+					{:else}
+						<button class="btn" type="button" disabled={envoi} onclick={() => enregistrer(true)}>{question?.statut === 'validee' ? 'Enregistrer et garder validée' : 'Valider la question'}</button>
+					{/if}
+					{#if question?.statut !== 'validee'}
+						<button class="btn2" type="button" disabled={envoi} onclick={() => enregistrer(false)}>Enregistrer le brouillon</button>
+					{/if}
 					<button class="btn2" type="button" aria-pressed={apercu} onclick={() => ((apercu = !apercu), (choixApercu = null))}>Aperçu stagiaire</button>
 					{#if id}<a class="lien" href="/formateur/questions/nouvelle?depuis={id}" data-sveltekit-reload>Dupliquer</a>{/if}
+					{#if question?.statut === 'validee'}<button class="lien" type="button" disabled={envoi} onclick={() => (confirmerDepublication = true)}>Repasser en brouillon…</button>{/if}
 					{#if id && question?.statut !== 'archivee'}<button class="lien danger" type="button" onclick={() => (confirmerArchive = true)}>Archiver…</button>{/if}
 				</div>
 				<p class="aide">Raccourci : Ctrl + Entrée pour valider. Vos modifications sont gardées sur cet appareil jusqu’à l’enregistrement.</p>
@@ -440,7 +473,25 @@
 	onconfirmer={archiver}
 />
 
+<DialogueConfirmation
+	ouvert={confirmerDepublication}
+	titre="Repasser cette question en brouillon ?"
+	texte="Elle ne sera plus proposée aux stagiaires jusqu’à sa revalidation."
+	libelleAnnuler="Garder validée"
+	libelleConfirmer="Repasser en brouillon"
+	onannuler={() => (confirmerDepublication = false)}
+	onconfirmer={() => ((confirmerDepublication = false), enregistrer(false))}
+/>
+
 <style>
+	.liste-erreurs {
+		margin: 6px 0 0;
+		padding-left: 20px;
+	}
+	.liste-erreurs a {
+		color: inherit;
+		font-weight: 700;
+	}
 	.relecture,
 	.sauvegarde {
 		display: flex;

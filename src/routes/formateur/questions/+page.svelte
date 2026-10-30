@@ -17,7 +17,7 @@
 	let signales = $state(new Map<string, number>());
 	let taux = $state(new Map<string, { reponses: number; justes: number }>());
 	let tri = $state<'modification' | 'theme' | 'reussite'>('modification');
-	let f = $state({ statut: 'brouillon', theme: '', niveau: '', role: '', origine: '', aRelire: false, texte: '' });
+	let f = $state({ statut: '', theme: '', niveau: '', role: '', origine: '', aRelire: false, texte: '' });
 
 	$effect(() => {
 		listerQuestions()
