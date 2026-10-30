@@ -4,15 +4,15 @@
 
 ## En une phrase
 
-Plateforme web (SvelteKit 3 statique + Supabase) de formation des arbitres de volley-ball d'un comité : règles FIVB, Casebook et consignes CFA consultables, QCM en mode pédagogique (correction + règle citée), examens blancs, examens officiels en salle. **V1 « S'entraîner » et V2 « Évaluer » sont en ligne**, avec deux passes de design (planche de 35 propositions, puis deux audits impeccable). **Chantier des 100 améliorations UI/UX : les dix lots (A à J) sont faits sur la branche `ameliorations-100`, sauf le n° 69 (rappel par e-mail). Branche non fusionnée, non en ligne : 8 migrations à appliquer en prod d'abord. Reste aussi, avant d'inviter des stagiaires : l'envoi des e-mails.**
+Plateforme web (SvelteKit 3 statique + Supabase) de formation des arbitres de volley-ball d'un comité : règles FIVB, Casebook et consignes CFA consultables, QCM en mode pédagogique (correction + règle citée), examens blancs, examens officiels en salle. **V1 « S'entraîner » et V2 « Évaluer » sont en ligne**, avec deux passes de design (planche de 35 propositions, puis deux audits impeccable). **Les 100 améliorations UI/UX sont en ligne depuis le 2026-10-31 (sauf le n° 69, rappel par e-mail). Reste, avant d'inviter des stagiaires : l'envoi des e-mails.**
 
 ## État au 2026-10-30
 
 | Élément | État |
 |---|---|
 | Site en ligne | https://arbitrage-volley.nkobrs21.workers.dev — **Cloudflare Workers** (pas Pages), site statique décrit par `wrangler.jsonc` |
-| Dépôt | https://github.com/nbresson/arbitrage-volley (privé). Branche publiée : `main` (Cloudflare compile à chaque envoi). Branches fusionnées : `v1-sentrainer`, `design-*`, `corrections-audit`, `audit-2`. **Branche en cours : `ameliorations-100`** (un commit par lot, A à J), à fusionner avec l'accord de l'utilisateur |
-| Base de **prod** (Supabase, Paris eu-west-3) | 11 migrations appliquées (jusqu'à `20261030000001_revoir_erreurs`). **Pas encore appliquées en prod** (8 migrations du chantier) : `20261030000002_avancement_role`, `20261030000003_seance_enrichie`, `20261030000004_rejouer_examen`, `20261031000001_examen_officiel_enrichi`, `20261031000002_regles_enrichies`, `20261031000003_formateur_suivi`, `20261031000004_questions_suivi`, `20261031000005_mesures_avis` — à appliquer **avant** de mettre la branche en ligne. fonction `creer-compte` déployée, contenu chargé (539 règles, 208 cas, 204 questions **en brouillon**). Auth : Site URL et Redirect URLs = l'adresse du site. Un compte formateur : Nicolas Bresson (nkobrs21@gmail.com) |
+| Dépôt | https://github.com/nbresson/arbitrage-volley (privé). Branche publiée : `main` (Cloudflare compile à chaque envoi). Branches fusionnées : `v1-sentrainer`, `design-*`, `corrections-audit`, `audit-2`, `ameliorations-100` (un commit par lot, A à J ; fusionnée et en ligne le 2026-10-31) |
+| Base de **prod** (Supabase, Paris eu-west-3) | 19 migrations appliquées (les 8 du chantier le 2026-10-31, jusqu'à `20261031000005_mesures_avis`). fonction `creer-compte` déployée, contenu chargé (539 règles, 208 cas, 204 questions **en brouillon**). Auth : Site URL et Redirect URLs = l'adresse du site. Un compte formateur : Nicolas Bresson (nkobrs21@gmail.com) |
 | Base de **dev / test** (Supabase, Londres) | 19 migrations (les 8 du chantier en plus). Sert aux tests d'intégration et aux vérifications visuelles (données temporaires créées puis supprimées) |
 | Réveil de la base | `.github/workflows/reveil-supabase.yml`, tous les 3 jours ; secrets GitHub `SUPABASE_PROD_URL` et `SUPABASE_PROD_ANON_KEY`. Le rôle anon n'a aucun droit : la réponse attendue est « permission refusée » (42501), ce qui suffit à compter comme activité |
 | Tests (branche `ameliorations-100`) | `npm test` 300/300 · `npm run test:integration` 155/155 (sur une base de test sans données temporaires : le test du référentiel compte les thèmes) · `npm run check` 0 erreur · `npm run build` OK |
@@ -20,7 +20,7 @@ Plateforme web (SvelteKit 3 statique + Supabase) de formation des arbitres de vo
 
 ## Ce qui reste à faire
 
-### 0. Les 100 améliorations UI/UX : faites, à mettre en ligne
+### 0. Les 100 améliorations UI/UX : faites et en ligne
 
 Plan et suivi lot par lot (avec les écarts) : [docs/superpowers/plans/2026-10-30-100-ameliorations.md](docs/superpowers/plans/2026-10-30-100-ameliorations.md). Planche d'origine : https://claude.ai/artifact/JKiod9XUSkCiDcn9ZzQhNg, page 2. L'utilisateur a donné son accord pour réaliser tous les lots (2026-10-30).
 
@@ -36,7 +36,7 @@ Plan et suivi lot par lot (avec les écarts) : [docs/superpowers/plans/2026-10-3
 
 **À fournir ou décider** : définitions du glossaire et images des figures (formateurs, page « Glossaire et figures ») ; seuil des examens blancs (70 % provisoire) ; question d'avis après l'examen ; explications par mauvaise proposition et passages surlignés (lot B).
 
-**Mise en ligne de la branche**, avec l'accord de l'utilisateur à chaque étape : appliquer les 8 migrations en prod (`npx tsx scripts/db/appliquer.ts --cible prod`), fusionner dans `main`, pousser, vérifier la publication (y compris que `/sw.js` et `/manifest.webmanifest` sont servis).
+**Mise en ligne faite le 2026-10-31** : 8 migrations appliquées en prod, `main` avancée sur la branche, publication vérifiée (`/sw.js`, `/manifest.webmanifest`, icônes, et les nouveaux écrans présents dans les 80 fichiers JS du site). Pas encore testé par une personne réelle sur la prod : à faire par l'utilisateur (se connecter, ouvrir une séance, un examen blanc, les préférences).
 
 ### 1. Envoi des e-mails (bloquant pour inviter des stagiaires)
 
