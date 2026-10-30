@@ -11,7 +11,16 @@
 	import Filet from '#lib/components/Filet.svelte';
 	import NavFormateur from '#lib/components/NavFormateur.svelte';
 	import { lignesThemes, type Avancement } from '#lib/data/avancement.ts';
-	import { detailTentative, examensDuStagiaire, inscrire, listerExamens, type DetailTentative, type ExamenPasse, type LigneExamen } from '#lib/data/examens-formateur.ts';
+	import {
+		detailTentative,
+		examensDuStagiaire,
+		inscrire,
+		inscriptionsDuStagiaire,
+		listerExamens,
+		type DetailTentative,
+		type ExamenPasse,
+		type LigneExamen
+	} from '#lib/data/examens-formateur.ts';
 	import { urlRegle } from '#lib/data/regles.ts';
 	import { avancement, referentiel } from '#lib/data/seances.ts';
 	import { activiteStagiaires, changerPromotion, listerComptes, type Compte } from '#lib/data/stagiaires.ts';
@@ -36,6 +45,10 @@
 	let derniere = $state<string | null>(null);
 	let promotion = $state('');
 	let messagePromotion = $state('');
+	let erreurPromotion = $state('');
+	let envoiPromotion = $state(false);
+	let inscriptions = $state<{ examen_id: string; titre: string }[]>([]);
+	let detailErreurInscription = $state('');
 
 	$effect(() => {
 		Promise.all([listerComptes(), referentiel(), examensDuStagiaire(id), avancement(id)])
@@ -53,26 +66,40 @@
 		activiteStagiaires()
 			.then((a) => (derniere = a.get(id) ?? null))
 			.catch(() => {});
+		chargerInscriptions();
 	});
 
 	async function enregistrerPromotion(e: SubmitEvent) {
 		e.preventDefault();
 		messagePromotion = '';
+		erreurPromotion = '';
+		envoiPromotion = true;
 		try {
 			await changerPromotion(id, promotion);
 			messagePromotion = promotion.trim() ? 'Promotion enregistrée.' : 'Promotion retirée.';
 		} catch {
-			messagePromotion = 'La promotion n’a pas pu être enregistrée. Réessayez.';
+			erreurPromotion = 'La promotion n’a pas pu être enregistrée. Réessayez.';
+		} finally {
+			envoiPromotion = false;
 		}
+	}
+
+	function chargerInscriptions() {
+		inscriptionsDuStagiaire(id)
+			.then((l) => (inscriptions = l))
+			.catch(() => {});
 	}
 
 	async function choisir(tentative: string) {
 		choisi = tentative;
 		erreurDetail = '';
+		// Le panneau ne montre jamais un autre examen que la ligne choisie ; une réponse arrivée en retard est ignorée.
+		detail = null;
 		try {
-			detail = await detailTentative(tentative);
+			const d = await detailTentative(tentative);
+			if (choisi === tentative) detail = d;
 		} catch {
-			detail = null;
+			if (choisi !== tentative) return;
 			erreurDetail = 'Le détail de cet examen n’a pas pu être chargé. Réessayez.';
 		}
 	}
@@ -81,22 +108,26 @@
 		messageInscription = '';
 		erreurInscription = '';
 		try {
+			const deja = new Set(inscriptions.map((i) => i.examen_id));
 			aInscrire = (await listerExamens()).filter((e) => e.statut !== 'clos');
-			examenChoisi = aInscrire[0]?.id ?? '';
+			examenChoisi = aInscrire.find((x) => !deja.has(x.id))?.id ?? '';
 		} catch {
 			erreurInscription = 'Les examens n’ont pas pu être chargés. Réessayez.';
 		}
 	}
 
-	async function confirmerInscription(e: SubmitEvent) {
-		e.preventDefault();
+	async function confirmerInscription(e?: SubmitEvent) {
+		e?.preventDefault();
+		detailErreurInscription = '';
 		if (!examenChoisi) return;
 		try {
 			await inscrire(examenChoisi, [id]);
 			messageInscription = `Inscription enregistrée à « ${aInscrire?.find((x) => x.id === examenChoisi)?.titre ?? ''} ».`;
 			aInscrire = null;
+			chargerInscriptions();
 		} catch (err) {
-			erreurInscription = (err as Error).message || 'L’inscription n’a pas pu être enregistrée. Réessayez.';
+			erreurInscription = 'L’inscription n’a pas pu être enregistrée.';
+			detailErreurInscription = (err as Error).message;
 		}
 	}
 
@@ -126,13 +157,21 @@
 			<h1 class="titre-page"><span class="surtitre">Fiche stagiaire</span>{compte.prenom} {compte.nom}</h1>
 			<div class="sous">{formation}{niveau ? ` · ${niveau}` : ''}{compte.actif ? '' : ' · compte désactivé'}</div>
 		</div>
-		<button class="btn" onclick={ouvrirInscription}>Inscrire à un examen officiel</button>
+		{#if compte.actif}
+			<button class="btn" onclick={ouvrirInscription}>Inscrire à un examen officiel</button>
+		{:else}
+			<p class="aide">Compte désactivé : réactivez-le depuis la liste.</p>
+		{/if}
 	</div>
 
 	<div class="resume-fiche">
 		<div>
 			<p class="etiquette">Dernière activité</p>
 			<p class="valeur">{ilYa(derniere)}</p>
+		</div>
+		<div>
+			<p class="etiquette">Inscriptions</p>
+			<p class="valeur">{inscriptions.length ? `Inscrit à : ${inscriptions.map((i) => i.titre).join(', ')}` : 'Aucun examen à venir'}</p>
 		</div>
 		<div>
 			<p class="etiquette">À retravailler</p>
@@ -145,9 +184,10 @@
 			{/if}
 		</div>
 		<form class="promotion" onsubmit={enregistrerPromotion}>
-			<label class="champ">Promotion<input bind:value={promotion} autocomplete="off" placeholder="ex. Session automne 2026" /></label>
-			<button class="btn2" type="submit">Enregistrer</button>
+			<label class="champ">Promotion<input bind:value={promotion} autocomplete="off" placeholder="ex. Session automne 2026" oninput={() => ((messagePromotion = ''), (erreurPromotion = ''))} /></label>
+			<button class="btn2" type="submit" disabled={envoiPromotion}>{envoiPromotion ? 'Enregistrement…' : 'Enregistrer'}</button>
 			{#if messagePromotion}<p class="aide" role="status">{messagePromotion}</p>{/if}
+			{#if erreurPromotion}<p class="message-erreur" role="alert">{erreurPromotion}</p>{/if}
 		</form>
 	</div>
 
@@ -157,7 +197,7 @@
 				{#if aInscrire.length}
 					<form onsubmit={confirmerInscription}>
 						<label class="champ">Examen
-							<select bind:value={examenChoisi}>{#each aInscrire as x (x.id)}<option value={x.id}>{x.titre} · {dateHeure(x.date_heure)}</option>{/each}</select>
+							<select bind:value={examenChoisi}>{#each aInscrire as x (x.id)}{@const deja = inscriptions.some((i) => i.examen_id === x.id)}<option value={x.id} disabled={deja}>{x.titre} · {dateHeure(x.date_heure)}{deja ? ' (déjà inscrit)' : ''}</option>{/each}</select>
 						</label>
 						<div class="actions">
 							<button class="btn" type="submit">Inscrire</button>
@@ -169,7 +209,7 @@
 				{/if}
 			{/if}
 			{#if messageInscription}<p class="message-info" role="status">{messageInscription}</p>{/if}
-			{#if erreurInscription}<p class="message-erreur" role="alert">{erreurInscription}</p>{/if}
+			{#if erreurInscription}<MessageErreur texte={erreurInscription} detail={detailErreurInscription} onreessayer={() => confirmerInscription()} />{/if}
 		</div>
 	{/if}
 

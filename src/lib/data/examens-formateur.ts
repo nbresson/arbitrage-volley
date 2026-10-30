@@ -155,6 +155,17 @@ export async function examensDuStagiaire(stagiaireId: string): Promise<ExamenPas
 		.sort((a, b) => b.date_heure.localeCompare(a.date_heure));
 }
 
+/** Examens (non clos) auxquels le stagiaire est inscrit : « Inscrit à : … » et liste d'inscription. */
+export async function inscriptionsDuStagiaire(stagiaireId: string): Promise<{ examen_id: string; titre: string; date_heure: string; statut: StatutExamen }[]> {
+	const lignes = verifier(
+		await supabase.from('inscriptions').select('examen_id, examens_officiels!inner(titre, date_heure, statut)').eq('stagiaire_id', stagiaireId)
+	) as any[];
+	return (lignes ?? [])
+		.map((l) => ({ examen_id: l.examen_id, titre: l.examens_officiels.titre, date_heure: l.examens_officiels.date_heure, statut: l.examens_officiels.statut }))
+		.filter((l) => l.statut !== 'clos')
+		.sort((a, b) => a.date_heure.localeCompare(b.date_heure));
+}
+
 export async function detailTentative(tentativeId: string): Promise<DetailTentative> {
 	return verifier(await supabase.rpc('detail_tentative', { p_tentative: tentativeId })) as DetailTentative;
 }
