@@ -176,6 +176,15 @@ describe('avancement', () => {
 		expect((await c.stagiaireA.rpc('avancement', { p_stagiaire: c.ids.stagiaireB })).error).not.toBeNull();
 	});
 
+	test('filtré par rôle : seules les questions du rôle (ou des deux) comptent', async () => {
+		// qs[2] est réservée aux marqueurs : pour un arbitre, le thème n’a que 2 questions.
+		const { data, error } = await c.stagiaireB.rpc('avancement', { p_role: 'arbitre' });
+		expect(error).toBeNull();
+		expect(data.find((a: { theme_id: string }) => a.theme_id === themeId)).toMatchObject({ total: 2 });
+		const { data: m } = await c.stagiaireB.rpc('avancement', { p_role: 'marqueur' });
+		expect(m.find((a: { theme_id: string }) => a.theme_id === themeId)).toMatchObject({ total: 1 });
+	});
+
 	test('les examens d’entraînement ne comptent pas dans l’avancement', async () => {
 		const avant = (await c.stagiaireA.rpc('avancement')).data.find((a: { theme_id: string }) => a.theme_id === autreThemeId);
 		expect(avant).toMatchObject({ acquises: 0, a_revoir: 0 });

@@ -1,37 +1,68 @@
 import { describe, expect, test } from 'vitest';
-import { lignesThemes, totaux, type Avancement } from '../../src/lib/data/avancement';
+import { fichierIcs, joursAvant, serieDeJours, seancesDeLaSemaine, tempsRestantEstime, trierLignes } from '../../src/lib/domain/accueil.ts';
 
-const av = (theme: string, ordre: number, total: number, acquises: number, a_revoir: number): Avancement => ({
-	theme_id: `t-${ordre}`,
-	theme,
-	ordre,
-	total,
-	acquises,
-	a_revoir
-});
+const J = (jour: string) => `${jour}T10:00:00+01:00`;
+const AUJOURDHUI = new Date('2026-10-30T15:00:00+01:00'); // un vendredi
 
-describe('lignesThemes', () => {
-	test('un thème sans aucune réponse n’est pas commencé', () => {
-		const [l] = lignesThemes([av('Le marqueur', 1, 24, 0, 0)]);
-		expect(l).toEqual({ themeId: 't-1', theme: 'Le marqueur', acquises: 0, aRevoir: 0, total: 24, commence: false });
+describe('serieDeJours', () => {
+	test('compte les jours consécutifs terminés par aujourd’hui ou hier', () => {
+		expect(serieDeJours([J('2026-10-30'), J('2026-10-29'), J('2026-10-28')], AUJOURDHUI)).toBe(3);
+		expect(serieDeJours([J('2026-10-29'), J('2026-10-28')], AUJOURDHUI)).toBe(2);
+		expect(serieDeJours([J('2026-10-28')], AUJOURDHUI)).toBe(0);
 	});
-
-	test('un thème avec au moins une réponse est commencé', () => {
-		expect(lignesThemes([av('Le service', 1, 30, 0, 2)])[0].commence).toBe(true);
+	test('plusieurs séances le même jour comptent pour un', () => {
+		expect(serieDeJours([J('2026-10-30'), '2026-10-30T20:00:00+01:00', J('2026-10-29')], AUJOURDHUI)).toBe(2);
 	});
-
-	test('tri dans l’ordre des thèmes', () => {
-		const l = lignesThemes([av('B', 2, 10, 1, 0), av('A', 1, 10, 0, 0), av('C', 3, 10, 0, 1)]);
-		expect(l.map((x) => x.theme)).toEqual(['A', 'B', 'C']);
-	});
-
-	test('les thèmes sans aucune question validée sont masqués', () => {
-		expect(lignesThemes([av('Vide', 1, 0, 0, 0), av('Plein', 2, 3, 0, 0)]).map((x) => x.theme)).toEqual(['Plein']);
+	test('sans séance : 0', () => {
+		expect(serieDeJours([], AUJOURDHUI)).toBe(0);
 	});
 });
 
-describe('totaux', () => {
-	test('somme des questions travaillées, acquises et à revoir', () => {
-		expect(totaux([av('A', 1, 30, 26, 2), av('B', 2, 20, 0, 0), av('C', 3, 10, 4, 5)])).toEqual({ travaillees: 37, acquises: 30, aRevoir: 7 });
+describe('seancesDeLaSemaine', () => {
+	test('compte les séances depuis le lundi', () => {
+		expect(seancesDeLaSemaine([J('2026-10-30'), J('2026-10-26'), J('2026-10-25')], AUJOURDHUI)).toBe(2);
+	});
+});
+
+describe('trierLignes', () => {
+	const l = (theme: string, acquises: number, aRevoir: number, total: number, ordre: number) => ({ themeId: theme, theme, acquises, aRevoir, total, commence: acquises + aRevoir > 0, ordre });
+	const lignes = [l('Service', 8, 0, 10, 1), l('Contre', 2, 5, 10, 2), l('Libéro', 0, 0, 10, 3), l('Attaque', 3, 3, 10, 4)];
+	test('ordre du règlement : inchangé', () => {
+		expect(trierLignes(lignes, 'reglement').map((x) => x.theme)).toEqual(['Service', 'Contre', 'Libéro', 'Attaque']);
+	});
+	test('faibles d’abord : plus d’à revoir, puis les non commencés, puis les acquis', () => {
+		expect(trierLignes(lignes, 'faibles').map((x) => x.theme)).toEqual(['Contre', 'Attaque', 'Libéro', 'Service']);
+	});
+	test('alphabétique', () => {
+		expect(trierLignes(lignes, 'alpha').map((x) => x.theme)).toEqual(['Attaque', 'Contre', 'Libéro', 'Service']);
+	});
+});
+
+describe('joursAvant', () => {
+	test('en jours entiers, depuis aujourd’hui', () => {
+		expect(joursAvant('2026-11-15T09:30:00+01:00', AUJOURDHUI)).toBe(16);
+		expect(joursAvant('2026-10-31T09:30:00+01:00', AUJOURDHUI)).toBe(1);
+		expect(joursAvant('2026-10-30T18:00:00+01:00', AUJOURDHUI)).toBe(0);
+		expect(joursAvant('2026-10-20T18:00:00+01:00', AUJOURDHUI)).toBe(-10);
+	});
+});
+
+describe('tempsRestantEstime', () => {
+	test('environ 45 secondes par question, arrondi à la minute, au moins 1', () => {
+		expect(tempsRestantEstime(7)).toBe(5);
+		expect(tempsRestantEstime(1)).toBe(1);
+		expect(tempsRestantEstime(0)).toBe(0);
+	});
+});
+
+describe('fichierIcs', () => {
+	test('un événement avec titre, lieu, début et fin', () => {
+		const ics = fichierIcs({ titre: 'Examen départemental', lieu: 'Gymnase', date_heure: '2026-11-15T08:30:00Z', duree_minutes: 45 });
+		expect(ics).toContain('BEGIN:VCALENDAR');
+		expect(ics).toContain('SUMMARY:Examen départemental');
+		expect(ics).toContain('LOCATION:Gymnase');
+		expect(ics).toContain('DTSTART:20261115T083000Z');
+		expect(ics).toContain('DTEND:20261115T091500Z');
+		expect(ics).toContain('END:VEVENT');
 	});
 });

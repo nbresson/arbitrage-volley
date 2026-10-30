@@ -12,6 +12,15 @@ const profil: Profil = {
 	notice_acceptee_le: '2026-10-01T00:00:00Z'
 };
 
+describe('lireParametres : rôle', () => {
+	test('?role=arbitre force le rôle, ?role=tous l’enlève, sinon celui du profil', () => {
+		const url = (q: string) => ({ searchParams: new URLSearchParams(q) });
+		expect(lireParametres(url('role=arbitre'), profil).role).toBe('arbitre');
+		expect(lireParametres(url('role=tous'), profil).role).toBeNull();
+		expect(lireParametres(url('role=autre'), profil).role).toBe('marqueur');
+	});
+});
+
 describe('parametresParDefaut', () => {
 	test('pédagogique : 20 questions, sans durée, niveau et rôle du profil', () => {
 		expect(parametresParDefaut(profil, 'pedagogique')).toEqual({

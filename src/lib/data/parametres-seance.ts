@@ -30,7 +30,7 @@ export function parametresParDefaut(profil: Profil, type: TypeSeance): Parametre
 	};
 }
 
-/** Préremplissage depuis l'URL : ?mode=…&theme=…&theme=…&regle=…&nb=… */
+/** Préremplissage depuis l'URL : ?mode=…&theme=…&theme=…&regle=…&nb=…&role=… */
 export function lireParametres(url: { searchParams: Pick<URLSearchParams, 'get' | 'getAll'> }, profil: Profil): ParametresSeance {
 	const q = url.searchParams;
 	const type: TypeSeance = q.get('mode') === 'examen_entrainement' ? 'examen_entrainement' : 'pedagogique';
@@ -38,6 +38,9 @@ export function lireParametres(url: { searchParams: Pick<URLSearchParams, 'get' 
 	p.themeIds = q.getAll('theme');
 	p.regleId = q.get('regle');
 	if (p.regleId) p.niveauId = null;
+	const role = q.get('role');
+	if (role === 'arbitre' || role === 'marqueur') p.role = role;
+	else if (role === 'tous') p.role = null;
 	const nb = Number.parseInt(q.get('nb') ?? '', 10);
 	if (Number.isFinite(nb)) p.nb = borner(nb, 5, 50);
 	return p;

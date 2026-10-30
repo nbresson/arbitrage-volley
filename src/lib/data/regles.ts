@@ -58,13 +58,13 @@ export function toutesLesRegles(): Promise<Regle[]> {
 
 const CLE_VUES = 'regles-consultees';
 
-/** Mémorise les 3 dernières fiches consultées (confort local, sans garantie). */
+/** Mémorise les 30 dernières fiches consultées (confort local, sans garantie) ; l'accueil en montre 5. */
 export function memoriserConsultation(r: Pick<Regle, 'edition' | 'reference' | 'titre' | 'texte'>) {
 	try {
 		const vues = lireConsultations().filter((v) => v.reference !== r.reference);
 		const resume = titreLisible(r.titre) || r.texte.slice(0, 60);
 		vues.unshift({ edition: r.edition, reference: r.reference, resume });
-		localStorage.setItem(CLE_VUES, JSON.stringify(vues.slice(0, 3)));
+		localStorage.setItem(CLE_VUES, JSON.stringify(vues.slice(0, 30)));
 	} catch {
 		/* stockage indisponible : on ignore */
 	}

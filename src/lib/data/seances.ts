@@ -107,10 +107,25 @@ export async function revoirErreurs(seance: string): Promise<string> {
 	return data as string;
 }
 
-export async function avancement(stagiaire?: string): Promise<Avancement[]> {
-	const { data, error } = await supabase.rpc('avancement', stagiaire ? { p_stagiaire: stagiaire } : {});
+export async function avancement(stagiaire?: string, role: 'arbitre' | 'marqueur' | null = null): Promise<Avancement[]> {
+	const { data, error } = await supabase.rpc('avancement', { ...(stagiaire ? { p_stagiaire: stagiaire } : {}), ...(role ? { p_role: role } : {}) });
 	if (error) throw new Error(error.message);
 	return data ?? [];
+}
+
+/** Dates de début de mes séances pédagogiques terminées des 60 derniers jours (régularité, objectif de la semaine). */
+export async function mesSeancesRecentes(): Promise<string[]> {
+	const depuis = new Date(Date.now() - 60 * 86_400_000).toISOString();
+	const { data, error } = await supabase
+		.from('seances')
+		.select('debut')
+		.eq('type', 'pedagogique')
+		.not('fin', 'is', null)
+		.gte('debut', depuis)
+		.order('debut', { ascending: false })
+		.limit(500);
+	if (error) throw new Error(error.message);
+	return (data ?? []).map((s) => s.debut as string);
 }
 
 /** Dernière séance pédagogique non terminée, avec sa progression. */

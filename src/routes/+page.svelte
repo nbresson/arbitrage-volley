@@ -12,8 +12,12 @@
 	import { lignesThemes, totaux, type Avancement } from '#lib/data/avancement.ts';
 	import { lireConsultations, slug } from '#lib/data/regles.ts';
 	import { mesConvocations, type Convocation } from '#lib/data/examens-officiels.ts';
-	import { avancement, referentiel, seanceAReprendre } from '#lib/data/seances.ts';
+	import { avancement, creerSeance, mesSeancesRecentes, referentiel, seanceAReprendre } from '#lib/data/seances.ts';
+	import { nouveautesDepuis } from '#lib/data/questions.ts';
+	import { parametresParDefaut } from '#lib/data/parametres-seance.ts';
+	import { fichierIcs, joursAvant, seancesDeLaSemaine, serieDeJours, tempsRestantEstime, trierLignes, type TriThemes } from '#lib/domain/accueil.ts';
 	import { dateHeure, etatConvocation } from '#lib/examen-officiel/convocation.ts';
+	import { enregistrerPreferences, lirePreferences } from '#lib/preferences.ts';
 	import { session } from '#lib/session.svelte.ts';
 
 	let av = $state<Avancement[]>([]);
@@ -22,11 +26,57 @@
 	let convocations = $state<Convocation[]>([]);
 	let niveau = $state('');
 	const consultees = lireConsultations();
+	let toutHistorique = $state(false);
+
+	// Préférences locales : objectif, tri, filtre de rôle, date de la dernière visite (nouveautés).
+	const prefs = lirePreferences();
+	let objectif = $state(prefs.objectifSemaine);
+	let tri = $state<TriThemes>(prefs.triThemes);
+	let filtreRole = $state<'arbitre' | 'marqueur' | null>(prefs.filtreRole);
+	let seancesRecentes = $state<string[]>([]);
+	let nouveautes = $state<{ nb: number; themes: string[] } | null>(null);
+	let express = $state<'' | 'en_cours' | 'erreur'>('');
+
+	function chargerAvancement() {
+		return avancement(undefined, filtreRole).then((a) => (av = a));
+	}
+	function changerFiltre(role: 'arbitre' | 'marqueur' | null) {
+		filtreRole = role;
+		enregistrerPreferences({ filtreRole: role });
+		chargerAvancement().catch(() => (etat = 'erreur'));
+	}
+	function changerTri(e: Event) {
+		tri = (e.target as HTMLSelectElement).value as TriThemes;
+		enregistrerPreferences({ triThemes: tri });
+	}
+	function changerObjectif(e: Event) {
+		objectif = Number((e.target as HTMLSelectElement).value);
+		enregistrerPreferences({ objectifSemaine: objectif });
+	}
+	async function seanceExpress() {
+		express = 'en_cours';
+		try {
+			const id = await creerSeance({ ...parametresParDefaut(session.profil!, 'pedagogique'), themeIds: [], niveauId: null, nb: 5 });
+			window.location.assign(`/entrainement/${id}`);
+		} catch {
+			express = 'erreur';
+		}
+	}
 
 	$effect(() => {
-		Promise.all([avancement(), seanceAReprendre()])
-			.then(([a, r]) => ((av = a), (reprise = r), (etat = 'pret')))
+		Promise.all([chargerAvancement(), seanceAReprendre()])
+			.then(([, r]) => ((reprise = r), (etat = 'pret')))
 			.catch(() => (etat = 'erreur'));
+		// Compléments : s'ils échouent, l'accueil reste utilisable sans eux.
+		mesSeancesRecentes()
+			.then((s) => (seancesRecentes = s))
+			.catch(() => {});
+		if (prefs.derniereVisite) {
+			nouveautesDepuis(prefs.derniereVisite)
+				.then((n) => (nouveautes = n.nb > 0 ? n : null))
+				.catch(() => {});
+		}
+		enregistrerPreferences({ derniereVisite: new Date().toISOString() });
 		// En cas d'échec, le bloc reste à « Aucun examen officiel prévu » : l'accueil reste utilisable.
 		referentiel()
 			.then((r) => (niveau = r.niveaux.find((n) => n.id === session.profil?.niveau_id)?.libelle ?? ''))
@@ -36,8 +86,12 @@
 			.catch(() => {});
 	});
 
-	const lignes = $derived(lignesThemes(av));
+	const lignes = $derived(trierLignes(lignesThemes(av), tri));
 	const t = $derived(totaux(av));
+	const semaine = $derived(seancesDeLaSemaine(seancesRecentes));
+	const serie = $derived(serieDeJours(seancesRecentes));
+	const nouveau = $derived(etat === 'pret' && !reprise && t.travaillees === 0 && lignes.length > 0);
+	const icsUrl = (c: Convocation) => `data:text/calendar;charset=utf-8,${encodeURIComponent(fichierIcs(c))}`;
 	const role = $derived(session.profil?.profil_formation === 'marqueur' ? 'marqueur' : 'arbitre');
 	const jour = new Intl.DateTimeFormat('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' }).format(new Date());
 	const aujourdhui = jour.charAt(0).toUpperCase() + jour.slice(1);
@@ -79,7 +133,7 @@
 				<a class="tuile sombre" href="/entrainement/{reprise.id}">
 					<span class="pastille"><Icone nom="sifflet" taille={26} /></span>
 					<span class="nom">Reprendre : {reprise.theme}</span>
-					<span class="desc">Question {reprise.index} sur {reprise.total} · {pluriel(reprise.acquises, 'acquise')}, {reprise.aRevoir} à revoir</span>
+					<span class="desc">Question {reprise.index} sur {reprise.total} · {pluriel(reprise.acquises, 'acquise')}, {reprise.aRevoir} à revoir · environ {tempsRestantEstime(reprise.total - reprise.index + 1)} min restantes</span>
 					<span class="suite">Reprendre la séance <Icone nom="fleche" taille={18} /></span>
 				</a>
 			{:else}
@@ -104,11 +158,69 @@
 			</a>
 		</nav>
 
-		<h2>S’entraîner par thème</h2>
+			<div class="sous-tuiles">
+				<button type="button" class="btn2 express" onclick={seanceExpress} disabled={express === 'en_cours'}>
+					<Icone nom="ballon" taille={18} />{express === 'en_cours' ? 'Préparation…' : '5 questions au hasard'}
+				</button>
+				{#if express === 'erreur'}<span class="message-erreur" role="alert">La séance express n’a pas pu être créée. Réessayez.</span>{/if}
+				{#if etat === 'pret'}
+					<div class="semaine" aria-label="Cette semaine">
+						<span class="barre-objectif" aria-hidden="true"><span class="b" style="width: {Math.min(100, (semaine / objectif) * 100)}%"></span></span>
+						<label class="objectif">Objectif : <strong>{semaine}/{objectif}</strong>
+							<select value={String(objectif)} onchange={changerObjectif} aria-label="Objectif de séances par semaine">
+								{#each [1, 2, 3, 5, 7] as n (n)}<option value={String(n)}>{pluriel(n, 'séance')} par semaine</option>{/each}
+							</select>
+						</label>
+						{#if serie >= 2}<span class="serie">{serie} jours d’affilée</span>{/if}
+					</div>
+				{/if}
+			</div>
+
+			{#if nouveau}
+				<section class="bienvenue" aria-label="Pour commencer">
+					<h2>Bienvenue ! Trois étapes pour commencer</h2>
+					<ol>
+						<li class="faite"><Icone nom="coche" taille={20} /><span><strong>Vous avez lu la notice</strong> sur vos données.</span></li>
+						<li><span class="num">2</span><span><strong>Faites une première séance</strong> : choisissez un thème ci-dessous ou lancez « 5 questions au hasard ». Chaque réponse est corrigée avec la règle.</span></li>
+						<li><span class="num">3</span><span><strong>Gardez les règles sous la main</strong> : <a href="/regles">le règlement FIVB, le Casebook et les consignes CFA</a>, avec recherche.</span></li>
+					</ol>
+				</section>
+			{/if}
+
+			{#if nouveautes}
+				<section class="nouveautes" aria-label="Nouveautés">
+					<Icone nom="questions" taille={22} />
+					<p><strong>{pluriel(nouveautes.nb, 'nouvelle question', 'nouvelles questions')}</strong> depuis votre dernière visite{nouveautes.themes.length ? ` : ${nouveautes.themes.slice(0, 3).join(', ')}${nouveautes.themes.length > 3 ? '…' : ''}` : ''}.</p>
+				</section>
+			{/if}
+
+			<div class="entete-themes">
+				<h2>S’entraîner par thème</h2>
+				<div class="outils">
+					<div class="pastilles" role="group" aria-label="Rôle">
+						<button type="button" class:actif={filtreRole === null} onclick={() => changerFiltre(null)}>Tous</button>
+						<button type="button" class:actif={filtreRole === 'arbitre'} onclick={() => changerFiltre('arbitre')}>Arbitre</button>
+						<button type="button" class:actif={filtreRole === 'marqueur'} onclick={() => changerFiltre('marqueur')}>Marqueur</button>
+					</div>
+					<label class="tri">Trier
+						<select value={tri} onchange={changerTri}>
+							<option value="reglement">Ordre du règlement</option>
+							<option value="faibles">Faibles d’abord</option>
+							<option value="alpha">A → Z</option>
+						</select>
+					</label>
+				</div>
+			</div>
 		{#if etat === 'chargement'}
 			<Chargement />
 		{:else if !lignes.length && etat === 'pret'}
-			<EtatVide titre="Aucune question pour l’instant" texte="Vos formateurs sont en train de valider les questions. Revenez bientôt : elles apparaîtront ici, thème par thème." />
+			{#if filtreRole}
+				<EtatVide titre="Aucune question pour ce rôle" texte="Aucune question validée ne vise les {filtreRole === 'arbitre' ? 'arbitres' : 'marqueurs'} pour l’instant.">
+					{#snippet action()}<button type="button" class="btn2" onclick={() => changerFiltre(null)}>Voir tous les rôles</button>{/snippet}
+				</EtatVide>
+			{:else}
+				<EtatVide titre="Aucune question pour l’instant" texte="Vos formateurs sont en train de valider les questions. Revenez bientôt : elles apparaîtront ici, thème par thème." />
+			{/if}
 		{:else}
 			<div class="defile">
 				<table>
@@ -124,10 +236,10 @@
 									<td class="chiffres bleu" data-libelle="Acquises">{l.acquises}</td>
 									<td class="chiffres rouge" data-libelle="À revoir">{l.aRevoir}</td>
 									<td class="progression"><ProgressionVolets acquises={l.acquises} aRevoir={l.aRevoir} total={l.total} /></td>
-									<td class="action"><a class="btn2" href="/entrainement/nouvelle?theme={l.themeId}" aria-label="S’entraîner : {l.theme}">S’entraîner</a></td>
+									<td class="action"><a class="btn2" href="/entrainement/nouvelle?theme={l.themeId}{filtreRole ? `&role=${filtreRole}` : ''}" aria-label="S’entraîner : {l.theme}">S’entraîner</a></td>
 								{:else}
 									<td colspan="3" class="aide pas-commence">Pas encore commencé</td>
-									<td class="action"><a class="btn2" href="/entrainement/nouvelle?theme={l.themeId}" aria-label="Commencer : {l.theme}">Commencer</a></td>
+									<td class="action"><a class="btn2" href="/entrainement/nouvelle?theme={l.themeId}{filtreRole ? `&role=${filtreRole}` : ''}" aria-label="Commencer : {l.theme}">Commencer</a></td>
 								{/if}
 							</tr>
 						{/each}
@@ -140,11 +252,12 @@
 	<aside class="cote" class:convoque={convocations.length > 0}>
 		{#each convocations as c (c.examen_id)}
 			{@const e = etatConvocation(c)}
+			{@const dans = joursAvant(c.date_heure)}
 			<div class="convocation">
 				<div class="bande-filet" aria-hidden="true"></div>
 				<div class="tete">
 					<h2>Examen officiel</h2>
-					<span>{e === 'termine' ? 'Examen passé' : e === 'a_venir' ? 'Inscription confirmée · à venir' : 'Inscription confirmée'}</span>
+					<span>{e === 'termine' ? 'Examen passé' : e === 'ouvert' || e === 'en_cours' ? 'Inscription confirmée' : dans > 1 ? `Dans ${dans} jours` : dans === 1 ? 'Demain' : dans === 0 ? 'Aujourd’hui' : 'Inscription confirmée'}</span>
 				</div>
 				<p class="titre-examen">{c.titre}</p>
 				<div class="perforation" aria-hidden="true"></div>
@@ -157,6 +270,7 @@
 				<div class="pied">
 					{#if e === 'a_venir'}
 						<a class="btn2" href="/entrainement/nouvelle?mode=examen_entrainement">Passer un examen blanc</a>
+						<a class="agenda" href={icsUrl(c)} download="{c.titre}.ics"><Icone nom="calendrier" taille={16} />Ajouter à mon agenda</a>
 					{:else if e === 'ouvert'}
 						<a class="btn" href="/examen-officiel/{c.examen_id}">Commencer l’examen</a>
 					{:else if e === 'en_cours'}
@@ -175,10 +289,11 @@
 			<h2>Règles consultées récemment</h2>
 			{#if consultees.length}
 				<ul class="consultees">
-					{#each consultees as c (c.reference)}
+					{#each toutHistorique ? consultees : consultees.slice(0, 5) as c (c.reference)}
 						<li><a class="ref plaque" href="/regles/{slug(c.edition)}/{encodeURIComponent(c.reference)}">{c.reference}</a> <span class="aide">{titreLisible(c.resume)}</span></li>
 					{/each}
 				</ul>
+				{#if consultees.length > 5 && !toutHistorique}<button type="button" class="lien" onclick={() => (toutHistorique = true)}>Tout l’historique ({consultees.length})</button>{/if}
 			{:else}
 				<p class="aide">Les règles que vous ouvrez apparaîtront ici. <a href="/regles">Parcourir les règles</a></p>
 			{/if}
@@ -283,6 +398,172 @@
 		.tuile:hover {
 			transform: none;
 		}
+	}
+	.sous-tuiles {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 12px 24px;
+	}
+	.express {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+	}
+	.semaine {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 12px;
+		margin-left: auto;
+		font-size: 14px;
+		color: var(--doux);
+	}
+	.barre-objectif {
+		width: 120px;
+		height: 8px;
+		border-radius: 2px;
+		background: var(--filet-doux);
+		overflow: hidden;
+	}
+	.barre-objectif .b {
+		display: block;
+		height: 100%;
+		background: var(--tableau);
+	}
+	.objectif select {
+		margin-left: 6px;
+		font: inherit;
+		font-size: 13px;
+		border: 1px solid var(--filet);
+		border-radius: var(--r-petit);
+		background: var(--papier);
+		padding: 3px 6px;
+	}
+	.serie {
+		font-weight: 700;
+		color: var(--encre);
+	}
+	.bienvenue {
+		background: var(--papier);
+		border: 1px solid var(--filet);
+		border-radius: var(--r);
+		padding: 20px 24px;
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+	}
+	.bienvenue ol {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+	}
+	.bienvenue li {
+		display: flex;
+		align-items: flex-start;
+		gap: 12px;
+		line-height: 1.5;
+	}
+	.bienvenue .num,
+	.bienvenue .faite :global(.icone) {
+		flex: none;
+		width: 28px;
+		height: 28px;
+		border-radius: 50%;
+		display: grid;
+		place-items: center;
+		background: var(--tableau);
+		color: var(--papier);
+		font-family: var(--police-chiffres);
+		font-weight: 800;
+	}
+	.bienvenue .faite :global(.icone) {
+		background: var(--bleu);
+		padding: 4px;
+	}
+	.nouveautes {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		padding: 12px 16px;
+		background: var(--bleu-clair);
+		border: 1px solid var(--bleu);
+		border-radius: var(--r);
+		color: var(--bleu-texte);
+	}
+	.nouveautes p {
+		margin: 0;
+	}
+	.entete-themes {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: 10px 20px;
+	}
+	.outils {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 14px;
+	}
+	.pastilles {
+		display: inline-flex;
+		border: 1px solid var(--filet);
+		border-radius: var(--r);
+		overflow: hidden;
+		background: var(--papier);
+	}
+	.pastilles button {
+		font: inherit;
+		font-size: 14px;
+		font-weight: 600;
+		padding: 7px 12px;
+		border: 0;
+		background: none;
+		color: var(--doux);
+		cursor: pointer;
+	}
+	.pastilles button + button {
+		border-left: 1px solid var(--filet);
+	}
+	.pastilles button.actif {
+		background: var(--tableau);
+		color: var(--papier);
+	}
+	.tri {
+		font-size: 14px;
+		color: var(--doux);
+	}
+	.tri select {
+		margin-left: 6px;
+		font: inherit;
+		font-size: 14px;
+		border: 1px solid var(--filet);
+		border-radius: var(--r-petit);
+		background: var(--papier);
+		padding: 6px 8px;
+	}
+	.agenda {
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		margin-top: 10px;
+		font-size: 14px;
+		font-weight: 600;
+	}
+	.lien {
+		font: inherit;
+		font-size: 14px;
+		background: none;
+		border: 0;
+		padding: 0;
+		color: var(--bleu-texte);
+		text-decoration: underline;
+		cursor: pointer;
 	}
 	.accueil {
 		display: flex;

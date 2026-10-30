@@ -20,6 +20,14 @@ export type LigneQuestion = {
 	reference_origine: string | null;
 };
 
+/** Questions validées depuis une date (carte « Nouveautés » de l'accueil) : nombre et thèmes concernés. */
+export async function nouveautesDepuis(iso: string): Promise<{ nb: number; themes: string[] }> {
+	const { data, error } = await supabase.from('questions').select('themes(libelle)').eq('statut', 'validee').eq('usage', 'entrainement').gt('valide_le', iso);
+	if (error) throw new Error(error.message);
+	const themes = [...new Set((data ?? []).map((q) => (q.themes as unknown as { libelle: string } | null)?.libelle).filter(Boolean))] as string[];
+	return { nb: data?.length ?? 0, themes };
+}
+
 export async function listerQuestions(): Promise<LigneQuestion[]> {
 	const { data, error } = await supabase
 		.from('questions')
