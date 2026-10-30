@@ -83,4 +83,9 @@ describe('elargissements', () => {
 		expect(e[3].appliquer(p).regleId).toBeNull();
 		expect(elargissements({ ...p, niveauId: null, themeIds: [], role: null, regleId: null })).toEqual([]);
 	});
+
+	test('examen par thème : le thème imposé n’est pas levé', () => {
+		const p = { ...parametresParDefaut(profil, 'examen_entrainement'), themeIds: ['t1'] };
+		expect(elargissements(p, true).map((x) => x.libelle)).toEqual(['Tous les niveaux', 'Arbitre et marqueur']);
+	});
 });

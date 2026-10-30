@@ -29,11 +29,15 @@
 	const nomNiveau = $derived(niveaux.find((n) => n.id === p.niveauId)?.libelle ?? 'tous les niveaux');
 	const nomRole = $derived(p.role === 'arbitre' ? 'arbitre' : p.role === 'marqueur' ? 'marqueur' : 'arbitre et marqueur');
 
-	$effect(() => {
+	// En échec, « Réessayer » relance le chargement sans recharger la page.
+	let erreurReferentiel = $state(false);
+	function chargerReferentiel() {
+		erreurReferentiel = false;
 		referentiel()
 			.then((r) => ((themes = r.themes), (niveaux = r.niveaux), (referentielCharge = true)))
-			.catch(() => (erreur = 'Les thèmes n’ont pas pu être chargés. Vérifiez votre connexion puis rechargez la page.'));
-	});
+			.catch(() => (erreurReferentiel = true));
+	}
+	$effect(chargerReferentiel);
 
 	function changerMode(type: ParametresSeance['type']) {
 		const d = type === 'examen_entrainement' && format === 'theme' ? EXAMEN_PAR_THEME : parametresParDefaut(session.profil!, type);
@@ -117,7 +121,7 @@
 
 		{#if !detail}
 			<div class="resume">
-				<p><b>{referentielCharge ? nomsThemes.join(', ') || 'Tous les thèmes' : 'Chargement du thème…'}</b> · {nomNiveau} · {nomRole} · jusqu’à {p.nb} questions{p.type === 'examen_entrainement' ? ` · ${p.dureeMinutes} min` : ''}</p>
+				<p><b>{referentielCharge ? nomsThemes.join(', ') || 'Tous les thèmes' : erreurReferentiel ? 'Thème non chargé' : 'Chargement du thème…'}</b> · {nomNiveau} · {nomRole} · jusqu’à {p.nb} questions{p.type === 'examen_entrainement' ? ` · ${p.dureeMinutes} min` : ''}</p>
 				<button type="button" class="btn2" onclick={() => (detail = true)}>Modifier les réglages</button>
 			</div>
 		{:else}
@@ -171,11 +175,17 @@
 		</div>
 		{/if}
 
+		{#if erreurReferentiel}
+			<div class="message-erreur" role="alert">
+				Les thèmes n’ont pas pu être chargés. Vérifiez votre connexion.
+				<button type="button" class="btn2" onclick={chargerReferentiel}>Réessayer</button>
+			</div>
+		{/if}
 		{#if erreur}
 			<div class="message-erreur" role="alert">
 				{erreur}
 				{#if erreur === AUCUNE}
-					{#each elargissements(p) as x (x.libelle)}<button type="button" class="btn2" onclick={() => elargir(x.appliquer)}>{x.libelle}</button>{/each}
+					{#each elargissements(p, parTheme) as x (x.libelle)}<button type="button" class="btn2" onclick={() => elargir(x.appliquer)}>{x.libelle}</button>{/each}
 				{/if}
 			</div>
 		{/if}

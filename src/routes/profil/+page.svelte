@@ -42,7 +42,7 @@
 		<section class="carte">
 			<h2>Sécurité et confort</h2>
 			<div class="liens">
-				<a class="btn2" href="/mot-de-passe">Changer mon mot de passe</a>
+				<a class="btn2" href="/mot-de-passe?depuis=compte">Changer mon mot de passe</a>
 				<a class="btn2" href="/preferences">Préférences</a>
 				<a class="btn2" href="/aide">Aide et raccourcis</a>
 			</div>

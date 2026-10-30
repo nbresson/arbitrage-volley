@@ -139,6 +139,46 @@ test('temps écoulé : départ vers le résultat avec l’annonce du nombre de r
 	await waitFor(() => expect(h.goto).toHaveBeenCalledWith('/tentative/t1/resultat?fin=auto&n=1'));
 });
 
+test('temps écoulé : le titre prend le focus', async () => {
+	const ecran = render(PassationExamen, {
+		source: source({
+			charger: async () => ({ debut: new Date(Date.now() - 11 * 60_000).toISOString(), dureeMinutes: 10, fin: null, questions: [question] }),
+			terminer: () => new Promise(() => {})
+		})
+	});
+	const titre = await ecran.findByRole('heading', { name: 'Temps écoulé' });
+	await waitFor(() => expect(document.activeElement).toBe(titre));
+});
+
+test('temps écoulé, clôture refusée par le serveur : message du refus, pas de relance sans fin', async () => {
+	const terminer = vi.fn(async () => {
+		throw new ErreurServeur('Compte inactif.', '42501');
+	});
+	const ecran = render(PassationExamen, {
+		source: source({ charger: async () => ({ debut: new Date(Date.now() - 11 * 60_000).toISOString(), dureeMinutes: 10, fin: null, questions: [question] }), terminer })
+	});
+	const alerte = await ecran.findByRole('alert');
+	expect(alerte).toHaveTextContent('Compte inactif.');
+	expect(ecran.queryByText(/Connexion perdue/)).toBeNull();
+	await new Promise((r) => setTimeout(r, 300));
+	expect(terminer).toHaveBeenCalledTimes(1);
+	await fireEvent.click(ecran.getByRole('button', { name: 'Réessayer' }));
+	await waitFor(() => expect(terminer).toHaveBeenCalledTimes(2));
+});
+
+test('temps écoulé, clôture refusée car l’examen est déjà clos : départ vers le résultat', async () => {
+	let appels = 0;
+	render(PassationExamen, {
+		source: source({
+			charger: async () => ({ debut: new Date(Date.now() - 11 * 60_000).toISOString(), dureeMinutes: 10, fin: appels++ ? new Date().toISOString() : null, questions: [question] }),
+			terminer: async () => {
+				throw new ErreurServeur('Cet examen est clos.', 'P0001');
+			}
+		})
+	});
+	await waitFor(() => expect(h.goto).toHaveBeenCalledWith('/tentative/t1/resultat', { replaceState: true }));
+});
+
 const question2 = { ...question, questionId: 'q2', enonce: 'Le libéro attaque au-dessus du filet.' };
 
 test('réponse cochée puis grille : elle est enregistrée avant le changement de question', async () => {

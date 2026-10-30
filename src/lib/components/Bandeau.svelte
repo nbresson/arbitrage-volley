@@ -92,7 +92,7 @@
 				<p class="nom">{profil.prenom} {profil.nom}</p>
 				<p class="role">{profil.role === 'formateur' ? 'Formateur' : 'Stagiaire'} · {profil.profil_formation}</p>
 				<a href="/profil">Mon profil</a>
-				<a href="/mot-de-passe">Changer mon mot de passe</a>
+				<a href="/mot-de-passe?depuis=compte">Changer mon mot de passe</a>
 				<a href="/preferences">Préférences</a>
 				<a href="/aide">Aide</a>
 				<fieldset class="themes">

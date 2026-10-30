@@ -57,7 +57,18 @@
 	// Dernière valeur confiée à la file pour chaque question : une réponse cochée qui en diffère n'est pas encore enregistrée.
 	const confiees: Record<string, string> = {};
 	// Fin du temps : envoi des réponses en cours, en attente du réseau, ou échec de la clôture.
-	let finTemps = $state<'' | 'envoi' | 'attente'>('');
+	let finTemps = $state<'' | 'envoi' | 'attente' | 'refus'>('');
+	// Clôture refusée par le serveur (pas une coupure) : réessayer en boucle ne changerait rien.
+	let refusFin = $state('');
+	// « Temps écoulé » remplace la question sous le focus : le titre le reprend, et le lecteur d'écran l'annonce.
+	let titreTempsEcoule = $state<HTMLElement>();
+	// Après coup : la fermeture du dialogue de confirmation rend le focus à son bouton d'ouverture.
+	$effect(() => {
+		const titre = titreTempsEcoule;
+		if (!titre) return;
+		const t = setTimeout(() => titre.focus());
+		return () => clearTimeout(t);
+	});
 	let occupe = $state(false);
 	const repondues = new SvelteSet<number>();
 	const signalees = new SvelteSet<number>();
@@ -182,9 +193,14 @@
 			await source.terminer();
 			localStorage.removeItem(cleFile);
 			goto(`${source.urlResultat}?fin=auto&n=${repondues.size}`);
-		} catch {
+		} catch (e) {
 			fini = false;
-			attendreReseau();
+			if (!(e instanceof ErreurServeur)) return attendreReseau();
+			// Déjà close (par le formateur, ou depuis un autre appareil) : le résultat existe.
+			const d = await source.charger().catch(() => null);
+			if (d?.fin) return versResultat();
+			refusFin = e.message;
+			finTemps = 'refus';
 		}
 	}
 	function attendreReseau() {
@@ -283,10 +299,13 @@
 			await source.terminer();
 			localStorage.removeItem(cleFile);
 			goto(source.urlResultat);
-		} catch {
+		} catch (e) {
 			fini = false;
 			occupe = false;
-			erreurFin = 'L’examen n’a pas pu être terminé. Vérifiez votre connexion puis réessayez.';
+			erreurFin =
+				e instanceof ErreurServeur
+					? `L’examen n’a pas pu être terminé : ${e.message} Si le problème persiste, prévenez votre formateur.`
+					: 'L’examen n’a pas pu être terminé. Vérifiez votre connexion puis réessayez.';
 		}
 	}
 </script>
@@ -333,14 +352,16 @@
 {:else if chargement === 'erreur'}
 	<MessageErreur texte="L’examen n’a pas pu être chargé." classe="etat" />
 {:else if temps?.ecoule}
-	<section class="temps-ecoule" role="status">
-		<h1>Temps écoulé</h1>
+	<section class="temps-ecoule">
+		<h1 tabindex="-1" bind:this={titreTempsEcoule}>Temps écoulé</h1>
+		{#if finTemps === 'refus'}
+			<p class="message-erreur" role="alert">L’examen n’a pas pu être clôturé : {refusFin} Vos réponses envoyées sont enregistrées. Prévenez votre formateur.</p>
+			<button type="button" class="btn" onclick={finirAuTemps}>Réessayer</button>
+		{/if}
+		<p role="status">{finTemps === 'attente' ? 'Connexion perdue : vos réponses sont gardées sur cet appareil et partiront au retour du réseau. Ne fermez pas cette page.' : finTemps === 'refus' ? '' : 'Envoi de vos réponses…'}</p>
 		{#if finTemps === 'attente'}
-			<p>Connexion perdue : vos réponses sont gardées sur cet appareil et partiront au retour du réseau. Ne fermez pas cette page.</p>
 			{#if enAttente}<p class="aide">{texteEnAttente(enAttente)}.</p>{/if}
 			<button type="button" class="btn" onclick={finirAuTemps}>Réessayer maintenant</button>
-		{:else}
-			<p>Envoi de vos réponses…</p>
 		{/if}
 	</section>
 {:else if question}
@@ -513,6 +534,7 @@
 		gap: 14px;
 	}
 	.temps-ecoule h1 {
+		outline: none;
 		margin: 0;
 		font-family: var(--police-chiffres);
 		font-weight: 800;

@@ -22,7 +22,7 @@ afterEach(() => delete document.documentElement.dataset.theme);
 test('le menu propose profil, mot de passe, préférences, aide, puis la déconnexion', () => {
 	const ecran = render(Bandeau, { titre: 'Arbitrage volley', sousTitre: 'Accueil' });
 	expect(ecran.getByRole('link', { name: 'Mon profil' }).getAttribute('href')).toBe('/profil');
-	expect(ecran.getByRole('link', { name: 'Changer mon mot de passe' }).getAttribute('href')).toBe('/mot-de-passe');
+	expect(ecran.getByRole('link', { name: 'Changer mon mot de passe' }).getAttribute('href')).toBe('/mot-de-passe?depuis=compte');
 	expect(ecran.getByRole('link', { name: 'Préférences' }).getAttribute('href')).toBe('/preferences');
 	expect(ecran.getByRole('link', { name: 'Aide' }).getAttribute('href')).toBe('/aide');
 	expect(ecran.getByRole('button', { name: 'Se déconnecter' })).toBeInTheDocument();

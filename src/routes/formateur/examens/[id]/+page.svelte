@@ -255,7 +255,9 @@
 	const heureCourte = (d: string) => new Intl.DateTimeFormat('fr-FR', { hour: '2-digit', minute: '2-digit' }).format(new Date(d));
 
 	const modifie = $derived(!!id && !!enregistre && JSON.stringify(f) !== enregistre);
-	beforeNavigate(({ cancel }) => {
+	beforeNavigate(({ cancel, type }) => {
+		// Fermeture de l'onglet ou rechargement : seul l'avertissement du navigateur est permis (pas de confirm).
+		if (type === 'leave') return void (modifie && brouillon && cancel());
 		if (modifie && brouillon && !confirm('Les informations modifiées ne sont pas enregistrées. Quitter quand même ?')) cancel();
 	});
 	// La liste de contrôle lit le formulaire : ce que l'ouverture va réellement figer.
@@ -343,7 +345,7 @@
 									<span class="outils">
 										<button class="lien" disabled={k === 0 || enregistrementQuestions} onclick={() => deplacer(k, -1)} aria-label="Monter la question {k + 1}">Monter</button>
 										<button class="lien" disabled={k === choisies.length - 1 || enregistrementQuestions} onclick={() => deplacer(k, 1)} aria-label="Descendre la question {k + 1}">Descendre</button>
-										<button class="lien" onclick={() => composer(choisies.filter((x) => x !== qid))} aria-label="Retirer la question {k + 1}">Retirer</button>
+										<button class="lien" disabled={enregistrementQuestions} onclick={() => composer(choisies.filter((x) => x !== qid))} aria-label="Retirer la question {k + 1}">Retirer</button>
 									</span>
 								{/if}
 							</li>

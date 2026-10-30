@@ -18,8 +18,8 @@
 	const DEPUIS_VUE: Record<string, Onglet> = { fivb: 'fivb_regles', casebook: 'casebook', cfa: 'cfa', 'mes-regles': 'epinglees' };
 	let source = $state<Onglet>(DEPUIS_VUE[page.url.searchParams.get('vue') ?? ''] ?? 'fivb_regles');
 	// Pendant une recherche, les résultats couvrent toutes les sources ; cliquer un onglet les restreint à celle-ci.
-	let filtreRecherche = $state(false);
 	let requete = $state(page.url.searchParams.get('q') ?? '');
+	let filtreRecherche = $state(!!page.url.searchParams.get('q') && page.url.searchParams.get('filtre') === '1');
 	let epinglees = $state<string[]>([]);
 
 	$effect(() => {
@@ -51,13 +51,17 @@
 		const vue: VueRegles = source === 'epinglees' ? 'mes-regles' : vueDeSource(source);
 		const q = requete.trim();
 		try {
-			replaceState(`?vue=${vue}${q ? `&q=${encodeURIComponent(q)}` : ''}`, {});
+			replaceState(`?vue=${vue}${q ? `&q=${encodeURIComponent(q)}${filtreRecherche ? '&filtre=1' : ''}` : ''}`, {});
 		} catch {
 			/* routeur pas encore prêt au tout premier affichage : l'adresse sera mise à jour au changement suivant */
 		}
 	});
+	// Une nouvelle recherche repart de toutes les sources (pas au premier affichage : le filtre vient de l'adresse).
+	// svelte-ignore state_referenced_locally
+	let requetePrecedente = requete;
 	$effect(() => {
-		requete;
+		if (requete === requetePrecedente) return;
+		requetePrecedente = requete;
 		filtreRecherche = false;
 	});
 	const arbre = $derived(construireArbre(deLaSource));

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { page } from '$app/state';
 	import { NOM_COMITE } from '#lib/config.ts';
 	import '#lib/components/formulaire.css';
 	import Bandeau from '#lib/components/Bandeau.svelte';
@@ -16,6 +17,9 @@
 	// null tant que la session n'est pas lue : aucun formulaire ne s'affiche à tort.
 	let modeChoix = $state<boolean | null>(null);
 	let enregistre = $state(false);
+	// « Annuler » n'a de sens que pour un changement demandé depuis le compte,
+	// pas à l'arrivée par un lien d'invitation ou de réinitialisation.
+	const depuisCompte = $derived(page.url.searchParams.get('depuis') === 'compte');
 
 	$effect(() => {
 		supabase.auth.getSession().then(({ data }) => (modeChoix = !!data.session));
@@ -71,7 +75,7 @@
 			{#if erreur}<p class="message-erreur" role="alert">{erreur}</p>{/if}
 			<p class="message-info" role="status">{enregistre ? 'Mot de passe enregistré.' : ''}</p>
 			<button class="btn" type="submit" disabled={envoi || enregistre}>{envoi ? 'Enregistrement…' : 'Enregistrer le mot de passe'}</button>
-			<a href="/profil">Annuler</a>
+			{#if depuisCompte}<a href="/profil">Annuler</a>{/if}
 		</form>
 	{:else}
 		<form class="carte" onsubmit={demanderLien} novalidate>

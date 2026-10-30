@@ -63,7 +63,7 @@
 	async function revoirARevoir() {
 		revisionARevoir = 'en_cours';
 		try {
-			window.location.assign(`/entrainement/${await seanceARevoir()}`);
+			window.location.assign(`/entrainement/${await seanceARevoir(filtreRole)}`);
 		} catch {
 			revisionARevoir = 'erreur';
 		}

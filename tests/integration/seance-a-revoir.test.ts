@@ -46,3 +46,12 @@ test('anon : refusé', async () => {
 	const { error } = await nouveauClientAnonyme().rpc('seance_a_revoir');
 	expect(error).not.toBeNull();
 });
+
+test('suit le filtre de rôle de l’accueil', async () => {
+	const { data: id, error } = await c.stagiaireA.rpc('seance_a_revoir', { p_role: 'arbitre' });
+	expect(error).toBeNull();
+	const { data } = await c.stagiaireA.rpc('questions_de_seance', { p_seance: id });
+	expect(data.map((q: { question_id: string }) => q.question_id)).toEqual([qs[1].id]);
+	const { error: e2 } = await c.stagiaireA.rpc('seance_a_revoir', { p_role: 'marqueur' });
+	expect(e2?.message).toBe('Aucune question à revoir.');
+});

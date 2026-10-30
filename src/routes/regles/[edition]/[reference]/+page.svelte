@@ -182,7 +182,7 @@
 						<div>
 							{#if enRegardActif}<p class="langue">Traduction française</p>{/if}
 							<blockquote class="texte extrait-reglement">
-								«&nbsp;{#each segments as seg, i (i)}{#if seg.definition}<span class="terme"><button type="button" aria-expanded={termeOuvert === i} aria-controls="def-{i}" onclick={(e) => basculerTerme(i, e)}>{seg.texte}</button>{#if termeOuvert === i}<span class="bulle" class:droite={bulleADroite} role="tooltip" id="def-{i}">{seg.definition}</span>{/if}</span>{:else}{seg.texte}{/if}{/each}&nbsp;»
+								«&nbsp;{#each segments as seg, i (i)}{#if seg.definition}<span class="terme"><button type="button" aria-expanded={termeOuvert === i} aria-controls={termeOuvert === i ? `def-${i}` : undefined} onclick={(e) => basculerTerme(i, e)}>{seg.texte}</button>{#if termeOuvert === i}<span class="bulle" class:droite={bulleADroite} role="tooltip" id="def-{i}">{seg.definition}</span>{/if}</span>{:else}{seg.texte}{/if}{/each}&nbsp;»
 							</blockquote>
 						</div>
 						{#if enRegardActif}

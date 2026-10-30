@@ -6,9 +6,10 @@ const h = vi.hoisted(() => ({
 	signIn: vi.fn(async () => ({ error: null })),
 	getSession: vi.fn(),
 	updateUser: vi.fn(async () => ({ error: null })),
-	reset: vi.fn(async () => ({ error: null }))
+	reset: vi.fn(async () => ({ error: null })),
+	page: { params: {}, url: new URL('http://x/') }
 }));
-vi.mock('$app/state', () => ({ page: { params: {}, url: new URL('http://x/') } }));
+vi.mock('$app/state', () => ({ page: h.page }));
 vi.mock('#lib/supabase.ts', () => ({
 	supabase: { auth: { signInWithPassword: h.signIn, getSession: h.getSession, updateUser: h.updateUser, resetPasswordForEmail: h.reset } }
 }));
@@ -17,7 +18,10 @@ vi.mock('#lib/session.svelte.ts', () => ({ session: { pret: true, profil: null }
 import Connexion from '../../src/routes/connexion/+page.svelte';
 import MotDePasse from '../../src/routes/mot-de-passe/+page.svelte';
 
-beforeEach(() => vi.clearAllMocks());
+beforeEach(() => {
+	vi.clearAllMocks();
+	h.page.url = new URL('http://x/');
+});
 
 test('le bouton Se connecter n’est désactivé que pendant l’envoi', () => {
 	const e = render(Connexion);
@@ -40,8 +44,16 @@ test('mot de passe : aucun formulaire tant que la session n’est pas lue', asyn
 	expect(e.queryByRole('heading', { name: 'Choisir votre mot de passe' })).toBeNull();
 });
 
-test('après enregistrement : « Mot de passe enregistré. » annoncé, et un lien Annuler en mode choix', async () => {
+test('arrivée par un lien d’invitation : pas de lien Annuler', async () => {
 	h.getSession.mockResolvedValue({ data: { session: { user: { id: 'u1' } } } });
+	const e = render(MotDePasse);
+	await e.findByRole('heading', { name: 'Choisir votre mot de passe' });
+	expect(e.queryByRole('link', { name: 'Annuler' })).toBeNull();
+});
+
+test('après enregistrement : « Mot de passe enregistré. » annoncé, et un lien Annuler depuis le compte', async () => {
+	h.getSession.mockResolvedValue({ data: { session: { user: { id: 'u1' } } } });
+	h.page.url = new URL('http://x/mot-de-passe?depuis=compte');
 	const e = render(MotDePasse);
 	expect(await e.findByRole('link', { name: 'Annuler' })).toHaveAttribute('href', '/profil');
 	await fireEvent.input(e.getByLabelText(/Nouveau mot de passe/), { target: { value: 'unmotdepasse-long' } });

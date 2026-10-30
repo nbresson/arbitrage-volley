@@ -63,6 +63,19 @@ test('vue et recherche écrites dans l’adresse', async () => {
 	await waitFor(() => expect(h.replaceState).toHaveBeenLastCalledWith('?vue=casebook&q=libero', {}));
 });
 
+test('onglet choisi pendant une recherche : gardé dans l’adresse, puis relu', async () => {
+	const e = render(Regles);
+	await fireEvent.input(await e.findByLabelText(/Chercher un numéro ou des mots/), { target: { value: 'libéro' } });
+	await fireEvent.click(await e.findByRole('tab', { name: /Casebook.*\(1\)/ }));
+	await waitFor(() => expect(h.replaceState).toHaveBeenLastCalledWith('?vue=casebook&q=lib%C3%A9ro&filtre=1', {}));
+	e.unmount();
+
+	h.url = new URL('http://x/regles?vue=casebook&q=lib%C3%A9ro&filtre=1');
+	const e2 = render(Regles);
+	expect(await e2.findByRole('link', { name: /^Cas 3\.35/ })).toBeInTheDocument();
+	expect(e2.queryByRole('link', { name: /^12\.4/ })).toBeNull();
+});
+
 test('chaque résultat est un seul lien sur toute la ligne', async () => {
 	const e = render(Regles);
 	await fireEvent.input(await e.findByLabelText(/Chercher un numéro ou des mots/), { target: { value: 'libéro' } });

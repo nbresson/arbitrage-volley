@@ -96,7 +96,7 @@ export type BilanSeance = { score: number; total: number; par_theme: { theme_id:
 
 export async function terminerSeance(id: string): Promise<BilanSeance> {
 	const { data, error } = await supabase.rpc('terminer_seance', { p_seance: id });
-	if (error) throw new Error(error.message);
+	if (error) throw error.code ? new ErreurServeur(error.message, error.code) : new Error(error.message);
 	return data as BilanSeance;
 }
 
