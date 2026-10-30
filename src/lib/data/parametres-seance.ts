@@ -20,6 +20,16 @@ const DEFAUTS: Record<TypeSeance, { nb: number; dureeMinutes: number | null }> =
 /** Examen blanc par thème : dix questions chronométrées sur un seul thème. */
 export const EXAMEN_PAR_THEME = { nb: 10, dureeMinutes: 15 } as const;
 
+/** Quand aucune question ne correspond : les filtres actifs qu'on peut lever, dans l'ordre où les proposer. */
+export function elargissements(p: ParametresSeance): { libelle: string; appliquer: (p: ParametresSeance) => ParametresSeance }[] {
+	return [
+		p.niveauId ? { libelle: 'Tous les niveaux', appliquer: (x: ParametresSeance) => ({ ...x, niveauId: null }) } : null,
+		p.themeIds.length ? { libelle: 'Tous les thèmes', appliquer: (x: ParametresSeance) => ({ ...x, themeIds: [] }) } : null,
+		p.role ? { libelle: 'Arbitre et marqueur', appliquer: (x: ParametresSeance) => ({ ...x, role: null }) } : null,
+		p.regleId ? { libelle: 'Retirer le filtre de règle', appliquer: (x: ParametresSeance) => ({ ...x, regleId: null }) } : null
+	].filter((x) => x !== null);
+}
+
 export const borner = (n: number, min: number, max: number) => Math.min(max, Math.max(min, n));
 
 export function parametresParDefaut(profil: Profil, type: TypeSeance): ParametresSeance {

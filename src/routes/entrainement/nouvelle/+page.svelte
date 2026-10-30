@@ -6,7 +6,7 @@
 	import { page } from '$app/state';
 	import Bandeau from '#lib/components/Bandeau.svelte';
 	import NavPrincipale from '#lib/components/NavPrincipale.svelte';
-	import { borner, EXAMEN_PAR_THEME, lireParametres, parametresParDefaut, type ParametresSeance } from '#lib/data/parametres-seance.ts';
+	import { elargissements, EXAMEN_PAR_THEME, lireParametres, parametresParDefaut, type ParametresSeance } from '#lib/data/parametres-seance.ts';
 	import { creerSeance, referentiel, urlSeance, type Option } from '#lib/data/seances.ts';
 	import { session } from '#lib/session.svelte.ts';
 
@@ -16,6 +16,9 @@
 	let themes = $state<Option[]>([]);
 	let niveaux = $state<Option[]>([]);
 	let erreur = $state('');
+	let erreurNb = $state('');
+	let erreurDuree = $state('');
+	let referentielCharge = $state(false);
 	let envoi = $state(false);
 	// Examen blanc : complet (plusieurs thèmes possibles) ou par thème (dix questions chronométrées sur un seul thème).
 	let format = $state<'complet' | 'theme'>(page.url.searchParams.get('format') === 'theme' ? 'theme' : 'complet');
@@ -28,7 +31,7 @@
 
 	$effect(() => {
 		referentiel()
-			.then((r) => ((themes = r.themes), (niveaux = r.niveaux)))
+			.then((r) => ((themes = r.themes), (niveaux = r.niveaux), (referentielCharge = true)))
 			.catch(() => (erreur = 'Les thèmes n’ont pas pu être chargés. Vérifiez votre connexion puis rechargez la page.'));
 	});
 
@@ -49,7 +52,15 @@
 
 	async function lancer(e?: SubmitEvent) {
 		e?.preventDefault();
-		erreur = '';
+		erreur = erreurNb = erreurDuree = '';
+		// Bornes annoncées, jamais corrigées en silence.
+		const entier = (v: unknown, min: number, max: number) => Number.isInteger(v) && (v as number) >= min && (v as number) <= max;
+		if (!entier(p.nb, 5, 50)) erreurNb = 'Entre 5 et 50 questions.';
+		if (p.type === 'examen_entrainement' && !entier(p.dureeMinutes, 5, 120)) erreurDuree = 'Entre 5 et 120 minutes.';
+		if (erreurNb || erreurDuree) {
+			detail = true;
+			return;
+		}
 		if (parTheme && p.themeIds.length !== 1) {
 			erreur = 'Choisissez le thème de l’examen.';
 			detail = true;
@@ -57,17 +68,18 @@
 		}
 		envoi = true;
 		try {
-			const id = await creerSeance({ ...p, nb: borner(p.nb, 5, 50) });
+			const id = await creerSeance(p);
 			goto(urlSeance(p.type, id));
 		} catch (err) {
 			erreur = err instanceof Error && err.message === AUCUNE ? AUCUNE : 'La séance n’a pas pu être créée. Vérifiez votre connexion puis réessayez.';
+			if (erreur === AUCUNE) detail = true;
 		} finally {
 			envoi = false;
 		}
 	}
 
-	function elargir() {
-		p.niveauId = null;
+	function elargir(appliquer: (x: ParametresSeance) => ParametresSeance) {
+		p = appliquer(p);
 		lancer();
 	}
 </script>
@@ -105,7 +117,7 @@
 
 		{#if !detail}
 			<div class="resume">
-				<p><b>{nomsThemes.join(', ') || 'Tous les thèmes'}</b> · {nomNiveau} · {nomRole} · jusqu’à {p.nb} questions{p.type === 'examen_entrainement' ? ` · ${p.dureeMinutes} min` : ''}</p>
+				<p><b>{referentielCharge ? nomsThemes.join(', ') || 'Tous les thèmes' : 'Chargement du thème…'}</b> · {nomNiveau} · {nomRole} · jusqu’à {p.nb} questions{p.type === 'examen_entrainement' ? ` · ${p.dureeMinutes} min` : ''}</p>
 				<button type="button" class="btn2" onclick={() => (detail = true)}>Modifier les réglages</button>
 			</div>
 		{:else}
@@ -144,13 +156,16 @@
 			</label>
 			<label class="champ">
 				Nombre de questions (au plus)
-				<input type="number" min="5" max="50" bind:value={p.nb} aria-describedby="aide-nb" />
-				<span class="aide" id="aide-nb">Si moins de questions correspondent, la séance les prend toutes.</span>
+				<input type="number" min="5" max="50" bind:value={p.nb} aria-describedby="aide-nb{erreurNb ? ' erreur-nb' : ''}" aria-invalid={!!erreurNb} />
+				<span class="aide" id="aide-nb">Entre 5 et 50. Si moins de questions correspondent, la séance les prend toutes.</span>
+				{#if erreurNb}<span class="erreur" id="erreur-nb">{erreurNb}</span>{/if}
 			</label>
 			{#if p.type === 'examen_entrainement'}
 				<label class="champ">
 					Durée (minutes)
-					<input type="number" min="5" max="120" bind:value={p.dureeMinutes} />
+					<input type="number" min="5" max="120" bind:value={p.dureeMinutes} aria-describedby="aide-duree{erreurDuree ? ' erreur-duree' : ''}" aria-invalid={!!erreurDuree} />
+					<span class="aide" id="aide-duree">De 5 à 120 minutes.</span>
+					{#if erreurDuree}<span class="erreur" id="erreur-duree">{erreurDuree}</span>{/if}
 				</label>
 			{/if}
 		</div>
@@ -159,10 +174,12 @@
 		{#if erreur}
 			<div class="message-erreur" role="alert">
 				{erreur}
-				{#if erreur === AUCUNE && p.niveauId}<button type="button" class="btn2" onclick={elargir}>Élargir aux autres niveaux</button>{/if}
+				{#if erreur === AUCUNE}
+					{#each elargissements(p) as x (x.libelle)}<button type="button" class="btn2" onclick={() => elargir(x.appliquer)}>{x.libelle}</button>{/each}
+				{/if}
 			</div>
 		{/if}
-		<button class="btn" type="submit" disabled={envoi}>{envoi ? 'Préparation…' : 'Commencer la séance'}</button>
+		<button class="btn" type="submit" disabled={envoi || !referentielCharge}>{envoi ? 'Préparation…' : 'Commencer la séance'}</button>
 	</form>
 </main>
 
@@ -254,6 +271,11 @@
 		flex-wrap: wrap;
 		gap: 12px;
 		align-items: center;
+	}
+	.erreur {
+		color: var(--rouge-texte);
+		font-weight: 600;
+		font-size: 14px;
 	}
 	.lien {
 		font: inherit;

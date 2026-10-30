@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
 import type { Profil } from '../../src/lib/auth';
-import { EXAMEN_PAR_THEME, lireParametres, parametresParDefaut } from '../../src/lib/data/parametres-seance';
+import { elargissements, EXAMEN_PAR_THEME, lireParametres, parametresParDefaut } from '../../src/lib/data/parametres-seance';
 
 const profil: Profil = {
 	id: 'u1',
@@ -71,5 +71,16 @@ describe('examen blanc par thème', () => {
 		expect(lireParametres(new URL('http://x/?mode=examen_entrainement&duree=20'), profil).dureeMinutes).toBe(20);
 		expect(lireParametres(new URL('http://x/?mode=examen_entrainement&duree=500'), profil).dureeMinutes).toBe(120);
 		expect(lireParametres(new URL('http://x/?duree=20'), profil).dureeMinutes).toBeNull();
+	});
+});
+
+describe('elargissements', () => {
+	test('ne propose que les filtres actifs, dans l’ordre', () => {
+		const p = { ...parametresParDefaut(profil, 'pedagogique'), themeIds: ['t1'], regleId: 'r1' };
+		const e = elargissements(p);
+		expect(e.map((x) => x.libelle)).toEqual(['Tous les niveaux', 'Tous les thèmes', 'Arbitre et marqueur', 'Retirer le filtre de règle']);
+		expect(e[1].appliquer(p).themeIds).toEqual([]);
+		expect(e[3].appliquer(p).regleId).toBeNull();
+		expect(elargissements({ ...p, niveauId: null, themeIds: [], role: null, regleId: null })).toEqual([]);
 	});
 });
