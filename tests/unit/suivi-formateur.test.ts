@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import { analyserListe, csvResultats, filtrerComptes, ilYa, listeControle, themesFaibles, trierComptes } from '../../src/lib/formateur/suivi';
+import { analyserListe, csvResultats, texteCloture, filtrerComptes, ilYa, listeControle, themesFaibles, trierComptes } from '../../src/lib/formateur/suivi';
 
 describe('analyserListe (import de comptes)', () => {
 	test('une personne par ligne : prénom, nom, adresse, séparés par ; , ou tabulation', () => {
@@ -97,4 +97,21 @@ test('sans séance : en tête du tri par réussite ; formateurs à la fin', () =
 	];
 	const ordre = trierComptes(liste, 'reussite', { niveaux: new Map(), reussite: new Map([['a', 90]]) }).map((c) => c.id);
 	expect(ordre).toEqual(['z', 'a', 'f']);
+});
+
+describe('texteCloture', () => {
+	const r = (etat: 'absent' | 'en_cours' | 'termine') => ({ etat });
+	test('stagiaires en cours et absents', () => {
+		expect(texteCloture([r('en_cours'), r('en_cours'), r('en_cours'), r('absent'), r('termine')])).toBe(
+			'3 stagiaires sont encore en cours (leurs réponses déjà envoyées seront gardées), 1 n’a pas commencé et sera noté absent.'
+		);
+	});
+	test('au singulier', () => {
+		expect(texteCloture([r('en_cours'), r('absent'), r('absent')])).toBe(
+			'1 stagiaire est encore en cours (ses réponses déjà envoyées seront gardées), 2 n’ont pas commencé et seront notés absents.'
+		);
+	});
+	test('tout le monde a terminé', () => {
+		expect(texteCloture([r('termine')])).toBe('Tous les stagiaires ont terminé.');
+	});
 });

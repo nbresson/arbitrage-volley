@@ -106,3 +106,19 @@ export function csvResultats(
 	);
 	return `﻿${[entete.join(';'), ...corps].join('\r\n')}\r\n`;
 }
+
+/** Texte du dialogue « Clore l'examen » : qui compose encore, qui sera noté absent. */
+export function texteCloture(r: { etat: 'absent' | 'en_cours' | 'termine' }[]): string {
+	const enCours = r.filter((x) => x.etat === 'en_cours').length;
+	const absents = r.filter((x) => x.etat === 'absent').length;
+	if (!enCours && !absents) return 'Tous les stagiaires ont terminé.';
+	const parties: string[] = [];
+	if (enCours)
+		parties.push(
+			enCours > 1
+				? `${enCours} stagiaires sont encore en cours (leurs réponses déjà envoyées seront gardées)`
+				: '1 stagiaire est encore en cours (ses réponses déjà envoyées seront gardées)'
+		);
+	if (absents) parties.push(absents > 1 ? `${absents} n’ont pas commencé et seront notés absents` : '1 n’a pas commencé et sera noté absent');
+	return `${parties.join(', ')}.`;
+}

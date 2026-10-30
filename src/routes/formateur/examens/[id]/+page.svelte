@@ -27,7 +27,7 @@
 		type ResultatStagiaire,
 		type StatQuestion
 	} from '#lib/data/examens-formateur.ts';
-	import { csvResultats, listeControle } from '#lib/formateur/suivi.ts';
+	import { csvResultats, listeControle, texteCloture } from '#lib/formateur/suivi.ts';
 	import { avisDeLExamen, type Avis } from '#lib/data/mesures.ts';
 	import { listerQuestions, type LigneQuestion } from '#lib/data/questions.ts';
 	import { listerComptes, type Compte } from '#lib/data/stagiaires.ts';
@@ -284,6 +284,7 @@
 	{:else if etat === 'erreur'}
 		<MessageErreur texte="L’examen n’a pas pu être chargé." />
 	{:else}
+		{#snippet preparation()}
 		<!-- 1. Informations -->
 		<section class="bloc">
 			<h2>1. Informations</h2>
@@ -315,7 +316,7 @@
 			{#if !id}<p class="aide">Une fois l’examen créé, vous choisirez ses questions et inscrirez les stagiaires.</p>{/if}
 		</section>
 
-		{#if id && examen}
+			{#if id && examen}
 			<!-- 2. Questions -->
 			<section class="bloc">
 				<h2>2. Questions <span class="compte">{choisies.length} question{choisies.length > 1 ? 's' : ''}</span></h2>
@@ -384,8 +385,12 @@
 				{#if examen.statut === 'ouvert'}<p class="aide">Vous pouvez encore inscrire un stagiaire présent dans la salle.</p>{/if}
 			</section>
 
+			{/if}
+		{/snippet}
+		{#snippet salle()}
+		{#if examen}
 			<!-- 4. En salle -->
-			<section class="bloc">
+			<section class="bloc" id="salle">
 				<h2>4. En salle</h2>
 				{#if examen.statut === 'brouillon'}
 					<p class="aide">Le jour de l’examen, ouvrez-le devant les stagiaires : un code d’accès s’affichera, à leur donner pour commencer.</p>
@@ -413,8 +418,9 @@
 						</div>
 						<button class="btn2 plein" onclick={afficherPleinEcran}>Afficher le code en plein écran</button>
 					{/if}
-					<p class="aide" role="status">
-						{commences} commencé(s) sur {resultats.length} inscrit(s) · {termines} terminé(s).
+					<!-- Seuls les compteurs sont annoncés : l'heure de mise à jour, qui change toutes les 10 s, reste hors de la zone. -->
+					<p class="aide">
+						<span role="status">{commences} commencé(s) sur {resultats.length} inscrit(s) · {termines} terminé(s).</span>
 						Mise à jour toutes les 10 secondes{misAJour ? ` (dernière à ${heure(misAJour)})` : ''}.
 					</p>
 					<div class="actions">
@@ -427,6 +433,10 @@
 				{#if erreurSalle && !confirmer}<p class="message-erreur" role="alert">{erreurSalle}</p>{/if}
 			</section>
 
+		{/if}
+		{/snippet}
+		{#snippet suivi()}
+		{#if examen}
 			<!-- 5. Résultats -->
 			{#if examen.statut !== 'brouillon'}
 				<section class="bloc resultats">
@@ -498,6 +508,24 @@
 				</section>
 			{/if}
 		{/if}
+		{/snippet}
+
+		<!-- Le jour J, ce qui sert en salle passe en tête ; la préparation, verrouillée, se replie. -->
+		{#if examen && examen.statut !== 'brouillon'}
+			{#if examen.statut === 'ouvert'}{@render salle()}{/if}
+			{@render suivi()}
+			{#if examen.statut === 'clos'}{@render salle()}{/if}
+			<details class="bloc preparation-verrouillee">
+				<summary>Préparation de l’examen (verrouillée)</summary>
+				{@render preparation()}
+			</details>
+		{:else}
+			{@render preparation()}
+			{#if id && examen}
+				{@render salle()}
+				{@render suivi()}
+			{/if}
+		{/if}
 	{/if}
 </main>
 
@@ -525,7 +553,7 @@
 <DialogueConfirmation
 	ouvert={confirmer === 'clore'}
 	titre="Clore l’examen pour tous ?"
-	texte="Les examens encore en cours seront terminés avec les réponses déjà envoyées. Les stagiaires ne pourront plus répondre."
+	texte="{texteCloture(resultats)} Les stagiaires ne pourront plus répondre."
 	libelleAnnuler="Laisser ouvert"
 	libelleConfirmer="Clore l’examen"
 	erreur={erreurSalle}
@@ -534,6 +562,16 @@
 />
 
 <style>
+	.preparation-verrouillee > summary {
+		cursor: pointer;
+		font-weight: 700;
+		min-height: 44px;
+		display: flex;
+		align-items: center;
+	}
+	.preparation-verrouillee[open] {
+		gap: 18px;
+	}
 	.seuil {
 		display: flex;
 		align-items: center;

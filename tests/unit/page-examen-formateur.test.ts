@@ -82,3 +82,16 @@ test('désinscription refusée : la case revient cochée, l’erreur nomme le st
 	expect(caseLou.checked).toBe(true);
 	expect(caseLou).toBeEnabled();
 });
+
+test('examen ouvert : « En salle » précède les informations, repliées dans la préparation verrouillée', async () => {
+	h.examen = { ...h.examen, statut: 'ouvert' };
+	h.resultats = [{ stagiaire_id: 's1', prenom: 'Lou', nom: 'Essai', etat: 'en_cours', tentative_id: 't', score: null, total: null, reussi: null, debut: '2026-11-10T09:01:00Z', fin: null, repondues: 1, sorties: 0, nb_questions: 3 }];
+	const e = render(Page);
+	const salle = await e.findByRole('heading', { name: /En salle/ });
+	const infos = e.getByRole('heading', { name: /Informations/ });
+	expect(salle.compareDocumentPosition(infos) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+	expect(infos.closest('details')?.querySelector('summary')?.textContent).toBe('Préparation de l’examen (verrouillée)');
+	const zone = e.getAllByRole('status').find((s) => /commencé/.test(s.textContent ?? ''))!;
+	expect(zone.textContent).not.toMatch(/dernière à/);
+	expect(e.getByText(/1 stagiaire est encore en cours/)).toBeInTheDocument();
+});
