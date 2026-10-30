@@ -7,7 +7,7 @@
 	import EtatVide from '#lib/components/EtatVide.svelte';
 	import MessageErreur from '#lib/components/MessageErreur.svelte';
 	import NavFormateur from '#lib/components/NavFormateur.svelte';
-	import { mesuresJours, mesuresThemes, type MesureJour, type MesureTheme } from '#lib/data/mesures.ts';
+	import { mesuresJours, mesuresThemes, trierThemes, type MesureJour, type MesureTheme } from '#lib/data/mesures.ts';
 
 	let periode = $state(30);
 	let jours = $state<MesureJour[]>([]);
@@ -79,10 +79,10 @@
 			<div class="defile">
 				<table>
 					<caption class="vh">Réponses et réussite par thème</caption>
-					<thead><tr><th scope="col">Thème</th><th scope="col">Réponses</th><th scope="col">Réussite</th></tr></thead>
+					<thead><tr><th scope="col">Thème</th><th scope="col">Réponses</th><th scope="col">Réussite (croissante)</th></tr></thead>
 					<tbody>
-						{#each themes as t (t.theme)}
-							<tr><th scope="row">{t.theme}</th><td class="chiffres">{t.reponses}</td><td class="chiffres">{Math.round((t.justes / t.reponses) * 100)} %</td></tr>
+						{#each trierThemes(themes) as t (t.theme)}
+							<tr class:peu={t.peu}><th scope="row">{t.theme}{#if t.peu}<span class="peu-texte"> (peu de réponses)</span>{/if}</th><td class="chiffres">{t.reponses}</td><td class="chiffres">{Math.round((t.justes / t.reponses) * 100)} %</td></tr>
 						{/each}
 					</tbody>
 				</table>
@@ -162,6 +162,12 @@
 	}
 	tbody th {
 		font-weight: 500;
+	}
+	tr.peu {
+		color: var(--doux);
+	}
+	.peu-texte {
+		font-size: 13px;
 	}
 	.chiffres {
 		font-variant-numeric: tabular-nums;

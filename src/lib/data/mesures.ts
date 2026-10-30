@@ -17,6 +17,12 @@ export async function mesuresThemes(jours = 30): Promise<MesureTheme[]> {
 	return data ?? [];
 }
 
+/** Thèmes du plus faible au plus fort ; `peu` : moins de 20 réponses, pourcentage fragile. */
+export function trierThemes(t: MesureTheme[]): (MesureTheme & { peu: boolean })[] {
+	const taux = (x: MesureTheme) => (x.reponses ? x.justes / x.reponses : 0);
+	return [...t].sort((a, b) => taux(a) - taux(b)).map((x) => ({ ...x, peu: x.reponses < 20 }));
+}
+
 export type Avis = { note: number; commentaire: string | null };
 
 export async function monAvis(tentative: string): Promise<Avis | null> {
