@@ -1,5 +1,5 @@
-import { expect, test } from 'vitest';
-import { actionTouche } from '../../src/lib/seance/raccourcis.ts';
+import { describe, expect, test } from 'vitest';
+import { actionTouche, estBalayageGauche } from '../../src/lib/seance/raccourcis.ts';
 
 const avant = { nbPropositions: 4, corrigee: false, choix: false };
 const apres = { nbPropositions: 4, corrigee: true, choix: true };
@@ -24,4 +24,15 @@ test('S passe à la question suivante après la correction', () => {
 
 test('une proposition absente ne se choisit pas', () => {
 	expect(actionTouche('d', { ...avant, nbPropositions: 3 })).toBeNull();
+});
+
+describe('balayage', () => {
+	test('un balayage franc vers la gauche passe à la suivante', () => {
+		expect(estBalayageGauche(-90, 10)).toBe(true);
+	});
+	test('trop court, vers la droite, ou surtout vertical (défilement) : rien', () => {
+		expect(estBalayageGauche(-40, 0)).toBe(false);
+		expect(estBalayageGauche(90, 0)).toBe(false);
+		expect(estBalayageGauche(-90, 80)).toBe(false);
+	});
 });

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 	import { seanceEnCours } from '#lib/data/seances.ts';
+	import { annonceCompteurs } from '#lib/domain/annonce.ts';
 	import { appliquerAffichage, enregistrerPreferences, lirePreferences, type Preferences } from '#lib/preferences.ts';
 	import { seDeconnecter, session } from '#lib/session.svelte.ts';
 	import Compteur from './Compteur.svelte';
@@ -30,6 +31,15 @@
 	let menu = $state<HTMLDetailsElement>();
 
 	let theme = $state<Preferences['theme']>(lirePreferences().theme);
+	// Lecteurs d'écran : on annonce le seul compteur qui change, pas tout le bandeau.
+	let annonce = $state('');
+	let precedents: { libelle: string; valeur: number }[] | null = null;
+	$effect(() => {
+		const actuels = compteurs.map((c) => ({ libelle: c.libelle, valeur: c.valeur }));
+		const texte = annonceCompteurs(precedents, actuels);
+		if (texte) annonce = texte;
+		precedents = actuels;
+	});
 	let confirmerSortie = $state(false);
 
 	function changerTheme(t: Preferences['theme']) {
@@ -62,7 +72,8 @@
 				<Compteur {...c} />
 			{/each}
 		</div>
-		<p class="resume" role="status">{resumeTexte}</p>
+		<p class="resume">{resumeTexte}</p>
+		<p class="vh" role="status">{annonce}</p>
 	{/if}
 	<div class="droite">
 		{#if navigation}<nav class="nav" aria-label="Navigation principale">{@render navigation()}</nav>{/if}

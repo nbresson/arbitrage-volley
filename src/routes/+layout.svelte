@@ -23,6 +23,11 @@
 		return () => data.subscription.unsubscribe();
 	});
 
+	// Application installable et règles lisibles hors ligne (static/sw.js), seulement sur le site compilé.
+	$effect(() => {
+		if (import.meta.env.PROD && 'serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').catch(() => {});
+	});
+
 	// Fondu court entre les pages (API View Transitions), sauf si l'on réduit les animations.
 	onNavigate((navigation) => {
 		if (!document.startViewTransition || animationsReduites()) return;

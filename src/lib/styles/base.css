@@ -227,3 +227,28 @@ table {
 :root[data-contraste='eleve'] .champ textarea {
 	border-width: 2px;
 }
+
+/* Cibles tactiles d'au moins 44 px (spécificité nulle : un composant peut toujours préciser).
+   Liens d'action isolés (« Retour à l'accueil »), boutons-liens et plaques de règle. */
+:where(.actions, .pied, .outils, .liens) > :where(a:not(.btn, .btn2, .plaque)),
+:where(button.lien) {
+	min-height: 44px;
+	display: inline-flex;
+	align-items: center;
+}
+/* La plaque reste à la taille du texte ; sa zone cliquable déborde autour. */
+:where(a.plaque) {
+	position: relative;
+}
+:where(a.plaque)::after {
+	content: '';
+	position: absolute;
+	inset: -9px -4px;
+}
+
+/* Texte fluide : la taille de base suit la largeur de l'écran, de 16 à 18 px. */
+body {
+	font-size: clamp(16px, 0.94rem + 0.25vw, 18px);
+	/* Zone sûre : rien ne passe sous la barre des téléphones récents. */
+	padding-bottom: env(safe-area-inset-bottom);
+}

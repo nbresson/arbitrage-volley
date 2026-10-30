@@ -4,7 +4,7 @@
 	import '#lib/components/formulaire.css';
 	import { tick } from 'svelte';
 	import { page } from '$app/state';
-	import { actionTouche } from '#lib/seance/raccourcis.ts';
+	import { actionTouche, estBalayageGauche } from '#lib/seance/raccourcis.ts';
 	import Bandeau from '#lib/components/Bandeau.svelte';
 	import Chargement from '#lib/components/Chargement.svelte';
 	import Etiquette from '#lib/components/Etiquette.svelte';
@@ -183,6 +183,28 @@
 		}
 	}
 
+	// Téléphone : après la correction, un balayage vers la gauche passe à la question suivante.
+	let depart: { x: number; y: number } | null = null;
+	const toucher = (e: TouchEvent) => (depart = { x: e.touches[0].clientX, y: e.touches[0].clientY });
+	function lacher(e: TouchEvent) {
+		if (!depart || !etat?.resultat) return;
+		const t = e.changedTouches[0];
+		if (estBalayageGauche(t.clientX - depart.x, t.clientY - depart.y)) continuer();
+		depart = null;
+	}
+	// Le geste double le bouton « Question suivante » : écouteurs passifs, sans rôle à donner à la zone.
+	let zoneJeu = $state<HTMLElement>();
+	$effect(() => {
+		const z = zoneJeu;
+		if (!z) return;
+		z.addEventListener('touchstart', toucher, { passive: true });
+		z.addEventListener('touchend', lacher, { passive: true });
+		return () => {
+			z.removeEventListener('touchstart', toucher);
+			z.removeEventListener('touchend', lacher);
+		};
+	});
+
 	function continuer() {
 		if (!etat) return;
 		annonce = '';
@@ -313,7 +335,7 @@
 		{/if}
 	</main>
 {:else if etat && question}
-	<div class="jeu">
+	<div class="jeu" bind:this={zoneJeu}>
 		<section class="situation">
 			<div class="meta">
 				<Etiquette>{question.theme}</Etiquette>
@@ -370,6 +392,7 @@
 					<button class="btn siffle" bind:this={boutonSuivante} onclick={continuer}>
 						{etat.index < etat.questions.length - 1 ? 'Question suivante' : 'Voir le bilan'}
 					</button>
+					<span class="aide balayage">ou balayez vers la gauche</span>
 				{:else}
 					<button class="btn" disabled={!etat.choix || etat.envoi === 'en_cours'} onclick={valider}>
 						{etat.envoi === 'en_cours' ? 'Enregistrement…' : etat.envoi === 'erreur' ? 'Réessayer' : 'Valider ma réponse'}
@@ -511,6 +534,14 @@
 		border-style: solid;
 		border-color: var(--encre);
 		color: var(--encre);
+	}
+	.balayage {
+		display: none;
+	}
+	@media (pointer: coarse) {
+		.balayage {
+			display: inline;
+		}
 	}
 	.jnsp.corrigee {
 		cursor: default;

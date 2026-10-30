@@ -12,3 +12,6 @@ export function actionTouche(
 	const index = touche.length === 1 ? Math.max(lettre, chiffre) : -1;
 	return index >= 0 && index < q.nbPropositions ? { type: 'choisir', index } : null;
 }
+
+/** Balayage vers la gauche (au moins 70 px, plus horizontal que vertical) : passer à la question suivante. */
+export const estBalayageGauche = (dx: number, dy: number) => dx <= -70 && Math.abs(dy) < Math.abs(dx) / 2;

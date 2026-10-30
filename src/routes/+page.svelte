@@ -24,6 +24,15 @@
 	let av = $state<Avancement[]>([]);
 	let reprise = $state<Awaited<ReturnType<typeof seanceAReprendre>>>(null);
 	let etat = $state<'chargement' | 'pret' | 'erreur'>('chargement');
+	// Téléphone : la convocation passe en tête du document (et pas seulement à l'écran).
+	const requeteMobile = typeof matchMedia === 'function' ? matchMedia('(max-width: 700px)') : null;
+	let mobile = $state(!!requeteMobile?.matches);
+	$effect(() => {
+		if (!requeteMobile) return;
+		const suivre = (e: MediaQueryListEvent) => (mobile = e.matches);
+		requeteMobile.addEventListener('change', suivre);
+		return () => requeteMobile.removeEventListener('change', suivre);
+	});
 	let convocations = $state<Convocation[]>([]);
 	let niveau = $state('');
 	const consultees = lireConsultations();
@@ -127,7 +136,48 @@
 	{#snippet navigation()}<NavPrincipale />{/snippet}
 </Bandeau>
 
+{#snippet blocConvocations()}
+		{#each convocations as c (c.examen_id)}
+			{@const e = etatConvocation(c)}
+			{@const dans = joursAvant(c.date_heure)}
+			<div class="convocation">
+				<div class="bande-filet" aria-hidden="true"></div>
+				<div class="tete">
+					<h2>Examen officiel</h2>
+					<span>{e === 'termine' ? 'Examen passé' : e === 'ouvert' || e === 'en_cours' ? 'Inscription confirmée' : dans > 1 ? `Dans ${dans} jours` : dans === 1 ? 'Demain' : dans === 0 ? 'Aujourd’hui' : 'Inscription confirmée'}</span>
+				</div>
+				<p class="titre-examen">{c.titre}</p>
+				<div class="perforation" aria-hidden="true"></div>
+				<dl>
+					<dt><Icone nom="calendrier" taille={18} />Date</dt><dd>{dateHeure(c.date_heure)}</dd>
+					{#if c.lieu}<dt><Icone nom="lieu" taille={18} />Lieu</dt><dd>{c.lieu}</dd>{/if}
+					<dt><Icone nom="chrono" taille={18} />Durée</dt><dd>{c.duree_minutes} min · {c.nb_questions ? pluriel(c.nb_questions, 'question') : 'contenu en préparation'}</dd>
+					{#if c.formateur}<dt><Icone nom="stagiaires" taille={18} />Formateur</dt><dd>{c.formateur}</dd>{/if}
+				</dl>
+				<div class="pied">
+					{#if e === 'a_venir'}
+						<a class="btn2" href="/entrainement/nouvelle?mode=examen_entrainement">Passer un examen blanc</a>
+						<a class="agenda" href={icsUrl(c)} download="{c.titre}.ics"><Icone nom="calendrier" taille={16} />Ajouter à mon agenda</a>
+						<a class="agenda" href="/convocation/{c.examen_id}">Imprimer la convocation</a>
+					{:else if e === 'ouvert'}
+						<a class="btn" href="/examen-officiel/{c.examen_id}">Commencer l’examen</a>
+					{:else if e === 'en_cours'}
+						<a class="btn" href="/examen-officiel/{c.examen_id}">Reprendre l’examen</a>
+					{:else}
+						<a class="btn2" href="/tentative/{c.tentative_id}/resultat">Voir mon résultat</a>
+					{/if}
+				</div>
+			</div>
+		{:else}
+			<EtatVide titre="Aucun examen officiel prévu" texte="Votre formateur vous inscrira ; la convocation apparaîtra ici. En attendant, entraînez-vous dans les conditions de l’examen.">
+				{#snippet action()}<a class="btn2" href="/entrainement/nouvelle?mode=examen_entrainement">Passer un examen blanc</a>{/snippet}
+			</EtatVide>
+		{/each}
+{/snippet}
+
 <div class="jeu">
+	<!-- Sur téléphone, la convocation est placée en tête dans le document lui-même : l'ordre de lecture suit l'ordre visuel. -->
+	{#if mobile && convocations.length}<div class="convocations-haut">{@render blocConvocations()}</div>{/if}
 	<section class="principal">
 		{#if etat === 'erreur'}
 			<p class="message-erreur" role="alert">Votre avancement n’a pas pu être chargé. Vérifiez votre connexion puis rechargez la page.</p>
@@ -273,42 +323,7 @@
 	</section>
 	<Filet />
 	<aside class="cote" class:convoque={convocations.length > 0}>
-		{#each convocations as c (c.examen_id)}
-			{@const e = etatConvocation(c)}
-			{@const dans = joursAvant(c.date_heure)}
-			<div class="convocation">
-				<div class="bande-filet" aria-hidden="true"></div>
-				<div class="tete">
-					<h2>Examen officiel</h2>
-					<span>{e === 'termine' ? 'Examen passé' : e === 'ouvert' || e === 'en_cours' ? 'Inscription confirmée' : dans > 1 ? `Dans ${dans} jours` : dans === 1 ? 'Demain' : dans === 0 ? 'Aujourd’hui' : 'Inscription confirmée'}</span>
-				</div>
-				<p class="titre-examen">{c.titre}</p>
-				<div class="perforation" aria-hidden="true"></div>
-				<dl>
-					<dt><Icone nom="calendrier" taille={18} />Date</dt><dd>{dateHeure(c.date_heure)}</dd>
-					{#if c.lieu}<dt><Icone nom="lieu" taille={18} />Lieu</dt><dd>{c.lieu}</dd>{/if}
-					<dt><Icone nom="chrono" taille={18} />Durée</dt><dd>{c.duree_minutes} min · {c.nb_questions ? pluriel(c.nb_questions, 'question') : 'contenu en préparation'}</dd>
-					{#if c.formateur}<dt><Icone nom="stagiaires" taille={18} />Formateur</dt><dd>{c.formateur}</dd>{/if}
-				</dl>
-				<div class="pied">
-					{#if e === 'a_venir'}
-						<a class="btn2" href="/entrainement/nouvelle?mode=examen_entrainement">Passer un examen blanc</a>
-						<a class="agenda" href={icsUrl(c)} download="{c.titre}.ics"><Icone nom="calendrier" taille={16} />Ajouter à mon agenda</a>
-						<a class="agenda" href="/convocation/{c.examen_id}">Imprimer la convocation</a>
-					{:else if e === 'ouvert'}
-						<a class="btn" href="/examen-officiel/{c.examen_id}">Commencer l’examen</a>
-					{:else if e === 'en_cours'}
-						<a class="btn" href="/examen-officiel/{c.examen_id}">Reprendre l’examen</a>
-					{:else}
-						<a class="btn2" href="/tentative/{c.tentative_id}/resultat">Voir mon résultat</a>
-					{/if}
-				</div>
-			</div>
-		{:else}
-			<EtatVide titre="Aucun examen officiel prévu" texte="Votre formateur vous inscrira ; la convocation apparaîtra ici. En attendant, entraînez-vous dans les conditions de l’examen.">
-				{#snippet action()}<a class="btn2" href="/entrainement/nouvelle?mode=examen_entrainement">Passer un examen blanc</a>{/snippet}
-			</EtatVide>
-		{/each}
+		{#if !(mobile && convocations.length)}{@render blocConvocations()}{/if}
 		<div>
 			<h2>Règles consultées récemment</h2>
 			{#if consultees.length}
@@ -702,7 +717,7 @@
 		align-items: center;
 		gap: 12px;
 	}
-	.cote .convocation .tete h2 {
+	.convocation .tete h2 {
 		margin: 0;
 		font-family: var(--police-chiffres);
 		font-weight: 800;
@@ -783,9 +798,12 @@
 		.cote {
 			padding: 24px 20px;
 		}
-		/* La convocation passe avant tout le reste quand il y en a une. */
-		.cote.convoque {
-			order: -1;
+		.convocations-haut {
+			flex-basis: 100%;
+			padding: 24px 20px 0;
+			display: flex;
+			flex-direction: column;
+			gap: 16px;
 		}
 		.jeu > :global(.filet) {
 			display: none;

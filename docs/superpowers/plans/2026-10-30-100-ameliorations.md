@@ -16,7 +16,7 @@ Préférences personnelles (objectif, tri, taille du texte, thème…) : d'abord
 | F | Navigation et compte | 51–60 | **fait** (sans migration) ; thème sombre complet (jetons `--sur-fonce` et `--trait`, DESIGN.md › Thème sombre) ; 58 : soulignement en `--bleu` (pas de turquoise dans le système) ; 83 « Contraste élevé » fait au passage |
 | G | Formateur : stagiaires et examens | 61–70 | **fait** sauf 69 (migration `20261031000003_formateur_suivi`) ; **69 « Rappel la veille » non fait : dépend du réglage des e-mails** |
 | H | Formateur : questions et contenu | 71–80 | **fait** (migration `20261031000004_questions_suivi`) ; 79 : import par copier-coller ou fichier texte avec découpage assisté (pas de lecture directe des PDF et Word) |
-| I | Accessibilité et téléphone | 81–90 | à faire |
+| I | Accessibilité et téléphone | 81–90 | **fait** (sans migration ; dépendance de test `axe-core`) ; 83 fait au lot F ; 85 : le libellé de la recherche était déjà visible ; 95 « Règles hors ligne » fait au passage (service worker) |
 | J | Retours, états et performance | 91–100 | à faire |
 
 Points qui dépendent de l'utilisateur ou du comité (à signaler quand le lot arrive) : 15 et 49 (contenu à rédiger), 47 (figures : images à fournir), 69 (e-mails non réglés), 99 (accord sur la mesure d'usage), 100 (décision du comité sur la question posée).

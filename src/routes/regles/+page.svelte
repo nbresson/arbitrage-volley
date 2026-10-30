@@ -41,9 +41,11 @@
 
 {#snippet noeud(n: NoeudRegle)}
 	{#if n.enfants.length}
+		<!-- Le résumé ne contient pas de lien (contrôles imbriqués) : le lien vers l'article ouvre la liste dépliée. -->
 		<details>
-			<summary><a href={urlRegle(n.regle)} class="ref">{n.regle.reference}</a> {titreLisible(n.regle.titre)}</summary>
+			<summary><span class="ref">{n.regle.reference}</span> {titreLisible(n.regle.titre)}</summary>
 			<ul>
+				<li><a href={urlRegle(n.regle)} class="ouvrir">Lire l’article {n.regle.reference}</a></li>
 				{#each n.enfants as e (e.regle.id)}<li>{@render noeud(e)}</li>{/each}
 			</ul>
 		</details>
@@ -174,6 +176,34 @@
 	}
 	summary {
 		cursor: pointer;
+		font-weight: 600;
+		min-height: 36px;
+		display: flex;
+		align-items: center;
+		gap: 8px;
+	}
+	summary {
+		list-style: none;
+	}
+	summary::-webkit-details-marker {
+		display: none;
+	}
+	/* Chevron dessiné : il pivote quand la branche s'ouvre. */
+	summary::before {
+		content: '';
+		flex: none;
+		width: 7px;
+		height: 7px;
+		border-right: 2px solid var(--doux);
+		border-bottom: 2px solid var(--doux);
+		transform: rotate(-45deg);
+		transition: transform var(--duree-micro) ease-out;
+	}
+	details[open] > summary::before {
+		transform: rotate(45deg);
+	}
+	.ouvrir {
+		font-size: 14px;
 		font-weight: 600;
 	}
 	.resultats li {
