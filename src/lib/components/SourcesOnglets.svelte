@@ -16,6 +16,17 @@
 	const presents = $derived(ONGLETS.filter((o) => sources.some((s) => s.source === o.id)));
 	let choisi = $state<string | null>(null);
 	const actif = $derived(choisi && presents.some((o) => o.id === choisi) ? choisi : (presents[0]?.id ?? null));
+	// Motif d'onglets : un seul onglet dans l'ordre de tabulation, flèches pour passer de l'un à l'autre.
+	const uid = $props.id();
+	const boutons: HTMLButtonElement[] = [];
+	function clavier(e: KeyboardEvent, i: number) {
+		const n = presents.length;
+		const cible = e.key === 'ArrowRight' ? (i + 1) % n : e.key === 'ArrowLeft' ? (i - 1 + n) % n : e.key === 'Home' ? 0 : e.key === 'End' ? n - 1 : -1;
+		if (cible < 0) return;
+		e.preventDefault();
+		choisi = presents[cible].id;
+		boutons[cible]?.focus();
+	}
 	const visibles = $derived(
 		sources.filter((s) => s.source === actif).sort((a, b) => Number(b.principale) - Number(a.principale))
 	);
@@ -24,11 +35,19 @@
 {#if presents.length}
 	<div class="sources">
 		<div role="tablist" aria-label="Sources" class="onglets">
-			{#each presents as o (o.id)}
-				<button role="tab" aria-selected={actif === o.id} onclick={() => (choisi = o.id)}>{o.libelle}</button>
+			{#each presents as o, i (o.id)}
+				<button
+					bind:this={boutons[i]}
+					role="tab"
+					id="{uid}-onglet-{o.id}"
+					aria-selected={actif === o.id}
+					aria-controls="{uid}-panneau"
+					tabindex={actif === o.id ? 0 : -1}
+					onclick={() => (choisi = o.id)}
+					onkeydown={(e) => clavier(e, i)}>{o.libelle}</button>
 			{/each}
 		</div>
-		<div role="tabpanel" class="contenu papier-reglement">
+		<div role="tabpanel" id="{uid}-panneau" aria-labelledby="{uid}-onglet-{actif}" class="contenu papier-reglement">
 			{#each visibles as s (s.edition + s.reference)}
 				<div class="source">
 					<a href={urlRegle(s)} class="ref plaque">{s.reference}</a>
