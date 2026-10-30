@@ -214,13 +214,19 @@
 		};
 	});
 
-	function continuer() {
+	async function continuer() {
 		if (!etat) return;
 		annonce = '';
 		repriseIndex = null;
 		signalementEtat = '';
 		etat = suivante(etat);
-		if (etat.terminee) terminer();
+		if (etat.terminee) return terminer();
+		// Nouvelle question : le lecteur d'écran l'entend, le focus et l'écran reviennent sur l'énoncé.
+		annonce = `Question ${etat.index + 1} sur ${etat.questions.length}`;
+		await tick();
+		const enonce = document.getElementById('enonce');
+		enonce?.focus();
+		if (window.innerWidth < 1000) enonce?.scrollIntoView?.({ block: 'start' });
 	}
 
 	// Raccourcis à une touche : désactivables (WCAG 2.1.4), choix mémorisé dans ce navigateur.
@@ -362,7 +368,7 @@
 			{/if}
 			{#key etat.index}
 			<div class="question-bloc">
-			<h1 id="enonce">{question.enonce}</h1>
+			<h1 id="enonce" tabindex="-1">{question.enonce}</h1>
 			{#if question.video_url}
 				{@const video = lecteurVideo(question.video_url)}
 				{#if video?.type === 'youtube'}
@@ -449,6 +455,10 @@
 						</form>
 					{/if}
 				</details>
+				<!-- Sur écran étroit, la décision est sous la question : la suite est répétée ici, à portée de main. -->
+				<button class="btn suite-decision" onclick={continuer}>
+					{etat.index < etat.questions.length - 1 ? 'Question suivante' : 'Voir le bilan'}
+				</button>
 			{/if}
 			</div>
 			{/key}
@@ -548,6 +558,18 @@
 	}
 	.balayage {
 		display: none;
+	}
+	#enonce:focus {
+		outline: none;
+	}
+	.suite-decision {
+		display: none;
+		align-self: flex-start;
+	}
+	@media (max-width: 999px) {
+		.suite-decision {
+			display: inline-block;
+		}
 	}
 	.confirmation {
 		font-weight: 600;
