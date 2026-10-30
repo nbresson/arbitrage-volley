@@ -401,6 +401,9 @@
 		border-radius: var(--r-petit);
 		padding: 4px 10px;
 		cursor: pointer;
+		min-height: 44px;
+		display: inline-flex;
+		align-items: center;
 	}
 	.alerte-temps:not(.visible) {
 		padding: 0 !important;

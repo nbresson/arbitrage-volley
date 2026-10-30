@@ -50,13 +50,14 @@
 		font-weight: 800;
 		font-size: 16px;
 		font-variant-numeric: tabular-nums;
-		height: 40px;
 		border-radius: var(--r-petit);
 		border: 1.5px solid var(--filet);
 		background: var(--papier);
 		color: var(--doux);
 		cursor: pointer;
 		padding: 0;
+		min-height: 44px;
+		height: 44px;
 	}
 	.case:hover {
 		border-color: var(--doux);

@@ -230,7 +230,7 @@ table {
 
 /* Cibles tactiles d'au moins 44 px (spécificité nulle : un composant peut toujours préciser).
    Liens d'action isolés (« Retour à l'accueil »), boutons-liens et plaques de règle. */
-:where(.actions, .pied, .outils, .liens) > :where(a:not(.btn, .btn2, .plaque)),
+:where(.actions, .pied, .outils, .liens, .meta) > :where(a:not(.btn, .btn2, .plaque)),
 :where(button.lien) {
 	min-height: 44px;
 	display: inline-flex;

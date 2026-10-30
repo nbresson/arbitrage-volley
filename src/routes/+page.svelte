@@ -521,7 +521,8 @@
 		border: 1px solid var(--filet);
 		border-radius: var(--r-petit);
 		background: var(--papier);
-		padding: 3px 6px;
+		padding: 10px 12px;
+		min-height: 44px;
 	}
 	.serie {
 		font-weight: 700;
@@ -609,6 +610,7 @@
 		background: none;
 		color: var(--doux);
 		cursor: pointer;
+		min-height: 44px;
 	}
 	.pastilles button + button {
 		border-left: 1px solid var(--filet);
@@ -629,6 +631,7 @@
 		border-radius: var(--r-petit);
 		background: var(--papier);
 		padding: 6px 8px;
+		min-height: 44px;
 	}
 	.agenda + .agenda {
 		margin-left: 16px;

@@ -249,7 +249,9 @@
 		color: var(--bleu-texte);
 		text-decoration: underline;
 		cursor: pointer;
-		min-height: 32px;
+		min-height: 44px;
+		display: inline-flex;
+		align-items: center;
 	}
 	@media (max-width: 700px) {
 		.page {

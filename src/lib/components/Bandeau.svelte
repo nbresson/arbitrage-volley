@@ -53,13 +53,19 @@
 		else await seDeconnecter();
 	}
 
+	function fermerAuClavier(e: KeyboardEvent) {
+		if (e.key !== 'Escape' || !menu?.open) return;
+		menu.open = false;
+		menu.querySelector('summary')?.focus();
+	}
+
 	// Le menu du compte se referme quand on clique ailleurs.
 	function fermerSiDehors(e: MouseEvent) {
 		if (menu?.open && !menu.contains(e.target as Node)) menu.open = false;
 	}
 </script>
 
-<svelte:window onclick={fermerSiDehors} />
+<svelte:window onclick={fermerSiDehors} onkeydown={fermerAuClavier} />
 
 <header class="bandeau" class:avec-compteurs={compteurs.length > 0} class:avec-compte={!!profil}>
 	<div class="marque">
@@ -276,12 +282,12 @@
 	.menu > a {
 		display: flex;
 		align-items: center;
-		min-height: 40px;
 		padding: 0 8px;
 		border-top: 1px solid var(--filet-doux);
 		color: var(--encre);
 		font-weight: 600;
 		text-decoration: none;
+		min-height: 44px;
 	}
 	.menu > a:hover {
 		background: var(--ligne-survol);
@@ -310,6 +316,9 @@
 		border: 1px solid var(--filet);
 		border-radius: var(--r-petit);
 		cursor: pointer;
+		min-height: 44px;
+		display: inline-flex;
+		align-items: center;
 	}
 	.themes label.choisi {
 		background: var(--tableau);

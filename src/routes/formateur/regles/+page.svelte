@@ -313,7 +313,9 @@
 	.import summary {
 		cursor: pointer;
 		font-weight: 700;
-		min-height: 32px;
+		min-height: 44px;
+		display: inline-flex;
+		align-items: center;
 	}
 	.import[open] {
 		display: flex;
@@ -433,6 +435,9 @@
 		text-decoration: underline;
 		text-decoration-color: var(--filet);
 		text-underline-offset: 4px;
+		min-height: 44px;
+		display: inline-flex;
+		align-items: center;
 	}
 	.editions form {
 		display: flex;

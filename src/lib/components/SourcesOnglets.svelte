@@ -63,6 +63,7 @@
 		background: transparent;
 		color: var(--doux);
 		cursor: pointer;
+		min-height: 44px;
 	}
 	.onglets button:hover {
 		color: var(--encre);

@@ -51,3 +51,14 @@ test('sans séance en cours : déconnexion directe', async () => {
 	await fireEvent.click(ecran.getByRole('button', { name: 'Se déconnecter' }));
 	await waitFor(() => expect(h.seDeconnecter).toHaveBeenCalled());
 });
+
+test('Échap ferme le menu du compte et rend le focus au rond du compte', async () => {
+	const ecran = render(Bandeau, { titre: 'Arbitrage volley', sousTitre: 'Accueil' });
+	const menu = ecran.container.querySelector('details.compte') as HTMLDetailsElement;
+	menu.open = true;
+	const lien = ecran.getByRole('link', { name: 'Mon profil' });
+	lien.focus();
+	await fireEvent.keyDown(lien, { key: 'Escape' });
+	expect(menu.open).toBe(false);
+	expect(document.activeElement).toBe(menu.querySelector('summary'));
+});

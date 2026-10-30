@@ -574,6 +574,7 @@
 		font-weight: 800;
 		font-size: 18px;
 		width: 52px;
+		min-height: 44px;
 	}
 	.bonne input {
 		width: 18px;

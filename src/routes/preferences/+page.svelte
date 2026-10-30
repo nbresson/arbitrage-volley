@@ -123,7 +123,7 @@
 		gap: 10px;
 		align-items: flex-start;
 		line-height: 1.5;
-		min-height: 32px;
+		min-height: 44px;
 	}
 	.option input {
 		width: 18px;

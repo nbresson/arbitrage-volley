@@ -484,6 +484,7 @@
 		background: var(--papier);
 		color: var(--doux);
 		cursor: pointer;
+		min-height: 44px;
 	}
 	.marque.marquee {
 		color: var(--ambre);
@@ -663,6 +664,9 @@
 		font-size: 14px;
 		font-weight: 600;
 		color: var(--doux);
+		min-height: 44px;
+		display: inline-flex;
+		align-items: center;
 	}
 	.quitter:hover {
 		color: var(--encre);
@@ -711,6 +715,9 @@
 		color: var(--bleu-texte);
 		text-decoration: underline;
 		cursor: pointer;
+		min-height: 44px;
+		display: inline-flex;
+		align-items: center;
 	}
 	kbd {
 		font-family: var(--police-chiffres);
