@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { tick } from 'svelte';
 	import MessageErreur from '#lib/components/MessageErreur.svelte';
 	import EtatVide from '#lib/components/EtatVide.svelte';
 	import Chargement from '#lib/components/Chargement.svelte';
@@ -20,7 +21,7 @@
 		type EditionCfa
 	} from '#lib/data/consignes.ts';
 	import { validerConsigne, type FormulaireConsigne } from '#lib/formateur/validation-consigne.ts';
-	import { decouperConsignes, type ConsigneDecoupee } from '#lib/formateur/decoupage-cfa.ts';
+	import { decouperConsignes, rattacherALaPrecedente, type ConsigneDecoupee } from '#lib/formateur/decoupage-cfa.ts';
 
 	let editions = $state<EditionCfa[]>([]);
 	let etat = $state<'chargement' | 'pret' | 'erreur'>('chargement');
@@ -37,6 +38,9 @@
 	let aActiver = $state<{ edition: EditionCfa; aRelire: number } | null>(null);
 	let aSupprimer = $state<Consigne | null>(null);
 	let erreurDialogue = $state('');
+	let erreurListe = $state(false);
+	let champReference = $state<HTMLInputElement>();
+	let annonceEdition = $state('');
 
 	async function charger() {
 		try {
@@ -57,7 +61,13 @@
 		choisie = id;
 		annulerEdition();
 		message = '';
-		liste = await lireConsignes(id).catch(() => []);
+		erreurListe = false;
+		try {
+			liste = await lireConsignes(id);
+		} catch {
+			liste = [];
+			erreurListe = true;
+		}
 	}
 
 	async function creerEdition(e: SubmitEvent) {
@@ -92,15 +102,21 @@
 		}
 	}
 
-	function modifier(c: Consigne) {
+	async function modifier(c: Consigne) {
 		enEdition = c.id;
 		f = { reference: c.reference, titre: c.titre ?? '', texte: c.texte };
 		erreurs = {};
 		erreurConsigne = '';
+		annonceEdition = `Modification de « ${c.reference} »`;
+		// Le formulaire est sous la liste : on l'amène à l'écran et on y place le focus.
+		await tick();
+		champReference?.scrollIntoView({ block: 'center', behavior: 'smooth' });
+		champReference?.focus({ preventScroll: true });
 	}
 
 	function annulerEdition() {
 		enEdition = null;
+		annonceEdition = '';
 		f = vide();
 		erreurs = {};
 		erreurConsigne = '';
@@ -127,6 +143,24 @@
 	let texteImport = $state('');
 	let prefixe = $state('CFA ');
 	let decoupees = $state<(ConsigneDecoupee & { garder: boolean; erreur?: string })[]>([]);
+	const avecPrefixe = (ref: string) => `${prefixe}${ref}`.trim();
+	// Relit chaque consigne découpée : référence déjà présente dans l'édition, texte vide, numéro en double dans le collage.
+	function evaluer(l: ConsigneDecoupee[]) {
+		const existantes = liste.map((c) => c.reference);
+		decoupees = l.map((c) => {
+			const erreur = existantes.includes(avecPrefixe(c.reference))
+				? 'Référence déjà présente dans cette édition.'
+				: !c.texte.trim()
+					? 'Texte vide.'
+					: c.doublon
+						? 'Numéro en double dans le texte collé : rattachez-la à la précédente ou décochez-la.'
+						: undefined;
+			return { ...c, garder: !erreur || c.doublon, erreur };
+		});
+	}
+	function rattacher(i: number) {
+		evaluer(rattacherALaPrecedente(decoupees, i));
+	}
 	let messageImport = $state('');
 	let importEnCours = $state(false);
 
@@ -137,12 +171,7 @@
 
 	function decouper() {
 		messageImport = '';
-		const existantes = liste.map((c) => c.reference);
-		decoupees = decouperConsignes(texteImport).map((c) => {
-			const ref = `${prefixe}${c.reference}`.trim();
-			const erreur = existantes.includes(ref) ? 'Référence déjà présente dans cette édition.' : !c.texte.trim() ? 'Texte vide.' : undefined;
-			return { ...c, reference: ref, garder: !erreur, erreur };
-		});
+		evaluer(decouperConsignes(texteImport));
 		if (!decoupees.length) messageImport = 'Aucun numéro trouvé en début de ligne (1., 1.2, Consigne 3…). Vérifiez le texte collé.';
 	}
 
@@ -152,7 +181,7 @@
 		let n = 0;
 		for (const c of decoupees.filter((x) => x.garder)) {
 			try {
-				await enregistrerConsigne(choisie, { reference: c.reference, titre: c.titre, texte: c.texte }, null, liste.length + n + 1);
+				await enregistrerConsigne(choisie, { reference: avecPrefixe(c.reference), titre: c.titre, texte: c.texte }, null, liste.length + n + 1);
 				n++;
 			} catch {
 				c.erreur = 'Non enregistrée : réessayez.';
@@ -197,7 +226,7 @@
 	{#if etat === 'chargement'}
 		<Chargement />
 	{:else if etat === 'erreur'}
-		<MessageErreur texte="Les consignes n’ont pas pu être chargées." />
+		<MessageErreur texte="Les consignes n’ont pas pu être chargées." onreessayer={() => ((etat = 'chargement'), charger())} />
 	{:else}
 		{#if message}<p class="message-info" role="status">{message}</p>{/if}
 		<div class="colonnes">
@@ -226,7 +255,9 @@
 					<EtatVide titre="Aucune consigne CFA saisie" texte="Le document de la CFA n’a pas encore été fourni : vous pouvez saisir les consignes une par une. Commencez par créer une édition." />
 				{:else}
 					<h2>{edition.libelle} <span class="sous">{edition.active ? 'Édition active : visible des stagiaires' : 'Édition inactive : invisible des stagiaires tant qu’elle n’est pas activée'}</span></h2>
-					{#if liste.length}
+					{#if erreurListe}
+						<MessageErreur texte="Les consignes de cette édition n’ont pas pu être chargées." onreessayer={() => choisir(edition.id)} />
+					{:else if liste.length}
 						<ul class="consignes">
 							{#each liste as c (c.id)}
 								<li>
@@ -245,7 +276,8 @@
 
 					<form class="carte" onsubmit={enregistrer} novalidate>
 						<h3>{enEdition ? `Modifier la consigne ${f.reference}` : 'Ajouter une consigne'}</h3>
-						<label class="champ">Référence<input bind:value={f.reference} placeholder="CFA 3.2" autocomplete="off" />{#if erreurs.reference}<span class="erreur">{erreurs.reference}</span>{/if}</label>
+						<p class="vh" role="status">{annonceEdition}</p>
+						<label class="champ">Référence<input bind:this={champReference} bind:value={f.reference} placeholder="CFA 3.2" autocomplete="off" />{#if erreurs.reference}<span class="erreur">{erreurs.reference}</span>{/if}</label>
 						<label class="champ">Titre (facultatif)<input bind:value={f.titre} autocomplete="off" /></label>
 						<label class="champ">Texte<textarea rows="6" bind:value={f.texte}></textarea>{#if erreurs.texte}<span class="erreur">{erreurs.texte}</span>{/if}</label>
 						{#if erreurConsigne}<p class="message-erreur" role="alert">{erreurConsigne}</p>{/if}
@@ -268,9 +300,10 @@
 							<ul class="decoupees">
 								{#each decoupees as c, i (i)}
 									<li>
-										<label class="case"><input type="checkbox" bind:checked={c.garder} disabled={!!c.erreur && !c.garder} /> <span class="ref plaque">{c.reference}</span> <b>{c.titre}</b></label>
+										<label class="case"><input type="checkbox" bind:checked={c.garder} disabled={!!c.erreur && !c.doublon && !c.garder} /> <span class="ref plaque">{avecPrefixe(c.reference)}</span> <b>{c.titre}</b></label>
 										<p>{c.texte.length > 220 ? `${c.texte.slice(0, 220)}…` : c.texte}</p>
 										{#if c.erreur}<p class="erreur">{c.erreur}</p>{/if}
+										{#if i > 0}<button type="button" class="lien" onclick={() => rattacher(i)}>Rattacher à la précédente</button>{/if}
 									</li>
 								{/each}
 							</ul>
