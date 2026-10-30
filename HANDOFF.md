@@ -27,7 +27,7 @@ Planche : https://claude.ai/artifact/6BpwwHPc6GgzVZmZuRKk9p. Spec : [docs/superp
 - Tests sur la branche : `npm test` 409/409 · `npm run test:integration` 162/162 · `npm run check` 0 erreur · `npm run build` OK. Vérifié à l'écran sur la base de test (accueil avec examen ouvert à 800 px, recherche « Cas 3.35 », ouverture d'un examen après changement du seuil, liste d'erreurs de l'éditeur de questions).
 - **3 migrations à appliquer en prod** (déjà sur la base de test) : `20261101000001_seance_a_revoir`, `20261101000002_erreurs_de_seance`, `20261101000003_dernieres_seances`. Puis avancer `main` sur `revue-ux` et pousser.
 - Relecture finale (relecteur indépendant) : 1 point critique et 4 importants corrigés (réponse cochée à la fin du temps refusée par le serveur, dialogue resté ouvert sur « Temps écoulé », grille bloquée par le réseau, import CFA et doublons, erreur d'inscription restée affichée). **Mineurs reportés** : focus et annonce de l'écran « Temps écoulé » ; relance sans fin si la clôture échoue pour une autre raison que le réseau ; `beforeNavigate` à la fermeture de l'onglet ; « Retirer » non bloqué pendant l'enregistrement de la composition ; filtre d'onglet de recherche non gardé dans l'adresse ; nombre « à revoir » qui ignore le rôle filtré ; page « Nouvelle séance » si le référentiel échoue, et élargissement « Tous les thèmes » en examen par thème ; « Annuler » de la page mot de passe en mode invitation ; `aria-controls` de la bulle du glossaire.
-- **À fournir** : le nom du comité et l'adresse de contact. Ils sont dans `src/lib/config.ts` (`NOM_COMITE`, `CONTACT_EMAIL`), pour l'instant des textes entre crochets visibles sur la connexion, l'aide, la notice et les pages d'erreur.
+- **À fournir** : le nom du comité, dans `src/lib/config.ts` (`NOM_COMITE`), pour l'instant `[Comité]` entre crochets visible sur la connexion, l'aide, la notice et les pages d'erreur. L'adresse de contact est renseignée.
 
 ### 0. Les 100 améliorations UI/UX : faites et en ligne
 
@@ -70,7 +70,7 @@ Supabase utilise son service d'envoi par défaut : quelques e-mails par heure, e
 
 ### 5. Décisions ouvertes du comité
 
-Nom de la plateforme (« Arbitrage volley » provisoire), listes des niveaux (Niveau 1/2/3 provisoires) et des thèmes, seuil de réussite, document des consignes CFA, durée de conservation (2 ans proposés), banque de QCM existante, détenteurs des comptes techniques. Placeholders à remplacer dans l'interface : `[Comité]`, `[adresse de contact du comité]`.
+Nom de la plateforme (« Arbitrage volley » provisoire), listes des niveaux (Niveau 1/2/3 provisoires) et des thèmes, seuil de réussite, document des consignes CFA, durée de conservation (2 ans proposés), banque de QCM existante, détenteurs des comptes techniques. Placeholders à remplacer dans l'interface : `[Comité]`.
 
 ## Documents de référence (l'ordre d'autorité)
 
