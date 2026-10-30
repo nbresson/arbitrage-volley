@@ -118,6 +118,7 @@
 
 	async function confirmerInscription(e?: SubmitEvent) {
 		e?.preventDefault();
+		erreurInscription = '';
 		detailErreurInscription = '';
 		if (!examenChoisi) return;
 		try {
@@ -194,7 +195,9 @@
 	{#if aInscrire || messageInscription || erreurInscription}
 		<div class="inscription">
 			{#if aInscrire}
-				{#if aInscrire.length}
+				{#if aInscrire.length && aInscrire.every((x) => inscriptions.some((i) => i.examen_id === x.id))}
+					<p>Ce stagiaire est déjà inscrit à tous les examens à venir. <button class="lien" type="button" onclick={() => (aInscrire = null)}>Fermer</button></p>
+				{:else if aInscrire.length}
 					<form onsubmit={confirmerInscription}>
 						<label class="champ">Examen
 							<select bind:value={examenChoisi}>{#each aInscrire as x (x.id)}{@const deja = inscriptions.some((i) => i.examen_id === x.id)}<option value={x.id} disabled={deja}>{x.titre} · {dateHeure(x.date_heure)}{deja ? ' (déjà inscrit)' : ''}</option>{/each}</select>
@@ -209,7 +212,7 @@
 				{/if}
 			{/if}
 			{#if messageInscription}<p class="message-info" role="status">{messageInscription}</p>{/if}
-			{#if erreurInscription}<MessageErreur texte={erreurInscription} detail={detailErreurInscription} onreessayer={() => confirmerInscription()} />{/if}
+			{#if erreurInscription}<MessageErreur texte={erreurInscription} detail={detailErreurInscription} onreessayer={() => (aInscrire ? confirmerInscription() : ouvrirInscription())} />{/if}
 		</div>
 	{/if}
 

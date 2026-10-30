@@ -104,3 +104,24 @@ test('erreur d’inscription : phrase française, message du serveur dans le dé
 	expect(await e.findByText(/L’inscription n’a pas pu être enregistrée\./)).toBeInTheDocument();
 	expect(e.getByText('duplicate key value violates unique constraint').closest('details')).not.toBeNull();
 });
+
+test('inscription réussie après « Réessayer » : l’erreur disparaît', async () => {
+	h.inscrire.mockRejectedValueOnce(new Error('réseau'));
+	const e = render(Page);
+	await fireEvent.click(await e.findByRole('button', { name: 'Inscrire à un examen officiel' }));
+	await fireEvent.click(await e.findByRole('button', { name: 'Inscrire' }));
+	await fireEvent.click(await e.findByRole('button', { name: 'Réessayer' }));
+	expect(await e.findByText(/Inscription enregistrée/)).toBeInTheDocument();
+	expect(e.queryByText(/L’inscription n’a pas pu être enregistrée/)).toBeNull();
+});
+
+test('déjà inscrit à tous les examens : « Inscrire » remplacé par une explication', async () => {
+	h.inscriptions = [
+		{ examen_id: 'e1', titre: 'Examen de novembre', date_heure: '2026-11-10T09:00:00Z', statut: 'brouillon' },
+		{ examen_id: 'e2', titre: 'Examen de décembre', date_heure: '2026-12-10T09:00:00Z', statut: 'brouillon' }
+	];
+	const e = render(Page);
+	await fireEvent.click(await e.findByRole('button', { name: 'Inscrire à un examen officiel' }));
+	expect(await e.findByText(/déjà inscrit à tous les examens à venir/)).toBeInTheDocument();
+	expect(e.queryByRole('button', { name: 'Inscrire' })).toBeNull();
+});
