@@ -1,10 +1,27 @@
 import adapter from '@sveltejs/adapter-static';
 import { sveltekit } from '@sveltejs/kit/vite';
+import { execSync } from 'node:child_process';
+import { readFileSync } from 'node:fs';
 import { defineConfig } from 'vitest/config';
+
+// Version visible dans le pied de page : celle de package.json et, si on la connaît, le commit compilé.
+const version = JSON.parse(readFileSync('package.json', 'utf8')).version as string;
+let commit = process.env.WORKERS_CI_COMMIT_SHA?.slice(0, 7) ?? '';
+if (!commit) {
+	try {
+		commit = execSync('git rev-parse --short HEAD', { stdio: ['ignore', 'pipe', 'ignore'] }).toString().trim();
+	} catch {
+		commit = '';
+	}
+}
 
 export default defineConfig({
 	// Seules les variables PUBLIC_* de .env.local sont exposées au navigateur (import.meta.env).
 	envPrefix: 'PUBLIC_',
+	define: {
+		__VERSION__: JSON.stringify(commit ? `${version} (${commit})` : version),
+		__DATE_MAJ__: JSON.stringify(new Date().toISOString())
+	},
 	plugins: [
 		sveltekit({
 			compilerOptions: {
